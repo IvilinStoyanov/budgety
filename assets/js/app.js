@@ -5,7 +5,21 @@ var budgetController = (function () {
         this.id = id;
         this.description = description;
         this.value = value;
+        this.percentage = -1;
     };
+
+    Expense.prototype.calculatePercentage = function (totalIncome) {
+
+        if (totalIncome > 0) {
+            this.percentage = Math.round((this.value / totalIncome) * 100);
+        } else {
+            this.percentage = -1;
+        }
+    };
+
+    Expense.prototype.getPercentage = function () {
+        return this.percentage;
+    }
 
     var Income = function (id, description, value) {
         this.id = id;
@@ -62,18 +76,18 @@ var budgetController = (function () {
             return newItem;
         },
 
-        deleteItem: function(type, id) {
+        deleteItem: function (type, id) {
             var ids, index;
 
-            ids =  data.allItems[type].map(function(current) {
+            ids = data.allItems[type].map(function (current) {
                 return current.id;
             });
 
             index = ids.indexOf(id);
 
-            if(index !== -1) {
+            if (index !== -1) {
                 data.allItems[type].splice(index, 1);
-            } 
+            }
 
         },
 
@@ -92,6 +106,20 @@ var budgetController = (function () {
             } else {
                 data.percentage = -1;
             }
+        },
+
+        calculatePercentages: function () {
+
+            data.allItems.exp.forEach(function(cur) {
+                cur.calculatePercentage();
+            });
+        },
+
+        getPercentages: function() {
+            var allPerc = data.allItems.exp.map(function(cur){
+                return cur.getPercentage();
+            });
+            return allPerc;
         },
 
         getBudget: function () {
@@ -159,8 +187,8 @@ var UIController = (function () {
             document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
         },
 
-        deleteListItem: function(selectorId) {
-            
+        deleteListItem: function (selectorId) {
+
             var el = document.getElementById(selectorId);
             el.parentNode.removeChild(el);
         },
@@ -222,36 +250,51 @@ var controller = (function (budgetCtrl, UICtrl) {
 
     var updateBudget = function () {
 
-        // 1. Calculate the budget
+        // Calculate the budget
         budgetCtrl.calculateBudget();
 
-        // 2. Return budget
+        // Return budget
         var budget = budgetCtrl.getBudget();
 
-        // 3. Display the budget on the UI
+        // Display the budget on the UI
         UICtrl.displayBudget(budget);
+    };
+
+    var calculatePercentages = function () {
+
+        // Calculate percetages
+        budgetCtrl.calculatePercentages();
+
+        // Read percentages from the budget controller
+        var percentages = budgetCtrl.getPercentages();
+
+        // Update the UI with the new percentages
+        console.log(percentages);
     };
 
     var ctrlAddItem = function () {
         // Initialize variables
         var item, newItem;
 
-        // 1. Get the field input data
+        // Get the field input data
         input = UICtrl.getInput();
 
-        // 2. Add item to the budget controller
+        // Add item to the budget controller
         if (input.description !== "" && !isNaN(input.value) && input.value > 0) {
 
             newItem = budgetCtrl.addItem(input.type, input.description, input.value);
 
-            // 3. Add the item to the UI
+            // Add the item to the UI
             UICtrl.addListItem(newItem, input.type);
 
-            // 4. Clear the fields function
+            // Clear the fields function
             UICtrl.clearFields();
 
-            // Calculate and Update Budget
+            // Calculate and update Budget
             updateBudget();
+
+            // Calculate and update percentages
+            calculatePercentages();
         }
     };
 
@@ -274,6 +317,9 @@ var controller = (function (budgetCtrl, UICtrl) {
 
             // update and show the new budget
             updateBudget();
+
+            // Calculate and update percentages
+            calculatePercentages();
 
         }
     };
