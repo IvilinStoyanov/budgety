@@ -41,7 +41,6 @@ body {
 
 .budget {
     position: absolute;
-    width: 350px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -49,10 +48,21 @@ body {
 }
 
 .budget__title {
-    font-size: 18px;
+    font-size: 26px;
     text-align: center;
     margin-bottom: 10px;
     font-weight: 300;
+}
+
+@media only screen and (max-width: 600px) {
+    .budget__title {
+     font-size: 22px;
+    }
+  }
+
+.budget-container {
+    max-width: 450px;
+    margin: 0 auto;
 }
 
 .budget__value {
@@ -127,7 +137,7 @@ body {
 .add__type {
     width: 55px;
     border: 1px solid #e7e7e7;
-    height: 44px;
+    height: 47px;
     font-size: 18px;
     color: inherit;
     background-color: #fff;
@@ -175,12 +185,24 @@ body {
 
 .add__btn:focus { outline: none; }
 
-/***** LISTS *****/
-.container {
-    width: 1000px;
-    margin: 60px auto;
-}
+@media only screen and (max-width: 649px) {
+    .add__container {
+     flex-direction: column;
+    }
+    .add__description {
+        width: 100%;
+        margin-right: 0px !important;
+    }
+    .value-container {
+        flex-direction: column;
+        margin-top: 10px
+    }
+    .add__value {
+        width: 100%;
+    }
+  }
 
+/***** LISTS *****/
 .income {
     float: left;
     width: 475px;

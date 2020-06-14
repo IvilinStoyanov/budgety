@@ -405,7 +405,6 @@ var controller = (function (budgetCtrl, UICtrl) {
 
     return {
         init: function () {
-            console.log('Application has started');
             UICtrl.displayDate();
             UICtrl.displayBudget({
                 budget: 0,
