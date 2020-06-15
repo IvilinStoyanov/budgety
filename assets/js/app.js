@@ -58,8 +58,6 @@ var budgetController = (function () {
         addItem: function (type, des, val) {
             // Initialize variables
             var newItem, ID;
-
-            console.log(data[type])
             // Create new ID
             if (data.allItems[type].length > 0) {
                 ID = data.allItems[type][data.allItems[type].length - 1].id + 1;
@@ -137,7 +135,7 @@ var budgetController = (function () {
         },
 
         testing: function () {
-            console.log(data);
+
         }
     };
 
