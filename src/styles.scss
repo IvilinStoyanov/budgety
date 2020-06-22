@@ -10,10 +10,18 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.relative {
+    position: relative;
+}
+
 .d-flex {
     display: flex;
 }
 
 .justify-content-center {
     justify-content: center;
+}
+
+.justify-content-between {
+    justify-content: space-between;
 }

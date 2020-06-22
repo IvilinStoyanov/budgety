@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // get data from localstorage
     if (localStorage.getItem('data') !== null) {
-    this.data = JSON.parse(localStorage.getItem('data'));
+      this.data = JSON.parse(localStorage.getItem('data'));
     }
 
     this.createForm();
@@ -47,8 +47,6 @@ export class AppComponent implements OnInit {
       value: ['', Validators.required],
     });
   }
-
-
 
   addItem() {
     let newItem;
@@ -70,9 +68,28 @@ export class AppComponent implements OnInit {
 
     // Push it into our data structure
     this.data.allItems[params.type].push(newItem);
+    // reset form
+    this.form.reset();
+    if (params.type === 'exp') {
+    this.form.get('type').setValue('exp');
+    } else {
+      this.form.get('type').setValue('inc');
+    }
 
     this.calculateBudget();
     this.calculatePercentages();
+  }
+
+  clearList(type) {
+    if (type === 'exp') {
+      this.data.allItems.exp = [];
+      this.data.totals.exp = 0;
+    } else {
+      this.data.allItems.inc = [];
+      this.data.totals.inc = 0;
+    }
+    localStorage.setItem('data', JSON.stringify(this.data));
+    this.calculateBudget();
   }
 
   calculateBudget() {
@@ -90,7 +107,6 @@ export class AppComponent implements OnInit {
       this.data.percentage = -1;
     }
 
-    console.log(this.data);
     localStorage.setItem('data', JSON.stringify(this.data));
   }
 

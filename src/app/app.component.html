@@ -44,13 +44,26 @@
 
   <div class="clearfix d-flex justify-content-center income-expenses-container m-1">
     <div class="income" *ngIf="data.totals.inc > 0">
-      <h2 class="icome__title">Income</h2>
+      <div class="relative">
+        <h2 class="icome__title">Income</h2>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with a menu" class="list-menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="clearList('inc')">
+            <mat-icon>clear</mat-icon>
+            <span>Clear all income</span>
+          </button>
+        </mat-menu>
+      </div>
       <div class="income__list" *ngFor="let item of data.allItems.inc">
         <div class="item clearfix" id="inc-{{item.id}}">
           <div class="item__description">{{item.description | lowercase }}</div>
           <div class="right clearfix">
             <div class="item__value">+ {{item.value | number:'1.2-2' }}</div>
-            <div class="item__delete"><button class="item__delete--btn"><mat-icon>highlight_off</mat-icon></button>
+            <div class="item__delete"><button class="item__delete--btn">
+                <mat-icon>highlight_off</mat-icon>
+              </button>
             </div>
           </div>
         </div>
@@ -58,15 +71,27 @@
     </div>
 
     <div class="expenses mb-3" *ngIf="data.totals.exp > 0">
-      <h2 class="expenses__title">Expenses</h2>
-
+      <div class="relative">
+        <h2 class="expenses__title">Expenses</h2>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with a menu" class="list-menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="clearList('exp')">
+            <mat-icon>clear</mat-icon>
+            <span>Clear all expenses</span>
+          </button>
+        </mat-menu>
+      </div>
       <div class="expenses__list" *ngFor="let item of data.allItems.exp">
         <div class="item clearfix" id="exp-{{item.id}}">
           <div class="item__description">{{item.description | lowercase }}</div>
           <div class="right clearfix">
             <div class="item__value">- {{item.value | number:'1.2-2' }}</div>
             <!-- <div class="item__percentage">{{item.percentage}}</div> -->
-            <div class="item__delete"><button class="item__delete--btn"><mat-icon>highlight_off</mat-icon></button>
+            <div class="item__delete"><button class="item__delete--btn">
+                <mat-icon>highlight_off</mat-icon>
+              </button>
             </div>
           </div>
         </div>
