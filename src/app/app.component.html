@@ -47,7 +47,7 @@
       <h2 class="icome__title">Income</h2>
       <div class="income__list" *ngFor="let item of data.allItems.inc">
         <div class="item clearfix" id="inc-{{item.id}}">
-          <div class="item__description">{{item.description}}</div>
+          <div class="item__description">{{item.description | lowercase }}</div>
           <div class="right clearfix">
             <div class="item__value">+ {{item.value | number:'1.2-2' }}</div>
             <div class="item__delete"><button class="item__delete--btn"><mat-icon>highlight_off</mat-icon></button>
@@ -62,7 +62,7 @@
 
       <div class="expenses__list" *ngFor="let item of data.allItems.exp">
         <div class="item clearfix" id="exp-{{item.id}}">
-          <div class="item__description">{{item.description}}</div>
+          <div class="item__description">{{item.description | lowercase }}</div>
           <div class="right clearfix">
             <div class="item__value">- {{item.value | number:'1.2-2' }}</div>
             <!-- <div class="item__percentage">{{item.percentage}}</div> -->
