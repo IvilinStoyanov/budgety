@@ -29,14 +29,16 @@
   <div class="add" [formGroup]="form">
     <div class="add__container d-flex justify-content-center">
       <div class="d-flex">
-        <select class="add__type" formControlName="type">
+        <select class="add__type" formControlName="type" [class.red-focus]="form.get('type').value === 'exp'">
           <option value="inc" selected>+</option>
           <option value="exp">-</option>
         </select>
-        <input type="text" class="add__description" formControlName="description" placeholder="Add description">
+        <input type="text" class="add__description" formControlName="description" placeholder="Add description"
+          [class.red-focus]="form.get('type').value === 'exp'">
       </div>
       <div class="d-flex value-container">
-        <input type="number" class="add__value" formControlName="value" placeholder="Value">
+        <input type="number" class="add__value" formControlName="value" placeholder="Value"
+          [class.red-focus]="form.get('type').value === 'exp'">
         <button mat-raised-button color="primary" class="add__btn" (click)="addItem()">Add</button>
       </div>
     </div>
