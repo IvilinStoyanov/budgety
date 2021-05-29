@@ -12,22 +12,25 @@ export class AppComponent implements OnInit {
   title = 'budgety';
   form: FormGroup;
 
-  data: any = {
-    allItems: {
-      exp: [],
-      inc: []
-    },
-    totals: {
-      exp: 0,
-      inc: 0
-    },
-    budget: 0,
-    percentage: -1
-  };
+  data: any;
 
   currentDate: string;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {
+    this.data = {
+      items: {
+        exp: [],
+        inc: [],
+        all: []
+      },
+      totals: {
+        exp: 0,
+        inc: 0
+      },
+      budget: 0,
+      percentage: -1
+    };
+   }
 
   ngOnInit() {
     // get data from localstorage
@@ -55,8 +58,8 @@ export class AppComponent implements OnInit {
     let ID;
     const params = this.form.value;
 
-    if (this.data.allItems[params.type].length > 0) {
-      ID = this.data.allItems[params.type][this.data.allItems[params.type].length - 1].id + 1;
+    if (this.data.items[params.type].length > 0) {
+      ID = this.data.items[params.type][this.data.items[params.type].length - 1].id + 1;
     } else {
       ID = 0;
     }
@@ -69,7 +72,7 @@ export class AppComponent implements OnInit {
     }
 
     // Push it into our data structure
-    this.data.allItems[params.type].push(newItem);
+    this.data.items[params.type].push(newItem);
     // reset form
     this.form.reset();
     if (params.type === 'exp') {
@@ -84,10 +87,10 @@ export class AppComponent implements OnInit {
 
   clearList(type) {
     if (type === 'exp') {
-      this.data.allItems.exp = [];
+      this.data.items.exp = [];
       this.data.totals.exp = 0;
     } else {
-      this.data.allItems.inc = [];
+      this.data.items.inc = [];
       this.data.totals.inc = 0;
     }
     localStorage.setItem('data', JSON.stringify(this.data));
@@ -113,7 +116,7 @@ export class AppComponent implements OnInit {
   }
 
   calculatePercentages() {
-    this.data.allItems.exp.forEach(cur => console.log(cur));
+    this.data.items.exp.forEach(cur => console.log(cur));
   }
 
   calculatePercentageEach(totalIncome) {
@@ -127,7 +130,7 @@ export class AppComponent implements OnInit {
   calculateTotal(type) {
     let sum = 0;
 
-    this.data.allItems[type].forEach(cur => sum += cur.value);
+    this.data.items[type].forEach(cur => sum += cur.value);
 
     this.data.totals[type] = sum;
   }
