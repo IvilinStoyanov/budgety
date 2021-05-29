@@ -1,3 +1,5 @@
+@import '../theme/colors.scss';
+
 * {
     margin: 0;
     padding: 0;
@@ -35,21 +37,8 @@ body {
 *** TOP PART
 **********************************************/
 
-.top {
-    height: 300px;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url(../assets/back-min.jpg);
-    background-size: cover;
-    background-position: center;
-    position: relative;
-}
-
 .budget {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    padding: 20px;
+    padding: 30px;
     color: #fff;
 }
 
@@ -235,11 +224,11 @@ h2 {
 }
 
 .icome__title {
-    color: #28B9B5;
+    color: $custom-white;
 }
 
 .expenses__title {
-    color: #FF5049;
+    color: $custom-white;
 }
 
 .item {
@@ -258,11 +247,13 @@ h2 {
 
 .item__description {
     float: left;
+    color: $custom-white;
 }
 
 .item__value {
     float: left;
     transition: transform 0.3s;
+    color: $custom-white !important;
 }
 
 .item__percentage {

@@ -35,6 +35,8 @@ export class AppComponent implements OnInit {
       this.data = JSON.parse(localStorage.getItem('data'));
     }
 
+    console.log(this.data);
+
     this.createForm();
     this.displayDate();
     this.calculateBudget();
