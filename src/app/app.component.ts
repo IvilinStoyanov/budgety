@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
   addItem() {
     let newItem;
     let ID;
-    const params = this.form.value;
+    let params = this.form.value;
 
     if (this.data.items[params.type].length > 0) {
       ID = this.data.items[params.type][this.data.items[params.type].length - 1].id + 1;
@@ -63,15 +63,12 @@ export class AppComponent implements OnInit {
       ID = 0;
     }
 
-    // Create new item based on 'inc' or 'exp' type
-    if (params.type === 'exp') {
-      newItem = { id: ID, description: params.description, value: params.value, type: 'exp' };
-    } else if (params.type === 'inc') {
-      newItem = { id: ID, description: params.description, value: params.value, type: 'inc' };
-    }
+     // Create new item based on 'inc' or 'exp' type
+      newItem = { id: ID, description: params.description, value: params.value, type: params.type };
 
     // Push it into our data structure
     this.data.items[params.type].push(newItem);
+    this.data.items.all.push(newItem);
     // reset form
     this.form.reset();
     if (params.type === 'exp') {
