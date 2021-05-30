@@ -1,0 +1,51 @@
+<h1 mat-dialog-title>Add Item</h1>
+<div mat-dialog-content>
+  <div class="bottom">
+    <div class="add" [formGroup]="form">
+      <div class="add__container d-flex justify-content-center">
+          <select class="add__type" formControlName="category">
+            <option
+              *ngFor="let category of categories"
+              [value]="category.value"
+            >
+              {{ category.viewValue }}
+            </option>
+          </select>
+        <div class="d-flex">
+          <select
+            class="add__type"
+            formControlName="type"
+            [class.red-focus]="form.get('type').value === 'exp'"
+          >
+            <option value="inc" selected>+</option>
+            <option value="exp">-</option>
+          </select>
+          <input
+            type="text"
+            class="add__description"
+            formControlName="description"
+            placeholder="Add description"
+            [class.red-focus]="form.get('type').value === 'exp'"
+          />
+        </div>
+        <div class="d-flex value-container">
+          <input
+            type="number"
+            class="add__value"
+            formControlName="value"
+            placeholder="Value"
+            [class.red-focus]="form.get('type').value === 'exp'"
+          />
+          <button
+            mat-raised-button
+            color="primary"
+            class="add__btn"
+            (click)="addItem()"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

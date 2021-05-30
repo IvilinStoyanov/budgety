@@ -1,35 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { AddItemComponent } from './components/add-item/add-item.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
-
 export class AppComponent implements OnInit {
   title = 'budgety';
-  form: FormGroup;
-
   data: any;
-
   currentDate: string;
 
-  constructor(private fb: FormBuilder) {
+  constructor(public dialog: MatDialog) {
     this.data = {
       items: {
         exp: [],
         inc: [],
-        all: []
+        all: [],
       },
       totals: {
         exp: 0,
-        inc: 0
+        inc: 0,
       },
       budget: 0,
-      percentage: -1
+      percentage: -1,
     };
-   }
+  }
 
   ngOnInit() {
     // get data from localstorage
@@ -39,43 +36,44 @@ export class AppComponent implements OnInit {
 
     console.log(this.data);
 
-    this.createForm();
     this.displayDate();
     this.calculateBudget();
   }
 
-  createForm() {
-    this.form = this.fb.group({
-      type: ['inc'],
-      description: ['', Validators.required],
-      value: ['', Validators.required],
+  openAddItemDialog(): void {
+    const dialogRef = this.dialog.open(AddItemComponent, {});
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      if (result) this.addItem(result);
     });
   }
 
-  addItem() {
+  addItem(params) {
     let newItem;
     let ID;
-    let params = this.form.value;
 
     if (this.data.items[params.type].length > 0) {
-      ID = this.data.items[params.type][this.data.items[params.type].length - 1].id + 1;
+      ID =
+        this.data.items[params.type][this.data.items[params.type].length - 1]
+          .id + 1;
     } else {
       ID = 0;
     }
-
-     // Create new item based on 'inc' or 'exp' type
-      newItem = { id: ID, description: params.description, value: params.value, type: params.type };
+    console.log(params);
+    // Create new item based on 'inc' or 'exp' type
+    newItem = {
+      id: ID,
+      category: params.category,
+      description: params.description,
+      value: params.value,
+      type: params.type,
+    };
 
     // Push it into our data structure
     this.data.items[params.type].push(newItem);
     this.data.items.all.push(newItem);
     // reset form
-    this.form.reset();
-    if (params.type === 'exp') {
-    this.form.get('type').setValue('exp');
-    } else {
-      this.form.get('type').setValue('inc');
-    }
 
     this.calculateBudget();
     this.calculatePercentages();
@@ -103,7 +101,9 @@ export class AppComponent implements OnInit {
 
     // Calculate the percentage of income that we spent
     if (this.data.totals.inc > 0) {
-      this.data.percentage = Math.round((this.data.totals.exp / this.data.totals.inc) * 100);
+      this.data.percentage = Math.round(
+        (this.data.totals.exp / this.data.totals.inc) * 100
+      );
     } else {
       this.data.percentage = -1;
     }
@@ -112,7 +112,7 @@ export class AppComponent implements OnInit {
   }
 
   calculatePercentages() {
-    this.data.items.exp.forEach(cur => console.log(cur));
+    this.data.items.exp.forEach((cur) => console.log(cur));
   }
 
   calculatePercentageEach(totalIncome) {
@@ -126,7 +126,7 @@ export class AppComponent implements OnInit {
   calculateTotal(type) {
     let sum = 0;
 
-    this.data.items[type].forEach(cur => sum += cur.value);
+    this.data.items[type].forEach((cur) => (sum += cur.value));
 
     this.data.totals[type] = sum;
   }
@@ -138,14 +138,24 @@ export class AppComponent implements OnInit {
     let year;
 
     now = new Date();
-    months =
-      ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
     currentMonth = now.getMonth();
 
     year = now.getFullYear();
 
     this.currentDate = months[currentMonth] + ' ' + year;
-
   }
 }
-

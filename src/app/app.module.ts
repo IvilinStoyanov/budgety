@@ -1,20 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+
+import { AppComponent } from './app.component';
+import { AddItemComponent } from './components/add-item/add-item.component';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AddItemComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +30,9 @@ import { MatCardModule } from '@angular/material/card';
     MatIconModule,
     MatMenuModule,
     MatTabsModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule,
+    MatSelectModule
 
   ],
   providers: [],

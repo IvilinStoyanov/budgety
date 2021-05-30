@@ -1,121 +1,52 @@
+<!-- TOP -->
 <div>
-  <div fxLayout="row" fxLayoutAlign="space-between center" class="p-2">
-    <div>{{currentDate}}</div>
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="p-3">
+    <div>{{ currentDate }}</div>
     <div>Budgety</div>
     <div>
-      <mat-icon class="mr-2">description</mat-icon>
-      <mat-icon>palette</mat-icon>
+      <mat-icon class="material-icons-outlined mr-2">description</mat-icon>
+      <mat-icon class="material-icons-outlined">palette</mat-icon>
     </div>
   </div>
-    <!-- <div class="budget__title">
-      Available Budget in <span class="budget__title--month">{{currentDate}}</span>:
-    </div> -->
-
-    <!-- <div class="budget-container">
-      <div class="budget__income clearfix">
-        <div class="budget__income--text">Income</div>
-        <div class="right">
-          <div class="budget__income--value">+ {{this.data.totals.inc | number:'1.2-2' }}</div>
-          <div class="budget__income--percentage">&nbsp;</div>
-        </div>
-      </div>
-
-      <div class="budget__expenses clearfix">
-        <div class="budget__expenses--text">Expenses</div>
-        <div class="right clearfix">
-          <div class="budget__expenses--value">- {{data.totals.exp | number:'1.2-2' }}</div>
-          <div class="budget__expenses--percentage" *ngIf="data.percentage >-1">{{data.percentage}}%</div>
-          <div class="budget__expenses--percentage" *ngIf="data.percentage === -1">---</div>
-        </div>
-      </div>
-    </div> -->
+  <!-- MID -->
   <mat-tab-group [animationDuration]="0" color="primary">
     <mat-tab label="Daily"></mat-tab>
     <mat-tab label="Weekly"></mat-tab>
     <mat-tab label="Monthly"></mat-tab>
     <mat-tab label="Yearly"></mat-tab>
   </mat-tab-group>
-  <div fxLayout="row" fxLayoutAlign="end center" class="pr-2 pt-2">
-    <mat-icon>add</mat-icon>
-  </div>
-<div class="pl-2 pr-2 pb-2">
-  <div class="text-center text-lg pb-1">Balance</div>
-  <div class="budget__value text-center"><span *ngIf="data.budget > 0">+</span>{{data.budget | number:'1.2-2'}}</div>
-</div>
-<mat-card class="m-2">
-  <div class="clearfix d-flex justify-content-center income-expenses-container m-1">
-    <div class="income" *ngIf="data.totals.inc > 0">
-      <div class="relative">
-        <h2 class="icome__title">Income</h2>
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with a menu" class="list-menu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="clearList('inc')">
-            <mat-icon>clear</mat-icon>
-            <span>Clear all income</span>
-          </button>
-        </mat-menu>
-      </div>
-      <div class="income__list" *ngFor="let item of data.items.inc">
-        <div class="item clearfix" id="inc-{{item.id}}">
-          <div class="item__description">{{item.description | lowercase }}</div>
-          <div class="right clearfix">
-            <div class="item__value">+ {{item.value | number:'1.2-2' }}</div>
-            <div class="item__delete"><button class="item__delete--btn">
-                <mat-icon>highlight_off</mat-icon>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="expenses mb-3" *ngIf="data.totals.exp > 0">
-      <div class="relative">
-        <h2 class="expenses__title">Expenses</h2>
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with a menu" class="list-menu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="clearList('exp')">
-            <mat-icon>clear</mat-icon>
-            <span>Clear all expenses</span>
-          </button>
-        </mat-menu>
-      </div>
-      <div class="expenses__list" *ngFor="let item of data.items.exp">
-        <div class="item clearfix" id="exp-{{item.id}}">
-          <div class="item__description">{{item.description | lowercase }}</div>
-          <div class="right clearfix">
-            <div class="item__value">- {{item.value | number:'1.2-2' }}</div>
-            <!-- <div class="item__percentage">{{item.percentage}}</div> -->
-            <div class="item__delete"><button class="item__delete--btn">
-                <mat-icon>highlight_off</mat-icon>
-              </button>
-            </div>
+  <div fxLayout="row" fxLayoutAlign="end center" class="pr-2 pt-2">
+    <mat-icon (click)="openAddItemDialog()">add</mat-icon>
+  </div>
+  <div class="pl-2 pr-2 pb-2">
+    <div class="text-center text-lg pb-1">Balance</div>
+    <div class="budget__value text-center">
+      <span *ngIf="data.budget > 0">+</span>{{ data.budget | number: "1.2-2" }}
+    </div>
+  </div>
+  <!-- List -->
+  <mat-card class="m-2">
+    <div *ngFor="let item of data.items.all">
+      <div class="item clearfix" id="inc-{{ item.id }}">
+        <div class="item__description">
+          <mat-icon
+            *ngIf="item.category"
+            class="material-icons-outlined item-icon-{{ item.type }} mr-2"
+            >{{ item.category }}</mat-icon
+          ><span>{{ item.description | titlecase }}</span>
+        </div>
+        <div class="right clearfix">
+          <div class="item__value item-type-{{ item.type }}">
+            + {{ item.value | number: "1.2-2" }}
+          </div>
+          <div class="item__delete">
+            <button class="item-delete-btn item-delete-btn-{{ item.type }}">
+              <mat-icon>highlight_off</mat-icon>
+            </button>
           </div>
         </div>
       </div>
     </div>
-  </div></mat-card>
-</div>
-<div class="bottom">
-  <div class="add" [formGroup]="form">
-    <div class="add__container d-flex justify-content-center">
-      <div class="d-flex">
-        <select class="add__type" formControlName="type" [class.red-focus]="form.get('type').value === 'exp'">
-          <option value="inc" selected>+</option>
-          <option value="exp">-</option>
-        </select>
-        <input type="text" class="add__description" formControlName="description" placeholder="Add description"
-          [class.red-focus]="form.get('type').value === 'exp'">
-      </div>
-      <div class="d-flex value-container">
-        <input type="number" class="add__value" formControlName="value" placeholder="Value"
-          [class.red-focus]="form.get('type').value === 'exp'">
-        <button mat-raised-button color="primary" class="add__btn" (click)="addItem()">Add</button>
-      </div>
-    </div>
-  </div>
+  </mat-card>
 </div>
