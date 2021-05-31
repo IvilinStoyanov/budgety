@@ -5,12 +5,16 @@
       <mat-form-field class="mr-2">
         <mat-label>Category</mat-label>
         <mat-select formControlName="category">
+          <mat-select-trigger>
+            {{categoryPicked}}
+          </mat-select-trigger>
           <mat-option
-            *ngFor="let category of categories"
-            [value]="category.value"
+          *ngFor="let category of categories"
+          [value]="category.value"
           >
-            {{ category.viewValue }}
-          </mat-option>
+          <mat-icon class="material-icons-outlined mr-2">{{category.value.icon}}</mat-icon>
+          {{ category.viewValue }}
+        </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="mr-2">
