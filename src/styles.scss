@@ -5,6 +5,8 @@
 
 @import 'theme/material/mat-tab.scss';
 @import 'theme/material/mat-card.scss';
+@import 'theme/material/mat-dialog.scss';
+@import 'theme/material/mat-button.scss';
 
 html,
 body {
@@ -15,6 +17,10 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     background: $primary !important;
     color: $custom-white;
+}
+
+.mat-select-panel .mat-optgroup-label, .mat-select-panel .mat-option {
+    color: $black !important;
 }
 
 .relative {
