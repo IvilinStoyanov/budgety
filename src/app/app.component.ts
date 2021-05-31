@@ -11,7 +11,7 @@ import { AddItemComponent } from './components/add-item/add-item.component';
 export class AppComponent implements OnInit {
   title = 'budgety';
   data: any;
-  currentDate: string;
+  currentDate: Date = new Date();
 
   constructor(public dialog: MatDialog, public commonService: CommonService) {
     this.data = {
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
         inc: 0,
       },
       budget: 0,
-      percentage: -1,
+      percentage: 0,
     };
   }
 
@@ -32,8 +32,7 @@ export class AppComponent implements OnInit {
     }
     console.log(this.data);
 
-    this.displayDate();
-    this.displayDailyActivies();
+   // this.displayDailyActivies();
     this.calculateBudget();
   }
 
@@ -56,21 +55,15 @@ export class AppComponent implements OnInit {
 
   addItem(params) {
     let newItem;
-    let ID;
+    let dateCreated = new Date();
 
-    // if (this.data.items[params.type].length > 0) {
-    //   ID =
-    //     this.data.items[params.type][this.data.items[params.type].length - 1]
-    //       .id + 1;
-    // } else {
-    //   ID = 0;
-    // }
-    console.log(params);
+    console.log(dateCreated);
+
     // Create new item based on 'inc' or 'exp' type
     newItem = {
       icon: params.category.icon,
       category: params.category.name,
-      dateCreated: new Date(),
+      dateCreated: dateCreated,
       description: params.description,
       value: params.value,
       type: params.type,
@@ -109,7 +102,7 @@ export class AppComponent implements OnInit {
         (this.data.totals.exp / this.data.totals.inc) * 100
       );
     } else {
-      this.data.percentage = -1;
+      this.data.percentage = 0;
     }
 
     localStorage.setItem('data', JSON.stringify(this.data));
@@ -135,33 +128,5 @@ export class AppComponent implements OnInit {
     });
 
     this.data.totals[type] = sum;
-  }
-
-  displayDate() {
-    let now;
-    let months;
-    let currentMonth;
-    let year;
-
-    now = new Date();
-    months = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
-    currentMonth = now.getMonth();
-
-    year = now.getFullYear();
-
-    this.currentDate = months[currentMonth] + ' ' + year;
   }
 }

@@ -10,8 +10,31 @@
 .text-transparent {
     opacity: .7;
 }
+
 // link
 .hover {
     cursor: pointer;
     outline: none;
+}
+
+// aligns
+.vertical-align-bottom {
+    vertical-align: bottom;
+}
+
+// borders
+.border-top-left-radius-none {
+    border-top-left-radius: 0 !important;
+}
+
+.border-top-right-radius-none {
+    border-top-right-radius: 0 !important;
+}
+
+.border-bottom-right-radius-none {
+    border-bottom-left-radius: 0 !important;
+}
+
+.border-bottom-right-radius-none {
+    border-bottom-right-radius: 0 !important;
 }

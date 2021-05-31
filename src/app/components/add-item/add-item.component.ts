@@ -24,7 +24,6 @@ export class AddItemComponent implements OnInit, OnDestroy {
     { value: { icon: 'receipt', name: 'Utilities' }, viewValue: 'Utilities' },
     { value: { icon: 'bedroom_parent', name: 'Rent' }, viewValue: 'Rent' },
     { value: { icon: 'credit_score', name: 'Loan Payments' }, viewValue: 'Loan Payments' },
-    
   ];
 
   constructor(

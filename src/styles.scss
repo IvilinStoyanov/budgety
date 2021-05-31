@@ -7,6 +7,7 @@
 @import 'theme/material/mat-card.scss';
 @import 'theme/material/mat-dialog.scss';
 @import 'theme/material/mat-button.scss';
+@import 'theme/material/mat-progress.scss';
 
 html,
 body {
@@ -27,14 +28,8 @@ body {
     position: relative;
 }
 
-.d-flex {
-    display: flex;
-}
-
-.justify-content-center {
-    justify-content: center;
-}
-
-.justify-content-between {
-    justify-content: space-between;
+.custom-card {
+    opacity: 0.8;
+    border-top-left-radius: 30px !important;
+    border-top-right-radius: 30px !important;
 }

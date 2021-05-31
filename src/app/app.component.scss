@@ -62,46 +62,6 @@ body {
     letter-spacing: 2px;
 }
 
-.budget__income, .budget__expenses {
-    padding: 12px;
-    text-transform: uppercase;
-}
-
-.budget__income {
-    margin-bottom: 10px;
-    background-color: #28B9B5;
-}
-
-.budget__expenses {
-    background-color: #FF5049;
-}
-
-.budget__income--text, .budget__expenses--text {
-    float: left;
-    font-size: 13px;
-    color: grey;
-    margin-top: 2px;
-}
-
-.budget__income--value, .budget__expenses--value {
-    letter-spacing: 1px;
-    float: left;
-}
-
-.budget__income--percentage, .budget__expenses--percentage {
-    float: left;
-    min-width: 34px;
-    font-size: 11px;
-    padding: 3px 0;
-    margin-left: 10px;
-}
-
-.budget__expenses--percentage {
-    background-color: rgba(255, 255, 255, 0.2);
-    text-align: center;
-    border-radius: 3px;
-}
-
 /***** LISTS *****/
 
 .item {
@@ -110,14 +70,8 @@ body {
     border-bottom: 1px solid #e7e7e7;
 }
 
-.item:nth-child(even) {
-    background-color: #f7f7f7;
-}
-
 .item__description {
-    float: left;
-    display: flex;
-    color: black;
+    color: $black;
 }
 
 .item-icon-inc {
@@ -128,12 +82,6 @@ body {
     color: $red;
 }
 
-.item__value {
-    float: left;
-    transition: transform 0.3s;
-    color: black;
-}
-
 .item-type-inc {
     color: $blue !important;
 }
@@ -142,83 +90,10 @@ body {
     color: $red !important;
 }
 
-.item__percentage {
-    float: left;
-    margin-left: 10px;
-    transition: transform 0.3s;
-    font-size: 11px;
-    background-color: #FFDAD9;
-    padding: 3px;
-    border-radius: 3px;
-    text-align: center;
-}
-
 .item-delete-btn-inc {
     color: #28B9B5;
 }
 
 .item-delete-btn-exp {
     color: #FF5049;
-}
-
-.item__delete {
-    float: left;
-}
-
-.item-delete-btn {
-    font-size: 22px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: inline-block;
-    line-height: 1;
-    display: none;
-}
-
-.item-delete-btn:focus {
-    outline: none;
-}
-
-.item-delete-btn:active {
-    transform: translateY(2px);
-}
-
-.item:hover .item-delete-btn {
-    display: block;
-}
-
-.item:hover .item__value {
-    transform: translateX(-5px);
-}
-
-.item:hover .item__percentage {
-    transform: translateX(-5px);
-}
-
-.unpaid {
-    background-color: #FFDAD9 !important;
-    cursor: pointer;
-    color: #FF5049;
-}
-
-.unpaid .item__percentage {
-    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
-}
-
-.unpaid:hover .item__description {
-    font-weight: 900;
-}
-
-@media only screen and (max-width: 649px) {
-    .income-expenses-container {
-        flex-direction: column;
-    }
-    .income {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 15px;
-    }
-    .expenses {
-        width: 100%;
-    }
 }
