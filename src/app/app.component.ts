@@ -15,11 +15,7 @@ export class AppComponent implements OnInit {
 
   constructor(public dialog: MatDialog, public commonService: CommonService) {
     this.data = {
-      items: {
-        exp: [],
-        inc: [],
-        all: [],
-      },
+      items: [],
       totals: {
         exp: 0,
         inc: 0,
@@ -42,14 +38,15 @@ export class AppComponent implements OnInit {
   }
 
   displayDailyActivies() {
-    this.data.items.all.forEach((element, index, object) => {
-      if (!this.commonService.isDateToday(element.dateCreated)) object.splice(index, 1);
+    this.data.items.forEach((element, index, object) => {
+      if (!this.commonService.isDateToday(element.dateCreated))
+        object.splice(index, 1);
     });
   }
 
   openAddItemDialog(): void {
     const dialogRef = this.dialog.open(AddItemComponent, {
-      autoFocus: false
+      autoFocus: false,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -61,17 +58,16 @@ export class AppComponent implements OnInit {
     let newItem;
     let ID;
 
-    if (this.data.items[params.type].length > 0) {
-      ID =
-        this.data.items[params.type][this.data.items[params.type].length - 1]
-          .id + 1;
-    } else {
-      ID = 0;
-    }
+    // if (this.data.items[params.type].length > 0) {
+    //   ID =
+    //     this.data.items[params.type][this.data.items[params.type].length - 1]
+    //       .id + 1;
+    // } else {
+    //   ID = 0;
+    // }
     console.log(params);
     // Create new item based on 'inc' or 'exp' type
     newItem = {
-      id: ID,
       icon: params.category.icon,
       category: params.category.name,
       dateCreated: new Date(),
@@ -81,9 +77,7 @@ export class AppComponent implements OnInit {
     };
 
     // Push it into our data structure
-    this.data.items[params.type].push(newItem);
-    this.data.items.all.push(newItem);
-    // reset form
+    this.data.items.push(newItem);
 
     this.calculateBudget();
     this.calculatePercentages();
@@ -122,7 +116,7 @@ export class AppComponent implements OnInit {
   }
 
   calculatePercentages() {
-    this.data.items.exp.forEach((cur) => console.log(cur));
+    //this.data.items.exp.forEach((cur) => console.log(cur));
   }
 
   calculatePercentageEach(totalIncome) {
@@ -136,7 +130,9 @@ export class AppComponent implements OnInit {
   calculateTotal(type) {
     let sum = 0;
 
-    this.data.items[type].forEach((cur) => (sum += cur.value));
+    this.data.items.forEach((item) => {
+      if (type === item.type) sum += item.value
+    });
 
     this.data.totals[type] = sum;
   }
