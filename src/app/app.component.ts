@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { CommonService } from 'src/services/common.service';
 import { AddItemComponent } from './components/add-item/add-item.component';
 
 @Component({
@@ -12,7 +13,7 @@ export class AppComponent implements OnInit {
   data: any;
   currentDate: string;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, public commonService: CommonService) {
     this.data = {
       items: {
         exp: [],
@@ -33,18 +34,25 @@ export class AppComponent implements OnInit {
     if (localStorage.getItem('data') !== null) {
       this.data = JSON.parse(localStorage.getItem('data'));
     }
-
     console.log(this.data);
 
     this.displayDate();
+    this.displayDailyActivies();
     this.calculateBudget();
   }
 
+  displayDailyActivies() {
+    this.data.items.all.forEach((element, index, object) => {
+      if (!this.commonService.isDateToday(element.dateCreated)) object.splice(index, 1);
+    });
+  }
+
   openAddItemDialog(): void {
-    const dialogRef = this.dialog.open(AddItemComponent, {});
+    const dialogRef = this.dialog.open(AddItemComponent, {
+      autoFocus: false
+    });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
       if (result) this.addItem(result);
     });
   }
@@ -64,7 +72,9 @@ export class AppComponent implements OnInit {
     // Create new item based on 'inc' or 'exp' type
     newItem = {
       id: ID,
-      category: params.category,
+      icon: params.category.icon,
+      category: params.category.name,
+      dateCreated: new Date(),
       description: params.description,
       value: params.value,
       type: params.type,

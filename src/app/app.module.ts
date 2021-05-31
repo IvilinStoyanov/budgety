@@ -14,13 +14,11 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
-
+import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AddItemComponent
-  ],
+  declarations: [AppComponent, AddItemComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -32,10 +30,11 @@ import { MatSelectModule } from '@angular/material/select';
     MatTabsModule,
     MatCardModule,
     MatDialogModule,
-    MatSelectModule
-
+    MatSelectModule,
+    MatInputModule,
+    MatTooltipModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

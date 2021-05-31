@@ -11,9 +11,9 @@ export class AddItemComponent implements OnInit {
   form: FormGroup;
 
   categories: any[] = [
-    { value: 'directions_car_filled', viewValue: 'Car' },
-    { value: 'shopping_cart', viewValue: 'Grocery' },
-    { value: 'attach_money', viewValue: 'Salary' },
+    { value: { icon: 'directions_car_filled', name: 'Car' }, viewValue: 'Car' },
+    { value: { icon: 'shopping_cart', name: 'Grocery' }, viewValue: 'Grocery' },
+    { value: { icon: 'attach_money', name: 'Salary' }, viewValue: 'Salary' },
   ];
 
   constructor(
@@ -29,8 +29,8 @@ export class AddItemComponent implements OnInit {
   createForm() {
     this.form = this.fb.group({
       category: ['', Validators.required],
-      type: ['inc'],
-      description: ['', Validators.required],
+      type: ['', Validators.required],
+      description: [''],
       value: ['', Validators.required],
     });
   }
@@ -38,10 +38,5 @@ export class AddItemComponent implements OnInit {
   addItem() {
     this.dialogRef.close(this.form.value);
     this.form.reset();
-    // if (params.type === 'exp') {
-    // this.form.get('type').setValue('exp');
-    // } else {
-    //   this.form.get('type').setValue('inc');
-    // }
   }
 }

@@ -1,3 +1,5 @@
+@import 'colors.scss';
+
 $small: 12px;
 $medium: 14px;
 $large: 16px;
@@ -12,4 +14,8 @@ $large: 16px;
 
 .text-lg {
     font-size: $large;
+}
+
+.text-black {
+    color: $black;
 }

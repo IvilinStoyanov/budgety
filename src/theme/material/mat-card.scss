@@ -1,0 +1,28 @@
+@import '../fonts.scss';
+@import '../colors.scss';
+
+.mat-dialog-title {
+  font-size: $large !important;
+  color: $black;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+  margin: 0.7em auto;
+  overflow: hidden;
+  font-weight: 300;
+}
+
+.mat-dialog-title:before,
+.mat-dialog-title:after {
+  content: "";
+  display: inline-block;
+  width: 50%;
+  margin: 0 0.5em 0 -55%;
+  vertical-align: middle;
+  border-bottom: 1px solid $black;
+  opacity: .6;
+}
+
+.mat-dialog-title:after {
+  margin: 0 -55% 0 0.5em;
+}

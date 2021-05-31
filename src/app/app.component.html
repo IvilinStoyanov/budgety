@@ -17,10 +17,10 @@
   </mat-tab-group>
 
   <div fxLayout="row" fxLayoutAlign="end center" class="pr-2 pt-2">
-    <mat-icon (click)="openAddItemDialog()">add</mat-icon>
+    <mat-icon class="hover" (click)="openAddItemDialog()">add</mat-icon>
   </div>
-  <div class="pl-2 pr-2 pb-2">
-    <div class="text-center text-lg pb-1">Balance</div>
+  <div class="pl-2 pr-2 pb-2 pb-3">
+    <div class="text-center text-sm text-transparent text-uppercase pb-1">Balance</div>
     <div class="budget__value text-center">
       <span *ngIf="data.budget > 0">+</span>{{ data.budget | number: "1.2-2" }}
     </div>
@@ -29,12 +29,12 @@
   <mat-card class="m-2">
     <div *ngFor="let item of data.items.all">
       <div class="item clearfix" id="inc-{{ item.id }}">
-        <div class="item__description">
+        <div class="item__description" matTooltip="{{ item.description }}">
           <mat-icon
             *ngIf="item.category"
             class="material-icons-outlined item-icon-{{ item.type }} mr-2"
-            >{{ item.category }}</mat-icon
-          ><span>{{ item.description | titlecase }}</span>
+            >{{ item.icon }}</mat-icon
+          ><span class="text-black">{{ item.category | titlecase }}</span>
         </div>
         <div class="right clearfix">
           <div class="item__value item-type-{{ item.type }}">
