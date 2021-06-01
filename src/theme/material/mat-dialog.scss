@@ -5,6 +5,12 @@
 
     .mat-dialog-title {
         background: $primary;
+        background: linear-gradient(
+            90deg,
+            #69bdbe 0%,
+            #78b8d7 35%,
+            #7be5ea 100%
+          ) !important;
         color: $custom-white;
         font-size: $large !important;
         text-transform: uppercase;

@@ -1,12 +1,16 @@
-@import '../colors.scss';
+@import "../colors.scss";
 
 .mat-progress-bar {
-    height: 8px !important;
-    border-radius: 6px !important;
+  height: 8px !important;
+  border-radius: 6px !important;
 
-    .mat-progress-bar-fill::after {
-        background: $primary;
-        background: linear-gradient(90deg, rgba(105,189,190,1) 0%, rgba(105,189,190,1) 35%, rgba(105,190,165,1) 100%) !important;
-    }
+  .mat-progress-bar-fill::after {
+    background: $primary;
+    background: linear-gradient(
+      90deg,
+      #69bdbe 0%,
+      #78b8d7 35%,
+      #7be5ea 100%
+    ) !important;
+  }
 }
-

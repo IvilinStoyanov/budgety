@@ -55,7 +55,8 @@ export class AppComponent implements OnInit {
 
   addItem(params) {
     let newItem;
-    let dateCreated = new Date();
+    let date = new Date()
+    let dateCreated = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toJSON();
 
     console.log(dateCreated);
 
@@ -104,7 +105,7 @@ export class AppComponent implements OnInit {
     } else {
       this.data.percentage = 0;
     }
-
+    console.log(JSON.stringify(this.data));
     localStorage.setItem('data', JSON.stringify(this.data));
   }
 

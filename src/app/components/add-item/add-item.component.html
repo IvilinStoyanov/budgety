@@ -3,8 +3,8 @@
 </div>
 <div mat-dialog-content>
   <form [formGroup]="form" autocomplete="off">
-    <div>
-      <mat-form-field class="mr-2">
+    <div fxLayout="row wrap">
+      <mat-form-field class="ml-1 mr-1" fxFlex>
         <mat-label>Category</mat-label>
         <mat-select formControlName="category">
           <mat-select-trigger>
@@ -19,7 +19,7 @@
         </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field class="mr-2">
+      <mat-form-field class="ml-1 mr-1" fxFlex>
         <mat-label>Type</mat-label>
         <mat-select
           class="add__type"
@@ -30,7 +30,7 @@
           <mat-option value="exp">Expense</mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field class="ml-1 mr-1" fxFlex>
         <mat-label>Value</mat-label>
         <input formControlName="value" matInput type="number" />
       </mat-form-field>
