@@ -22,12 +22,21 @@
   </div>
     <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-1">
       <div class="text-black text-md">
-        Budget <span class="text-transparent">{{ data.totals.inc | number: "1.2-2" }}</span>
+        Income <span class="text-transparent">{{ data.totals.inc | number: "1.2-2" }}</span>
       </div>
       <div class="text-black text-md">{{ 100 - data.percentage }}%</div>
     </div>
-    <div class="pb-2">
+    <div class="pb-3">
       <app-progress-bar [percentage]="100 - data.percentage"></app-progress-bar>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-1">
+      <div class="text-black text-md">
+        Expense <span class="text-transparent">{{ data.totals.exp | number: "1.2-2" }}</span>
+      </div>
+      <div class="text-black text-md">{{ data.percentage }}%</div>
+    </div>
+    <div class="pb-3">
+      <app-progress-bar class="exp-progress-bar" [percentage]="data.percentage"></app-progress-bar>
     </div>
   </mat-card>
 </div>
