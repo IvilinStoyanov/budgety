@@ -1,0 +1,30 @@
+@import "../../../theme/colors.scss";
+
+.wrapper {
+    .progress-container {
+        position: relative;
+        background: #d1d9ee;
+        height: 4px;
+        width: 100%;
+        border-radius: 6px;
+
+        .progress-line {
+            position: absolute;
+            left: 0;
+            top: -3px;
+            height: 10px;
+            border-radius: 6px;
+            background: $primary;
+            background: linear-gradient(
+              90deg,
+              #69bdbe 0%,
+              #76c9d9 50%,
+              #6edcf6 100%
+            ) !important;
+            -webkit-box-shadow: 1px 29px 39px 7px rgba(0,0,0,0.05); 
+            box-shadow: 1px 29px 39px 7px rgba(0,0,0,0.05);
+        }
+    }
+
+
+}

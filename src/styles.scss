@@ -7,14 +7,15 @@
 @import "theme/material/mat-card.scss";
 @import "theme/material/mat-dialog.scss";
 @import "theme/material/mat-button.scss";
-@import "theme/material/mat-progress.scss";
 
 html,
 body {
   height: 100%;
 }
+
 body {
-  margin: 0;
+  max-width: 875px;
+  margin: 0 auto;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background: $primary;
   background: linear-gradient(
@@ -36,7 +37,7 @@ body {
 }
 
 .custom-card {
-  opacity: 0.8;
+  background: #edf1fc;
   border-top-left-radius: 30px !important;
   border-top-right-radius: 30px !important;
 }

@@ -54,7 +54,9 @@ export class AddItemComponent implements OnInit, OnDestroy {
   }
 
   addItem() {
+    if (this.form.valid) {
     this.dialogRef.close(this.form.value);
     this.form.reset();
+    }
   }
 }

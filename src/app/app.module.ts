@@ -16,10 +16,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { LatestComponent } from './components/latest/latest.component';
+import { MonthlyComponent } from './components/monthly/monthly.component';
+import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 
 @NgModule({
-  declarations: [AppComponent, AddItemComponent],
+  declarations: [AppComponent, LatestComponent, MonthlyComponent, AddItemComponent, ProgressBarComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -33,8 +35,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatDialogModule,
     MatSelectModule,
     MatInputModule,
-    MatTooltipModule,
-    MatProgressBarModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent],
