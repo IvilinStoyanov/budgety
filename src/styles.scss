@@ -38,7 +38,18 @@ body {
 
 .custom-card {
   border-bottom: 1px solid #e7e7e7;
-//  background: #edf1fc;
+  //  background: #edf1fc;
   // border-top-left-radius: 30px !important;
   // border-top-right-radius: 30px !important;
+}
+
+.exp-progress-bar {
+  .progress-line {
+    background: linear-gradient(
+      90deg,
+      $red 0%,
+      #ff9393 50%,
+      #ffa8b9 100%
+    ) !important;
+  }
 }
