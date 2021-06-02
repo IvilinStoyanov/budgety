@@ -5,6 +5,10 @@ mat-tab-group {
   &.mat-primary .mat-ink-bar{
     background-color: $custom-white !important;
   }
+
+  .mat-tab-header {
+    margin-bottom: 15px;
+  }
 }
 
 .mat-tab-label {

@@ -1,3 +1,16 @@
-<p>
-  monthly works!
-</p>
+<mat-card>
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="item text-transparent text-black">
+    <div>Month</div>
+    <div>Income</div>
+    <div>Expense</div>
+    <div>Balance</div>
+  </div>
+  <div *ngFor="let month of monthlyList">
+      <div fxLayout="row" fxLayoutAlign="space-between center" class="item">
+        <div class="text-black">{{ month?.name }}</div>
+        <div class="text-black">{{ month?.income }}</div>
+        <div class="text-black">{{ month?.expense }}</div>
+        <div class="text-primary">{{ month?.income - month?.expense }}</div>
+      </div>
+  </div>
+</mat-card>
