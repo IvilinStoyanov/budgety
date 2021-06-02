@@ -4,55 +4,64 @@
 *** TOP PART
 **********************************************/
 .budget-container {
-    max-width: 450px;
-    margin: 0 auto;
+  max-width: 450px;
+  margin: 0 auto;
 }
 
 .budget__value {
-    font-weight: 500;
-    font-size: 30px;
-    letter-spacing: 2px;
+  font-weight: 500;
+  font-size: 30px;
+  letter-spacing: 2px;
 }
 
 /***** LISTS *****/
 .item {
-    padding: 10px 10px 10px 10px;
-    border-bottom: 1px solid #e7e7e7;
+  padding: 10px 10px 10px 10px;
+  border-bottom: 1px solid #e7e7e7;
 }
 
 .item__description {
-    color: $black;
+  color: $black;
 }
 
 .item-icon-inc {
-    color: $blue;
+  color: $blue;
 }
 
 .item-icon-exp {
-    color: $red;
+  color: $red;
 }
 
 .item-type-inc {
-    color: $blue !important;
+  color: $blue !important;
 }
 
 .item-type-exp {
-    color: $red !important;
+  color: $red !important;
 }
 
 .item-delete-btn-inc {
-    color: #28B9B5;
+  color: #28b9b5;
 }
 
 .item-delete-btn-exp {
-    color: #FF5049;
+  color: #ff5049;
 }
 
 .add-item-chip {
-    position: absolute;
-    right: 20px;
-    top: -20px;
-    background: #edf1fc;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  width: 40px;
+  height: 40px;
+  background: $custom-white;
+  border-radius: 50%;
+  z-index: 1;
+  box-shadow: 0px 11px 15px -7px rgb(0 0 0 / 20%),
+    0px 24px 38px 3px rgb(0 0 0 / 14%), 0px 9px 46px 8px rgb(0 0 0 / 12%);
+
+  .mat-icon {
+    font-size: 40px;
+    color: $primary;
+  }
 }
