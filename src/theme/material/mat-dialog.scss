@@ -1,0 +1,43 @@
+@import "../colors.scss";
+
+.mat-dialog-container {
+  padding: 0 !important;
+
+  .mat-dialog-title {
+    background: $primary;
+    background: linear-gradient(
+      90deg,
+      #69bdbe 0%,
+      #69bdbe 35%,
+      #7be5ea 100%
+    ) !important;
+    color: $custom-white;
+    font-size: $large !important;
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    font-weight: 500;
+    padding: 5px 0px;
+  }
+
+  //   .mat-dialog-title:before,
+  //   .mat-dialog-title:after {
+  //     content: "";
+  //     display: inline-block;
+  //     width: 50%;
+  //     margin: 0 0.5em 0 -55%;
+  //     vertical-align: middle;
+  //     border-bottom: 1px solid $custom-white;
+  //     opacity: .6;
+  //   }
+
+  //   .mat-dialog-title:after {
+  //     margin: 0 -55% 0 0.5em;
+  //   }
+
+  .mat-dialog-content {
+    padding: 24px;
+    margin: 0;
+  }
+}

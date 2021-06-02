@@ -1,0 +1,57 @@
+<div>
+  <h1 mat-dialog-title>New Item</h1>
+</div>
+<div mat-dialog-content>
+  <form [formGroup]="form" autocomplete="off">
+    <div fxLayout="row wrap">
+      <mat-form-field class="ml-1 mr-1" fxFlex>
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category">
+          <mat-select-trigger>
+            {{categoryPicked}}
+          </mat-select-trigger>
+          <mat-option
+          *ngFor="let category of categories"
+          [value]="category.value"
+          >
+          <mat-icon class="material-icons-outlined mr-2">{{category.value.icon}}</mat-icon>
+          {{ category.viewValue }}
+        </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="ml-1 mr-1" fxFlex>
+        <mat-label>Type</mat-label>
+        <mat-select
+          class="add__type"
+          formControlName="type"
+          [class.red-focus]="form.get('type').value === 'exp'"
+        >
+          <mat-option value="inc" selected>Income</mat-option>
+          <mat-option value="exp">Expense</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="ml-1 mr-1" fxFlex>
+        <mat-label>Value</mat-label>
+        <input formControlName="value" matInput type="number" />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field fxFlex>
+        <mat-label>Description</mat-label>
+        <textarea formControlName="description" matInput></textarea>
+      </mat-form-field>
+    </div>
+    <div>
+      <button
+      fxFlex
+      mat-stroked-button
+      color="primary"
+      class="add__btn"
+      (click)="addItem()"
+    >
+      Add
+    </button>
+    </div>
+
+  </form>
+</div>

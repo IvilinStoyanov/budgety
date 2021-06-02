@@ -1,31 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'theme/spacing-mixin.scss';
-@import 'theme/colors.scss';
+@import "theme/spacing-mixin.scss";
+@import "theme/colors.scss";
+@import "theme/utilities.scss";
 
-@import 'theme/material/mat-tab.scss';
+@import "theme/material/mat-tab.scss";
+@import "theme/material/mat-card.scss";
+@import "theme/material/mat-dialog.scss";
+@import "theme/material/mat-button.scss";
 
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
+
 body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    background: $primary !important;
+  max-width: 875px;
+  margin: 0 auto;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: $primary;
+  background: linear-gradient(
+    90deg,
+    #69babe 0%,
+    #87cbd2 35%,
+    #6cc8dd 100%
+  ) !important;
+  color: $custom-white;
+}
+
+.mat-select-panel .mat-optgroup-label,
+.mat-select-panel .mat-option {
+  color: $black !important;
 }
 
 .relative {
-    position: relative;
+  position: relative;
 }
 
-.d-flex {
-    display: flex;
-}
-
-.justify-content-center {
-    justify-content: center;
-}
-
-.justify-content-between {
-    justify-content: space-between;
+.custom-card {
+  background: #edf1fc;
+  border-top-left-radius: 30px !important;
+  border-top-right-radius: 30px !important;
 }

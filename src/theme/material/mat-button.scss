@@ -1,0 +1,12 @@
+@import '../colors.scss';
+
+button {
+    // font-size: 13px !important;
+  
+    &.mat-stroked-button {
+      &.mat-primary {
+        border-color: $primary !important;
+        color: $primary !important;
+      }
+    }
+}
