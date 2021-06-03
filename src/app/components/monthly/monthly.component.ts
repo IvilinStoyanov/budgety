@@ -58,5 +58,20 @@ export class MonthlyComponent implements OnInit {
       }
     });
     console.log(this.monthlyList);
+    this.calculateBudgetPercetange(this.monthlyList);
+  }
+
+  calculateBudgetPercetange(data: any) {
+    data.forEach((element, index) => {
+      let percentage = Math.round(
+        (element.expense / element.income) * 100
+      );
+      percentage = 100 - percentage;
+
+      if (percentage < 0) percentage = 0;
+      
+      this.monthlyList[index].budgetPercetange = percentage;
+    });
+  
   }
 }
