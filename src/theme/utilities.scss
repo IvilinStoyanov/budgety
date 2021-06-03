@@ -30,6 +30,14 @@
     text-align: center
 }
 
+.position-center-absolute {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center
+}
+
 // borders
 .border-top-left-radius-none {
     border-top-left-radius: 0 !important;
@@ -45,6 +53,10 @@
 
 .border-bottom-right-radius-none {
     border-bottom-right-radius: 0 !important;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e7e7e7;
 }
 
 // icons

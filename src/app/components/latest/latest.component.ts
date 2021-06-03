@@ -29,8 +29,6 @@ export class LatestComponent implements OnInit {
     if (localStorage.getItem('data') !== null) {
       this.data = JSON.parse(localStorage.getItem('data'));
     }
-    console.log(this.data);
-
    // this.displayDailyActivies();
     this.calculateBudget();
   }
@@ -54,10 +52,8 @@ export class LatestComponent implements OnInit {
 
   addItem(params) {
     let newItem;
-    let date = new Date()
+    let date =  new Date();
     let dateCreated = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toJSON();
-
-    console.log(dateCreated);
 
     // Create new item based on 'inc' or 'exp' type
     newItem = {
@@ -104,7 +100,6 @@ export class LatestComponent implements OnInit {
     } else {
       this.data.percentage = 0;
     }
-    console.log(JSON.stringify(this.data));
     localStorage.setItem('data', JSON.stringify(this.data));
   }
 
