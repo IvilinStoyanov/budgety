@@ -10,22 +10,15 @@
           <mat-select-trigger>
             {{categoryPicked}}
           </mat-select-trigger>
-          <mat-option
-          *ngFor="let category of categories"
-          [value]="category.value"
-          >
-          <mat-icon class="material-icons-outlined mr-2">{{category.value.icon}}</mat-icon>
-          {{ category.viewValue }}
-        </mat-option>
+          <mat-option *ngFor="let category of categories" [value]="category.value">
+            <mat-icon class="material-icons-outlined mr-2">{{category.value.icon}}</mat-icon>
+            {{ category.viewValue }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="ml-1 mr-1" fxFlex>
         <mat-label>Type</mat-label>
-        <mat-select
-          class="add__type"
-          formControlName="type"
-          [class.red-focus]="form.get('type').value === 'exp'"
-        >
+        <mat-select class="add__type" formControlName="type" [class.red-focus]="form.get('type').value === 'exp'">
           <mat-option value="inc" selected>Income</mat-option>
           <mat-option value="exp">Expense</mat-option>
         </mat-select>
@@ -42,15 +35,9 @@
       </mat-form-field>
     </div>
     <div>
-      <button
-      fxFlex
-      mat-stroked-button
-      color="primary"
-      class="add__btn"
-      (click)="addItem()"
-    >
-      Add
-    </button>
+      <button fxFlex mat-stroked-button color="primary" class="add__btn" (click)="addItem()">
+        Add
+      </button>
     </div>
 
   </form>

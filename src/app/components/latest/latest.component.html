@@ -3,32 +3,25 @@
     Balance
   </div>
   <div class="budget__value text-center">
-    <span *ngIf="data.budget > 0">+</span>
-    {{ data.budget | number: "1.2-2" }}
+    <span *ngIf="data.budget > 0">+</span>{{ data.budget | number: "1.2-2" }}
   </div>
 </div>
 <!-- progress bar -->
 <div *ngIf="data.items.length > 0" class="ml-2 mr-2 mt-2 mb-0">
-  <mat-card
-    class="
+  <mat-card class="
       border-bottom
       border-bottom-left-radius-none
       border-bottom-right-radius-none
-    "
-  >
+    ">
     <div class="add-item-chip" matTooltip="add new item">
-      <mat-icon
-        class="material-icons-outlined hover"
-        (click)="openAddItemDialog()"
-        >add</mat-icon
-      >
+      <mat-icon class="material-icons-outlined hover" (click)="openAddItemDialog()">add</mat-icon>
     </div>
     <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-1">
       <div class="text-black text-md">
         Income
         <span class="text-transparent">{{
           data.totals.inc | number: "1.2-2"
-        }}</span>
+          }}</span>
       </div>
       <div class="text-black text-md">{{ 100 - data.percentage }}%</div>
     </div>
@@ -40,56 +33,43 @@
         Expense
         <span class="text-transparent">{{
           data.totals.exp | number: "1.2-2"
-        }}</span>
+          }}</span>
       </div>
       <div class="text-black text-md">{{ data.percentage }}%</div>
     </div>
     <div class="pb-3">
-      <app-progress-bar
-        class="exp-progress-bar"
-        [percentage]="data.percentage"
-      ></app-progress-bar>
+      <app-progress-bar class="exp-progress-bar" [percentage]="data.percentage"></app-progress-bar>
     </div>
   </mat-card>
 </div>
-<div
-  *ngIf="data.items.length === 0"
-  fxLayout="column"
-  fxLayoutAlign="center center"
-  class="position-center hover"
-  (click)="openAddItemDialog()"
->
+<div *ngIf="data.items.length === 0" fxLayout="column" fxLayoutAlign="center center" class="position-center hover"
+  (click)="openAddItemDialog()">
   <mat-icon class="material-icons-outlined icon-lg"> receipt_long </mat-icon>
   <span class="text-transparent">No Transactions</span>
   <span class="text-transparent">Tap here to add one</span>
 </div>
 <!-- list -->
-<mat-card
-  *ngIf="data.items.length > 0"
-  class="
+<mat-card *ngIf="data.items.length > 0" class="
     ml-2
     mr-2
     mb-2
     mt-0
     pt-0
     border-top-left-radius-none border-top-right-radius-none
-  "
->
+  ">
   <div *ngFor="let item of data.items">
     <div class="item" id="inc-{{ item.id }}">
       <div fxLayout="row" fxLayoutAlign="space-between center">
-          <div fxLayout="row" fxLayoutAlign="center center" matTooltip="{{ item.description }}">
-            <mat-icon
-              *ngIf="item.category"
-              class="material-icons-outlined item-icon-{{
+        <div fxLayout="row" fxLayoutAlign="center center" matTooltip="{{ item.description }}">
+          <mat-icon *ngIf="item.category" class="material-icons-outlined item-icon-{{
                 item.type
-              }} mr-2"
-              >{{ item.icon }}</mat-icon
-            ><span class="text-black">{{ item.category | titlecase }}</span>
-          </div>
+              }} mr-2">{{ item.icon }}</mat-icon><span class="text-black">{{ item.category | titlecase }}</span>
+        </div>
         <div fxLayout="column" fxLayoutAlign="center end">
           <div class="item__value item-type-{{ item.type }}">
-            + {{ item.value | number: "1.2-2" }}
+            <span *ngIf="item.type === 'inc'">+</span>
+            <span *ngIf="item.type === 'exp'">-</span>
+            {{ item.value | number: "1.2-2" }}
           </div>
           <div class="text-black text-transparent text-ex-sm">
             {{ item.dateCreated | date: "dd/MM/yy" }}
