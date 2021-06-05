@@ -9,6 +9,7 @@
     border-radius: 6px;
 
     .progress-line {
+      max-width: 100% !important;
       position: absolute;
       left: 0;
       top: -2px;

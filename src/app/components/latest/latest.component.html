@@ -3,11 +3,12 @@
     Balance
   </div>
   <div class="budget__value text-center">
-    <span *ngIf="data.budget > 0">+</span>{{ data.budget | number: "1.2-2" }}
+    <span *ngIf="data.budget > 0">+</span>
+    {{ data.budget | number: "1.2-2" }}
   </div>
 </div>
 <!-- progress bar -->
-<div *ngIf="data.totals.inc > 0" class="ml-2 mr-2 mt-2 mb-0">
+<div *ngIf="data.items.length > 0" class="ml-2 mr-2 mt-2 mb-0">
   <mat-card
     class="
       border-bottom
@@ -77,17 +78,15 @@
   <div *ngFor="let item of data.items">
     <div class="item" id="inc-{{ item.id }}">
       <div fxLayout="row" fxLayoutAlign="space-between center">
-        <div fxLayout="row" fxLayoutAlign="start center">
-          <div matTooltip="{{ item.description }}">
+          <div fxLayout="row" fxLayoutAlign="center center" matTooltip="{{ item.description }}">
             <mat-icon
               *ngIf="item.category"
-              class="vertical-align-bottom material-icons-outlined item-icon-{{
+              class="material-icons-outlined item-icon-{{
                 item.type
               }} mr-2"
               >{{ item.icon }}</mat-icon
             ><span class="text-black">{{ item.category | titlecase }}</span>
           </div>
-        </div>
         <div fxLayout="column" fxLayoutAlign="center end">
           <div class="item__value item-type-{{ item.type }}">
             + {{ item.value | number: "1.2-2" }}

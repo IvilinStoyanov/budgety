@@ -6,11 +6,10 @@ import { AddItemComponent } from '../add-item/add-item.component';
 @Component({
   selector: 'app-latest',
   templateUrl: './latest.component.html',
-  styleUrls: ['./latest.component.scss']
+  styleUrls: ['./latest.component.scss'],
 })
 export class LatestComponent implements OnInit {
   data: any;
-
 
   constructor(public dialog: MatDialog, public commonService: CommonService) {
     this.data = {
@@ -29,7 +28,7 @@ export class LatestComponent implements OnInit {
     if (localStorage.getItem('data') !== null) {
       this.data = JSON.parse(localStorage.getItem('data'));
     }
-   // this.displayDailyActivies();
+    // this.displayDailyActivies();
     this.calculateBudget();
   }
 
@@ -52,8 +51,10 @@ export class LatestComponent implements OnInit {
 
   addItem(params) {
     let newItem;
-    let date =  new Date();
-    let dateCreated = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toJSON();
+    let date = new Date();
+    let dateCreated = new Date(
+      date.getTime() - date.getTimezoneOffset() * 60000
+    ).toJSON();
 
     // Create new item based on 'inc' or 'exp' type
     newItem = {
@@ -97,6 +98,9 @@ export class LatestComponent implements OnInit {
       this.data.percentage = Math.round(
         (this.data.totals.exp / this.data.totals.inc) * 100
       );
+      if (this.data.percentage > 100) this.data.percentage = 100;
+    } else if (this.data.budget < 0) {
+      this.data.percentage = 100;
     } else {
       this.data.percentage = 0;
     }
@@ -119,10 +123,9 @@ export class LatestComponent implements OnInit {
     let sum = 0;
 
     this.data.items.forEach((item) => {
-      if (type === item.type) sum += item.value
+      if (type === item.type) sum += item.value;
     });
 
     this.data.totals[type] = sum;
   }
-
 }
