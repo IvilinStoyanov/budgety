@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
   }
 
   navigateTo(path: string) {
-    console.log(path);
     this.router.navigate([`/${path}`]);
   }
 

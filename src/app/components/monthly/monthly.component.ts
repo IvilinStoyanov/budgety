@@ -57,7 +57,6 @@ export class MonthlyComponent implements OnInit {
         this.monthlyList[itemMonth].expense += expense;
       }
     });
-    console.log(this.monthlyList);
     this.calculateBudgetPercetange(this.monthlyList);
   }
 

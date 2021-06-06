@@ -50,7 +50,6 @@ export class LatestComponent implements OnInit {
   }
 
   addItem(params) {
-    console.log(params);
     let newItem;
 
     if (params.isToday) {
@@ -71,8 +70,6 @@ export class LatestComponent implements OnInit {
       value: params.value,
       type: params.type,
     };
-
-    console.log(newItem);
 
     // Push it into our data structure
     this.data.items.push(newItem);
