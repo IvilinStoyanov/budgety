@@ -41,7 +41,7 @@ export class LatestComponent implements OnInit {
 
   openAddItemDialog(): void {
     const dialogRef = this.dialog.open(AddItemComponent, {
-      autoFocus: false,
+      autoFocus: false
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -50,21 +50,29 @@ export class LatestComponent implements OnInit {
   }
 
   addItem(params) {
+    console.log(params);
     let newItem;
-    let date = new Date();
-    let dateCreated = new Date(
-      date.getTime() - date.getTimezoneOffset() * 60000
-    ).toJSON();
+
+    if (params.isToday) {
+      let date = new Date();
+      let dateCreated = new Date(
+        date.getTime() - date.getTimezoneOffset() * 60000
+      ).toJSON();
+
+      params.dateCreated = dateCreated;
+    }
 
     // Create new item based on 'inc' or 'exp' type
     newItem = {
       icon: params.category.icon,
       category: params.category.name,
-      dateCreated: dateCreated,
+      dateCreated: params.dateCreated,
       description: params.description,
       value: params.value,
       type: params.type,
     };
+
+    console.log(newItem);
 
     // Push it into our data structure
     this.data.items.push(newItem);

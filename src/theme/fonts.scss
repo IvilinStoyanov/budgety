@@ -4,6 +4,18 @@ $small: 12px;
 $medium: 14px;
 $large: 16px;
 
+/* utilities */
+
+.text-bold {
+    font-weight: 700;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+/* text size */
+
 .text-ex-sm {
     font-size: 11px;
 }
@@ -20,12 +32,22 @@ $large: 16px;
     font-size: $large;
 }
 
+/* text colors */
+
+.text-white {
+    color: $custom-white;
+}
+
 .text-black {
     color: $black;
 }
 
 .text-primary {
     color: $primary;
+}
+
+.text-grey {
+    color: $grey;
 }
 
 .text-danger {

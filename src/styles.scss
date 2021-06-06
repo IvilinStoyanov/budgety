@@ -1,12 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
 @import "theme/spacing-mixin.scss";
 @import "theme/colors.scss";
 @import "theme/utilities.scss";
+
+@import "theme/custom/checkbox.scss";
 
 @import "theme/material/mat-tab.scss";
 @import "theme/material/mat-card.scss";
 @import "theme/material/mat-dialog.scss";
 @import "theme/material/mat-button.scss";
+@import "theme/material/mat-input.scss";
 
 html,
 body {

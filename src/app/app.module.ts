@@ -1,11 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
 import { AddItemComponent } from './components/add-item/add-item.component';
+import { LatestComponent } from './components/latest/latest.component';
+import { MonthlyComponent } from './components/monthly/monthly.component';
+import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,14 +20,22 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { LatestComponent } from './components/latest/latest.component';
-import { MonthlyComponent } from './components/monthly/monthly.component';
-import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [AppComponent, LatestComponent, MonthlyComponent, AddItemComponent, ProgressBarComponent],
+  declarations: [
+    AppComponent,
+    LatestComponent,
+    MonthlyComponent,
+    AddItemComponent,
+    ProgressBarComponent,
+  ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
@@ -35,7 +47,11 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
     MatDialogModule,
     MatSelectModule,
     MatInputModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

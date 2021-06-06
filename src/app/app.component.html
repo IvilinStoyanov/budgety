@@ -7,18 +7,19 @@
     </div>
   </div>
   <!-- mid -->
-  <mat-tab-group [animationDuration]="0" color="primary">
+  <mat-tab-group [animationDuration]="0" color="primary" (selectedTabChange)="onChange($event)">
     <mat-tab label="Latest">
-      <app-latest></app-latest>
+      <!-- <app-latest></app-latest> -->
     </mat-tab>
     <mat-tab label="Monthly">
-        <app-monthly></app-monthly>
+        <!-- <app-monthly></app-monthly> -->
     </mat-tab>
     <mat-tab label="Yearly">
-      <div fxLayout="column" fxLayoutAlign="center center" class="position-center">
+      <!-- <div fxLayout="column" fxLayoutAlign="center center" class="position-center">
         <mat-icon class="material-icons-outlined icon-lg">engineering</mat-icon>
         <div class="text-transparent">Coming Soon</div>
-      </div>
+      </div> -->
     </mat-tab>
   </mat-tab-group>
+  <router-outlet></router-outlet>
 </div>
