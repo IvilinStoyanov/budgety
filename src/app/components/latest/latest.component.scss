@@ -51,9 +51,9 @@ $mat-icon-size: 60px;
 }
 
 .add-item-chip {
-  position: fixed;
+  position: relative;
   left: 50%;
-  bottom: -17px;
+  bottom: 0;
   width: $mat-icon-size;
   height: $mat-icon-size;
   background: $custom-white;
