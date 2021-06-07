@@ -9,7 +9,7 @@
   <div fxLayout="column" fxLayoutAlign="center center" class="mt-2 p-3">
     <span class="title text-bold">Add new item</span>
     <span class="text-center text-sm text-grey pl-2 pr-2" [style.max-width.px]="380">By default a new item will be added
-      for today if you want to set specific date unchecked the today and use datepicker.</span>
+      for today if you want to set specific date unchecked today and use the datepicker below.</span>
   </div>
   <form [formGroup]="form" autocomplete="off">
     <!-- checkbox end -->
@@ -42,7 +42,7 @@
     <div fxLayoutAlign="center center" class="mb-4">
       <div class="switch-button text-bold">
         <input class="switch-button-checkbox" formControlName="type" type="checkbox" />
-        <label class="switch-button-label" for="">
+        <label class="switch-button-label">
           <span class="switch-button-label-span">Income</span>
         </label>
       </div>

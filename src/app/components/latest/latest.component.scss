@@ -1,6 +1,6 @@
 @import "../../../theme/colors.scss";
 
-$mat-icon-size: 45px;
+$mat-icon-size: 60px;
 
 /**********************************************
 *** TOP PART
@@ -52,20 +52,31 @@ $mat-icon-size: 45px;
 
 .add-item-chip {
   position: fixed;
-  right: 10px;
-  bottom: 10px;
+  left: 50%;
+  bottom: -17px;
   width: $mat-icon-size;
   height: $mat-icon-size;
   background: $custom-white;
+  border: 1px solid $border;
   border-radius: 50%;
+  transform: translate(-50%, -50%);
   z-index: 1;
-  box-shadow: 0px 11px 15px -7px rgb(0 0 0 / 20%),
-    0px 24px 38px 3px rgb(0 0 0 / 14%), 0px 9px 46px 8px rgb(0 0 0 / 12%);
+  // box-shadow: 0px 11px 15px -7px rgb(0 0 0 / 20%),
+  //   0px 24px 38px 3px rgb(0 0 0 / 14%), 0px 9px 46px 8px rgb(0 0 0 / 12%);
 
   .mat-icon {
     font-size: $mat-icon-size;
     color: $primary;
   }
+}
+
+.bottom {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  height: 50px;
+  background: $custom-white;
+  border-top: 1px solid $border;
 }
 
 

@@ -13,9 +13,6 @@
       border-bottom-left-radius-none
       border-bottom-right-radius-none
     ">
-    <div class="add-item-chip" matTooltip="add new item">
-      <mat-icon class="material-icons-outlined hover" (click)="openAddItemDialog()">add</mat-icon>
-    </div>
     <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-1">
       <div class="text-black text-md">
         Income
@@ -52,10 +49,10 @@
 <mat-card *ngIf="data.items.length > 0" class="
     ml-2
     mr-2
-    mb-2
+    mb-0
     mt-0
     pt-0
-    border-top-left-radius-none border-top-right-radius-none
+    border-radius-none
   ">
   <div *ngFor="let item of data.items">
     <div class="item" id="inc-{{ item.id }}">
@@ -78,4 +75,11 @@
       </div>
     </div>
   </div>
+
 </mat-card>
+<div class="bottom ml-2 mr-2">
+
+</div>
+<div class="add-item-chip" matTooltip="add new item">
+  <mat-icon class="material-icons-outlined hover" (click)="openAddItemDialog()">add</mat-icon>
+</div>
