@@ -72,6 +72,7 @@ $mat-icon-size: 60px;
 
 .bottom {
   position: sticky;
+  position: -webkit-sticky; /* Safari */
   bottom: 0;
   left: 0;
   height: 50px;
