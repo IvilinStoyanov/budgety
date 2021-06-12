@@ -54,11 +54,11 @@
           <mat-select-trigger>
             {{ categoryPicked }}
           </mat-select-trigger>
-          <mat-option *ngFor="let category of categories" [value]="category.value">
+          <mat-option *ngFor="let category of categories" [value]="category">
             <mat-icon class="material-icons-outlined mr-2">{{
-              category.value.icon
+              category.icon
               }}</mat-icon>
-            {{ category.viewValue }}
+            {{ category.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>

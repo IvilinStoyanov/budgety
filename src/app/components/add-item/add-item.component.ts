@@ -1,8 +1,9 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
+import { CategoriesColors } from 'src/app/enums/categories-colors.enum';
+import { Categories } from 'src/app/enums/categories.enum';
 
 @Component({
   selector: 'app-add-item',
@@ -16,24 +17,15 @@ export class AddItemComponent implements OnInit, OnDestroy {
   categoryPicked: any;
 
   categories: any[] = [
-    { value: { icon: 'attach_money', name: 'Salary' }, viewValue: 'Salary' },
-    { value: { icon: 'directions_car_filled', name: 'Car' }, viewValue: 'Car' },
-    { value: { icon: 'shopping_cart', name: 'Grocery' }, viewValue: 'Grocery' },
-    {
-      value: { icon: 'restaurant', name: 'Food & Restaurant' },
-      viewValue: 'Food & Restaurant',
-    },
-    { value: { icon: 'local_cafe', name: 'Coffe' }, viewValue: 'Coffe' },
-    {
-      value: { icon: 'holiday_village', name: 'Holiday' },
-      viewValue: 'Holiday',
-    },
-    { value: { icon: 'receipt', name: 'Utilities' }, viewValue: 'Utilities' },
-    { value: { icon: 'bedroom_parent', name: 'Rent' }, viewValue: 'Rent' },
-    {
-      value: { icon: 'credit_score', name: 'Loan Payments' },
-      viewValue: 'Loan Payments',
-    },
+    { id: Categories.Salary, icon: 'attach_money', name: 'Salary', color: CategoriesColors.Salary },
+    { id: Categories.Car, icon: 'directions_car_filled', name: 'Car', color: CategoriesColors.Car },
+    { id: Categories.Grocery, icon: 'shopping_cart', name: 'Grocery', color: CategoriesColors.Grocery },
+    { id: Categories.Food, icon: 'restaurant', name: 'Food & Restaurant', color: CategoriesColors.Food },
+    { id: Categories.Coffe, icon: 'local_cafe', name: 'Coffe', color: CategoriesColors.Coffe },
+    { id: Categories.Holiday, icon: 'holiday_village', name: 'Holiday', color: CategoriesColors.Holiday },
+    { id: Categories.Utilities, icon: 'receipt', name: 'Utilities', color: CategoriesColors.Utilities },
+    { id: Categories.Rent, icon: 'bedroom_parent', name: 'Rent', color: CategoriesColors.Rent },
+    { id: Categories.LoanPayments, icon: 'credit_score', name: 'Loan Payments', color: CategoriesColors.LoanPayments }
   ];
 
   constructor(
@@ -89,7 +81,27 @@ export class AddItemComponent implements OnInit, OnDestroy {
       } else {
         this.form.get('type').setValue('exp');
       }
-      this.dialogRef.close(this.form.value);
+
+      // set date
+      if (this.form.get('isToday')) {
+        let date = new Date();
+        this.form.value.dateCreated = new Date(
+          date.getTime() - date.getTimezoneOffset() * 60000
+        ).toJSON();
+        }
+
+      // modify form value
+      let category = {
+        category: this.form.value.category,
+        items: {
+          description: this.form.value.description,
+          dateCreated: this.form.value.dateCreated,
+          type: this.form.value.type,
+          value: this.form.value.value,
+        }
+      }
+      console.log(category);
+      this.dialogRef.close(category);
     }
   }
 }

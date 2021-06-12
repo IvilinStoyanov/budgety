@@ -5,12 +5,7 @@ $mat-icon-size: 60px;
 /**********************************************
 *** TOP PART
 **********************************************/
-.budget-container {
-  max-width: 450px;
-  margin: 0 auto;
-}
-
-.budget__value {
+.budget-value {
   font-weight: 500;
   font-size: 30px;
   letter-spacing: 2px;
@@ -18,8 +13,18 @@ $mat-icon-size: 60px;
 
 /***** LISTS *****/
 .item {
-  padding: 10px 10px 10px 10px;
+  padding: 10px 5px 10px 0;
   border-bottom: 1px solid #e7e7e7;
+}
+.category-title-container {
+  position: relative;
+  width: 75px;
+  height: 75px;
+
+.circle-chart {
+  width: 75px;
+  height: 75px;
+}
 }
 
 .item__description {
@@ -78,6 +83,13 @@ $mat-icon-size: 60px;
   height: 50px;
   background: $custom-white;
   border-top: 1px solid $border;
+
+  .bottom-menu {
+    position: absolute;
+    width: 100%;
+    top: 15px;
+    padding: 0 20px;
+  }
 }
 
 

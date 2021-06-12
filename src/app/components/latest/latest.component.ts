@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/services/common.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddItemComponent } from '../add-item/add-item.component';
+import { Category } from 'src/app/models/category';
 
 @Component({
   selector: 'app-latest',
@@ -10,9 +11,11 @@ import { AddItemComponent } from '../add-item/add-item.component';
 })
 export class LatestComponent implements OnInit {
   data: any;
+  viewMode: any;
 
   constructor(public dialog: MatDialog, public commonService: CommonService) {
     this.data = {
+      categories: [],
       items: [],
       totals: {
         exp: 0,
@@ -28,15 +31,34 @@ export class LatestComponent implements OnInit {
     if (localStorage.getItem('data') !== null) {
       this.data = JSON.parse(localStorage.getItem('data'));
     }
-    // this.displayDailyActivies();
-    this.calculateBudget();
+
+    this.saveData();
+    this.setViewMode('exp');
+    // set viewMode to inc if there is no expenses on first load.
+    if (this.data.totals.exp === 0) this.viewMode = 'inc';
   }
 
-  displayDailyActivies() {
-    this.data.items.forEach((element, index, object) => {
-      if (!this.commonService.isDateToday(element.dateCreated))
-        object.splice(index, 1);
-    });
+  saveData() {
+    localStorage.setItem('data', JSON.stringify(this.data));
+  }
+
+  setViewMode(mode: string) {
+    this.viewMode = mode;
+  }
+
+  showCategories(category: Category) {
+    if (category) {
+      if (this.viewMode === 'inc') {
+        if (category.inc > 0) return true;
+
+        return false;
+      }
+      if (this.viewMode === 'exp') {
+        if (category.exp > 0) return true;
+
+        return false;
+      }
+    }
   }
 
   openAddItemDialog(): void {
@@ -50,32 +72,53 @@ export class LatestComponent implements OnInit {
   }
 
   addItem(params) {
-    let newItem;
+    this.setViewMode(params.items.type);
 
-    if (params.isToday) {
-      let date = new Date();
-      let dateCreated = new Date(
-        date.getTime() - date.getTimezoneOffset() * 60000
-      ).toJSON();
+    if (this.data.categories[params.category.id] == undefined) {
+      // initial create of category
 
-      params.dateCreated = dateCreated;
+      let category = params.category;
+      this.data.categories[params.category.id] =
+        new Category(
+          category.color,
+          category.exp,
+          category.expPercentage,
+          category.incPercentage,
+          category.icon,
+          category.inc,
+          category.name,
+          []);
+
+      if (params.items.type === 'exp') {
+        this.data.totals.exp += params.items.value;
+        this.data.categories[params.category.id].exp += params.items.value;
+      }
+      if (params.items.type === 'inc') {
+        this.data.totals.inc += params.items.value;
+        this.data.categories[params.category.id].inc += params.items.value;
+      }
+    } else {
+      // calculate category budget and add new item to the existing array.
+      if (params.items.type === 'exp') {
+        this.data.totals.exp += params.items.value;
+        this.data.categories[params.category.id].exp += params.items.value;
+      }
+      if (params.items.type === 'inc') {
+        this.data.totals.inc += params.items.value;
+        this.data.categories[params.category.id].inc += params.items.value;
+      }
     }
-
-    // Create new item based on 'inc' or 'exp' type
-    newItem = {
-      icon: params.category.icon,
-      category: params.category.name,
-      dateCreated: params.dateCreated,
-      description: params.description,
-      value: params.value,
-      type: params.type,
-    };
-
     // Push it into our data structure
-    this.data.items.push(newItem);
+    this.data.categories[params.category.id].items.push(params.items);
+    // calculate budget
+    this.data.budget = this.data.totals.inc - this.data.totals.exp;
 
-    this.calculateBudget();
-    this.calculatePercentages();
+    // calculate category income/expense percetanges of current budget
+    this.calculateTotalExpPercentage();
+    // calculate global income/expense percetanges of current budget
+    this.calculatePercentageEach();
+
+    this.saveData();
   }
 
   clearList(type) {
@@ -109,19 +152,34 @@ export class LatestComponent implements OnInit {
     } else {
       this.data.percentage = 0;
     }
-    localStorage.setItem('data', JSON.stringify(this.data));
   }
 
   calculatePercentages() {
     //this.data.items.exp.forEach((cur) => console.log(cur));
   }
 
-  calculatePercentageEach(totalIncome) {
-    //   if (totalIncome > 0) {
-    //     this.percentage = Math.round((this.value / totalIncome) * 100);
-    // } else {
-    //     this.percentage = -1;
-    // }
+  calculatePercentageEach() {
+    // calculate category expense percetange of current budget
+    this.data.categories.forEach((category, index) => {
+      if (category) {
+        if (category.exp > 0 && this.data.totals.inc > 0) category.expPercentage = Math.round((category.exp / this.data.totals.inc) * 100);
+        if (category.inc > 0) category.incPercentage = Math.round((category.inc / this.data.totals.inc) * 100);
+      }
+    });
+  }
+
+  calculateTotalExpPercentage() {
+    // Calculate the percentage of income that we spent
+    if (this.data.totals.inc > 0) {
+      this.data.percentage = Math.round(
+        (this.data.totals.exp / this.data.totals.inc) * 100
+      );
+      if (this.data.percentage > 100) this.data.percentage = 100;
+    } else if (this.data.budget < 0) {
+      this.data.percentage = 100;
+    } else {
+      this.data.percentage = 0;
+    }
   }
 
   calculateTotal(type) {

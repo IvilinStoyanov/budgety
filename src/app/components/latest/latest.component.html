@@ -2,12 +2,12 @@
   <div class="text-center text-sm text-transparent text-uppercase pb-1">
     Balance
   </div>
-  <div class="budget__value text-center">
+  <div class="budget-value text-center">
     <span *ngIf="data.budget > 0">+</span>{{ data.budget | number: "1.2-2" }}
   </div>
 </div>
 <!-- progress bar -->
-<div *ngIf="data.items.length > 0" class="ml-2 mr-2 mt-2 mb-0">
+<div *ngIf="data.categories.length > 0" class="ml-2 mr-2 mt-2 mb-0">
   <mat-card class="
       border-bottom
       border-bottom-left-radius-none
@@ -39,28 +39,22 @@
     </div>
   </mat-card>
 </div>
-<div *ngIf="data.items.length === 0" fxLayout="column" fxLayoutAlign="center center" class="position-center hover"
+<div *ngIf="data.categories.length === 0" fxLayout="column" fxLayoutAlign="center center" class="position-center hover"
   (click)="openAddItemDialog()">
   <mat-icon class="material-icons-outlined icon-lg"> receipt_long </mat-icon>
   <span class="text-transparent">No Transactions</span>
   <span class="text-transparent">Tap here to add one</span>
 </div>
 <!-- list -->
-<mat-card *ngIf="data.items.length > 0" class="
-    ml-2
-    mr-2
-    mb-0
-    mt-0
-    pt-0
-    border-radius-none
-  ">
-  <div *ngFor="let item of data.items">
+<mat-card *ngIf="data.categories.length > 0" [style.min-height.px]="500"
+  class="ml-2 mr-2 mb-0 mt-0 pt-0 pl-1 border-radius-none">
+  <!-- <div *ngFor="let item of data.items">
     <div class="item" id="inc-{{ item.id }}">
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <div fxLayout="row" fxLayoutAlign="center center" matTooltip="{{ item.description }}">
-          <mat-icon *ngIf="item.category" class="material-icons-outlined item-icon-{{
+          <mat-icon class="material-icons-outlined item-icon-{{
                 item.type
-              }} mr-2">{{ item.icon }}</mat-icon><span class="text-black">{{ item.category | titlecase }}</span>
+              }} mr-2">{{ item.category.icon }}</mat-icon><span class="text-black">{{ item.category.name | titlecase }}</span>
         </div>
         <div fxLayout="column" fxLayoutAlign="center end">
           <div class="item__value item-type-{{ item.type }}">
@@ -74,11 +68,65 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
+  <!-- categories -->
+  <div *ngFor="let category of data.categories">
+    <div class="item"
+      *ngIf="category && showCategories(category)">
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div class="category-title-container">
+            <svg width="100%" height="100%" viewBox="0 0 42 42" class="circle-chart">
+              <circle cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+              <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="1.5">
+              </circle>
+              <circle *ngIf="viewMode === 'exp'" class="donut-segment" cx="21" cy="21" r="15.91549430918954"
+                fill="transparent" attr.stroke="{{category.color}}" stroke-width="1.5"
+                attr.stroke-dasharray="{{category.expPercentage}} {{100 - category.expPercentage}}"
+                stroke-dashoffset="25"></circle>
+              <circle *ngIf="viewMode === 'inc'" class="donut-segment" cx="21" cy="21" r="15.91549430918954"
+                fill="transparent" attr.stroke="{{category.color}}" stroke-width="1.5"
+                attr.stroke-dasharray="{{category.incPercentage}} {{100 - category.incPercentage}}"
+                stroke-dashoffset="25"></circle>
+            </svg>
+            <mat-icon class="position-center-absolute material-icons-outlined icon-md icon-primary mr-2">{{
+              category.icon }}</mat-icon>
+          </div>
+          <div fxLayout="column" class="pl-2">
+            <span class="text-black text-bold">{{
+              category.name | titlecase
+              }}</span>
+            <span *ngIf="viewMode === 'inc'" class="text-transparent text-sm">{{category.incPercentage}}% of
+              budget</span>
+            <span *ngIf="viewMode === 'exp'" class="text-transparent text-sm">{{category.expPercentage}}% of
+              budget</span>
+          </div>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="center end">
+          <div *ngIf="viewMode === 'inc'" class="item-type-{{ category.type }}">
+            {{ category.inc | number: "1.2-2" }}
+          </div>
+          <div *ngIf="viewMode === 'exp'" class="item-type-{{ category.type }}">
+            {{ category.exp | number: "1.2-2" }}
+          </div>
+          <div class="text-black text-transparent text-ex-sm">
+            <span class="text-sm text-transparent hover ml-2">{{ category.items.length }} transactions</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </mat-card>
-<div class="bottom ml-2 mr-2">
+<!-- bottom menu -->
+<div *ngIf="data.categories.length > 0" class="bottom ml-2 mr-2">
   <div class="add-item-chip" matTooltip="add new item">
     <mat-icon class="material-icons-outlined hover" (click)="openAddItemDialog()">add</mat-icon>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-around center" class="bottom-menu text-black text-bold">
+    <div class="hover" [ngClass]="{'active': viewMode === 'inc', 'pointer-events-none': data.totals.inc === 0}"
+      (click)="setViewMode('inc')">Incomes</div>
+    <div class="hover" [ngClass]="{'active': viewMode === 'exp', 'pointer-events-none': data.totals.exp === 0}"
+      (click)="setViewMode('exp')">Expenses</div>
   </div>
 </div>

@@ -17,6 +17,10 @@
     outline: none;
 }
 
+.pointer-events-none {
+    pointer-events: none;
+}
+
 // aligns
 .vertical-align-bottom {
     vertical-align: sub;
@@ -64,9 +68,19 @@
 }
 
 // icons
+.icon-md {
+    font-size: 28px !important;
+    width: 28px !important;
+    height: 28px !important;
+}
+
 .icon-lg {
     font-size: 80px !important;
     width: 80px !important;
     height: 80px !important;
     opacity: .5;
+}
+
+.icon-primary {
+    color: $icon !important;
 }
