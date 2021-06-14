@@ -83,12 +83,10 @@ export class AddItemComponent implements OnInit, OnDestroy {
       }
 
       // set date
-      if (this.form.get('isToday')) {
-        let date = new Date();
-        this.form.value.dateCreated = new Date(
-          date.getTime() - date.getTimezoneOffset() * 60000
-        ).toJSON();
-        }
+      let date = new Date(this.form.value.dateCreated);
+      this.form.value.dateCreated = new Date(date.getTime() - date.getTimezoneOffset() * 60000).toJSON();
+
+      if (this.form.get('isToday').value) this.form.value.dateCreated = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toJSON()
 
       // modify form value
       let category = {
@@ -100,7 +98,7 @@ export class AddItemComponent implements OnInit, OnDestroy {
           value: this.form.value.value,
         }
       }
-      console.log(category);
+
       this.dialogRef.close(category);
     }
   }
