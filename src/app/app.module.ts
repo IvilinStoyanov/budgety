@@ -24,6 +24,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CategoryDetailComponent } from './components/category-detail/category-detail.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     LatestComponent,
     MonthlyComponent,
     AddItemComponent,
+    CategoryDetailComponent,
     ProgressBarComponent,
   ],
   imports: [

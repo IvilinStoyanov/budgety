@@ -1,4 +1,5 @@
 export class Category {
+    id: number;
     color: string;
     exp: number;
     expPercentage: number;
@@ -10,6 +11,7 @@ export class Category {
 
     constructor
         (
+            id: number = 0,
             color: string = '',
             exp: number = 0,
             expPercentage: number = 0,
@@ -19,6 +21,7 @@ export class Category {
             name: string = '',
             items: []
         ) {
+        this.id = id;
         this.color = color;
         this.exp = exp;
         this.expPercentage = expPercentage;
