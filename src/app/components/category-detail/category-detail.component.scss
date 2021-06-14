@@ -1,0 +1,48 @@
+@import "../../../theme/colors.scss";
+
+$chartSize: 130px;
+
+/*** chart ***/
+.category-title-container {
+    position: relative;
+    width: $chartSize;
+    height: $chartSize;
+
+    .circle-chart {
+        width: $chartSize;
+        height: $chartSize;
+    }
+}
+
+/*** menu ***/
+.menu {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+/*** list ***/
+.item {
+    padding: 10px 10px 10px 10px;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.item__description {
+    color: $black;
+}
+
+.item-type-inc {
+    color: $green !important;
+}
+
+.item-type-exp {
+    color: $red !important;
+}
+
+.item-delete-btn-inc {
+    color: #28b9b5;
+}
+
+.item-delete-btn-exp {
+    color: #ff5049;
+}

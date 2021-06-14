@@ -44,6 +44,7 @@ export class LatestComponent implements OnInit {
 
   setViewMode(mode: string) {
     this.viewMode = mode;
+    this.commonService.viewMode = mode;
   }
 
   showCategories(category: Category) {
@@ -73,13 +74,13 @@ export class LatestComponent implements OnInit {
 
   addItem(params) {
     this.setViewMode(params.items.type);
-
     if (this.data.categories[params.category.id] == undefined) {
       // initial create of category
 
       let category = params.category;
       this.data.categories[params.category.id] =
         new Category(
+          category.id,
           category.color,
           category.exp,
           category.expPercentage,

@@ -41,35 +41,13 @@
 </div>
 <div *ngIf="data.categories.length === 0" fxLayout="column" fxLayoutAlign="center center" class="position-center hover"
   (click)="openAddItemDialog()">
-  <mat-icon class="material-icons-outlined icon-lg"> receipt_long </mat-icon>
+  <mat-icon class="material-icons-outlined icon-ex-lg"> receipt_long </mat-icon>
   <span class="text-transparent">No Transactions</span>
   <span class="text-transparent">Tap here to add one</span>
 </div>
 <!-- list -->
 <mat-card *ngIf="data.categories.length > 0" [style.min-height.px]="500"
   class="ml-2 mr-2 mb-0 mt-0 pt-0 pl-1 border-radius-none">
-  <!-- <div *ngFor="let item of data.items">
-    <div class="item" id="inc-{{ item.id }}">
-      <div fxLayout="row" fxLayoutAlign="space-between center">
-        <div fxLayout="row" fxLayoutAlign="center center" matTooltip="{{ item.description }}">
-          <mat-icon class="material-icons-outlined item-icon-{{
-                item.type
-              }} mr-2">{{ item.category.icon }}</mat-icon><span class="text-black">{{ item.category.name | titlecase }}</span>
-        </div>
-        <div fxLayout="column" fxLayoutAlign="center end">
-          <div class="item__value item-type-{{ item.type }}">
-            <span *ngIf="item.type === 'inc'">+</span>
-            <span *ngIf="item.type === 'exp'">-</span>
-            {{ item.value | number: "1.2-2" }}
-          </div>
-          <div class="text-black text-transparent text-ex-sm">
-            {{ item.dateCreated | date: "dd/MM/yy" }}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
   <!-- categories -->
   <div *ngFor="let category of data.categories">
     <div class="item"
@@ -111,7 +89,7 @@
             {{ category.exp | number: "1.2-2" }}
           </div>
           <div class="text-black text-transparent text-ex-sm">
-            <span class="text-sm text-transparent hover link ml-2">{{ category.items.length }} transactions</span>
+            <span class="text-sm text-transparent hover link ml-2" [routerLink]="['/category', category.id]" routerLinkActive="router-link-active" >{{ category.items.length }} transactions</span>
           </div>
         </div>
       </div>
