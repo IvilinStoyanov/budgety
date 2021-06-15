@@ -1,12 +1,12 @@
-<mat-card [style.min-height.px]="600" class="ml-2 mr-2 mb-0 mt-0">
-  <div fxLayout="column" fxLayoutAlign="center center">
+<mat-card [style.min-height.px]="600" [style.margin-top.px]="55" class="ml-2 mr-2 mb-0">
+  <div fxLayout="column" fxLayoutAlign="center center" [style.margin-top.px]="-80">
     <div class="category-icon-container box-shadow border" [style.border-color]="category.color">
-      <mat-icon class="material-icons-outlined position-center-absolute icon-md-lg mr-2" [style.color]="category.color">{{
+      <div class="text-md text-center text-bold text-uppercase mt-4">{{category.name}}</div>
+      <mat-icon class="material-icons-outlined category-icon icon-md-lg mr-2" [style.color]="category.color">{{
         category.icon }}</mat-icon>
     </div>
-    <div class="text-lg text-bold text-uppercase mt-3">{{category.name}}</div>
   </div>
-  <div fxLayout="row" fxLayoutAlign="center center">
+  <div fxLayout="row" fxLayoutAlign="space-around center">
     <div class="category-title-container">
       <svg width="100%" height="100%" viewBox="0 0 42 42" class="circle-chart">
         <circle cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
@@ -37,13 +37,14 @@
         <div class="item-type-exp">{{category.exp | number: "1.2-2"}}</div>
       </div>
     </div>
-    <div class="menu">
+    <!-- <div class="menu">
       <mat-icon class="material-icons-outlined icon-md icon-primary mr-2 hover" matTooltip="change color">palette
       </mat-icon>
-    </div>
+    </div> -->
   </div>
-  <div *ngFor="let item of category.items">
-    <div class="item" id="inc-{{ item.id }}">
+  <div *ngFor="let item of category.items" class="line-item">
+    <span class="text-black text-transparent text-ex-sm">{{ item.dateCreated | date: "dd/MM/yy" }}</span>
+    <div class="item">
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <div fxLayout="row" fxLayoutAlign="center center" matTooltip="{{ item.description }}">
           <span class="text-black">{{ item.description || category.name | titlecase }}</span>
