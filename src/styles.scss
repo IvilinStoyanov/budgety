@@ -49,11 +49,6 @@ body {
 
 .exp-progress-bar {
   .progress-line {
-    background: linear-gradient(
-      90deg,
-      $red 0%,
-      #ff9393 50%,
-      #ffa8b9 100%
-    ) !important;
+    background: linear-gradient(90deg, $red 0%, #ff9393 50%, #ffa8b9 100%) !important;
   }
 }
