@@ -1,6 +1,22 @@
 @import "../../../theme/colors.scss";
 
-$chartSize: 130px;
+$chartSize: 150px;
+
+.category-icon-container {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    border-radius: 15%;
+    background: $custom-white;
+
+    .category-icon {
+        position: absolute;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+}
 
 /*** chart ***/
 .category-title-container {
@@ -23,8 +39,13 @@ $chartSize: 130px;
 
 /*** list ***/
 .item {
-    padding: 10px 10px 10px 10px;
+    padding: 10px 8px 10px 8px;
     border-bottom: 1px solid #e7e7e7;
+}
+
+.chip {
+    position: absolute;
+    margin-top: -5px;
 }
 
 .item__description {
@@ -45,4 +66,28 @@ $chartSize: 130px;
 
 .item-delete-btn-exp {
     color: #ff5049;
+}
+
+.test {
+    position: relative;
+}
+
+.line-item {
+    padding: 0 0 10px 10px;
+    margin-top: -2px;
+    border-left: 2px solid $primary;
+    position: relative;
+}
+
+.line-item::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50px;
+    left: -8px;
+    top: 0px;
+    background: #fff;
+    border: 2px solid $primary;
+    z-index: 9999;
 }
