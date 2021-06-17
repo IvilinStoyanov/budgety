@@ -4,9 +4,9 @@
     Back</button>
 </div>
 <mat-card [style.min-height.px]="600" [style.margin-top.px]="15" class="ml-2 mr-2 mb-0">
-  <div style="margin:-80px auto 0px; width: 130px;">
+  <div class="category-icon-wrapper">
     <div class="category-icon-container box-shadow border" [style.border-color]="category.color">
-      <div class="text-md text-center text-bold text-uppercase mt-3 mb-2">{{category.name}}</div>
+      <div class="text-md text-center text-bold text-uppercase mt-2 mb-2">{{category.name}}</div>
       <mat-icon class="material-icons-outlined category-icon icon-md-lg mr-2 mt-2" [style.color]="category.color">{{
         category.icon }}</mat-icon>
     </div>
@@ -16,7 +16,7 @@
       <mat-icon class="material-icons-outlined icon-sm">tune</mat-icon>
       Settings</button>
   </div>
-  <div fxLayout="column" fxLayoutAlign="space-around center" class="p-2 mt-3 mb-4">
+  <div fxLayout="column" fxLayoutAlign="space-around center" class="p-2 mt-4 mb-4">
     <div [style.width.%]="100" class="mb-1">
       <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-1">
         <div class="text-black text-md">
