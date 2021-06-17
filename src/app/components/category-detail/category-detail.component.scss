@@ -1,32 +1,27 @@
 @import "../../../theme/colors.scss";
 
-$chartSize: 150px;
+$categoryBanner: 120px;
 
-.category-icon-container {
-    position: relative;
-    width: 130px;
-    height: 130px;
-    border-radius: 15%;
-    background: $custom-white;
+.category-icon-wrapper {
+    margin:-80px auto 0px; width: 130px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    .category-icon-container {
+        position: relative;
+        width: $categoryBanner;
+        height: $categoryBanner;
+        border-radius: 15%;
+        background: $custom-white;
 
-    .category-icon {
-        position: absolute;
-        top: 55%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-    }
-}
-
-/*** chart ***/
-.category-title-container {
-    position: relative;
-    width: $chartSize;
-    height: $chartSize;
-
-    .circle-chart {
-        width: $chartSize;
-        height: $chartSize;
+        .category-icon {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
     }
 }
 
@@ -39,13 +34,13 @@ $chartSize: 150px;
 
 /*** list ***/
 .item {
-    padding: 10px 8px 10px 8px;
+    padding: 20px 8px 15px 8px;
     border-bottom: 1px solid #e7e7e7;
 }
 
 .chip {
     position: absolute;
-    margin-top: -5px;
+    margin-top: -2px;
 }
 
 .item__description {
@@ -68,13 +63,8 @@ $chartSize: 150px;
     color: #ff5049;
 }
 
-.test {
-    position: relative;
-}
-
 .line-item {
-    padding: 0 0 10px 10px;
-    margin-top: -2px;
+    padding: 0 0 0 10px;
     border-left: 2px solid $primary;
     position: relative;
 }

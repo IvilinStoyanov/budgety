@@ -99,7 +99,7 @@
 <!-- bottom menu -->
 <div *ngIf="data.categories.length > 0" class="bottom ml-2 mr-2">
   <div class="add-item-chip" matTooltip="add new item">
-    <mat-icon class="material-icons-outlined hover" (click)="openAddItemDialog()">add</mat-icon>
+    <mat-icon class="material-icons-outlined position-center-absolute icon-lg hover" (click)="openAddItemDialog()">add</mat-icon>
   </div>
   <div fxLayout="row" fxLayoutAlign="space-around center" class="bottom-menu text-black text-bold">
     <div class="hover" [ngClass]="{'active': viewMode === 'inc', 'pointer-events-none': data.totals.inc === 0}"
