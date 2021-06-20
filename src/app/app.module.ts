@@ -10,6 +10,7 @@ import { AddItemComponent } from './components/add-item/add-item.component';
 import { LatestComponent } from './components/latest/latest.component';
 import { MonthlyComponent } from './components/monthly/monthly.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
+import { CategoryDetailComponent } from './components/category-detail/category-detail.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -24,7 +25,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { CategoryDetailComponent } from './components/category-detail/category-detail.component';
 
 @NgModule({
   declarations: [

@@ -16,23 +16,16 @@ export class AddItemComponent implements OnInit, OnDestroy {
   form: FormGroup;
   categoryPicked: any;
 
-  categories: any[] = [
-    { id: Categories.Salary, icon: 'attach_money', name: 'Salary', color: CategoriesColors.Salary },
-    { id: Categories.Car, icon: 'directions_car_filled', name: 'Car', color: CategoriesColors.Car },
-    { id: Categories.Grocery, icon: 'shopping_cart', name: 'Grocery', color: CategoriesColors.Grocery },
-    { id: Categories.Food, icon: 'restaurant', name: 'Food & Restaurant', color: CategoriesColors.Food },
-    { id: Categories.Coffe, icon: 'local_cafe', name: 'Coffe', color: CategoriesColors.Coffe },
-    { id: Categories.Holiday, icon: 'holiday_village', name: 'Holiday', color: CategoriesColors.Holiday },
-    { id: Categories.Utilities, icon: 'receipt', name: 'Utilities', color: CategoriesColors.Utilities },
-    { id: Categories.Rent, icon: 'bedroom_parent', name: 'Rent', color: CategoriesColors.Rent },
-    { id: Categories.LoanPayments, icon: 'credit_score', name: 'Loan Payments', color: CategoriesColors.LoanPayments }
-  ];
+  categories: any;
 
   constructor(
     public dialogRef: MatDialogRef<AddItemComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AddItemComponent,
     private fb: FormBuilder
-  ) { }
+  ) { 
+    console.log(data);
+    this.categories = data;
+  }
 
   ngOnInit() {
     this.createForm();

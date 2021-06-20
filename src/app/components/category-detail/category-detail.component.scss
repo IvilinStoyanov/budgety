@@ -1,10 +1,10 @@
 @import "../../../theme/colors.scss";
 
-$categoryBanner: 120px;
+$categoryBanner: 100px;
 
 .category-icon-wrapper {
     position: absolute;
-    top: 0;
+    top: 45px;
     left: 50%;
     transform: translate(-50%, -50%);
     .category-icon-container {
@@ -16,7 +16,7 @@ $categoryBanner: 120px;
 
         .category-icon {
             position: absolute;
-            top: 55%;
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
@@ -25,7 +25,7 @@ $categoryBanner: 120px;
 }
 
 /*** menu ***/
-.menu {
+.menu-right {
     position: absolute;
     top: 15px;
     right: 15px;
@@ -79,4 +79,12 @@ $categoryBanner: 120px;
     background: #fff;
     border: 2px solid $primary;
     z-index: 9999;
+}
+
+.color {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border: 2px solid #eaeaea;
+    margin: 5px;
 }
