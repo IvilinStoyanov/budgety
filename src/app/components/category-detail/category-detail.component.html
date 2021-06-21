@@ -24,19 +24,11 @@
     </mat-icon>
   </div>
   <mat-menu #menu="matMenu">
+    <div class="text-black text-bold border-bottom ml-1 mb-2 pb-1 text-sm">Pick category color</div>
     <div fxLayout="row wrap">
-      <div class="color" style="background-color:#E94A35;"></div>
-      <div class="color" style="background-color:#F59D00;"></div>
-      <div class="color" style="background-color:#F5E100;"></div>
-      <div class="color" style="background-color:#0073BF;"></div>
-      <div class="color" style="background-color:#009755;"></div>
-      <div class="color" style="background-color:#6EC4FD;"></div>
-      <div class="color" style="background-color:#7935E9;"></div>
-      <div class="color" style="background-color:#B58989;"></div>
-      <div class="color" style="background-color:#790000;"></div>
-      <div class="color" style="background-color:#F26D7D;"></div>
-      <div class="color" style="background-color:#6DF2B5;"></div>
-      <div class="color" style="background-color:#A94A35;"></div>
+      <div *ngFor="let color of data.categoryColors">
+          <div class="color hover" [style.background-color]="color" (click)="changeColor(color)"></div>
+      </div>
     </div>
   </mat-menu>
   <div fxLayout="row" fxLayoutAlign="end center" class="border-top pt-2">

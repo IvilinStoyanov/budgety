@@ -19,6 +19,7 @@ export class LatestComponent implements OnInit {
     this.data = {
       categories: [],
       categoryValues: [],
+      categoryColors: null,
       totals: {
         exp: 0,
         inc: 0,
@@ -33,12 +34,22 @@ export class LatestComponent implements OnInit {
     if (localStorage.getItem('data') !== null) this.data = JSON.parse(localStorage.getItem('data'));
 
     // create initial values if none is provided
-    if (this.data?.categoryValues.length == 0) this.createCategoryInitialValues();
+    if (this.data.categoryValues.length == 0) this.createCategoryInitialValues();
+
+    if (this.data.categoryColors == null) this.createCategoryColors();
 
     this.saveData();
     this.setViewMode('exp');
     // set viewMode to inc if there is no expenses on first load.
     if (this.data.totals.exp === 0) this.viewMode = 'inc';
+  }
+
+  saveData() {
+    localStorage.setItem('data', JSON.stringify(this.data));
+  }
+
+  createCategoryColors() {
+    this.data.categoryColors = Object.values(CategoriesColors);
   }
 
   createCategoryInitialValues() {
@@ -51,12 +62,9 @@ export class LatestComponent implements OnInit {
       { id: Categories.Holiday, icon: 'holiday_village', name: 'Holiday', color: CategoriesColors.Holiday },
       { id: Categories.Utilities, icon: 'receipt', name: 'Utilities', color: CategoriesColors.Utilities },
       { id: Categories.Rent, icon: 'bedroom_parent', name: 'Rent', color: CategoriesColors.Rent },
-      { id: Categories.LoanPayments, icon: 'credit_score', name: 'Loan Payments', color: CategoriesColors.LoanPayments }
+      { id: Categories.LoanPayments, icon: 'credit_score', name: 'Loan Payments', color: CategoriesColors.LoanPayments },
+      { id: Categories.Savings, icon: 'savings', name: 'Savings', color: CategoriesColors.Savings }
     ];
-  }
-
-  saveData() {
-    localStorage.setItem('data', JSON.stringify(this.data));
   }
 
   setViewMode(mode: string) {
