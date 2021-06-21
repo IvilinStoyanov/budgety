@@ -3,6 +3,8 @@ import { CommonService } from 'src/services/common.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddItemComponent } from '../add-item/add-item.component';
 import { Category } from 'src/app/models/category';
+import { Categories } from 'src/app/enums/categories.enum';
+import { CategoriesColors } from 'src/app/enums/categories-colors.enum';
 
 @Component({
   selector: 'app-latest',
@@ -16,7 +18,8 @@ export class LatestComponent implements OnInit {
   constructor(public dialog: MatDialog, public commonService: CommonService) {
     this.data = {
       categories: [],
-      items: [],
+      categoryValues: [],
+      categoryColors: null,
       totals: {
         exp: 0,
         inc: 0,
@@ -28,9 +31,12 @@ export class LatestComponent implements OnInit {
 
   ngOnInit() {
     // get data from localstorage
-    if (localStorage.getItem('data') !== null) {
-      this.data = JSON.parse(localStorage.getItem('data'));
-    }
+    if (localStorage.getItem('data') !== null) this.data = JSON.parse(localStorage.getItem('data'));
+
+    // create initial values if none is provided
+    if (this.data.categoryValues.length == 0) this.createCategoryInitialValues();
+
+    if (this.data.categoryColors == null) this.createCategoryColors();
 
     this.saveData();
     this.setViewMode('exp');
@@ -40,6 +46,25 @@ export class LatestComponent implements OnInit {
 
   saveData() {
     localStorage.setItem('data', JSON.stringify(this.data));
+  }
+
+  createCategoryColors() {
+    this.data.categoryColors = Object.values(CategoriesColors);
+  }
+
+  createCategoryInitialValues() {
+    this.data.categoryValues = [
+      { id: Categories.Salary, icon: 'attach_money', name: 'Salary', color: CategoriesColors.Salary },
+      { id: Categories.Car, icon: 'directions_car_filled', name: 'Car', color: CategoriesColors.Car },
+      { id: Categories.Grocery, icon: 'shopping_cart', name: 'Grocery', color: CategoriesColors.Grocery },
+      { id: Categories.Food, icon: 'restaurant', name: 'Food & Restaurant', color: CategoriesColors.Food },
+      { id: Categories.Coffe, icon: 'local_cafe', name: 'Coffe', color: CategoriesColors.Coffe },
+      { id: Categories.Holiday, icon: 'holiday_village', name: 'Holiday', color: CategoriesColors.Holiday },
+      { id: Categories.Utilities, icon: 'receipt', name: 'Utilities', color: CategoriesColors.Utilities },
+      { id: Categories.Rent, icon: 'bedroom_parent', name: 'Rent', color: CategoriesColors.Rent },
+      { id: Categories.LoanPayments, icon: 'credit_score', name: 'Loan Payments', color: CategoriesColors.LoanPayments },
+      { id: Categories.Savings, icon: 'savings', name: 'Savings', color: CategoriesColors.Savings }
+    ];
   }
 
   setViewMode(mode: string) {
@@ -64,7 +89,8 @@ export class LatestComponent implements OnInit {
 
   openAddItemDialog(): void {
     const dialogRef = this.dialog.open(AddItemComponent, {
-      autoFocus: false
+      autoFocus: false,
+      data: this.data.categoryValues
     });
 
     dialogRef.afterClosed().subscribe((result) => {

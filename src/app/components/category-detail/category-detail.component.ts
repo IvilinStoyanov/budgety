@@ -9,6 +9,7 @@ import { CommonService } from 'src/services/common.service';
 })
 export class CategoryDetailComponent implements OnInit {
   data: any;
+  categoryID: number;
   category: any;
   viewMode: string;
 
@@ -21,6 +22,7 @@ export class CategoryDetailComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       let id = params['id'];
+      this.categoryID = id;
 
       if (this.data) this.category = this.data.categories[id];
 
@@ -28,4 +30,9 @@ export class CategoryDetailComponent implements OnInit {
     })
   }
 
+  changeColor(color: string) {
+    this.data.categories[this.categoryID].color = color;
+
+    this.commonService.saveData(this.data);
+  }
 }

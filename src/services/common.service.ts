@@ -16,4 +16,8 @@ export class CommonService {
 
     return false;
   }
+
+  saveData(data: any) {
+    localStorage.setItem('data', JSON.stringify(data));
+  }
 }

@@ -7,5 +7,6 @@ export enum Categories {
     Holiday = 5,
     Utilities = 6,
     Rent = 7,
-    LoanPayments = 8
+    LoanPayments = 8,
+    Savings = 9
 }

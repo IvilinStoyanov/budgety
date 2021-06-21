@@ -26,7 +26,5 @@ export class AppComponent implements OnInit {
 
   onChange(event: MatTabChangeEvent) {
     this.navigateTo(event.tab.textLabel.toLowerCase());
-
-    console.log(event);
   }
 }

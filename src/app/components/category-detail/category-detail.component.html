@@ -1,20 +1,43 @@
 <div fxLayout="row" fxLayoutAlign="start center" class="ml-2 mr-2">
   <button mat-raised-button [routerLink]="['/latest']">
     <mat-icon class="material-icons-outlined icon-sm">keyboard_return</mat-icon>
-    Back</button>
+    Back
+  </button>
 </div>
 <mat-card [style.min-height.px]="600" [style.margin-top.px]="15" class="ml-2 mr-2 mb-0">
-  <div class="category-icon-wrapper">
-    <div class="category-icon-container box-shadow border" [style.border-color]="category.color">
-      <div class="text-md text-center text-bold text-uppercase mt-2 mb-2">{{category.name}}</div>
-      <mat-icon class="material-icons-outlined category-icon icon-md-lg mr-2 mt-2" [style.color]="category.color">{{
-        category.icon }}</mat-icon>
+  <div [style.height.px]="110">
+    <div class="category-icon-wrapper" fxLayout="column" fxLayoutAlign="center center">
+      <div class="category-icon-container box-shadow border mb-2" [style.border-color]="category.color">
+        <mat-icon class="material-icons-outlined category-icon icon-lg" [style.color]="category.color">{{
+          category.icon }}</mat-icon>
+      </div>
+      <div class="text-lg text-center text-bold text-uppercase text-transparent">
+        Category
+      </div>
+      <div class="text-bold text-md">
+        {{category.name}}
+      </div>
     </div>
   </div>
-  <div fxLayout="row" fxLayoutAlign="end center">
-    <button mat-stroked-button [style.color]="category.color" [style.border-color]="category.color">
-      <mat-icon class="material-icons-outlined icon-sm">tune</mat-icon>
-      Settings</button>
+  <div class="menu-right hover" [matMenuTriggerFor]="menu">
+    <mat-icon class="material-icons-outlined" [style.color]="category.color" matTooltip="change color">palette
+    </mat-icon>
+  </div>
+  <mat-menu #menu="matMenu">
+    <div class="text-black text-bold border-bottom ml-1 mb-2 pb-1 text-sm">Pick category color</div>
+    <div fxLayout="row wrap">
+      <div *ngFor="let color of data.categoryColors">
+          <div class="color hover" [style.background-color]="color" (click)="changeColor(color)"></div>
+      </div>
+    </div>
+  </mat-menu>
+  <div fxLayout="row" fxLayoutAlign="end center" class="border-top pt-2">
+    <div>
+      <button mat-stroked-button [style.color]="category.color" [style.border-color]="category.color">
+        <mat-icon class="material-icons-outlined icon-sm">tune</mat-icon>
+        Settings
+      </button>
+    </div>
   </div>
   <div fxLayout="column" fxLayoutAlign="space-around center" class="p-2 mt-4 mb-4">
     <div [style.width.%]="100" class="mb-1">

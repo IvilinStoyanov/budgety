@@ -7,5 +7,6 @@ export enum CategoriesColors {
     Holiday = '#24f012',
     Utilities = '#e8500e',
     Rent = '#d1165f',
-    LoanPayments = '#bd79dc'
+    LoanPayments = '#bd79dc',
+    Savings = '#29cc88'
 }
