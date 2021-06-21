@@ -40,7 +40,7 @@
     </div>
   </div>
   <div fxLayout="column" fxLayoutAlign="space-around center" class="p-2 mt-4 mb-4">
-    <div [style.width.%]="100" class="mb-1">
+    <div [style.width.%]="100" class="mb-1" *ngIf="category.inc > 0">
       <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-1">
         <div class="text-black text-md">
           Incomes
@@ -52,7 +52,7 @@
       </div>
       <app-progress-bar [percentage]="category.incPercentage"></app-progress-bar>
     </div>
-    <div [style.width.%]="100" class="mt-1">
+    <div [style.width.%]="100" class="mt-1" *ngIf="category.exp > 0">
       <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-1">
         <div class="text-black text-md">
           Expenses
