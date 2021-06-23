@@ -25,8 +25,6 @@ export class CategoryDetailComponent implements OnInit {
       this.categoryID = id;
 
       if (this.data) this.category = this.data.categories[id];
-
-      console.log(this.category);
     })
   }
 
@@ -43,7 +41,7 @@ export class CategoryDetailComponent implements OnInit {
       this.data.categories[this.categoryID].exp -= item.value;
       this.data.totals.exp -= item.value;
     }
-    
+
     this.data.budget = this.data.totals.inc - this.data.totals.exp;
 
     // calculate category income/expense percetanges of current budget
