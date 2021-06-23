@@ -18,7 +18,7 @@ export class LatestComponent implements OnInit {
   constructor(public dialog: MatDialog, public commonService: CommonService) {
     this.data = {
       categories: [],
-      categoryValues: [],
+      categoryTemplates: [],
       categoryColors: null,
       totals: {
         exp: 0,
@@ -35,9 +35,11 @@ export class LatestComponent implements OnInit {
     if (localStorage.getItem('data') !== null) this.data = JSON.parse(localStorage.getItem('data'));
 
     // create initial values if none is provided
-    if (this.data.categoryValues.length == 0) this.createCategoryInitialValues();
+    //if (this.data.categoryValues.length == 0)
+    this.createCategoryInitialValues();
 
-    if (this.data.categoryColors == null) this.createCategoryColors();
+    //if (this.data.categoryColors == null) 
+    this.createCategoryColors();
 
     this.saveData();
     this.setViewMode('exp');
@@ -55,12 +57,14 @@ export class LatestComponent implements OnInit {
   }
 
   createCategoryInitialValues() {
-    this.data.categoryValues = [
+    this.data.categoryTemplates = [
       { id: Categories.Salary, icon: 'attach_money', name: 'Salary', color: CategoriesColors.Salary },
       { id: Categories.Car, icon: 'directions_car_filled', name: 'Car', color: CategoriesColors.Car },
       { id: Categories.Grocery, icon: 'shopping_cart', name: 'Grocery', color: CategoriesColors.Grocery },
       { id: Categories.Food, icon: 'restaurant', name: 'Food & Restaurant', color: CategoriesColors.Food },
       { id: Categories.Coffe, icon: 'local_cafe', name: 'Coffe', color: CategoriesColors.Coffe },
+      { id: Categories.Haircut, icon: 'content_cut', name: 'Haircut', color: CategoriesColors.Haircut },
+      { id: Categories.MedicalSupplies, icon: 'medication', name: 'Medical Supplies', color: CategoriesColors.MedicalSupplies },
       { id: Categories.Holiday, icon: 'holiday_village', name: 'Holiday', color: CategoriesColors.Holiday },
       { id: Categories.Utilities, icon: 'receipt', name: 'Utilities', color: CategoriesColors.Utilities },
       { id: Categories.Rent, icon: 'bedroom_parent', name: 'Rent', color: CategoriesColors.Rent },
@@ -92,7 +96,7 @@ export class LatestComponent implements OnInit {
   openAddItemDialog(): void {
     const dialogRef = this.dialog.open(AddItemComponent, {
       autoFocus: false,
-      data: this.data.categoryValues
+      data: this.data.categoryTemplates
     });
 
     dialogRef.afterClosed().subscribe((result) => {

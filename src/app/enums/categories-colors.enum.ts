@@ -8,5 +8,7 @@ export enum CategoriesColors {
     Utilities = '#e8500e',
     Rent = '#d1165f',
     LoanPayments = '#bd79dc',
-    Savings = '#29cc88'
+    Savings = '#29cc88',
+    Haircut = '#e3db46',
+    MedicalSupplies = '#190c6e'
 }
