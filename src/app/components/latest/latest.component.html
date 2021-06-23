@@ -20,10 +20,10 @@
           data.totals.inc | number: "1.2-2"
           }}</span>
       </div>
-      <div class="text-black text-md">{{ 100 - data.percentage }}%</div>
+      <div class="text-black text-md">{{ data.incPercentage }}%</div>
     </div>
     <div class="pb-3">
-      <app-progress-bar [percentage]="100 - data.percentage"></app-progress-bar>
+      <app-progress-bar [percentage]="data.incPercentage"></app-progress-bar>
     </div>
     <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-1">
       <div class="text-black text-md">
@@ -32,10 +32,10 @@
           data.totals.exp | number: "1.2-2"
           }}</span>
       </div>
-      <div class="text-black text-md">{{ data.percentage }}%</div>
+      <div class="text-black text-md">{{ data.expPercentage }}%</div>
     </div>
     <div class="pb-3">
-      <app-progress-bar class="exp-progress-bar" [percentage]="data.percentage"></app-progress-bar>
+      <app-progress-bar class="exp-progress-bar" [percentage]="data.expPercentage"></app-progress-bar>
     </div>
   </mat-card>
 </div>

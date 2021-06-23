@@ -88,3 +88,13 @@ $categoryBanner: 100px;
     border: 2px solid #eaeaea;
     margin: 5px;
 }
+
+.hover-menu {
+    display: none;
+}
+
+.line-item:hover {
+    .hover-menu {
+        display: block;
+    }
+}

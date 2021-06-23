@@ -25,7 +25,8 @@ export class LatestComponent implements OnInit {
         inc: 0,
       },
       budget: 0,
-      percentage: 0,
+      incPercentage: 0,
+      expPercentage: 0,
     };
   }
 
@@ -40,6 +41,7 @@ export class LatestComponent implements OnInit {
 
     this.saveData();
     this.setViewMode('exp');
+
     // set viewMode to inc if there is no expenses on first load.
     if (this.data.totals.exp === 0) this.viewMode = 'inc';
   }
@@ -135,87 +137,19 @@ export class LatestComponent implements OnInit {
         this.data.categories[params.category.id].inc += params.items.value;
       }
     }
+
     // Push it into our data structure
     this.data.categories[params.category.id].items.push(params.items);
+
     // calculate budget
     this.data.budget = this.data.totals.inc - this.data.totals.exp;
 
     // calculate category income/expense percetanges of current budget
-    this.calculateTotalExpPercentage();
+    this.data = this.commonService.calculateTotalExpPercentage(this.data);
+
     // calculate global income/expense percetanges of current budget
-    this.calculatePercentageEach();
+    this.data = this.commonService.calculatePercentageEach(this.data);
 
-    this.saveData();
-  }
-
-  clearList(type) {
-    if (type === 'exp') {
-      this.data.items.exp = [];
-      this.data.totals.exp = 0;
-    } else {
-      this.data.items.inc = [];
-      this.data.totals.inc = 0;
-    }
-    localStorage.setItem('data', JSON.stringify(this.data));
-    this.calculateBudget();
-  }
-
-  calculateBudget() {
-    // Calculate total income and expenses
-    this.calculateTotal('exp');
-    this.calculateTotal('inc');
-
-    // Calculate the budget: income - expenses
-    this.data.budget = this.data.totals.inc - this.data.totals.exp;
-
-    // Calculate the percentage of income that we spent
-    if (this.data.totals.inc > 0) {
-      this.data.percentage = Math.round(
-        (this.data.totals.exp / this.data.totals.inc) * 100
-      );
-      if (this.data.percentage > 100) this.data.percentage = 100;
-    } else if (this.data.budget < 0) {
-      this.data.percentage = 100;
-    } else {
-      this.data.percentage = 0;
-    }
-  }
-
-  calculatePercentages() {
-    //this.data.items.exp.forEach((cur) => console.log(cur));
-  }
-
-  calculatePercentageEach() {
-    // calculate category expense percetange of current budget
-    this.data.categories.forEach((category, index) => {
-      if (category) {
-        if (category.exp > 0 && this.data.totals.inc > 0) category.expPercentage = Math.round((category.exp / this.data.totals.inc) * 100);
-        if (category.inc > 0) category.incPercentage = Math.round((category.inc / this.data.totals.inc) * 100);
-      }
-    });
-  }
-
-  calculateTotalExpPercentage() {
-    // Calculate the percentage of income that we spent
-    if (this.data.totals.inc > 0) {
-      this.data.percentage = Math.round(
-        (this.data.totals.exp / this.data.totals.inc) * 100
-      );
-      if (this.data.percentage > 100) this.data.percentage = 100;
-    } else if (this.data.budget < 0) {
-      this.data.percentage = 100;
-    } else {
-      this.data.percentage = 0;
-    }
-  }
-
-  calculateTotal(type) {
-    let sum = 0;
-
-    this.data.items.forEach((item) => {
-      if (type === item.type) sum += item.value;
-    });
-
-    this.data.totals[type] = sum;
+    this.commonService.saveData(this.data);
   }
 }

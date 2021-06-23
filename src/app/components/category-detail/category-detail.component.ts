@@ -30,6 +30,31 @@ export class CategoryDetailComponent implements OnInit {
     })
   }
 
+  deleteItem(item: any, index: number) {
+    this.data.categories[this.categoryID].items.splice(index, 1);
+
+    // calculate total budget
+    if (item.type === 'inc') {
+      this.data.categories[this.categoryID].inc -= item.value;
+      this.data.totals.inc -= item.value;
+    }
+
+    if (item.type === 'exp') {
+      this.data.categories[this.categoryID].exp -= item.value;
+      this.data.totals.exp -= item.value;
+    }
+    
+    this.data.budget = this.data.totals.inc - this.data.totals.exp;
+
+    // calculate category income/expense percetanges of current budget
+    this.data = this.commonService.calculateTotalExpPercentage(this.data);
+
+    // calculate global income/expense percetanges of current budget
+    this.data = this.commonService.calculatePercentageEach(this.data);
+
+    this.commonService.saveData(this.data);
+  }
+
   changeColor(color: string) {
     this.data.categories[this.categoryID].color = color;
 
