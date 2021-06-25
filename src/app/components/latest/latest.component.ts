@@ -107,20 +107,11 @@ export class LatestComponent implements OnInit {
   addItem(params) {
     this.setViewMode(params.items.type);
     if (this.data.categories[params.category.id] == undefined) {
-      // initial create of category
-
       let category = params.category;
+
+      // initial create of category
       this.data.categories[params.category.id] =
-        new Category(
-          category.id,
-          category.color,
-          category.exp,
-          category.expPercentage,
-          category.incPercentage,
-          category.icon,
-          category.inc,
-          category.name,
-          []);
+        new Category(category.id, category.color, 0, 0, 0, category.icon, 0, category.name, []);
 
       if (params.items.type === 'exp') {
         this.data.totals.exp += params.items.value;
