@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
@@ -18,6 +19,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  navigateHome() {
+    this.router.navigate(['/latest']);
+    this.commonService.currentTabIndex.next(0);
   }
 
 }

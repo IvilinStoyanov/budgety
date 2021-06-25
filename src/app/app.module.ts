@@ -12,6 +12,8 @@ import { MonthlyComponent } from './components/monthly/monthly.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import { CategoryDetailComponent } from './components/category-detail/category-detail.component';
 import { TabsComponent } from './components/common/tabs/tabs.component';
+import { AddColorComponent } from './components/add-color/add-color.component';
+import { AddCategoryComponent } from './components/add-category/add-category.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,6 +30,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import { ColorSketchModule } from 'ngx-color/sketch'; 
+
+
 
 @NgModule({
   declarations: [
@@ -37,7 +42,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     AddItemComponent,
     CategoryDetailComponent,
     ProgressBarComponent,
-    TabsComponent
+    TabsComponent,
+    AddColorComponent,
+    AddCategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +65,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonToggleModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    ColorSketchModule
   ],
   providers: [],
   bootstrap: [AppComponent],
