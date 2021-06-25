@@ -5,6 +5,7 @@ import { AddItemComponent } from '../add-item/add-item.component';
 import { Category } from 'src/app/models/category';
 import { Categories } from 'src/app/enums/categories.enum';
 import { CategoriesColors } from 'src/app/enums/categories-colors.enum';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-latest',
@@ -47,6 +48,7 @@ export class LatestComponent implements OnInit {
     // set viewMode to inc if there is no expenses on first load.
     if (this.data.totals.exp === 0) this.viewMode = 'inc';
   }
+
 
   saveData() {
     localStorage.setItem('data', JSON.stringify(this.data));
@@ -107,20 +109,11 @@ export class LatestComponent implements OnInit {
   addItem(params) {
     this.setViewMode(params.items.type);
     if (this.data.categories[params.category.id] == undefined) {
-      // initial create of category
-
       let category = params.category;
+
+      // initial create of category
       this.data.categories[params.category.id] =
-        new Category(
-          category.id,
-          category.color,
-          category.exp,
-          category.expPercentage,
-          category.incPercentage,
-          category.icon,
-          category.inc,
-          category.name,
-          []);
+        new Category(category.id, category.color, 0, 0, 0, category.icon, 0, category.name, []);
 
       if (params.items.type === 'exp') {
         this.data.totals.exp += params.items.value;

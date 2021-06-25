@@ -20,11 +20,4 @@ export class AppComponent implements OnInit {
   ngOnInit() {
   }
 
-  navigateTo(path: string) {
-    this.router.navigate([`/${path}`]);
-  }
-
-  onChange(event: MatTabChangeEvent) {
-    this.navigateTo(event.tab.textLabel.toLowerCase());
-  }
 }

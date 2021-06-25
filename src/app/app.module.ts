@@ -11,6 +11,7 @@ import { LatestComponent } from './components/latest/latest.component';
 import { MonthlyComponent } from './components/monthly/monthly.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import { CategoryDetailComponent } from './components/category-detail/category-detail.component';
+import { TabsComponent } from './components/common/tabs/tabs.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -26,6 +27,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +36,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     AddItemComponent,
     CategoryDetailComponent,
     ProgressBarComponent,
+    TabsComponent
   ],
   imports: [
     BrowserModule,
