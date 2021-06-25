@@ -6,6 +6,7 @@ import { Category } from 'src/app/models/category';
 import { Categories } from 'src/app/enums/categories.enum';
 import { CategoriesColors } from 'src/app/enums/categories-colors.enum';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-latest',
@@ -16,7 +17,7 @@ export class LatestComponent implements OnInit {
   data: any;
   viewMode: any;
 
-  constructor(public dialog: MatDialog, public commonService: CommonService) {
+  constructor(public dialog: MatDialog, public commonService: CommonService, private router: Router) {
     this.data = {
       categories: [],
       categoryTemplates: [],
@@ -49,6 +50,9 @@ export class LatestComponent implements OnInit {
     if (this.data.totals.exp === 0) this.viewMode = 'inc';
   }
 
+  navigateToCategory(categoryName: string, categoryID: number) {
+    this.router.navigate([`/category/${categoryName}`], {queryParams: {id: categoryID}, skipLocationChange: true, replaceUrl: false});
+  }
 
   saveData() {
     localStorage.setItem('data', JSON.stringify(this.data));
