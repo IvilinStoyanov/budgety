@@ -20,7 +20,7 @@ export class CategoryDetailComponent implements OnInit {
 
     this.viewMode = this.commonService.viewMode;
 
-    this.route.params.subscribe(params => {
+    this.route.queryParams.subscribe(params => {
       let id = params['id'];
       this.categoryID = id;
 

@@ -90,7 +90,7 @@
             {{ category.exp | number: "1.2-2" }}
           </div>
           <div class="text-black text-transparent text-ex-sm">
-            <span class="text-sm text-transparent hover link ml-2" [routerLink]="['/category', category.id]" routerLinkActive="router-link-active" >{{ category.items.length }} transactions</span>
+            <span class="text-sm text-transparent hover link ml-2" (click)="navigateToCategory(category.name, category.id)">{{ category.items.length }} transactions</span>
           </div>
         </div>
       </div>
