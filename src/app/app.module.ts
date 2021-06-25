@@ -25,6 +25,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 
@@ -56,6 +57,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     MatSnackBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatButtonToggleModule,
     NoopAnimationsModule
   ],
   providers: [],

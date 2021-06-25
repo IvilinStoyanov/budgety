@@ -1,16 +1,10 @@
-<app-tabs></app-tabs>
-<div class="pl-3 pr-3 pb-3">
-  <div class="text-center text-sm text-transparent text-uppercase pb-1">
-    Balance
-  </div>
-  <div class="budget-value text-center">
-    <span *ngIf="data.budget > 0">+</span>{{ data.budget | number: "1.2-2" }}
-  </div>
-</div>
-<!-- progress bar -->
 <div *ngIf="data.categories.length > 0" class="ml-2 mr-2 mt-2 mb-0">
+  <!-- tabs -->
+  <app-tabs></app-tabs>
+  <!-- progress bar -->
   <mat-card class="
       border-bottom
+      border-top-right-radius-none
       border-bottom-left-radius-none
       border-bottom-right-radius-none
     ">
@@ -51,8 +45,7 @@
   class="ml-2 mr-2 mb-0 mt-0 pt-0 pl-1 border-radius-none">
   <!-- categories -->
   <div *ngFor="let category of data.categories">
-    <div class="item"
-      *ngIf="category && showCategories(category)">
+    <div class="item" *ngIf="category && showCategories(category)">
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <div fxLayout="row" fxLayoutAlign="start center">
           <div class="category-title-container">
@@ -90,7 +83,8 @@
             {{ category.exp | number: "1.2-2" }}
           </div>
           <div class="text-black text-transparent text-ex-sm">
-            <span class="text-sm text-transparent hover link ml-2" (click)="navigateToCategory(category.name, category.id)">{{ category.items.length }} transactions</span>
+            <span class="text-sm text-transparent hover link ml-2"
+              (click)="navigateToCategory(category.name, category.id)">{{ category.items.length }} transactions</span>
           </div>
         </div>
       </div>
@@ -100,7 +94,8 @@
 <!-- bottom menu -->
 <div *ngIf="data.categories.length > 0" class="bottom ml-2 mr-2">
   <div class="add-item-chip" matTooltip="add new item">
-    <mat-icon class="material-icons-outlined position-center-absolute icon-lg hover" (click)="openAddItemDialog()">add</mat-icon>
+    <mat-icon class="material-icons-outlined position-center-absolute icon-lg hover" (click)="openAddItemDialog()">add
+    </mat-icon>
   </div>
   <div fxLayout="row" fxLayoutAlign="space-around center" class="bottom-menu text-black text-bold">
     <div class="hover" [ngClass]="{'active': viewMode === 'inc', 'pointer-events-none': data.totals.inc === 0}"

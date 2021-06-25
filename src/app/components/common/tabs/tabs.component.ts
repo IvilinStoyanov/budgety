@@ -11,6 +11,7 @@ import { CommonService } from 'src/services/common.service';
 export class TabsComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
+  data: any;
   currentIndex: number;
 
   constructor(public commonService: CommonService) {
@@ -18,6 +19,9 @@ export class TabsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // get data from localstorage
+    if (localStorage.getItem('data') !== null) this.data = JSON.parse(localStorage.getItem('data'));
+
     const currentTabIndexSubscription$ = this.commonService.currentTabIndex.subscribe(value => this.currentIndex = value);
 
     this.subscription.add(currentTabIndexSubscription$);

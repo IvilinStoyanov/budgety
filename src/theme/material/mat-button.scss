@@ -8,5 +8,10 @@ button {
         border-color: $primary !important;
         color: $primary !important;
       }
+
+      &.mat-secondary {
+        border-color: $secondary !important;
+        color: $secondary !important;
+      }
     }
 }

@@ -61,7 +61,7 @@
     border-top-right-radius: 0 !important;
 }
 
-.border-bottom-right-radius-none {
+.border-bottom-left-radius-none {
     border-bottom-left-radius: 0 !important;
 }
 
@@ -79,6 +79,10 @@
 
 .border {
     border: 1px solid #d2d3d4;
+}
+
+.border-white {
+    border: 1px solid $custom-white !important;
 }
 
 /* icons */

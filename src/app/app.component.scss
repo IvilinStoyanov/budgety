@@ -20,3 +20,11 @@ body {
     height: 100vh;
     font-weight: 400;
 }
+
+.title-container {
+    .title {
+        font-family: "Dancing Script", cursive !important;
+        color: $custom-white;
+        font-size: 30px;
+    }
+}

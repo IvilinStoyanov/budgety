@@ -1,5 +1,25 @@
-<mat-tab-group [animationDuration]="0" [selectedIndex]="currentIndex" color="primary" class="ml-2 mr-2" (selectedTabChange)="onChange($event)">
-  <mat-tab label="Latest"></mat-tab>
-  <mat-tab label="Monthly"></mat-tab>
-  <mat-tab label="Yearly"></mat-tab>
-</mat-tab-group>
+<div class="pl-3 pr-3 pb-4">
+  <div class="text-center text-sm text-transparent text-uppercase pb-1">
+    Balance
+  </div>
+  <div class="budget-value text-center">
+    <span *ngIf="data.budget > 0">+</span>{{ data.budget | number: "1.2-2" }}
+  </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="center end">
+  <button mat-raised-button
+    class="border-white border-bottom-left-radius-none border-bottom-right-radius-none border-top-right-radius-none"
+    [routerLink]="['/latest']" [routerLinkActive]="['is-active']">
+    Latest
+  </button>
+  <button mat-raised-button
+    class="border-white border-bottom-left-radius-none border-bottom-right-radius-none border-top-left-radius-none border-top-right-radius-none"
+    [routerLink]="['/monthly']" [routerLinkActive]="['is-active']">
+    Monthly
+  </button>
+  <button mat-raised-button
+    class="border-white border-bottom-left-radius-none border-bottom-right-radius-none border-top-left-radius-none"
+    [routerLink]="['/yearly']" [routerLinkActive]="['is-active']">
+    Yearly
+  </button>
+</div>
