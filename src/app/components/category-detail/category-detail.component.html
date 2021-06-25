@@ -1,9 +1,3 @@
-<div fxLayout="row" fxLayoutAlign="start center" class="ml-2 mr-2">
-  <button mat-raised-button [routerLink]="['/latest']">
-    <mat-icon class="material-icons-outlined icon-sm">keyboard_return</mat-icon>
-    Back
-  </button>
-</div>
 <mat-card *ngIf="category" [style.min-height.px]="600" [style.margin-top.px]="15" class="ml-2 mr-2 mb-0">
   <div [style.height.px]="110">
     <div class="category-icon-wrapper" fxLayout="column" fxLayoutAlign="center center">
@@ -19,6 +13,12 @@
       </div>
     </div>
   </div>
+  <div class="menu-left">
+    <button mat-stroked-button color="secondary" [routerLink]="['/latest']">
+      <mat-icon class="material-icons-outlined icon-sm">keyboard_return</mat-icon>
+      Back
+    </button>
+  </div>
   <div class="menu-right hover" [matMenuTriggerFor]="menu">
     <mat-icon class="material-icons-outlined" [style.color]="category.color" matTooltip="change color">palette
     </mat-icon>
@@ -33,7 +33,7 @@
   </mat-menu>
   <div fxLayout="row" fxLayoutAlign="end center" class="border-top pt-2">
     <div>
-      <button mat-stroked-button [style.color]="category.color" [style.border-color]="category.color">
+      <button mat-stroked-button color="secondary">
         <mat-icon class="material-icons-outlined icon-sm">tune</mat-icon>
         Settings
       </button>
