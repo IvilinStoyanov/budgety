@@ -40,8 +40,7 @@ export class LatestComponent implements OnInit {
     //if (this.data.categoryValues.length == 0)
     this.createCategoryInitialValues();
 
-    //if (this.data.categoryColors == null) 
-    this.createCategoryColors();
+    if (this.data.categoryColors == null) this.createCategoryColors();
 
     this.saveData();
     this.setViewMode('exp');
@@ -51,7 +50,7 @@ export class LatestComponent implements OnInit {
   }
 
   navigateToCategory(categoryName: string, categoryID: number) {
-    this.router.navigate([`/category/${categoryName}`], {queryParams: {id: categoryID}, skipLocationChange: true, replaceUrl: false});
+    this.router.navigate([`/category/${categoryName}`], { queryParams: { id: categoryID }, skipLocationChange: true, replaceUrl: false });
   }
 
   saveData() {

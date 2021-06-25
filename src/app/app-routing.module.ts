@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AddColorComponent } from './components/add-color/add-color.component';
 import { CategoryDetailComponent } from './components/category-detail/category-detail.component';
 import { LatestComponent } from './components/latest/latest.component';
 import { MonthlyComponent } from './components/monthly/monthly.component';
@@ -16,6 +17,10 @@ const routes: Routes = [
     {
       path: 'monthly',
       component: MonthlyComponent
+    },
+    {
+      path: 'add-color',
+      component: AddColorComponent
     },
     { path: '**', redirectTo: 'latest' }
   ];
