@@ -13,12 +13,7 @@
       </div>
     </div>
   </div>
-  <div class="menu-left">
-    <button mat-stroked-button color="secondary" [routerLink]="['/latest']">
-      <mat-icon class="material-icons-outlined icon-sm">keyboard_return</mat-icon>
-      Back
-    </button>
-  </div>
+  <app-back-button></app-back-button>
   <div class="menu-right hover" [matMenuTriggerFor]="menu">
     <mat-icon class="material-icons-outlined" [style.color]="category.color" matTooltip="change color">palette
     </mat-icon>

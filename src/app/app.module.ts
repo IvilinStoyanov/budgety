@@ -31,6 +31,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ColorSketchModule } from 'ngx-color/sketch'; 
+import { BackButtonComponent } from './components/common/back-button/back-button.component';
 
 
 
@@ -44,7 +45,8 @@ import { ColorSketchModule } from 'ngx-color/sketch';
     ProgressBarComponent,
     TabsComponent,
     AddColorComponent,
-    AddCategoryComponent
+    AddCategoryComponent,
+    BackButtonComponent
   ],
   imports: [
     BrowserModule,

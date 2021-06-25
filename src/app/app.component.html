@@ -7,7 +7,7 @@
     <div>
       <mat-icon class="material-icons-outlined icon-sm" [matMenuTriggerFor]="menu">tune</mat-icon>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>New category</button>
+        <button mat-menu-item [routerLink]="['/add-category']">New category</button>
         <button mat-menu-item [routerLink]="['/add-color']">New color</button>
       </mat-menu>
     </div>
