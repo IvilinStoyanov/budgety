@@ -1,12 +1,21 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { ReplaySubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CommonService {
   viewMode: string;
+  currentTabIndex: ReplaySubject<number>;
 
-  constructor() { }
+  constructor(private router: Router) {
+    this.currentTabIndex = new ReplaySubject<number>(0);
+   }
+
+  navigateTo(path: string) {
+    this.router.navigate([`/${path}`]);
+  }
 
   isDateToday(date: Date) {
     let today = new Date(new Date().setHours(0, 0, 0, 0)).getTime();
