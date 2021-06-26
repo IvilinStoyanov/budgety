@@ -14,4 +14,11 @@ button {
         color: $secondary !important;
       }
     }
+
+    &.mat-icon-button {
+      &.mat-primary {
+        background: $custom-white;
+        color: $black;
+      }
+    }
 }

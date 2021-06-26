@@ -15,8 +15,10 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
   data: any;
   searchText: string;
 
-  activeIndex: number;
+  panelOpenState: boolean;
+
   currentIconName: string;
+  currentColorIndex: number;
 
   icons: any = [];
   foundedIcons: any = [];
@@ -27,8 +29,6 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
     this.data = JSON.parse(localStorage.getItem('data'));
 
     this.icons = Object.values(MaterialIcons).filter(icon => typeof icon !== 'number') .map(value => ({ name: value}))
-
-    console.log(this.icons);
 
     this.createForm();
 
@@ -52,14 +52,22 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
     });
   }
 
-  selectIcon(icon, index) {
-    console.log(icon, index);
-    this.activeIndex = index;
+  openPanel() {
+    this.panelOpenState = !this.panelOpenState;
+    console.log(this.panelOpenState);
+  }
+
+  selectColor(color: string, index: number) {
+    this.currentColorIndex = index;
+    this.form.get('color').setValue(color);
+  }
+
+  selectIcon(icon) {
     this.currentIconName = icon.name;
   }
 
   addCategory() {
-
+    console.log(this.form.value);
   }
 
 }

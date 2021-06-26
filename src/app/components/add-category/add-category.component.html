@@ -12,26 +12,39 @@
           <mat-label>Category</mat-label>
           <input formControlName="name" matInput required />
         </mat-form-field>
-        <mat-form-field class="ml-1 mr-1" fxFlex appearance="outline">
-          <mat-label>Color</mat-label>
-          <input formControlName="color" matInput required />
+        <div class="border border-radius ml-1 mr-1 mb-3 pt-2 pb-2 pl-1 pr-1" fxFlex>
+          <span class="input-label">Color *</span>
           <div fxLayout="row wrap">
-            <div *ngFor="let color of data.categoryColors">
-              <div class="color hover" [style.background-color]="color"></div>
+            <div *ngFor="let color of data.categoryColors;  let i = index">
+              <div class="color hover" [style.background-color]="color"   [ngClass]="i === currentColorIndex ? 'color-active' : ''" (click)="selectColor(color, i)"></div>
             </div>
           </div>
-        </mat-form-field>
+        </div>
         <mat-form-field class="ml-1 mr-1" fxFlex appearance="outline">
           <mat-label>Search icon</mat-label>
           <input formControlName="searchText" matInput />
         </mat-form-field>
-        <div fxLayout="row wrap">
-          <div *ngFor="let icon of icons | filter:searchText; let i = index">
-            <mat-icon class="icon-lg icon-primary hover" [ngClass]="icon.name === currentIconName ? 'icon-active' : ''" (click)="selectIcon(icon, i)">{{icon.name}}</mat-icon>
+        <div class="icon-wrapper">
+          <div class="icon-container border border-radius ml-1 mr-1 mb-4 pt-1 pb-1" [ngClass]="{'is-open': panelOpenState}">
+            <div fxLayout="row wrap" fxLayoutGap="4px grid"> 
+              <div *ngFor="let icon of icons | filter:searchText">
+                <mat-icon class="material-icons-outlined icon-lg icon-primary hover"
+                  [ngClass]="icon.name === currentIconName ? 'icon-active' : ''" (click)="selectIcon(icon)">
+                  {{icon.name}}</mat-icon>
+              </div>
+            </div>
+          </div>
+          <div class="arrow-toggle">
+            <button mat-icon-button color="primary" class="box-shadow border" (click)="openPanel()">
+              <mat-icon class="material-icons-outlined">
+                <ng-container *ngIf="!panelOpenState">keyboard_arrow_down</ng-container>
+                <ng-container *ngIf="panelOpenState">keyboard_arrow_up</ng-container>
+              </mat-icon>
+            </button>
           </div>
         </div>
       </div>
-      <div>
+      <div class="mt-4">
         <button fxFlex mat-stroked-button color="primary" class="ml-1 mr-1" (click)="addCategory()">
           Add
         </button>
