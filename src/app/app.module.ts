@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
@@ -14,6 +15,7 @@ import { CategoryDetailComponent } from './components/category-detail/category-d
 import { TabsComponent } from './components/common/tabs/tabs.component';
 import { AddColorComponent } from './components/add-color/add-color.component';
 import { AddCategoryComponent } from './components/add-category/add-category.component';
+import { BackButtonComponent } from './components/common/back-button/back-button.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,7 +33,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ColorSketchModule } from 'ngx-color/sketch'; 
-import { BackButtonComponent } from './components/common/back-button/back-button.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 
@@ -53,6 +55,7 @@ import { BackButtonComponent } from './components/common/back-button/back-button
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    FormsModule,
     FlexLayoutModule,
     MatButtonModule,
     MatIconModule,
@@ -68,7 +71,8 @@ import { BackButtonComponent } from './components/common/back-button/back-button
     MatNativeDateModule,
     MatButtonToggleModule,
     NoopAnimationsModule,
-    ColorSketchModule
+    ColorSketchModule,
+    Ng2SearchPipeModule
   ],
   providers: [],
   bootstrap: [AppComponent],

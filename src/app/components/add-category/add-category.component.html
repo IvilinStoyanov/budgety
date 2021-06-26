@@ -1,8 +1,41 @@
 <mat-card class="m-2">
-  <div fxLayout="row" class="mb-1">
-    <div fxLayout="row" class="hover" [routerLink]="['/latest']">
-      <mat-icon class="material-icons-outlined icon-sm mr-1">keyboard_return</mat-icon>
-      Back
+  <app-back-button></app-back-button>
+  <div mat-dialog-content>
+    <div fxLayout="column" fxLayoutAlign="center center" class="pl-3 pr-3 pt-1 pb-3">
+      <span class="title text-bold">Add new category</span>
+      <span class="text-center text-sm text-grey pl-2 pr-2" [style.max-width.px]="380">By pressing button below you can
+        add your custom category</span>
     </div>
+    <form [formGroup]="form" autocomplete="off">
+      <div fxLayout="column">
+        <mat-form-field class="ml-1 mr-1" fxFlex appearance="outline">
+          <mat-label>Category</mat-label>
+          <input formControlName="name" matInput required />
+        </mat-form-field>
+        <mat-form-field class="ml-1 mr-1" fxFlex appearance="outline">
+          <mat-label>Color</mat-label>
+          <input formControlName="color" matInput required />
+          <div fxLayout="row wrap">
+            <div *ngFor="let color of data.categoryColors">
+              <div class="color hover" [style.background-color]="color"></div>
+            </div>
+          </div>
+        </mat-form-field>
+        <mat-form-field class="ml-1 mr-1" fxFlex appearance="outline">
+          <mat-label>Search icon</mat-label>
+          <input formControlName="searchText" matInput />
+        </mat-form-field>
+        <div fxLayout="row wrap">
+          <div *ngFor="let icon of icons | filter:searchText; let i = index">
+            <mat-icon class="icon-lg icon-primary hover" [ngClass]="icon.name === currentIconName ? 'icon-active' : ''" (click)="selectIcon(icon, i)">{{icon.name}}</mat-icon>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button fxFlex mat-stroked-button color="primary" class="ml-1 mr-1" (click)="addCategory()">
+          Add
+        </button>
+      </div>
+    </form>
   </div>
 </mat-card>
