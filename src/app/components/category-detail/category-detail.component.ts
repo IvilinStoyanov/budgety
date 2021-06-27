@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonService } from 'src/services/common.service';
+import { NotificationService } from 'src/services/notification.service';
 
 @Component({
   selector: 'app-category-detail',
@@ -13,7 +14,7 @@ export class CategoryDetailComponent implements OnInit {
   category: any;
   viewMode: string;
 
-  constructor(public route: ActivatedRoute, public commonService: CommonService) { }
+  constructor(public route: ActivatedRoute, public commonService: CommonService, public notification: NotificationService) { }
 
   ngOnInit() {
     this.data = JSON.parse(localStorage.getItem('data'));
@@ -51,6 +52,8 @@ export class CategoryDetailComponent implements OnInit {
     this.data = this.commonService.calculatePercentageEach(this.data);
 
     this.commonService.saveData(this.data);
+    
+    this.notification.danger('Item successfully deleted');
   }
 
   changeColor(color: string) {

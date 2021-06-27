@@ -1,7 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MaterialIcons } from 'src/app/enums/material-icons-type';
+import { Category } from 'src/app/models/category';
+import { CommonService } from 'src/services/common.service';
+import { NotificationService } from 'src/services/notification.service';
 
 @Component({
   selector: 'app-add-category',
@@ -23,12 +27,12 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
   icons: any = [];
   foundedIcons: any = [];
 
-  constructor(private fb: FormBuilder) { }
+  constructor(public commonService: CommonService, public notification: NotificationService, private fb: FormBuilder, public router: Router) { }
 
   ngOnInit() {
     this.data = JSON.parse(localStorage.getItem('data'));
 
-    this.icons = Object.values(MaterialIcons).filter(icon => typeof icon !== 'number') .map(value => ({ name: value}))
+    this.icons = Object.values(MaterialIcons).filter(icon => typeof icon !== 'number').map(value => ({ name: value }))
 
     this.createForm();
 
@@ -64,10 +68,31 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
 
   selectIcon(icon) {
     this.currentIconName = icon.name;
+    this.form.get('icon').setValue(icon.name);
   }
 
   addCategory() {
-    console.log(this.form.value);
-  }
+    if(!this.currentIconName || !this.currentColorIndex)
+    {
+      this.notification.warn("Please select icon and color");
+    }
+    if (this.form.valid) {
+      let combinedCategoriesTemplates = this.data.categoryTemplates.concat(this.data.categoryTemplatesCustom);
 
+      let nextCategoryIndex = combinedCategoriesTemplates.length;
+      // initial create of category
+      let params = this.form.value;
+
+      let category = { id: nextCategoryIndex, color: params.color, icon: params.icon, name: params.name };
+
+      this.data.categoryTemplatesCustom.push(category);
+
+      this.commonService.saveData(this.data);
+
+      this.form.reset();
+
+      this.router.navigate(['/latest']);
+      this.notification.success('Category successfully added');
+    }
+  }
 }

@@ -1,0 +1,21 @@
+@import "../colors.scss";
+
+.mat-snack-bar-container {
+    color: $custom-white !important;
+
+    button {
+        color: $custom-white !important;
+    }
+
+    &.sucess {
+        background: $green !important;
+    }
+
+    &.warn {
+        background: $yellow !important;
+    }
+
+    &.danger {
+        background: $red !important;
+    }
+}

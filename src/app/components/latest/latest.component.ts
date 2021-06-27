@@ -5,8 +5,8 @@ import { AddItemComponent } from '../add-item/add-item.component';
 import { Category } from 'src/app/models/category';
 import { Categories } from 'src/app/enums/categories.enum';
 import { CategoriesColors } from 'src/app/enums/categories-colors.enum';
-import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/services/notification.service';
 
 @Component({
   selector: 'app-latest',
@@ -17,10 +17,12 @@ export class LatestComponent implements OnInit {
   data: any;
   viewMode: any;
 
-  constructor(public dialog: MatDialog, public commonService: CommonService, private router: Router) {
+  constructor(public dialog: MatDialog, public commonService: CommonService, private router: Router,
+    public notification: NotificationService) {
     this.data = {
       categories: [],
       categoryTemplates: [],
+      categoryTemplatesCustom: [],
       categoryColors: null,
       totals: {
         exp: 0,
@@ -101,16 +103,20 @@ export class LatestComponent implements OnInit {
   openAddItemDialog(): void {
     const dialogRef = this.dialog.open(AddItemComponent, {
       autoFocus: false,
-      data: this.data.categoryTemplates
+      data: this.data.categoryTemplates.concat(this.data.categoryTemplatesCustom)
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result) this.addItem(result);
+      if (result) {
+        this.addItem(result);
+        this.notification.success("Item successfully added");
+      }
     });
   }
 
   addItem(params) {
     this.setViewMode(params.items.type);
+    console.log(params);
     if (this.data.categories[params.category.id] == undefined) {
       let category = params.category;
 

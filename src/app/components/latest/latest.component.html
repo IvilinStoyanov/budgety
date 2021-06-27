@@ -1,6 +1,6 @@
 <div *ngIf="data.categories.length > 0" class="ml-2 mr-2 mt-2 mb-0">
   <!-- tabs -->
-  <app-tabs></app-tabs>
+  <app-tabs [data]="data"></app-tabs>
   <!-- progress bar -->
   <mat-card class="
       border-bottom
@@ -36,7 +36,7 @@
 </div>
 <div *ngIf="data.categories.length === 0" fxLayout="column" fxLayoutAlign="center center" class="position-center hover"
   (click)="openAddItemDialog()">
-  <mat-icon class="material-icons-outlined icon-ex-lg"> receipt_long </mat-icon>
+  <mat-icon class="material-icons-outlined icon-ex-lg">note_alt</mat-icon>
   <span class="text-transparent">No Transactions</span>
   <span class="text-transparent">Tap here to add one</span>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Subscription } from 'rxjs';
 import { CommonService } from 'src/services/common.service';
@@ -9,9 +9,10 @@ import { CommonService } from 'src/services/common.service';
   styleUrls: ['./tabs.component.scss']
 })
 export class TabsComponent implements OnInit, OnDestroy {
+  @Input() data: any;
+
   private subscription: Subscription;
 
-  data: any;
   currentIndex: number;
 
   constructor(public commonService: CommonService) {
@@ -19,9 +20,6 @@ export class TabsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // get data from localstorage
-    if (localStorage.getItem('data') !== null) this.data = JSON.parse(localStorage.getItem('data'));
-
     const currentTabIndexSubscription$ = this.commonService.currentTabIndex.subscribe(value => this.currentIndex = value);
 
     this.subscription.add(currentTabIndexSubscription$);

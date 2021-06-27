@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ColorEvent } from 'ngx-color';
 import { CommonService } from 'src/services/common.service';
+import { NotificationService } from 'src/services/notification.service';
 
 @Component({
   selector: 'app-add-color',
@@ -11,7 +12,7 @@ export class AddColorComponent implements OnInit {
   currentColor: string;
   data: any;
 
-  constructor(private commonService: CommonService) { }
+  constructor(private commonService: CommonService, public notification: NotificationService) { }
 
   ngOnInit() {
     this.data = JSON.parse(localStorage.getItem('data'));
@@ -26,8 +27,15 @@ export class AddColorComponent implements OnInit {
   }
 
   addColor() {
-    if (this.data.categoryColors) this.data.categoryColors.push(this.currentColor);
+    if (this.currentColor) {
+      if (this.data.categoryColors) this.data.categoryColors.push(this.currentColor);
 
-    this.commonService.saveData(this.data);
+      this.commonService.saveData(this.data);
+
+      this.notification.success('Category successfully added');
+    }
+    else {
+      this.notification.warn("Please select color");
+    }
   }
 }
