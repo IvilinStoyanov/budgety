@@ -6,8 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./monthly.component.scss'],
 })
 export class MonthlyComponent implements OnInit {
-  monthlyList: any = [];
   data: any;
+  monthlyList: any = [];
 
   constructor() { }
 
@@ -42,7 +42,7 @@ export class MonthlyComponent implements OnInit {
           let itemMonth = new Date(item.dateCreated).getMonth();
           let income = 0;
           let expense = 0;
-          
+
           if (this.monthlyList[itemMonth] == undefined) {
             this.monthlyList[itemMonth] = [];
             this.monthlyList[itemMonth].name = months[itemMonth];
