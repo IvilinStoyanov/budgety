@@ -1,12 +1,12 @@
 <mat-card class="m-2">
-  <div fxLayout="row" class="mb-1">
-    <button mat-stroked-button color="secondary" [routerLink]="['/latest']">
-      <mat-icon class="material-icons-outlined icon-sm">keyboard_return</mat-icon>
-      Back
-    </button>
-  </div>
+ <app-back-button></app-back-button>
+ <div fxLayout="column" fxLayoutAlign="center center" class="pl-3 pr-3 pt-1 pb-3 mb-4">
+  <span class="title text-bold">Add new category color</span>
+  <span class="text-center text-sm text-grey pl-2 pr-2" [style.max-width.px]="380">By pressing button below you can
+    add your custom category color</span>
+</div>
   <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center start">
-    <div fxLayout="column" fxFlex="65" fxFlex.lt-sm="100" class="m-2" [style.position]="'relative'">
+    <div fxLayout="column" fxFlex="65" fxFlex.lt-sm="100" class="ml-2 mr-2 mb-2 mt-4" [style.position]="'relative'">
       <div class="category-icon-wrapper" fxLayout="column" fxLayoutAlign="center center">
         <div class="category-icon-container box-shadow border" [style.border-color]="currentColor">
           <mat-icon class="material-icons-outlined category-icon icon-md" [style.color]="currentColor">waving_hand</mat-icon>

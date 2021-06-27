@@ -13,12 +13,7 @@
       </div>
     </div>
   </div>
-  <div class="menu-left">
-    <button mat-stroked-button color="secondary" [routerLink]="['/latest']">
-      <mat-icon class="material-icons-outlined icon-sm">keyboard_return</mat-icon>
-      Back
-    </button>
-  </div>
+  <app-back-button></app-back-button>
   <div class="menu-right hover" [matMenuTriggerFor]="menu">
     <mat-icon class="material-icons-outlined" [style.color]="category.color" matTooltip="change color">palette
     </mat-icon>
@@ -67,8 +62,7 @@
   </div>
   <div *ngFor="let item of category.items; let i = index" class="line-item">
     <span class="chip text-black text-transparent text-ex-sm">{{ item.dateCreated | date: "dd/MM/yy" }}</span>
-    <div class="item">
-      <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="item" fxLayout="row" fxLayoutAlign="space-between center">
         <div fxLayout="row" fxLayoutAlign="center center" matTooltip="{{ item.description }}">
           <span class="text-black">{{ item.description || category.name | titlecase }}</span>
         </div>
@@ -79,14 +73,13 @@
               <span *ngIf="item.type === 'exp'">-</span>
               {{ item.value | number: "1.2-2" }}
             </div>
-            <div class="text-black text-transparent text-ex-sm">
-              {{ item.dateCreated | date: "dd/MM/yy" }}
-            </div>
+            <!-- <div class="text-black text-transparent text-ex-sm">
+              {{ item.description | lowercase }}
+            </div> -->
           </div>
           <div class="hover-menu ml-2">
             <mat-icon class="material-icons-outlined icon-danger hover" matTooltip="delete item" (click)="deleteItem(item, i)">delete</mat-icon>
           </div>
-        </div>
       </div>
     </div>
   </div>

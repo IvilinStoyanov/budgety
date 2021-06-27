@@ -2,11 +2,7 @@
 
 $mat-icon-size: 60px;
 
-/**********************************************
-*** TOP PART
-**********************************************/
-
-/***** LISTS *****/
+/***** list *****/
 .item {
   padding: 10px 5px 10px 0;
   border-bottom: 1px solid #e7e7e7;
@@ -16,10 +12,10 @@ $mat-icon-size: 60px;
   width: 75px;
   height: 75px;
 
-.circle-chart {
-  width: 75px;
-  height: 75px;
-}
+  .circle-chart {
+    width: 75px;
+    height: 75px;
+  }
 }
 
 .item__description {
@@ -86,5 +82,3 @@ $mat-icon-size: 60px;
     padding: 0 20px;
   }
 }
-
-

@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./add-item.component.scss'],
 })
 export class AddItemComponent implements OnInit, OnDestroy {
-  _categorySubscription: Subscription = new Subscription();
+  private _categorySubscription: Subscription = new Subscription();
 
   form: FormGroup;
   categoryPicked: any;
