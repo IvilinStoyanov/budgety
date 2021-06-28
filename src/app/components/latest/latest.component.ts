@@ -103,7 +103,10 @@ export class LatestComponent implements OnInit {
   openAddItemDialog(): void {
     const dialogRef = this.dialog.open(AddItemComponent, {
       autoFocus: false,
-      data: this.data.categoryTemplates.concat(this.data.categoryTemplatesCustom)
+      data: {
+        category: this.data.categoryTemplates.concat(this.data.categoryTemplatesCustom),
+        viewMode: this.viewMode,
+      }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
