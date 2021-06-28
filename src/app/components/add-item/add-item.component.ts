@@ -14,14 +14,14 @@ export class AddItemComponent implements OnInit, OnDestroy {
   form: FormGroup;
   categoryPicked: any;
 
-  categories: any;
+  templateData: any;
 
   constructor(
     public dialogRef: MatDialogRef<AddItemComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AddItemComponent,
     private fb: FormBuilder
-  ) { 
-    this.categories = data;
+  ) {
+    this.templateData = data;
   }
 
   ngOnInit() {
@@ -54,8 +54,12 @@ export class AddItemComponent implements OnInit, OnDestroy {
   }
 
   createForm() {
+    let type = false;
+    
+    if (this.templateData.viewMode == 'exp') type = true;
+
     this.form = this.fb.group({
-      type: [false, Validators.required],
+      type: [type, Validators.required],
       category: ['', Validators.required],
       value: ['', Validators.required],
       dateCreated: [{ value: '', disabled: true }],
