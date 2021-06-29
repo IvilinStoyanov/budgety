@@ -6,9 +6,48 @@
     </div>
     <div>
       <mat-icon class="material-icons-outlined icon-sm hover" [matMenuTriggerFor]="menu">tune</mat-icon>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="['/add-category']">New category</button>
-        <button mat-menu-item [routerLink]="['/add-color']">New color</button>
+      <mat-menu #menu="matMenu" class="main-menu">
+        <div fxLayout="column">
+          <div>
+            <div class="border-bottom margin-auto pb-1" [style.width.%]="85">
+              <span fxLayout="row" fxLayoutAlign="centet center" class="text-black text-uppercase text-bold text-sm ">
+                <mat-icon class="material-icons-outlined icon-sm hover mr-1">category</mat-icon>
+                categories
+              </span>
+            </div>
+            <div fxLayout="row">
+              <button mat-menu-item [routerLink]="['/add-category']">create</button>
+              <div class="divider"></div>
+              <button mat-menu-item [routerLink]="['/edit-category']">edit</button>
+            </div>
+          </div>
+          <div>
+            <div class="border-bottom margin-auto pb-1" [style.width.%]="85">
+              <span fxLayout="row" class="text-black text-uppercase text-bold text-sm ">
+                <mat-icon class="material-icons-outlined icon-sm hover mr-1">palette</mat-icon>
+                colors
+              </span>
+            </div>
+            <div fxLayout="row">
+              <button mat-menu-item [routerLink]="['/add-color']">create</button>
+              <div class="divider"></div>
+              <button mat-menu-item [routerLink]="['/edit-color']">edit</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="border-bottom margin-auto pb-1" [style.width.%]="85">
+            <span fxLayout="row" class="text-black text-uppercase text-bold text-sm ">
+              <mat-icon class="material-icons-outlined icon-sm hover mr-1">description</mat-icon>
+              Data
+            </span>
+          </div>
+          <div fxLayout="row">
+            <button mat-menu-item [routerLink]="['/add-color']">import</button>
+            <div class="divider"></div>
+            <button mat-menu-item (click)="exportFile()">export</button>
+          </div>
+        </div>
       </mat-menu>
     </div>
   </div>

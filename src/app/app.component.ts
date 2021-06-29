@@ -26,4 +26,8 @@ export class AppComponent implements OnInit {
     this.commonService.currentTabIndex.next(0);
   }
 
+  exportFile() {
+  //  window.location = "data:text/plain,Your text here";
+  }
+
 }
