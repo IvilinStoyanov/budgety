@@ -17,8 +17,9 @@
     position: relative;
 
     .icon-container {
+        min-height: 55px;
         max-height: 200px;
-        overflow: hidden;
+        overflow: auto;
     }
 
     .arrow-toggle {
@@ -30,7 +31,7 @@
 }
 
 .is-open {
-    max-height: 100% !important;
+    max-height: 400px !important;
 }
 
 .category-title-container {

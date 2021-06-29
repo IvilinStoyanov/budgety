@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/services/common.service';
 import { NotificationService } from 'src/services/notification.service';
 
@@ -14,7 +14,8 @@ export class CategoryDetailComponent implements OnInit {
   category: any;
   viewMode: string;
 
-  constructor(public route: ActivatedRoute, public commonService: CommonService, public notification: NotificationService) { }
+  constructor(public route: ActivatedRoute, public commonService: CommonService, public notification: NotificationService,
+    public router: Router) { }
 
   ngOnInit() {
     this.data = JSON.parse(localStorage.getItem('data'));
@@ -54,6 +55,8 @@ export class CategoryDetailComponent implements OnInit {
     this.commonService.saveData(this.data);
     
     this.notification.danger('Item successfully deleted');
+
+    if (this.data.categories[this.categoryID].items.length === 0) this.router.navigate(['/latest']);
   }
 
   changeColor(color: string) {
