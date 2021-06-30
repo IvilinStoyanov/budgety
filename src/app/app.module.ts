@@ -35,6 +35,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ColorSketchModule } from 'ngx-color/sketch'; 
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ConfirmDialogComponent } from './components/common/confirm-dialog/confirm-dialog.component';
 
 
 
@@ -49,7 +50,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     TabsComponent,
     AddColorComponent,
     AddCategoryComponent,
-    BackButtonComponent
+    BackButtonComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
