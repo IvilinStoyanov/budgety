@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/services/common.service';
 import { NotificationService } from 'src/services/notification.service';
+import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-category-detail',
@@ -15,7 +17,7 @@ export class CategoryDetailComponent implements OnInit {
   viewMode: string;
 
   constructor(public route: ActivatedRoute, public commonService: CommonService, public notification: NotificationService,
-    public router: Router) { }
+    public router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.data = JSON.parse(localStorage.getItem('data'));
@@ -28,6 +30,25 @@ export class CategoryDetailComponent implements OnInit {
 
       if (this.data) this.category = this.data.categories[id];
     })
+  }
+
+  openConfirmDialog(item: any, index: number): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      autoFocus: false,
+      data: {
+        title: 'Delete Item',
+        message: 'Are you sure you want to delete this item?',
+        item: { item: item, index: index }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log(result);
+        this.deleteItem(result.item, result.index);
+        this.notification.success("Item successfully deleted.");
+      }
+    });
   }
 
   deleteItem(item: any, index: number) {
@@ -53,7 +74,7 @@ export class CategoryDetailComponent implements OnInit {
     this.data = this.commonService.calculatePercentageEach(this.data);
 
     this.commonService.saveData(this.data);
-    
+
     this.notification.danger('Item successfully deleted');
 
     if (this.data.categories[this.categoryID].items.length === 0) this.router.navigate(['/latest']);

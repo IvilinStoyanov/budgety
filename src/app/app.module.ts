@@ -30,10 +30,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ColorSketchModule } from 'ngx-color/sketch'; 
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ConfirmDialogComponent } from './components/common/confirm-dialog/confirm-dialog.component';
 
 
 
@@ -48,7 +50,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     TabsComponent,
     AddColorComponent,
     AddCategoryComponent,
-    BackButtonComponent
+    BackButtonComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -70,6 +73,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonToggleModule,
+    MatSidenavModule,
     NoopAnimationsModule,
     ColorSketchModule,
     Ng2SearchPipeModule

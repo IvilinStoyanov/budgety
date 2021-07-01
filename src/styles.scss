@@ -42,11 +42,16 @@ body {
   position: relative;
 }
 
-.custom-card {
-  border-bottom: 1px solid #e7e7e7;
-  //  background: #edf1fc;
-  // border-top-left-radius: 30px !important;
-  // border-top-right-radius: 30px !important;
+.main-menu {
+  .mat-menu-content {
+    width: 150px;
+    padding: 12px 8px 4px 8px !important;
+
+    button {
+      text-align: center;
+      font-weight: 500;
+    }
+  }
 }
 
 .exp-progress-bar {
