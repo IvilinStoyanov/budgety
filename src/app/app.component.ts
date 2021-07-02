@@ -11,13 +11,14 @@ import { version } from 'package.json';
 })
 export class AppComponent implements OnInit {
   title = 'budgety';
-  version: any = version;
+  version: any;
   currentDate: Date = new Date();
   
   constructor(public dialog: MatDialog, public commonService: CommonService, public router: Router) {
   }
 
   ngOnInit() {
+    this.version = parseFloat(version);
   }
 
   navigateHome() {
