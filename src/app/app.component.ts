@@ -1,10 +1,8 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/services/common.service';
-
+import { version } from 'package.json';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +11,7 @@ import { CommonService } from 'src/services/common.service';
 })
 export class AppComponent implements OnInit {
   title = 'budgety';
+  version: any = version;
   currentDate: Date = new Date();
   
   constructor(public dialog: MatDialog, public commonService: CommonService, public router: Router) {
