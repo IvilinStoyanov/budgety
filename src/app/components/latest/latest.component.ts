@@ -31,6 +31,7 @@ export class LatestComponent implements OnInit {
       budget: 0,
       incPercentage: 0,
       expPercentage: 0,
+      siteVersion: '0.0.0'
     };
   }
 
@@ -39,8 +40,7 @@ export class LatestComponent implements OnInit {
     if (localStorage.getItem('data') !== null) this.data = JSON.parse(localStorage.getItem('data'));
 
     // create initial values if none is provided
-    //if (this.data.categoryValues.length == 0)
-    this.createCategoryInitialValues();
+    if (this.data.categoryTemplates.length == 0) this.createCategoryInitialValues();
 
     if (this.data.categoryColors == null) this.createCategoryColors();
 

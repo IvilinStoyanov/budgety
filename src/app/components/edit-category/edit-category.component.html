@@ -1,0 +1,75 @@
+<div fxLayout="column" class="pl-3 pr-3 pt-3 pb-3">
+  <span class="text-lg text-semi-bold ml-1 mb-2">Categories</span>
+  <div fxLayout="row wrap">
+    <!-- default categories -->
+    <div *ngFor="let category of data?.categoryTemplates" class="text-center" fxLayout="column" fxFlex="33.33" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+      <mat-card class="m-1">
+        <span class="text-bold">{{category.name}}</span>
+        <div fxLayout="column" fxLayoutAlign="center center">
+          <div class="menu-right hover" [matMenuTriggerFor]="menu">
+            <mat-icon class="material-icons-outlined" [style.color]="category.color" matTooltip="change color">palette
+            </mat-icon>
+          </div>
+          <mat-menu #menu="matMenu">
+            <div class="text-black text-bold border-bottom ml-1 mb-2 pb-1 text-sm">Pick category color</div>
+            <div fxLayout="row wrap">
+              <div *ngFor="let color of data.categoryColors">
+                <div class="color hover" [style.background-color]="color" (click)="changeColor(category.id, color, 'default')"></div>
+              </div>
+            </div>
+          </mat-menu>
+          <div class="category-title-container">
+            <svg width="100%" height="100%" viewBox="0 0 42 42" class="circle-chart">
+              <circle cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+              <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="1.5">
+              </circle>
+              <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent"
+                attr.stroke="{{category.color}}" stroke-width="1.5" stroke-dasharray="100"></circle>
+            </svg>
+            <mat-icon class="position-center-absolute material-icons-outlined icon-md icon-primary mr-2">{{
+              category.icon }}</mat-icon>
+          </div>
+          <div fxLayoutAlign="start center" class="mt-2">
+            <button mat-stroked-button color="info" class="ml-1 mr-1" (click)="edit()">Edit</button>
+            <button mat-stroked-button color="danger" class="ml-1 mr-1" (click)="deleteTemplate(category.id, 'default')">Delete</button>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    <!-- custom categories -->
+    <div *ngFor="let category of data?.categoryTemplatesCustom" class="text-center" fxLayout="column" fxFlex="33.33" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+      <mat-card class="m-1">
+        <span class="text-bold">{{category.name}}</span>
+        <div fxLayout="column" fxLayoutAlign="center center">
+          <div class="menu-right hover" [matMenuTriggerFor]="menu">
+            <mat-icon class="material-icons-outlined" [style.color]="category.color" matTooltip="change color">palette
+            </mat-icon>
+          </div>
+          <mat-menu #menu="matMenu">
+            <div class="text-black text-bold border-bottom ml-1 mb-2 pb-1 text-sm">Pick category color</div>
+            <div fxLayout="row wrap">
+              <div *ngFor="let color of data.categoryColors">
+                <div class="color hover" [style.background-color]="color" (click)="changeColor(category.id, color, 'custom')"></div>
+              </div>
+            </div>
+          </mat-menu>
+          <div class="category-title-container">
+            <svg width="100%" height="100%" viewBox="0 0 42 42" class="circle-chart">
+              <circle cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+              <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="1.5">
+              </circle>
+              <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent"
+                attr.stroke="{{category.color}}" stroke-width="1.5" stroke-dasharray="100"></circle>
+            </svg>
+            <mat-icon class="position-center-absolute material-icons-outlined icon-md icon-primary mr-2">{{
+              category.icon }}</mat-icon>
+          </div>
+          <div fxLayoutAlign="start center" class="mt-2">
+            <button mat-stroked-button color="info" class="ml-1 mr-1" (click)="edit()">Edit</button>
+            <button mat-stroked-button color="danger" class="ml-1 mr-1" (click)="deleteTemplate(category.id, 'custom')">Delete</button>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>
