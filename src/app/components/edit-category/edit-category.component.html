@@ -2,7 +2,7 @@
   <span class="text-lg text-semi-bold ml-1 mb-2">Categories</span>
   <div fxLayout="row wrap">
     <!-- default categories -->
-    <div *ngFor="let category of data?.categoryTemplates" class="text-center" fxLayout="column" fxFlex="33.33" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+    <div *ngFor="let category of data?.categoryTemplates; let i = index" class="text-center" fxLayout="column" fxFlex="33.33" fxFlex.lt-md="50" fxFlex.lt-sm="100">
       <mat-card class="m-1">
         <span class="text-bold">{{category.name}}</span>
         <div fxLayout="column" fxLayoutAlign="center center">
@@ -31,13 +31,13 @@
           </div>
           <div fxLayoutAlign="start center" class="mt-2">
             <button mat-stroked-button color="info" class="ml-1 mr-1" (click)="edit()">Edit</button>
-            <button mat-stroked-button color="danger" class="ml-1 mr-1" (click)="deleteTemplate(category.id, 'default')">Delete</button>
+            <button mat-stroked-button color="danger" class="ml-1 mr-1" (click)="deleteTemplate(i, category.id, 'default')">Delete</button>
           </div>
         </div>
       </mat-card>
     </div>
     <!-- custom categories -->
-    <div *ngFor="let category of data?.categoryTemplatesCustom" class="text-center" fxLayout="column" fxFlex="33.33" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+    <div *ngFor="let category of data?.categoryTemplatesCustom; let i = index" class="text-center" fxLayout="column" fxFlex="33.33" fxFlex.lt-md="50" fxFlex.lt-sm="100">
       <mat-card class="m-1">
         <span class="text-bold">{{category.name}}</span>
         <div fxLayout="column" fxLayoutAlign="center center">
@@ -66,7 +66,7 @@
           </div>
           <div fxLayoutAlign="start center" class="mt-2">
             <button mat-stroked-button color="info" class="ml-1 mr-1" (click)="edit()">Edit</button>
-            <button mat-stroked-button color="danger" class="ml-1 mr-1" (click)="deleteTemplate(category.id, 'custom')">Delete</button>
+            <button mat-stroked-button color="danger" class="ml-1 mr-1" (click)="deleteTemplate(i, category.id, 'custom')">Delete</button>
           </div>
         </div>
       </mat-card>
