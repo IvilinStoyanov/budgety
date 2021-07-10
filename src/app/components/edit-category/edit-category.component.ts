@@ -28,7 +28,7 @@ export class EditCategoryComponent implements OnInit {
     this.data.totals.inc -= this.data.categories[categoryID].inc;
     this.data.totals.exp -= this.data.categories[categoryID].exp;
 
-    let categoryIndex = this.data.categories.findIndex(c => c.id == categoryID);
+    let categoryIndex = this.data.categories.findIndex(category => category && category.id == categoryID);
     this.data.categories.splice(categoryIndex, 1);
 
     this.data.budget = this.data.totals.inc - this.data.totals.exp;
