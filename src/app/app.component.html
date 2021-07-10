@@ -43,13 +43,13 @@
             </span>
           </div>
           <div fxLayout="row">
-            <label mat-menu-item for="file-upload" class="custom-file-upload">
-              Import
-            </label>
-            <input hidden (change)="onFileChange($event)" id="file-upload" type="file" required>
+            <button mat-menu-item (click)="selectFile()">
+              import
+            </button>
+            <input hidden (change)="onFileChange($event)" id="upload" type="file">
             <div class="divider"></div>
             <button mat-menu-item (click)="exportFile()">export</button>
-            <a hidden="true" id="results">CSV from local store</a>
+            <a hidden id="results"></a>
           </div>
         </div>
       </mat-menu>

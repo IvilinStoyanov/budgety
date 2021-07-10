@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/services/common.service';
 import { version } from 'package.json';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-root',
@@ -25,21 +26,25 @@ export class AppComponent implements OnInit {
     this.commonService.currentTabIndex.next(0);
   }
 
-  importFile(file) {
-    this.commonService.saveData(file);
-    window.location.reload();
+  selectFile() {
+    var element: HTMLElement = document.querySelector("#upload");
+    element.click();
   }
 
   onFileChange(event) {
     const fileToLoad = event.target.files[0];
-    console.log(fileToLoad);
     const fileReader = new FileReader();
     fileReader.onload = (fileLoadedEvent) => {
-      var textFromFileLoaded: any = fileLoadedEvent.target.result;
-      var jsonResult = JSON.parse(textFromFileLoaded);
+      let textFromFileLoaded: any = fileLoadedEvent.target.result;
+      let jsonResult = JSON.parse(textFromFileLoaded);
       this.importFile(jsonResult);
     };
     fileReader.readAsText(fileToLoad, "UTF-8");
+  }
+
+  importFile(file) {
+    this.commonService.saveData(file);
+    window.location.reload();
   }
 
   exportFile() {
@@ -47,9 +52,9 @@ export class AppComponent implements OnInit {
     var blob = new Blob([data], { type: "text/json" });
     var url = URL.createObjectURL(blob);
 
-    var a: any = document.querySelector("#results");
-    a.href = url;
-    a.download = `budgety-${version}.json`;
-    a.click();
+    var element: any = document.querySelector("#results");
+    element.href = url;
+    element.download = `budgety-${version}.json`;
+    element.click();
   }
 }
