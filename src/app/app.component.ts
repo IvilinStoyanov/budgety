@@ -12,8 +12,7 @@ import { version } from 'package.json';
 export class AppComponent implements OnInit {
   title = 'budgety';
   version: any;
-  currentDate: Date = new Date();
-  
+
   constructor(public dialog: MatDialog, public commonService: CommonService, public router: Router) {
   }
 
@@ -26,8 +25,31 @@ export class AppComponent implements OnInit {
     this.commonService.currentTabIndex.next(0);
   }
 
-  exportFile() {
-  //  window.location = "data:text/plain,Your text here";
+  importFile(file) {
+    this.commonService.saveData(file);
+    window.location.reload();
   }
 
+  onFileChange(event) {
+    const fileToLoad = event.target.files[0];
+    console.log(fileToLoad);
+    const fileReader = new FileReader();
+    fileReader.onload = (fileLoadedEvent) => {
+      var textFromFileLoaded: any = fileLoadedEvent.target.result;
+      var jsonResult = JSON.parse(textFromFileLoaded);
+      this.importFile(jsonResult);
+    };
+    fileReader.readAsText(fileToLoad, "UTF-8");
+  }
+
+  exportFile() {
+    var data = localStorage.getItem("data");
+    var blob = new Blob([data], { type: "text/json" });
+    var url = URL.createObjectURL(blob);
+
+    var a: any = document.querySelector("#results");
+    a.href = url;
+    a.download = `budgety-${version}.json`;
+    a.click();
+  }
 }

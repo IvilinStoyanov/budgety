@@ -43,9 +43,13 @@
             </span>
           </div>
           <div fxLayout="row">
-            <button mat-menu-item [routerLink]="['/add-color']">import</button>
+            <label mat-menu-item for="file-upload" class="custom-file-upload">
+              Import
+            </label>
+            <input hidden (change)="onFileChange($event)" id="file-upload" type="file" required>
             <div class="divider"></div>
             <button mat-menu-item (click)="exportFile()">export</button>
+            <a hidden="true" id="results">CSV from local store</a>
           </div>
         </div>
       </mat-menu>
