@@ -36,7 +36,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ColorSketchModule } from 'ngx-color/sketch'; 
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -75,8 +74,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     MatButtonToggleModule,
     MatSidenavModule,
     NoopAnimationsModule,
-    ColorSketchModule,
-    Ng2SearchPipeModule
+    ColorSketchModule
   ],
   providers: [],
   bootstrap: [AppComponent],

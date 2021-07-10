@@ -21,32 +21,15 @@ export class EditCategoryComponent implements OnInit {
   }
 
   deleteTemplate(index: number, categoryID: number, type: string) {
-  
-    let category: any;
-    if (type === 'default') {
-      console.log(categoryID);
-      this.data.categoryTemplates.splice(index, 1);
-      category = this.data.categories.find(c => c && c.id == categoryID);
-    }
+    if (type === 'default') this.data.categoryTemplates.splice(index, 1);
 
-    if (type === 'custom') {
-      console.log(categoryID);
-      this.data.categoryTemplatesCustom.splice(index, 1);
-      category = this.data.categories.find(c => c && c.id == categoryID);
-    }
+    if (type === 'custom') this.data.categoryTemplatesCustom.splice(index, 1);
 
-    console.log(category);
-    category.items.forEach(item => {
-      if (item.type === 'exp') {
-        this.data.totals.exp -= item.value;
-      }
-      if (item.type === 'inc') {
-        this.data.totals.inc -= item.value;
-      }
-    });
+    this.data.totals.inc -= this.data.categories[categoryID].inc;
+    this.data.totals.exp -= this.data.categories[categoryID].exp;
 
-    this.data.categories[categoryID].inc = 0;
-    this.data.categories[categoryID].exp = 0;
+    let categoryIndex = this.data.categories.findIndex(c => c.id == categoryID);
+    this.data.categories.splice(categoryIndex, 1);
 
     this.data.budget = this.data.totals.inc - this.data.totals.exp;
 
