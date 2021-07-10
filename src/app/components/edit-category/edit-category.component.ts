@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DebugElement, OnInit } from '@angular/core';
 import { CommonService } from 'src/services/common.service';
 
 @Component({
@@ -21,16 +21,18 @@ export class EditCategoryComponent implements OnInit {
   }
 
   deleteTemplate(index: number, categoryID: number, type: string) {
+  
     let category: any;
     if (type === 'default') {
       console.log(categoryID);
-      // this.data.categoryTemplates.splice(index, 1);
-      category = this.data.categories.find(c => c.id == categoryID);
+      this.data.categoryTemplates.splice(index, 1);
+      category = this.data.categories.find(c => c && c.id == categoryID);
     }
 
     if (type === 'custom') {
-      //  this.data.categoryTemplatesCustom.splice(index, 1);
-       category = this.data.categories.find(c => c.id == categoryID);
+      console.log(categoryID);
+      this.data.categoryTemplatesCustom.splice(index, 1);
+      category = this.data.categories.find(c => c && c.id == categoryID);
     }
 
     console.log(category);
@@ -39,10 +41,10 @@ export class EditCategoryComponent implements OnInit {
         this.data.totals.exp -= item.value;
       }
       if (item.type === 'inc') {
-        this.data.totals.inc += item.value;
+        this.data.totals.inc -= item.value;
       }
     });
-    
+
     this.data.categories[categoryID].inc = 0;
     this.data.categories[categoryID].exp = 0;
 
@@ -54,7 +56,7 @@ export class EditCategoryComponent implements OnInit {
     // calculate global income/expense percetanges of current budget
     this.data = this.commonService.calculatePercentageEach(this.data);
 
-    //  this.commonService.saveData(this.data);
+    this.commonService.saveData(this.data);
   }
 
   changeColor(categoryID: number, color: string, type: string) {

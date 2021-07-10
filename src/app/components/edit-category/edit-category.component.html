@@ -1,9 +1,13 @@
 <div fxLayout="column" class="pl-3 pr-3 pt-3 pb-3">
-  <span class="text-lg text-semi-bold ml-1 mb-2">Categories</span>
-  <div fxLayout="row wrap">
+  <div fxLayout="row">
+    <div class="badge border-bottom">
+      <span class="text-semi-bold">Categories</span>
+    </div>
+  </div>
+  <mat-card fxLayout="row wrap" class="bg-transparent border-top-left-radius-none">
     <!-- default categories -->
     <div *ngFor="let category of data?.categoryTemplates; let i = index" class="text-center" fxLayout="column" fxFlex="33.33" fxFlex.lt-md="50" fxFlex.lt-sm="100">
-      <mat-card class="m-1">
+      <mat-card class="m-1 border">
         <span class="text-bold">{{category.name}}</span>
         <div fxLayout="column" fxLayoutAlign="center center">
           <div class="menu-right hover" [matMenuTriggerFor]="menu">
@@ -38,7 +42,7 @@
     </div>
     <!-- custom categories -->
     <div *ngFor="let category of data?.categoryTemplatesCustom; let i = index" class="text-center" fxLayout="column" fxFlex="33.33" fxFlex.lt-md="50" fxFlex.lt-sm="100">
-      <mat-card class="m-1">
+      <mat-card class="m-1 border">
         <span class="text-bold">{{category.name}}</span>
         <div fxLayout="column" fxLayoutAlign="center center">
           <div class="menu-right hover" [matMenuTriggerFor]="menu">
@@ -71,5 +75,5 @@
         </div>
       </mat-card>
     </div>
-  </div>
+  </mat-card>
 </div>
