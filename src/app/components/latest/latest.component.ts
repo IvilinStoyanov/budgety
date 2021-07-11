@@ -123,7 +123,7 @@ export class LatestComponent implements OnInit {
 
   addItem(params) {
     this.setViewMode(params.items.type);
-    console.log(params);
+    
     if (this.data.categories[params.category.id] == undefined) {
       let category = params.category;
       // initial create of category
