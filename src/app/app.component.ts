@@ -19,6 +19,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    // get data from localstorage
+    if (localStorage.getItem('data') !== null) this.data = JSON.parse(localStorage.getItem('data'));
+    console.log(this.data);
     this.version = parseFloat(version);
   }
 
