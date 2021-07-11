@@ -12,6 +12,7 @@ import { element } from 'protractor';
 })
 export class AppComponent implements OnInit {
   title = 'budgety';
+  data: any;
   version: any;
 
   constructor(public dialog: MatDialog, public commonService: CommonService, public router: Router) {
