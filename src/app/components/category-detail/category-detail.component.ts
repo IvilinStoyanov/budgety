@@ -44,7 +44,6 @@ export class CategoryDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result);
         this.deleteItem(result.item, result.index);
         this.notification.success("Item successfully deleted.");
       }
@@ -65,7 +64,7 @@ export class CategoryDetailComponent implements OnInit {
       this.data.totals.exp -= item.value;
     }
 
-    this.data.budget = this.data.totals.inc - this.data.totals.exp;
+    this.data.budget = parseFloat(this.data.totals.inc.toFixed(2)) - parseFloat(this.data.totals.exp.toFixed(2));
 
     // calculate category income/expense percetanges of current budget
     this.data = this.commonService.calculateTotalExpPercentage(this.data);

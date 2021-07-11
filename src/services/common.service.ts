@@ -27,6 +27,8 @@ export class CommonService {
   }
 
   saveData(data: any) {
+    data.totals.inc = parseFloat(data.totals.inc.toFixed(2));
+    data.totals.exp = parseFloat(data.totals.exp.toFixed(2));
     localStorage.setItem('data', JSON.stringify(data));
   }
 
@@ -46,11 +48,15 @@ export class CommonService {
       data.expPercentage = Math.round((data.totals.exp / data.totals.inc) * 100);
       data.incPercentage = 100 - data.expPercentage; 
 
-      if (data.expPercentage > 100) data.expPercentage = 100;
+      if (data.expPercentage >= 100) {
+        data.expPercentage = 100;
+        data.incPercentage = 0;
+      } 
+        
     }
     else if (data.budget < 0) {
       data.expPercentage = 100;
-      data.incPercentage = 100 - data.expPercentage; 
+      data.incPercentage = 0; 
     }
     else {
       data.incPercentage = 0; 

@@ -126,29 +126,18 @@ export class LatestComponent implements OnInit {
     console.log(params);
     if (this.data.categories[params.category.id] == undefined) {
       let category = params.category;
-
       // initial create of category
       this.data.categories[params.category.id] =
         new Category(category.id, category.color, 0, 0, 0, category.icon, 0, category.name, []);
+    } 
 
-      if (params.items.type === 'exp') {
-        this.data.totals.exp += params.items.value;
-        this.data.categories[params.category.id].exp += params.items.value;
-      }
-      if (params.items.type === 'inc') {
-        this.data.totals.inc += params.items.value;
-        this.data.categories[params.category.id].inc += params.items.value;
-      }
-    } else {
-      // calculate category budget and add new item to the existing array.
-      if (params.items.type === 'exp') {
-        this.data.totals.exp += params.items.value;
-        this.data.categories[params.category.id].exp += params.items.value;
-      }
-      if (params.items.type === 'inc') {
-        this.data.totals.inc += params.items.value;
-        this.data.categories[params.category.id].inc += params.items.value;
-      }
+    if (params.items.type === 'exp') {
+      this.data.totals.exp += params.items.value;
+      this.data.categories[params.category.id].exp += params.items.value;
+    }
+    if (params.items.type === 'inc') {
+      this.data.totals.inc += params.items.value;
+      this.data.categories[params.category.id].inc += params.items.value;
     }
 
     // Push it into our data structure

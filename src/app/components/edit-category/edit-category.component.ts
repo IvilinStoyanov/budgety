@@ -1,4 +1,4 @@
-import { Component, DebugElement, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/services/common.service';
 
 @Component({
@@ -25,13 +25,16 @@ export class EditCategoryComponent implements OnInit {
 
     if (type === 'custom') this.data.categoryTemplatesCustom.splice(index, 1);
 
-    this.data.totals.inc -= this.data.categories[categoryID].inc;
-    this.data.totals.exp -= this.data.categories[categoryID].exp;
-
     let categoryIndex = this.data.categories.findIndex(category => category && category.id == categoryID);
-    this.data.categories.splice(categoryIndex, 1);
+    let category = this.data.categories.find(category => category && category.id == categoryID);
+    console.log(category)
+    if (category) {
+      this.data.totals.inc -= category.inc;
+      this.data.totals.exp -= category.exp;
+      this.data.categories.splice(categoryIndex, 1);
+    }
 
-    this.data.budget = this.data.totals.inc - this.data.totals.exp;
+    this.data.budget = parseFloat(this.data.totals.inc.toFixed(2)) - parseFloat(this.data.totals.exp.toFixed(2));
 
     // calculate category income/expense percetanges of current budget
     this.data = this.commonService.calculateTotalExpPercentage(this.data);
