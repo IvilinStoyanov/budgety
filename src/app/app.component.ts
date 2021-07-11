@@ -11,6 +11,7 @@ import { version } from 'package.json';
 })
 export class AppComponent implements OnInit {
   title = 'budgety';
+  data: any;
   version: any;
   currentDate: Date = new Date();
   
