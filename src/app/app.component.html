@@ -18,7 +18,7 @@
             <div fxLayout="row">
               <button mat-menu-item [routerLink]="['/add-category']">create</button>
               <div class="divider"></div>
-              <button *ngIf="data.categoryTemplates.length > 0 || data.categoryTemplatesCustom.length > 0" mat-menu-item [routerLink]="['/edit-category']">edit</button>
+              <button *ngIf="data?.categoryTemplates.length > 0 || data?.categoryTemplatesCustom.length > 0" mat-menu-item [routerLink]="['/edit-category']">edit</button>
             </div>
           </div>
           <div>
