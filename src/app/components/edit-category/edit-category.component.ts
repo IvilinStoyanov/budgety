@@ -20,6 +20,10 @@ export class EditCategoryComponent implements OnInit {
 
   }
 
+  openConfirmModal() {
+
+  }
+
   deleteTemplate(index: number, categoryID: number, type: string) {
     if (type === 'default') this.data.categoryTemplates.splice(index, 1);
 
@@ -27,7 +31,7 @@ export class EditCategoryComponent implements OnInit {
 
     let categoryIndex = this.data.categories.findIndex(category => category && category.id == categoryID);
     let category = this.data.categories.find(category => category && category.id == categoryID);
-    console.log(category)
+
     if (category) {
       this.data.totals.inc -= category.inc;
       this.data.totals.exp -= category.exp;
@@ -42,7 +46,12 @@ export class EditCategoryComponent implements OnInit {
     // calculate global income/expense percetanges of current budget
     this.data = this.commonService.calculatePercentageEach(this.data);
 
+    this.commonService.isAvailable.next(this.data);
     this.commonService.saveData(this.data);
+
+    // redirect to home page if all categories are deleted
+    if (this.data.categoryTemplates.length == 0 && this.data.categoryTemplatesCustom.length == 0)
+      this.commonService.navigateTo('latest');
   }
 
   changeColor(categoryID: number, color: string, type: string) {

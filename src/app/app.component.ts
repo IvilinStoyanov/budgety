@@ -23,6 +23,11 @@ export class AppComponent implements OnInit {
     if (localStorage.getItem('data') !== null) this.data = JSON.parse(localStorage.getItem('data'));
     console.log(this.data);
     this.version = parseFloat(version);
+
+    this.commonService.isAvailable.subscribe(data => {
+      console.log(data);
+      if (data) this.data = data
+    });
   }
 
   navigateHome() {

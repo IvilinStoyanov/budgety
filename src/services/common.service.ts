@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ReplaySubject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,9 +8,11 @@ import { ReplaySubject } from 'rxjs';
 export class CommonService {
   viewMode: string;
   currentTabIndex: ReplaySubject<number>;
+  isAvailable: BehaviorSubject<any>;
 
   constructor(private router: Router) {
     this.currentTabIndex = new ReplaySubject<number>(0);
+    this.isAvailable = new BehaviorSubject<any>(null);
    }
 
   navigateTo(path: string) {
