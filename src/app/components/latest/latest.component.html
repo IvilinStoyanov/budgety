@@ -39,9 +39,9 @@
   <!-- categories -->
   <div *ngIf="data.categories.length === 0" fxLayout="column" fxLayoutAlign="center center"
     class="hover" (click)="openAddItemDialog()">
-    <mat-icon class="material-icons-outlined icon-ex-lg text-grey mt-100">note_alt</mat-icon>
-    <span class="text-grey">No Transactions</span>
-    <span class="text-grey">Tap here to add one</span>
+    <mat-icon class="material-icons-outlined icon-md-lg text-transparent text-grey" [style.margin-top.px]="100">note_alt</mat-icon>
+    <span class="text-grey text-transparent">No Transactions</span>
+    <span class="text-grey text-transparent">Tap here to add one</span>
   </div>
   <div *ngFor="let category of data.categories">
     <div class="item" *ngIf="category && showCategories(category)">

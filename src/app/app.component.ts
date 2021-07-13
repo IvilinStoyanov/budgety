@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/services/common.service';
 import { version } from 'package.json';
-import { element } from 'protractor';
 
 @Component({
   selector: 'app-root',
@@ -21,11 +20,10 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // get data from localstorage
     if (localStorage.getItem('data') !== null) this.data = JSON.parse(localStorage.getItem('data'));
-    console.log(this.data);
+
     this.version = parseFloat(version);
 
     this.commonService.isAvailable.subscribe(data => {
-      console.log(data);
       if (data) this.data = data
     });
   }
@@ -63,7 +61,7 @@ export class AppComponent implements OnInit {
 
     var element: any = document.querySelector("#results");
     element.href = url;
-    element.download = `budgety-${version}.json`;
+    element.download = `budgety-${new Date().toJSON().slice(0, 10)}.json`;
     element.click();
   }
 }
