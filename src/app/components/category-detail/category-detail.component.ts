@@ -28,7 +28,8 @@ export class CategoryDetailComponent implements OnInit {
       let id = params['id'];
       this.categoryID = id;
 
-      if (this.data) this.category = this.data.categories[id];
+      if (this.data) this.category = this.data.categories.find(category => category && category.id == id);
+      
     })
   }
 
