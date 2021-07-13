@@ -36,7 +36,7 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
 
     this.createForm();
 
-    var searchIconSubscription$ = this.form
+    const searchIconSubscription$ = this.form
       .get('searchText')
       .valueChanges.subscribe((value) => { this.searchText = value; });
 
@@ -91,6 +91,7 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
 
       this.form.reset();
 
+      this.commonService.isAvailable.next(this.data);
       this.router.navigate(['/latest']);
       this.notification.success('Category successfully added');
     }

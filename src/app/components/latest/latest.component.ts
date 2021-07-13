@@ -31,6 +31,8 @@ export class LatestComponent implements OnInit {
       budget: 0,
       incPercentage: 0,
       expPercentage: 0,
+      siteVersion: '0.0.0',
+      isCreated: false
     };
   }
 
@@ -39,10 +41,12 @@ export class LatestComponent implements OnInit {
     if (localStorage.getItem('data') !== null) this.data = JSON.parse(localStorage.getItem('data'));
 
     // create initial values if none is provided
-    //if (this.data.categoryValues.length == 0)
-    this.createCategoryInitialValues();
+    if (!this.data.isCreated) {
+      this.createCategoryInitialValues();
+      this.createCategoryColors();
 
-    if (this.data.categoryColors == null) this.createCategoryColors();
+      this.data.isCreated = true;
+    }
 
     this.saveData();
     this.setViewMode('exp');
@@ -119,32 +123,21 @@ export class LatestComponent implements OnInit {
 
   addItem(params) {
     this.setViewMode(params.items.type);
-    console.log(params);
+    
     if (this.data.categories[params.category.id] == undefined) {
       let category = params.category;
-
       // initial create of category
       this.data.categories[params.category.id] =
         new Category(category.id, category.color, 0, 0, 0, category.icon, 0, category.name, []);
+    } 
 
-      if (params.items.type === 'exp') {
-        this.data.totals.exp += params.items.value;
-        this.data.categories[params.category.id].exp += params.items.value;
-      }
-      if (params.items.type === 'inc') {
-        this.data.totals.inc += params.items.value;
-        this.data.categories[params.category.id].inc += params.items.value;
-      }
-    } else {
-      // calculate category budget and add new item to the existing array.
-      if (params.items.type === 'exp') {
-        this.data.totals.exp += params.items.value;
-        this.data.categories[params.category.id].exp += params.items.value;
-      }
-      if (params.items.type === 'inc') {
-        this.data.totals.inc += params.items.value;
-        this.data.categories[params.category.id].inc += params.items.value;
-      }
+    if (params.items.type === 'exp') {
+      this.data.totals.exp += params.items.value;
+      this.data.categories[params.category.id].exp += params.items.value;
+    }
+    if (params.items.type === 'inc') {
+      this.data.totals.inc += params.items.value;
+      this.data.categories[params.category.id].inc += params.items.value;
     }
 
     // Push it into our data structure

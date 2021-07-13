@@ -17,6 +17,7 @@ import { AddColorComponent } from './components/add-color/add-color.component';
 import { AddCategoryComponent } from './components/add-category/add-category.component';
 import { BackButtonComponent } from './components/common/back-button/back-button.component';
 import { ConfirmDialogComponent } from './components/common/confirm-dialog/confirm-dialog.component';
+import { EditCategoryComponent } from './components/edit-category/edit-category.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -33,11 +34,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ColorSketchModule } from 'ngx-color/sketch'; 
+import { ColorSketchModule } from 'ngx-color/sketch';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-
-
-
 
 @NgModule({
   declarations: [
@@ -50,6 +48,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     TabsComponent,
     AddColorComponent,
     AddCategoryComponent,
+    EditCategoryComponent,
     BackButtonComponent,
     ConfirmDialogComponent
   ],

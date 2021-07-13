@@ -13,6 +13,16 @@ button {
         border-color: $secondary !important;
         color: $secondary !important;
       }
+
+      &.mat-info {
+        border-color: $blue !important;
+        color: $blue !important;
+      }
+
+      &.mat-danger {
+        border-color: $red !important;
+        color: $red !important;
+      }
     }
 
     &.mat-icon-button {

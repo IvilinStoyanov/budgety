@@ -16,9 +16,13 @@
               </span>
             </div>
             <div fxLayout="row">
-              <button mat-menu-item [routerLink]="['/add-category']">create</button>
+              <div fxFlex="50">
+                <button mat-menu-item [routerLink]="['/add-category']">create</button>
+              </div>
               <div class="divider"></div>
-              <button mat-menu-item [routerLink]="['/edit-category']">edit</button>
+              <div fxFlex="50">
+                <button *ngIf="data?.categoryTemplates.length > 0 || data?.categoryTemplatesCustom.length > 0" mat-menu-item [routerLink]="['/edit-category']">edit</button>
+              </div>
             </div>
           </div>
           <div>
@@ -29,9 +33,13 @@
               </span>
             </div>
             <div fxLayout="row">
-              <button mat-menu-item [routerLink]="['/add-color']">create</button>
+              <div fxFlex="50">
+                <button mat-menu-item [routerLink]="['/add-color']">create</button>
+              </div>
               <div class="divider"></div>
-              <button mat-menu-item [routerLink]="['/edit-color']">edit</button>
+              <div fxFlex="50">
+                <button mat-menu-item [routerLink]="['/edit-color']">edit</button>
+              </div>
             </div>
           </div>
         </div>

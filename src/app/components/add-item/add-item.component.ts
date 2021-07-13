@@ -89,7 +89,7 @@ export class AddItemComponent implements OnInit, OnDestroy {
           description: this.form.value.description,
           dateCreated: this.form.value.dateCreated,
           type: this.form.value.type,
-          value: this.form.value.value,
+          value: parseFloat(this.form.value.value.toFixed(2))
         }
       }
 

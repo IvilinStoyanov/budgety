@@ -1,4 +1,4 @@
-<div *ngIf="data.categories.length > 0" class="ml-2 mr-2 mt-2 mb-0">
+<div class="ml-2 mr-2 mt-2 mb-0">
   <!-- tabs -->
   <app-tabs [data]="data"></app-tabs>
   <!-- progress bar -->
@@ -34,16 +34,15 @@
     </div>
   </mat-card>
 </div>
-<div *ngIf="data.categories.length === 0" fxLayout="column" fxLayoutAlign="center center" class="position-center hover"
-  (click)="openAddItemDialog()">
-  <mat-icon class="material-icons-outlined icon-ex-lg">note_alt</mat-icon>
-  <span class="text-transparent">No Transactions</span>
-  <span class="text-transparent">Tap here to add one</span>
-</div>
 <!-- list -->
-<mat-card *ngIf="data.categories.length > 0" [style.min-height.px]="500"
-  class="ml-2 mr-2 mb-0 mt-0 pt-0 pl-1 border-radius-none">
+<mat-card [style.min-height.px]="500" class="ml-2 mr-2 mb-0 mt-0 pt-0 pl-1 border-radius-none">
   <!-- categories -->
+  <div *ngIf="data.categories.length === 0" fxLayout="column" fxLayoutAlign="center center"
+    class="hover" (click)="openAddItemDialog()">
+    <mat-icon class="material-icons-outlined icon-md-lg text-transparent text-grey" [style.margin-top.px]="100">note_alt</mat-icon>
+    <span class="text-grey text-transparent">No Transactions</span>
+    <span class="text-grey text-transparent">Tap here to add one</span>
+  </div>
   <div *ngFor="let category of data.categories">
     <div class="item" *ngIf="category && showCategories(category)">
       <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -92,7 +91,7 @@
   </div>
 </mat-card>
 <!-- bottom menu -->
-<div *ngIf="data.categories.length > 0" class="bottom ml-2 mr-2">
+<div class="bottom ml-2 mr-2">
   <div class="add-item-chip" matTooltip="add new item">
     <mat-icon class="material-icons-outlined position-center-absolute icon-lg hover" (click)="openAddItemDialog()">add
     </mat-icon>
