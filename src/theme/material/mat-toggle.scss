@@ -1,0 +1,9 @@
+@import "../colors.scss";
+
+.mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-thumb {
+        background-color: $primary;
+    }
+
+    .mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-bar {
+        background-color: $primary-light;
+    }

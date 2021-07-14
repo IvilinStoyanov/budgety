@@ -44,7 +44,7 @@
     <span class="text-grey text-transparent">Tap here to add one</span>
   </div>
   <div *ngFor="let category of data.categories">
-    <div class="item" *ngIf="category && showCategories(category)">
+    <div class="item" *ngIf="category && showCategories(category) && category.isVisible">
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <div fxLayout="row" fxLayoutAlign="start center">
           <div class="category-title-container">

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/services/common.service';
+import { NotificationService } from 'src/services/notification.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddItemComponent } from '../add-item/add-item.component';
 import { Category } from 'src/app/models/category';
-import { Categories } from 'src/app/enums/categories.enum';
 import { CategoriesColors } from 'src/app/enums/categories-colors.enum';
+import { Categories } from 'src/app/enums/categories.enum';
 import { Router } from '@angular/router';
-import { NotificationService } from 'src/services/notification.service';
 
 @Component({
   selector: 'app-latest',
@@ -17,12 +17,11 @@ export class LatestComponent implements OnInit {
   data: any;
   viewMode: any;
 
-  constructor(public dialog: MatDialog, public commonService: CommonService, private router: Router,
+  constructor(private dialog: MatDialog, private commonService: CommonService, private router: Router,
     public notification: NotificationService) {
     this.data = {
       categories: [],
       categoryTemplates: [],
-      categoryTemplatesCustom: [],
       categoryColors: null,
       totals: {
         exp: 0,
@@ -48,9 +47,7 @@ export class LatestComponent implements OnInit {
       this.data.isCreated = true;
     }
 
-    this.data.categories = this.data.categories.filter(c => c !== null);
-
-    this.saveData();
+    this.commonService.saveData(this.data);
     this.setViewMode('exp');
 
     // set viewMode to inc if there is no expenses on first load.
@@ -61,28 +58,24 @@ export class LatestComponent implements OnInit {
     this.router.navigate([`/category/${categoryName}`], { queryParams: { id: categoryID }, skipLocationChange: true, replaceUrl: false });
   }
 
-  saveData() {
-    localStorage.setItem('data', JSON.stringify(this.data));
-  }
-
   createCategoryColors() {
     this.data.categoryColors = Object.values(CategoriesColors);
   }
 
   createCategoryInitialValues() {
     this.data.categoryTemplates = [
-      { id: Categories.Salary, icon: 'attach_money', name: 'Salary', color: CategoriesColors.Salary },
-      { id: Categories.Car, icon: 'directions_car_filled', name: 'Car', color: CategoriesColors.Car },
-      { id: Categories.Grocery, icon: 'shopping_cart', name: 'Grocery', color: CategoriesColors.Grocery },
-      { id: Categories.Food, icon: 'restaurant', name: 'Food & Restaurant', color: CategoriesColors.Food },
-      { id: Categories.Coffe, icon: 'local_cafe', name: 'Coffe', color: CategoriesColors.Coffe },
-      { id: Categories.Haircut, icon: 'content_cut', name: 'Haircut', color: CategoriesColors.Haircut },
-      { id: Categories.MedicalSupplies, icon: 'medication', name: 'Medical Supplies', color: CategoriesColors.MedicalSupplies },
-      { id: Categories.Holiday, icon: 'holiday_village', name: 'Holiday', color: CategoriesColors.Holiday },
-      { id: Categories.Utilities, icon: 'receipt', name: 'Utilities', color: CategoriesColors.Utilities },
-      { id: Categories.Rent, icon: 'bedroom_parent', name: 'Rent', color: CategoriesColors.Rent },
-      { id: Categories.LoanPayments, icon: 'credit_score', name: 'Loan Payments', color: CategoriesColors.LoanPayments },
-      { id: Categories.Savings, icon: 'savings', name: 'Savings', color: CategoriesColors.Savings }
+      { id: Categories.Salary, icon: 'attach_money', name: 'Salary', color: CategoriesColors.Salary, isVisible: true },
+      { id: Categories.Car, icon: 'directions_car_filled', name: 'Car', color: CategoriesColors.Car, isVisible: true },
+      { id: Categories.Grocery, icon: 'shopping_cart', name: 'Grocery', color: CategoriesColors.Grocery, isVisible: true },
+      { id: Categories.Food, icon: 'restaurant', name: 'Food & Restaurant', color: CategoriesColors.Food, isVisible: true },
+      { id: Categories.Coffe, icon: 'local_cafe', name: 'Coffe', color: CategoriesColors.Coffe, isVisible: true },
+      { id: Categories.Haircut, icon: 'content_cut', name: 'Haircut', color: CategoriesColors.Haircut, isVisible: true },
+      { id: Categories.MedicalSupplies, icon: 'medication', name: 'Medical Supplies', color: CategoriesColors.MedicalSupplies, isVisible: true },
+      { id: Categories.Holiday, icon: 'holiday_village', name: 'Holiday', color: CategoriesColors.Holiday, isVisible: true },
+      { id: Categories.Utilities, icon: 'receipt', name: 'Utilities', color: CategoriesColors.Utilities, isVisible: true },
+      { id: Categories.Rent, icon: 'bedroom_parent', name: 'Rent', color: CategoriesColors.Rent, isVisible: true },
+      { id: Categories.LoanPayments, icon: 'credit_score', name: 'Loan Payments', color: CategoriesColors.LoanPayments, isVisible: true },
+      { id: Categories.Savings, icon: 'savings', name: 'Savings', color: CategoriesColors.Savings, isVisible: true }
     ];
   }
 
@@ -107,10 +100,12 @@ export class LatestComponent implements OnInit {
   }
 
   openAddItemDialog(): void {
+    let templates = this.data.categoryTemplates.filter(t => t.isVisible == true);
+
     const dialogRef = this.dialog.open(AddItemComponent, {
       autoFocus: false,
       data: {
-        category: this.data.categoryTemplates.concat(this.data.categoryTemplatesCustom),
+        category: templates,
         viewMode: this.viewMode,
       }
     });
