@@ -27,12 +27,17 @@
     </div>
   </mat-menu>
   <div fxLayout="row" fxLayoutAlign="end center" class="border-top pt-2">
-    <div>
-      <button mat-stroked-button color="secondary">
-        <mat-icon class="material-icons-outlined icon-sm">tune</mat-icon>
-        Settings
-      </button>
-    </div>
+    <!-- test -->
+    <ngx-charts-line-chart *ngIf="chartData"
+    [view]="[850,300]"
+    [results]="chartData"
+    [showYAxisLabel]="true"
+    [xAxis]="true"
+    [yAxis]="true"
+    [gradient]="true"
+    [autoScale]="true"
+    [curve]="curve">
+</ngx-charts-line-chart>
   </div>
   <div fxLayout="column" fxLayoutAlign="space-around center" class="p-2 mt-4 mb-4">
     <div [style.width.%]="100" class="mb-1" *ngIf="category.inc > 0">
