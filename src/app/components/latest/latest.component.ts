@@ -48,6 +48,8 @@ export class LatestComponent implements OnInit {
       this.data.isCreated = true;
     }
 
+    this.data.categories = this.data.categories.filter(c => c !== null);
+
     this.saveData();
     this.setViewMode('exp');
 
@@ -126,32 +128,40 @@ export class LatestComponent implements OnInit {
 
     if (this.data.categories[params.category.id] == undefined) {
       let category = params.category;
+
       // initial create of category
-      this.data.categories[params.category.id] =
-        new Category(category.id, category.color, 0, 0, 0, category.icon, 0, category.name, true, []);
+      let categoryClass = new Category(category.id, category.color, 0, 0, 0, category.icon, 0, category.name, true, []);
+
+      this.data.categories.push({ ...categoryClass });
     }
 
-    if (params.items.type === 'exp') {
-      this.data.totals.exp += params.items.value;
-      this.data.categories[params.category.id].exp += params.items.value;
+    let categoryIndex = this.data.categories.findIndex(category => category && category.id == params.category.id);
+
+    if (categoryIndex >= 0) {
+      if (params.items.type === 'exp') {
+        this.data.totals.exp += params.items.value;
+        this.data.categories[categoryIndex].exp += params.items.value;
+      }
+      if (params.items.type === 'inc') {
+        this.data.totals.inc += params.items.value;
+        this.data.categories[categoryIndex].inc += params.items.value;
+      }
+
+      // Push it into our data structure
+      this.data.categories[categoryIndex].items.push(params.items);
+
+      // calculate budget
+      this.data.budget = this.data.totals.inc - this.data.totals.exp;
+
+      // calculate category income/expense percetanges of current budget
+      this.data = this.commonService.calculateTotalExpPercentage(this.data);
+
+      // calculate global income/expense percetanges of current budget
+      this.data = this.commonService.calculatePercentageEach(this.data);
+
+      this.commonService.saveData(this.data);
+    } else {
+      this.notification.danger("Not able to add category.");
     }
-    if (params.items.type === 'inc') {
-      this.data.totals.inc += params.items.value;
-      this.data.categories[params.category.id].inc += params.items.value;
-    }
-
-    // Push it into our data structure
-    this.data.categories[params.category.id].items.push(params.items);
-
-    // calculate budget
-    this.data.budget = this.data.totals.inc - this.data.totals.exp;
-
-    // calculate category income/expense percetanges of current budget
-    this.data = this.commonService.calculateTotalExpPercentage(this.data);
-
-    // calculate global income/expense percetanges of current budget
-    this.data = this.commonService.calculatePercentageEach(this.data);
-
-    this.commonService.saveData(this.data);
   }
 }
