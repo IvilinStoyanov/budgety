@@ -7,6 +7,7 @@ export class Category {
     icon: string;
     inc: number;
     name: string;
+    visible: boolean;
     items: [];
 
     constructor
@@ -19,6 +20,7 @@ export class Category {
             icon: string = '',
             inc: number = 0,
             name: string = '',
+            visible: boolean = true,
             items: []
         ) {
         this.id = id;
@@ -29,6 +31,7 @@ export class Category {
         this.icon = icon;
         this.inc = inc;
         this.name = name;
+        this.visible = visible;
         this.items = items;
     }
 }

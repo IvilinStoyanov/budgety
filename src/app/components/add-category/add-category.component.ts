@@ -83,7 +83,7 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
       // initial create of category
       let params = this.form.value;
 
-      let category = { id: nextCategoryIndex, color: params.color, icon: params.icon, name: params.name };
+      let category = { id: nextCategoryIndex, color: params.color, icon: params.icon, name: params.name, visible: true };
 
       this.data.categoryTemplatesCustom.push(category);
 
