@@ -14,18 +14,9 @@
     </div>
   </div>
   <app-back-button></app-back-button>
-  <div class="menu-right hover" [matMenuTriggerFor]="menu">
-    <mat-icon class="material-icons-outlined" [style.color]="category.color" matTooltip="change color">palette
-    </mat-icon>
+  <div class="menu-right hover" >
+    <mat-icon class="material-icons-outlined" matTooltip="add transaction">add</mat-icon>
   </div>
-  <mat-menu #menu="matMenu">
-    <div class="text-black text-bold border-bottom ml-1 mb-2 pb-1 text-sm">Pick category color</div>
-    <div fxLayout="row wrap">
-      <div *ngFor="let color of data.categoryColors">
-        <div class="color hover" [style.background-color]="color" (click)="changeColor(color)"></div>
-      </div>
-    </div>
-  </mat-menu>
   <div fxLayout="row" fxLayoutAlign="end center" class="border-top pt-2">
     <div>
       <button mat-stroked-button color="secondary">

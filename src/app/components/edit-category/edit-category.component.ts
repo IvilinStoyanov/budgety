@@ -20,14 +20,19 @@ export class EditCategoryComponent implements OnInit {
 
   }
 
-  openConfirmModal() {
+  onToggle(event, categoryID) {
+    console.log(event.checked, categoryID);
+    let categoryTemplateIndex = this.data.categoryTemplates.findIndex(category => category && category.id == categoryID);
+    let categoryIndex = this.data.categories.findIndex(category => category && category.id == categoryID);
 
+    if (categoryTemplateIndex >= 0) this.data.categoryTemplates[categoryTemplateIndex].isVisible = event.checked;
+    if (categoryIndex >= 0) this.data.categories[categoryIndex].isVisible = event.checked;
+
+    this.commonService.saveData(this.data);
   }
 
-  deleteTemplate(index: number, categoryID: number, type: string) {
-    if (type === 'default') this.data.categoryTemplates.splice(index, 1);
-
-    if (type === 'custom') this.data.categoryTemplatesCustom.splice(index, 1);
+  deleteTemplate(index: number, categoryID: number) {
+    this.data.categoryTemplates.splice(index, 1);
 
     let categoryIndex = this.data.categories.findIndex(category => category && category.id == categoryID);
     let category = this.data.categories.find(category => category && category.id == categoryID);
@@ -54,12 +59,12 @@ export class EditCategoryComponent implements OnInit {
       this.commonService.navigateTo('latest');
   }
 
-  changeColor(categoryID: number, color: string, type: string) {
-    if (type === 'default') this.data.categoryTemplates[categoryID].color = color;
+  changeColor(categoryID: number, color: string) {
+    let categoryTemplateIndex = this.data.categoryTemplates.findIndex(category => category && category.id == categoryID);
+    let categoryIndex = this.data.categories.findIndex(category => category && category.id == categoryID);
 
-    if (type === 'custom') this.data.categoryTemplatesCustom[categoryID].color = color;
-
-    this.data.categories[categoryID].color = color;
+    if (categoryTemplateIndex >= 0) this.data.categoryTemplates[categoryTemplateIndex].color = color;
+    if (categoryIndex >= 0) this.data.categories[categoryIndex].color = color;
 
     this.commonService.saveData(this.data);
   }

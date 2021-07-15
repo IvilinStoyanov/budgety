@@ -77,15 +77,14 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
       this.notification.warn("Please select icon and color");
     }
     if (this.form.valid) {
-      let combinedCategoriesTemplates = this.data.categoryTemplates.concat(this.data.categoryTemplatesCustom);
+      let nextCategoryIndex = this.data.categoryTemplates.length;
 
-      let nextCategoryIndex = combinedCategoriesTemplates.length;
       // initial create of category
       let params = this.form.value;
 
       let category = { id: nextCategoryIndex, color: params.color, icon: params.icon, name: params.name, visible: true };
 
-      this.data.categoryTemplatesCustom.push(category);
+      this.data.categoryTemplates.push(category);
 
       this.commonService.saveData(this.data);
 

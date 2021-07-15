@@ -26,7 +26,7 @@ export class CategoryDetailComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       let id = params['id'];
-      this.categoryID = id;
+      this.categoryID = this.data.categories.findIndex(category => category && category.id == id);
 
       if (this.data) this.category = this.data.categories.find(category => category && category.id == id);
       
@@ -78,11 +78,5 @@ export class CategoryDetailComponent implements OnInit {
     this.notification.danger('Item successfully deleted');
 
     if (this.data.categories[this.categoryID].items.length === 0) this.router.navigate(['/latest']);
-  }
-
-  changeColor(color: string) {
-    this.data.categories[this.categoryID].color = color;
-
-    this.commonService.saveData(this.data);
   }
 }
