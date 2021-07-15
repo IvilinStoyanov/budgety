@@ -58,7 +58,6 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
 
   openPanel() {
     this.panelOpenState = !this.panelOpenState;
-    console.log(this.panelOpenState);
   }
 
   selectColor(color: string, index: number) {
@@ -82,7 +81,7 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
       // initial create of category
       let params = this.form.value;
 
-      let category = { id: nextCategoryIndex, color: params.color, icon: params.icon, name: params.name, visible: true };
+      let category = { id: nextCategoryIndex, color: params.color, icon: params.icon, name: params.name, isVisible: true };
 
       this.data.categoryTemplates.push(category);
 
