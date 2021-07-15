@@ -17,64 +17,11 @@ export class CategoryDetailComponent implements OnInit {
   category: any;
   viewMode: string;
 
+  colorScheme = { domain: ['#28B9B5', '#FF5049'] };
+
   days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thrus', 'Fri', 'Sat'];
   curve: any = shape.curveBasis;
   chartData: any = [];
-
-  saleData = [
-    {
-      "name": "Monday",
-      "series": [
-        {
-          "name": "2010",
-          "value": 0,
-          "extra": {
-            "code": "us"
-          }
-        },
-        {
-          "name": "2000",
-          "value": 45986,
-          "extra": {
-            "code": "us"
-          }
-        },
-        {
-          "name": "1990",
-          "value": 37060,
-          "extra": {
-            "code": "us"
-          }
-        }
-      ]
-    },
-    {
-      "name": "United Kingdom",
-      "series": [
-        {
-          "name": "2010",
-          "value": 36240,
-          "extra": {
-            "code": "uk"
-          }
-        },
-        {
-          "name": "2000",
-          "value": 32543,
-          "extra": {
-            "code": "uk"
-          }
-        },
-        {
-          "name": "1990",
-          "value": 26424,
-          "extra": {
-            "code": "uk"
-          }
-        }
-      ]
-    }
-  ];
 
   constructor(public route: ActivatedRoute, public commonService: CommonService, public notification: NotificationService,
     public router: Router, public dialog: MatDialog) { }
@@ -90,23 +37,50 @@ export class CategoryDetailComponent implements OnInit {
 
       if (this.data) this.category = this.data.categories.find(category => category && category.id == id);
 
-      let weeklyActivity = this.category.items.slice(Math.max(this.category.items.length - 7, 0));
+      // TODO: Use later 
+      // let weeklyActivity = this.category.items.slice(Math.max(this.category.items.length - 7, 0));
 
       let incData = { name: 'inc', series: [] };
       let expData = { name: 'exp', series: [] };
 
-      weeklyActivity.forEach(element => {
+      // let tempArr = [];
+      //   this.category.items.forEach(element => {
+      //     let dayName = this.days[new Date(element.dateCreated).getDay()];
+      //     let item = { value: element.value, name: dayName }
+      //       if (tempArr[new Date(element.dateCreated).getDay()] == undefined) tempArr[new Date(element.dateCreated).getDay()] = [];
+
+      //       tempArr[new Date(element.dateCreated).getDay()].push(item);
+      //   });
+      //   tempArr = tempArr.filter(t => t != null);
+      //   console.log(tempArr);
+      console.log(this.category);
+      this.category.items.forEach(element => {
         let dayName = this.days[new Date(element.dateCreated).getDay()];
         let item = { value: element.value, name: dayName };
 
-        if (element.type == 'inc') {
-            incData.series.push(item);
-        } else {
-            expData.series.push(item);
+        let dayIndex = new Date(element.dateCreated).getDay();
+
+        if (element.type == 'exp') {
+          if (expData.series[dayIndex] == undefined) {
+            expData.series[dayIndex] = item;
+          } else {
+            expData.series[dayIndex].value += item.value;
+          }
         }
 
-        
+        if (element.type == 'inc') {
+          if (incData.series[dayIndex] == undefined) {
+            incData.series[dayIndex] = item;
+          } else {
+            incData.series[dayIndex].value += item.value;
+          }
+        }
+
       });
+
+      incData.series = incData.series.filter(e => e != null);
+      expData.series = expData.series.filter(e => e != null);
+
       this.chartData = [incData, expData];
       console.log(this.chartData);
     })
