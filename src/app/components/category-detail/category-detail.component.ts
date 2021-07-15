@@ -43,17 +43,6 @@ export class CategoryDetailComponent implements OnInit {
       let incData = { name: 'inc', series: [] };
       let expData = { name: 'exp', series: [] };
 
-      // let tempArr = [];
-      //   this.category.items.forEach(element => {
-      //     let dayName = this.days[new Date(element.dateCreated).getDay()];
-      //     let item = { value: element.value, name: dayName }
-      //       if (tempArr[new Date(element.dateCreated).getDay()] == undefined) tempArr[new Date(element.dateCreated).getDay()] = [];
-
-      //       tempArr[new Date(element.dateCreated).getDay()].push(item);
-      //   });
-      //   tempArr = tempArr.filter(t => t != null);
-      //   console.log(tempArr);
-      console.log(this.category);
       this.category.items.forEach(element => {
         let dayName = this.days[new Date(element.dateCreated).getDay()];
         let item = { value: element.value, name: dayName };
@@ -82,7 +71,6 @@ export class CategoryDetailComponent implements OnInit {
       expData.series = expData.series.filter(e => e != null);
 
       this.chartData = [incData, expData];
-      console.log(this.chartData);
     })
   }
 
