@@ -1,4 +1,4 @@
-<mat-card *ngIf="category" [style.min-height.px]="600" [style.margin-top.px]="15" class="ml-2 mr-2 mb-0">
+<mat-card *ngIf="category" [style.min-height.px]="600" [style.margin-top.px]="15" class="ml-2 mr-2 mb-0 p-0">
   <div [style.height.px]="110">
     <div class="category-icon-wrapper" fxLayout="column" fxLayoutAlign="center center">
       <div class="category-icon-container box-shadow border mb-2" [style.border-color]="category.color">
@@ -26,15 +26,12 @@
       </div>
     </div>
   </mat-menu>
-  <div fxLayout="row" fxLayoutAlign="end center" class="border-top pt-2">
-    <div>
-      <button mat-stroked-button color="secondary">
-        <mat-icon class="material-icons-outlined icon-sm">tune</mat-icon>
-        Settings
-      </button>
-    </div>
+  <div fxLayout="row" class="pt-2">
+    <ngx-charts-line-chart *ngIf="chartData" [results]="chartData" [showGridLines]="true" [showYAxisLabel]="false" [scheme]="colorScheme"
+      [xAxis]="true" [yAxis]="true" [gradient]="true" [curve]="curve">
+    </ngx-charts-line-chart>
   </div>
-  <div fxLayout="column" fxLayoutAlign="space-around center" class="p-2 mt-4 mb-4">
+  <div fxLayout="column" fxLayoutAlign="space-around center" class="pl-4 pr-4 pt-1 pb-1 mt-4 mb-4">
     <div [style.width.%]="100" class="mb-1" *ngIf="category.inc > 0">
       <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-1">
         <div class="text-black text-md">
@@ -60,9 +57,10 @@
       <app-progress-bar class="exp-progress-bar" [percentage]="category.expPercentage"></app-progress-bar>
     </div>
   </div>
-  <div *ngFor="let item of category.items; let i = index" class="line-item">
-    <span class="chip text-black text-transparent text-ex-sm">{{ item.dateCreated | date: "dd/MM/yy" }}</span>
-    <div class="item" fxLayout="row" fxLayoutAlign="space-between center">
+  <div class="pl-4 pr-4 pt-1 pb-1">
+    <div *ngFor="let item of category.items; let i = index" class="line-item">
+      <span class="chip text-black text-bold text-transparent text-ex-sm">{{ item.dateCreated | date: "dd/MM/yy" }}</span>
+      <div class="item" fxLayout="row" fxLayoutAlign="space-between center">
         <div fxLayout="row" fxLayoutAlign="center center" matTooltip="{{ item.description }}">
           <span class="text-black">{{ item.description || category.name | titlecase }}</span>
         </div>
@@ -78,8 +76,10 @@
             </div> -->
           </div>
           <div class="hover-menu ml-2">
-            <mat-icon class="material-icons-outlined icon-danger hover" matTooltip="delete item" (click)="openConfirmDialog(item, i)">delete</mat-icon>
+            <mat-icon class="material-icons-outlined icon-danger hover" matTooltip="delete item"
+              (click)="openConfirmDialog(item, i)">delete</mat-icon>
           </div>
+        </div>
       </div>
     </div>
   </div>
