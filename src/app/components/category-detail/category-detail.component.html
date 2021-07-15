@@ -14,10 +14,13 @@
     </div>
   </div>
   <app-back-button></app-back-button>
-  <div class="menu-right hover" >
+  <div class="menu-right hover">
     <mat-icon class="material-icons-outlined" matTooltip="add transaction">add</mat-icon>
   </div>
-  <div fxLayout="row" fxLayoutAlign="end center" class="border-top pt-2">
+  <div fxLayout="row" class="pt-2">
+    <ngx-charts-line-chart *ngIf="chartData" [results]="chartData" [showGridLines]="true" [showYAxisLabel]="false"
+      [scheme]="colorScheme" [xAxis]="true" [yAxis]="true" [gradient]="true" [curve]="curve">
+    </ngx-charts-line-chart>
   </div>
   <div fxLayout="column" fxLayoutAlign="space-around center" class="pl-4 pr-4 pt-1 pb-1 mt-4 mb-4">
     <div [style.width.%]="100" class="mb-1" *ngIf="category.inc > 0">
@@ -47,7 +50,8 @@
   </div>
   <div class="pl-4 pr-4 pt-1 pb-1">
     <div *ngFor="let item of category.items; let i = index" class="line-item">
-      <span class="chip text-black text-bold text-transparent text-ex-sm">{{ item.dateCreated | date: "dd/MM/yy" }}</span>
+      <span class="chip text-black text-bold text-transparent text-ex-sm">{{ item.dateCreated | date: "dd/MM/yy"
+        }}</span>
       <div class="item" fxLayout="row" fxLayoutAlign="space-between center">
         <div fxLayout="row" fxLayoutAlign="center center" matTooltip="{{ item.description }}">
           <span class="text-black">{{ item.description || category.name | titlecase }}</span>
