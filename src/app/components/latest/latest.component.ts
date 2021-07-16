@@ -120,8 +120,10 @@ export class LatestComponent implements OnInit {
 
   addItem(params) {
     this.setViewMode(params.items.type);
+    
+    let isCategoryExist = this.data.categories.findIndex(c => c && c.id == params.category.id);
 
-    if (this.data.categories[params.category.id] == undefined) {
+    if (isCategoryExist < 0) {
       let category = params.category;
 
       // initial create of category
