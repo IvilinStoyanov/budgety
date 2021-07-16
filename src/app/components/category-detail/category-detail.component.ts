@@ -37,6 +37,8 @@ export class CategoryDetailComponent implements OnInit {
 
       if (this.data) this.category = this.data.categories.find(category => category && category.id == id);
 
+      this.category.items.sort((a, b) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime());
+
       // TODO: Use later 
       // let weeklyActivity = this.category.items.slice(Math.max(this.category.items.length - 7, 0));
 
