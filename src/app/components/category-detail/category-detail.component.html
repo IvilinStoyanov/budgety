@@ -15,7 +15,7 @@
   </div>
   <app-back-button></app-back-button>
   <div class="menu-right hover">
-    <mat-icon class="material-icons-outlined" matTooltip="add transaction">add</mat-icon>
+    <mat-icon class="material-icons-outlined" matTooltip="add transaction" (click)="openAddItemDialog(category.id)">add</mat-icon>
   </div>
   <div fxLayout="row" class="pt-2">
     <ngx-charts-line-chart *ngIf="chartData" [results]="chartData" [showGridLines]="true" [showYAxisLabel]="false"

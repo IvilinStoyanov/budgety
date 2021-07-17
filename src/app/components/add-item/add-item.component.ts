@@ -55,17 +55,23 @@ export class AddItemComponent implements OnInit, OnDestroy {
 
   createForm() {
     let type = false;
-    
+
     if (this.templateData.viewMode == 'exp') type = true;
 
     this.form = this.fb.group({
       type: [type, Validators.required],
-      category: ['', Validators.required],
+      category: [this.templateData.selectedCategory, Validators.required],
       value: ['', Validators.required],
       dateCreated: [{ value: '', disabled: true }],
       description: [''],
       isToday: [true],
     });
+
+    if (this.templateData.selectedCategory) {
+      this.categoryPicked = this.templateData.selectedCategory.name;
+      this.form.get('category').setValue(this.templateData.selectedCategory);
+      this.form.get('category').disable();
+    }
   }
 
   addItem() {
@@ -84,13 +90,13 @@ export class AddItemComponent implements OnInit, OnDestroy {
 
       // modify form value
       let category = {
-        category: this.form.value.category,
+        category: this.form.getRawValue().category,
         items: {
           description: this.form.value.description,
           dateCreated: this.form.value.dateCreated,
           type: this.form.value.type,
           value: parseFloat(this.form.value.value.toFixed(2))
-        }
+        },
       }
 
       this.dialogRef.close(category);

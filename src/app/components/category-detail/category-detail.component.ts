@@ -5,6 +5,8 @@ import { CommonService } from 'src/services/common.service';
 import { NotificationService } from 'src/services/notification.service';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import * as shape from 'd3-shape';
+import { AddItemComponent } from '../add-item/add-item.component';
+import { Category } from 'src/app/models/category';
 
 @Component({
   selector: 'app-category-detail',
@@ -37,7 +39,7 @@ export class CategoryDetailComponent implements OnInit {
 
       if (this.data) this.category = this.data.categories.find(category => category && category.id == id);
 
-      this.category.items.sort((a, b) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime());
+      this.sortByDate();
 
       // TODO: Use later 
       // let weeklyActivity = this.category.items.slice(Math.max(this.category.items.length - 7, 0));
@@ -74,6 +76,78 @@ export class CategoryDetailComponent implements OnInit {
 
       this.chartData = [incData, expData];
     })
+  }
+
+  sortByDate() {
+    this.category.items.sort((a, b) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime());
+  }
+
+  openAddItemDialog(categoryID?: number): void {
+    let selectedCategory: any;
+    let templates = this.data.categoryTemplates.filter(t => t.isVisible == true);
+
+    if (categoryID) selectedCategory = this.data.categoryTemplates.find(c => c && c.id == categoryID);  
+
+    const dialogRef = this.dialog.open(AddItemComponent, {
+      autoFocus: false,
+      data: {
+        category: templates,
+        selectedCategory: selectedCategory, 
+        viewMode: this.viewMode,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.addItem(result);
+        this.sortByDate();
+        this.notification.success("Item successfully added");
+      }
+    });
+  }
+
+  addItem(params) {
+    this.setViewMode(params.items.type);
+    
+    let isCategoryExist = this.data.categories.findIndex(c => c && c.id == params.category.id);
+
+    if (isCategoryExist < 0) {
+      let category = params.category;
+
+      // initial create of category
+      let categoryClass = new Category(category.id, category.color, 0, 0, 0, category.icon, 0, category.name, true, []);
+
+      this.data.categories.push({ ...categoryClass });
+    }
+
+    let categoryIndex = this.data.categories.findIndex(category => category && category.id == params.category.id);
+
+    if (categoryIndex >= 0) {
+      if (params.items.type === 'exp') {
+        this.data.totals.exp += params.items.value;
+        this.data.categories[categoryIndex].exp += params.items.value;
+      }
+      if (params.items.type === 'inc') {
+        this.data.totals.inc += params.items.value;
+        this.data.categories[categoryIndex].inc += params.items.value;
+      }
+
+      // Push it into our data structure
+      this.data.categories[categoryIndex].items.push(params.items);
+
+      // calculate budget
+      this.data.budget = this.data.totals.inc - this.data.totals.exp;
+
+      // calculate category income/expense percetanges of current budget
+      this.data = this.commonService.calculateTotalExpPercentage(this.data);
+
+      // calculate global income/expense percetanges of current budget
+      this.data = this.commonService.calculatePercentageEach(this.data);
+
+      this.commonService.saveData(this.data);
+    } else {
+      this.notification.danger("Not able to add category.");
+    }
   }
 
   openConfirmDialog(item: any, index: number): void {
@@ -121,5 +195,10 @@ export class CategoryDetailComponent implements OnInit {
     this.notification.danger('Item successfully deleted');
 
     if (this.data.categories[this.categoryID].items.length === 0) this.router.navigate(['/latest']);
+  }
+
+  setViewMode(mode: string) {
+    this.viewMode = mode;
+    this.commonService.viewMode = mode;
   }
 }

@@ -21,7 +21,6 @@ export class EditCategoryComponent implements OnInit {
   }
 
   onToggle(event, categoryID) {
-    console.log(event.checked, categoryID);
     let categoryTemplateIndex = this.data.categoryTemplates.findIndex(category => category && category.id == categoryID);
     let categoryIndex = this.data.categories.findIndex(category => category && category.id == categoryID);
 
