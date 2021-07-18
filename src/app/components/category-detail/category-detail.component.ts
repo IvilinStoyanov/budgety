@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/services/common.service';
 import { NotificationService } from 'src/services/notification.service';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
-import * as shape from 'd3-shape';
 import { AddItemComponent } from '../add-item/add-item.component';
 import { Category } from 'src/app/models/category';
+import * as shape from 'd3-shape';
 
 @Component({
   selector: 'app-category-detail',
@@ -41,41 +41,13 @@ export class CategoryDetailComponent implements OnInit {
 
       this.sortByDate();
 
+      this.budgetByDaysChart();
+
       // TODO: Use later 
       //let weeklyActivity = this.category.items.slice(Math.max(this.category.items.length - 7, 0));
 
-      let incData = { name: 'inc', series: [] };
-      let expData = { name: 'exp', series: [] };
-
-      this.category.items.forEach(element => {
-        let dayName = this.days[new Date(element.dateCreated).getDay()];
-        let item = { value: element.value, name: dayName };
-
-        let dayIndex = new Date(element.dateCreated).getDay();
-
-        if (element.type == 'exp') {
-          if (expData.series[dayIndex] == undefined) {
-            expData.series[dayIndex] = item;
-          } else {
-            expData.series[dayIndex].value += item.value;
-          }
-        }
-
-        if (element.type == 'inc') {
-          if (incData.series[dayIndex] == undefined) {
-            incData.series[dayIndex] = item;
-          } else {
-            incData.series[dayIndex].value += item.value;
-          }
-        }
-
-      });
-
-      incData.series = incData.series.filter(e => e != null);
-      expData.series = expData.series.filter(e => e != null);
-
-      this.chartData = [incData, expData];
-    })
+     
+    });
   }
 
   sortByDate() {
@@ -200,5 +172,39 @@ export class CategoryDetailComponent implements OnInit {
   setViewMode(mode: string) {
     this.viewMode = mode;
     this.commonService.viewMode = mode;
+  }
+
+  budgetByDaysChart()  {
+    let incData = { name: 'inc', series: [] };
+    let expData = { name: 'exp', series: [] };
+
+    this.category.items.forEach(element => {
+      let dayName = this.days[new Date(element.dateCreated).getDay()];
+      let item = { value: element.value, name: dayName };
+
+      let dayIndex = new Date(element.dateCreated).getDay();
+
+      if (element.type == 'exp') {
+        if (expData.series[dayIndex] == undefined) {
+          expData.series[dayIndex] = item;
+        } else {
+          expData.series[dayIndex].value += item.value;
+        }
+      }
+
+      if (element.type == 'inc') {
+        if (incData.series[dayIndex] == undefined) {
+          incData.series[dayIndex] = item;
+        } else {
+          incData.series[dayIndex].value += item.value;
+        }
+      }
+
+    });
+
+    incData.series = incData.series.filter(e => e != null);
+    expData.series = expData.series.filter(e => e != null);
+
+    this.chartData = [incData, expData];
   }
 }

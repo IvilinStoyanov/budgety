@@ -19,10 +19,18 @@
       <mat-icon class="material-icons-outlined" matTooltip="add transaction">add</mat-icon>
     </button>
   </div>
-  <div fxLayout="row" class="pt-2" *ngIf="category.items.length > 1 && chartData.length > 0">
-    <ngx-charts-line-chart *ngIf="chartData" [results]="chartData" [showGridLines]="true" [showYAxisLabel]="false"
+  <div fxLayout="column" class="pt-2" *ngIf="category.items.length > 1 && chartData.length > 0">
+    <!-- buttons -->
+    <div fxLayout="row" class="pl-3 mt-4">
+      <button mat-raised-button class="ml-2 mr-2" [style.position]="'relative'"><div class="badge">5</div>Latest</button>
+      <button mat-raised-button class="ml-2 mr-2">Weekly</button>
+      <button mat-raised-button class="ml-2 mr-2">Monthly</button>
+    </div>
+    <div [style.height.px]="200">
+      <ngx-charts-line-chart *ngIf="chartData" [results]="chartData" [showGridLines]="true" [showYAxisLabel]="false"
       [scheme]="colorScheme" [xAxis]="true" [yAxis]="true" [gradient]="true" [curve]="curve">
     </ngx-charts-line-chart>
+  </div>
   </div>
   <div fxLayout="column" fxLayoutAlign="space-around center" class="pl-4 pr-4 pt-1 pb-1 mt-4 mb-4">
     <div [style.width.%]="100" class="mb-1" *ngIf="category.inc > 0">
