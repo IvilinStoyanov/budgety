@@ -3,6 +3,7 @@
 button {
      font-size: 13px !important;
   
+    // stroked
     &.mat-stroked-button {
       &.mat-primary {
         border-color: $primary !important;
@@ -24,8 +25,16 @@ button {
         color: $red !important;
       }
     }
-
+    // icon-button
     &.mat-icon-button {
+      &.mat-primary {
+        background: $custom-white;
+        color: $black;
+      }
+    }
+
+    // mini fab
+    &.mat-mini-fab {
       &.mat-primary {
         background: $custom-white;
         color: $black;

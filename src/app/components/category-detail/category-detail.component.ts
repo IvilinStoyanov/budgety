@@ -42,7 +42,7 @@ export class CategoryDetailComponent implements OnInit {
       this.sortByDate();
 
       // TODO: Use later 
-      // let weeklyActivity = this.category.items.slice(Math.max(this.category.items.length - 7, 0));
+      //let weeklyActivity = this.category.items.slice(Math.max(this.category.items.length - 7, 0));
 
       let incData = { name: 'inc', series: [] };
       let expData = { name: 'exp', series: [] };
