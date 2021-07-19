@@ -22,22 +22,25 @@
   <div fxLayout="column" class="pt-2" *ngIf="category.items.length > 1 && chartData.length > 0">
     <!-- buttons -->
     <div fxLayout="row" class="pl-3 mt-4">
-      <button mat-raised-button class="ml-2 mr-2" [style.position]="'relative'"><div class="badge" [matMenuTriggerFor]="chartNenu">5</div>Latest</button>
-      <button mat-raised-button class="ml-2 mr-2">Weekly</button>
+      <button (click)="chartDataLatest(latestCount)" mat-raised-button class="ml-2 mr-2" [style.position]="'relative'">
+        <div class="badge" click-stop-propagation [matMenuTriggerFor]="chartNenu">{{latestCount}}</div>Latest
+      </button>
+      <button (click)="chartDataWeekly()" mat-raised-button class="ml-2 mr-2">Weekly</button>
       <button mat-raised-button class="ml-2 mr-2">Monthly</button>
-      <mat-menu #chartNenu="matMenu">
-        <div fxLayout="column">
-          <div>5</div>
-          <div>10</div>
-          <div>15</div>
+      <mat-menu #chartNenu="matMenu" class="mat-menu-sm">
+        <div fxLayout="column" class="text-black text-bold text-sm">
+          <div class="border-bottom p-1 hover" (click)="chartDataLatest(5)">5</div>
+          <div class="border-bottom p-1 hover" (click)="chartDataLatest(10)">10</div>
+          <div class="p-1 hover" (click)="chartDataLatest(15)">15</div>
         </div>
       </mat-menu>
     </div>
     <div [style.height.px]="200">
       <ngx-charts-line-chart *ngIf="chartData" [results]="chartData" [showGridLines]="true" [showYAxisLabel]="false"
-      [scheme]="colorScheme" [xAxis]="true" [yAxis]="true" [gradient]="true" [curve]="curve">
-    </ngx-charts-line-chart>
-  </div>
+        [scheme]="colorScheme" [xAxis]="true" [yAxis]="true" [gradient]="true" [curve]="curve">
+      </ngx-charts-line-chart>
+      <div *ngIf="!chartData">No transactions for this period</div>
+    </div>
   </div>
   <div fxLayout="column" fxLayoutAlign="space-around center" class="pl-4 pr-4 pt-1 pb-1 mt-4 mb-4">
     <div [style.width.%]="100" class="mb-1" *ngIf="category.inc > 0">
