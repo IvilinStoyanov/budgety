@@ -22,9 +22,16 @@
   <div fxLayout="column" class="pt-2" *ngIf="category.items.length > 1 && chartData.length > 0">
     <!-- buttons -->
     <div fxLayout="row" class="pl-3 mt-4">
-      <button mat-raised-button class="ml-2 mr-2" [style.position]="'relative'"><div class="badge">5</div>Latest</button>
+      <button mat-raised-button class="ml-2 mr-2" [style.position]="'relative'"><div class="badge" [matMenuTriggerFor]="chartNenu">5</div>Latest</button>
       <button mat-raised-button class="ml-2 mr-2">Weekly</button>
       <button mat-raised-button class="ml-2 mr-2">Monthly</button>
+      <mat-menu #chartNenu="matMenu">
+        <div fxLayout="column">
+          <div>5</div>
+          <div>10</div>
+          <div>15</div>
+        </div>
+      </mat-menu>
     </div>
     <div [style.height.px]="200">
       <ngx-charts-line-chart *ngIf="chartData" [results]="chartData" [showGridLines]="true" [showYAxisLabel]="false"
