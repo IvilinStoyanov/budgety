@@ -208,7 +208,6 @@ export class CategoryDetailComponent implements OnInit {
     this.category.items.forEach(element => {
       let day = new Date(element.dateCreated).valueOf();
       if (firstday <= day && day <= lastday) {
-        console.log(new Date(element.dateCreated).getDate());
         let dayName = this.days[new Date(element.dateCreated).getDay()];
         let item = { value: element.value, name: dayName };
 
