@@ -15,13 +15,11 @@
   </div>
   <app-back-button></app-back-button>
   <div class="menu-right hover">
-    <button mat-mini-fab color="primary" aria-label="add transaction button" (click)="openAddItemDialog(category.id)">
-      <mat-icon class="material-icons-outlined" matTooltip="add transaction">add</mat-icon>
-    </button>
+      <mat-icon class="material-icons-outlined" matTooltip="add transaction" (click)="openAddItemDialog(category.id)">add</mat-icon>
   </div>
   <div fxLayout="column" class="pt-2" *ngIf="category.items.length > 1 && chartData.length > 0">
     <!-- buttons -->
-    <div fxLayout="row" class="pl-3 mt-4">
+    <div fxLayout="row" class="pl-3 mt-4 mb-2">
       <button (click)="chartDataLatest(latestCount)" mat-raised-button class="ml-2 mr-2" [style.position]="'relative'">
         <div class="badge" click-stop-propagation [matMenuTriggerFor]="chartNenu">{{latestCount}}</div>Latest
       </button>
