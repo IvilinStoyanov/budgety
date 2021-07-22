@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+/* components */
 import { AppComponent } from './app.component';
 import { AddItemComponent } from './components/add-item/add-item.component';
 import { LatestComponent } from './components/latest/latest.component';
@@ -19,6 +20,10 @@ import { BackButtonComponent } from './components/common/back-button/back-button
 import { ConfirmDialogComponent } from './components/common/confirm-dialog/confirm-dialog.component';
 import { EditCategoryComponent } from './components/edit-category/edit-category.component';
 
+/* directives */
+import { StopPropagationDirective } from './directives/stop-propagation.directive';
+
+/* material modules */
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -34,6 +39,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatBadgeModule } from '@angular/material/badge';
+
+/* additional modules */
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ColorSketchModule } from 'ngx-color/sketch';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
@@ -52,7 +60,8 @@ import { NgxChartsModule }from '@swimlane/ngx-charts';
     AddCategoryComponent,
     EditCategoryComponent,
     BackButtonComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    StopPropagationDirective
   ],
   imports: [
     BrowserModule,
@@ -75,6 +84,7 @@ import { NgxChartsModule }from '@swimlane/ngx-charts';
     MatNativeDateModule,
     MatButtonToggleModule,
     MatSlideToggleModule,
+    MatBadgeModule,
     MatSidenavModule,
     NoopAnimationsModule,
     ColorSketchModule,

@@ -3,6 +3,7 @@
 button {
      font-size: 13px !important;
   
+    // stroked
     &.mat-stroked-button {
       &.mat-primary {
         border-color: $primary !important;
@@ -24,11 +25,34 @@ button {
         color: $red !important;
       }
     }
-
+    // icon-button
     &.mat-icon-button {
       &.mat-primary {
         background: $custom-white;
         color: $black;
       }
     }
+
+    // mini fab
+    &.mat-mini-fab {
+      &.mat-primary {
+        background: $custom-white;
+        color: $black;
+      }
+    }
+
+    .badge {
+      position: absolute;
+      top: -10px !important;
+      right: -10px !important;
+      background: $blue !important;
+      color: $custom-white !important;
+      height: 3px;
+      width: 3px;
+      border-radius: 50%;
+      display: flex;
+      place-content: center;
+      vertical-align: middle;
+      align-items: center;
+  }
 }

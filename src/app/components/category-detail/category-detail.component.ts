@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/services/common.service';
 import { NotificationService } from 'src/services/notification.service';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
-import * as shape from 'd3-shape';
 import { AddItemComponent } from '../add-item/add-item.component';
 import { Category } from 'src/app/models/category';
+import * as shape from 'd3-shape';
 
 @Component({
   selector: 'app-category-detail',
@@ -24,9 +24,12 @@ export class CategoryDetailComponent implements OnInit {
   days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thrus', 'Fri', 'Sat'];
   curve: any = shape.curveBasis;
   chartData: any = [];
+  latestCount: number = 5;
 
   constructor(public route: ActivatedRoute, public commonService: CommonService, public notification: NotificationService,
-    public router: Router, public dialog: MatDialog) { }
+    public router: Router, public dialog: MatDialog) {
+
+  }
 
   ngOnInit() {
     this.data = JSON.parse(localStorage.getItem('data'));
@@ -41,41 +44,8 @@ export class CategoryDetailComponent implements OnInit {
 
       this.sortByDate();
 
-      // TODO: Use later 
-      // let weeklyActivity = this.category.items.slice(Math.max(this.category.items.length - 7, 0));
-
-      let incData = { name: 'inc', series: [] };
-      let expData = { name: 'exp', series: [] };
-
-      this.category.items.forEach(element => {
-        let dayName = this.days[new Date(element.dateCreated).getDay()];
-        let item = { value: element.value, name: dayName };
-
-        let dayIndex = new Date(element.dateCreated).getDay();
-
-        if (element.type == 'exp') {
-          if (expData.series[dayIndex] == undefined) {
-            expData.series[dayIndex] = item;
-          } else {
-            expData.series[dayIndex].value += item.value;
-          }
-        }
-
-        if (element.type == 'inc') {
-          if (incData.series[dayIndex] == undefined) {
-            incData.series[dayIndex] = item;
-          } else {
-            incData.series[dayIndex].value += item.value;
-          }
-        }
-
-      });
-
-      incData.series = incData.series.filter(e => e != null);
-      expData.series = expData.series.filter(e => e != null);
-
-      this.chartData = [incData, expData];
-    })
+      this.chartDataLatest(this.latestCount);
+    });
   }
 
   sortByDate() {
@@ -86,13 +56,13 @@ export class CategoryDetailComponent implements OnInit {
     let selectedCategory: any;
     let templates = this.data.categoryTemplates.filter(t => t.isVisible == true);
 
-    if (categoryID) selectedCategory = this.data.categoryTemplates.find(c => c && c.id == categoryID);  
+    if (categoryID) selectedCategory = this.data.categoryTemplates.find(c => c && c.id == categoryID);
 
     const dialogRef = this.dialog.open(AddItemComponent, {
       autoFocus: false,
       data: {
         category: templates,
-        selectedCategory: selectedCategory, 
+        selectedCategory: selectedCategory,
         viewMode: this.viewMode,
       }
     });
@@ -108,7 +78,7 @@ export class CategoryDetailComponent implements OnInit {
 
   addItem(params) {
     this.setViewMode(params.items.type);
-    
+
     let isCategoryExist = this.data.categories.findIndex(c => c && c.id == params.category.id);
 
     if (isCategoryExist < 0) {
@@ -200,5 +170,70 @@ export class CategoryDetailComponent implements OnInit {
   setViewMode(mode: string) {
     this.viewMode = mode;
     this.commonService.viewMode = mode;
+  }
+
+  chartDataLatest(count: number) {
+    this.latestCount = count;
+
+    let incData = { name: 'inc', series: [] };
+    let expData = { name: 'exp', series: [] };
+
+    let latestTransactions = this.category.items.slice(0, count);
+    latestTransactions.reverse();
+
+    latestTransactions.forEach((element, index) => {
+      let day = new Date(element.dateCreated).getDate();
+      let month = new Date(element.dateCreated).getMonth();
+
+      let item = { value: element.value, name: `${index + 1}.${day}/${month + 1}` };
+
+      if (element.type == 'inc') incData.series.push(item);
+      if (element.type == 'exp') expData.series.push(item);
+    });
+
+    this.chartData = [incData, expData];
+  }
+
+  chartDataWeekly() {
+    let incData = { name: 'inc', series: [] };
+    let expData = { name: 'exp', series: [] };
+
+    let curr = new Date;
+    let first = curr.getDate() - curr.getDay() + 1; // first day of the current week
+    let last = first + 6; // last day of the current weeek
+
+    let firstday = new Date(curr.setDate(first)).valueOf();
+    let lastday = new Date(curr.setDate(last)).valueOf();
+
+    this.category.items.forEach(element => {
+      let day = new Date(element.dateCreated).valueOf();
+      if (firstday <= day && day <= lastday) {
+        let dayName = this.days[new Date(element.dateCreated).getDay()];
+        let item = { value: element.value, name: dayName };
+
+        let dayIndex = new Date(element.dateCreated).getDay();
+
+        if (element.type == 'exp') {
+          if (expData.series[dayIndex] == undefined) {
+            expData.series[dayIndex] = item;
+          } else {
+            expData.series[dayIndex].value += item.value;
+          }
+        }
+
+        if (element.type == 'inc') {
+          if (incData.series[dayIndex] == undefined) {
+            incData.series[dayIndex] = item;
+          } else {
+            incData.series[dayIndex].value += item.value;
+          }
+        }
+      }
+    });
+
+    incData.series = incData.series.filter(e => e != null);
+    expData.series = expData.series.filter(e => e != null);
+
+    this.chartData = [incData, expData];
   }
 }
