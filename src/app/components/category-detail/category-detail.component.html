@@ -15,7 +15,8 @@
   </div>
   <app-back-button></app-back-button>
   <div class="menu-right hover">
-      <mat-icon class="material-icons-outlined" matTooltip="add transaction" (click)="openAddItemDialog(category.id)">add</mat-icon>
+    <mat-icon class="material-icons-outlined" matTooltip="add transaction" (click)="openAddItemDialog(category.id)">add
+    </mat-icon>
   </div>
   <div fxLayout="column" class="pt-2" *ngIf="category.items.length > 1 && chartData.length > 0">
     <!-- buttons -->
