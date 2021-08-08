@@ -33,9 +33,9 @@
         </div>
       </mat-menu>
     </div>
-    <div [style.height.px]="200">
-      <ngx-charts-line-chart *ngIf="chartData" [results]="chartData" [showGridLines]="true" [showYAxisLabel]="false"
-        [scheme]="colorScheme" [xAxis]="true" [yAxis]="true" [gradient]="true" [curve]="curve">
+    <div class="chart-container">
+      <ngx-charts-line-chart *ngIf="chartData" [results]="chartData" [showGridLines]="true" [showYAxisLabel]="true"
+        [scheme]="colorScheme" [xAxis]="isAxisVisible" [yAxis]="true" [gradient]="true" [curve]="curve">
       </ngx-charts-line-chart>
       <div *ngIf="!chartData">No transactions for this period</div>
     </div>
