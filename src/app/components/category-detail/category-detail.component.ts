@@ -19,12 +19,14 @@ export class CategoryDetailComponent implements OnInit {
   category: any;
   viewMode: string;
 
+
   colorScheme = { domain: ['#28B9B5', '#FF5049'] };
 
   days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thrus', 'Fri', 'Sat'];
   curve: any = shape.curveBasis;
   chartData: any = [];
   latestCount: number = 5;
+  isAxisVisible: boolean;
 
   constructor(public route: ActivatedRoute, public commonService: CommonService, public notification: NotificationService,
     public router: Router, public dialog: MatDialog) {
@@ -114,6 +116,10 @@ export class CategoryDetailComponent implements OnInit {
       // calculate global income/expense percetanges of current budget
       this.data = this.commonService.calculatePercentageEach(this.data);
 
+      // update chart with the new item inside
+      this.sortByDate();
+      this.chartDataLatest(this.latestCount);
+
       this.commonService.saveData(this.data);
     } else {
       this.notification.danger("Not able to add category.");
@@ -173,6 +179,7 @@ export class CategoryDetailComponent implements OnInit {
   }
 
   chartDataLatest(count: number) {
+    this.isAxisVisible = false;
     this.latestCount = count;
 
     let incData = { name: 'inc', series: [] };
@@ -195,6 +202,8 @@ export class CategoryDetailComponent implements OnInit {
   }
 
   chartDataWeekly() {
+    this.isAxisVisible = true;
+
     let incData = { name: 'inc', series: [] };
     let expData = { name: 'exp', series: [] };
 
