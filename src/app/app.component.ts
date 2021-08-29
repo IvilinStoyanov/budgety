@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/services/common.service';
-import { version } from 'package.json';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +11,6 @@ import { version } from 'package.json';
 export class AppComponent implements OnInit {
   title = 'budgety';
   data: any;
-  version: any;
 
   constructor(public dialog: MatDialog, public commonService: CommonService, public router: Router) {
   }
@@ -20,8 +18,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // get data from localstorage
     if (localStorage.getItem('data') !== null) this.data = JSON.parse(localStorage.getItem('data'));
-
-    this.version = parseFloat(version);
 
     this.commonService.isAvailable.subscribe(data => {
       if (data) this.data = data
