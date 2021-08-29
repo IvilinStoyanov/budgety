@@ -82,6 +82,10 @@ export class LatestComponent implements OnInit {
   setViewMode(mode: string) {
     this.viewMode = mode;
     this.commonService.viewMode = mode;
+
+    if (mode === 'inc') this.data.categories.sort(function (a: { inc: number; }, b: { inc: number; }) { return b.inc - a.inc; });
+
+    if (mode === 'exp') this.data.categories.sort(function (a: { exp: number; }, b: { exp: number; }) { return b.exp - a.exp; });
   }
 
   showCategories(category: Category) {
@@ -100,7 +104,7 @@ export class LatestComponent implements OnInit {
   }
 
   openAddItemDialog(): void {
-    let templates = this.data.categoryTemplates.filter(t => t.isVisible == true);
+    let templates = this.data.categoryTemplates.filter((t: { isVisible: boolean; }) => t.isVisible == true);
 
     const dialogRef = this.dialog.open(AddItemComponent, {
       autoFocus: false,
@@ -118,10 +122,10 @@ export class LatestComponent implements OnInit {
     });
   }
 
-  addItem(params) {
+  addItem(params: any) {
     this.setViewMode(params.items.type);
-    
-    let isCategoryExist = this.data.categories.findIndex(c => c && c.id == params.category.id);
+
+    let isCategoryExist = this.data.categories.findIndex((c: { id: any; }) => c && c.id == params.category.id);
 
     if (isCategoryExist < 0) {
       let category = params.category;
@@ -132,7 +136,7 @@ export class LatestComponent implements OnInit {
       this.data.categories.push({ ...categoryClass });
     }
 
-    let categoryIndex = this.data.categories.findIndex(category => category && category.id == params.category.id);
+    let categoryIndex = this.data.categories.findIndex((category: { id: any; }) => category && category.id == params.category.id);
 
     if (categoryIndex >= 0) {
       if (params.items.type === 'exp') {
