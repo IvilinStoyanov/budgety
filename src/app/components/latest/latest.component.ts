@@ -82,6 +82,10 @@ export class LatestComponent implements OnInit {
   setViewMode(mode: string) {
     this.viewMode = mode;
     this.commonService.viewMode = mode;
+
+    if (mode === 'inc') this.data.categories.sort(function (a: { inc: number; }, b: { inc: number; }) { return b.inc - a.inc; });
+
+    if (mode === 'exp') this.data.categories.sort(function (a: { exp: number; }, b: { exp: number; }) { return b.exp - a.exp; });
   }
 
   showCategories(category: Category) {
