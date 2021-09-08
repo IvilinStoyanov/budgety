@@ -19,7 +19,7 @@
       </div>
       <div class="item text-black">{{ month?.income | number: "1.2-2" }}</div>
       <div class="item text-black">{{ month?.expense | number: "1.2-2" }}</div>
-      <div class="item text-primary" [ngClass]="{'text-danger': month?.expense > month?.income }"><span *ngIf="month?.income > month?.expense ">+</span>{{ month?.income - month?.expense | number: "1.2-2" }}</div>
+      <div class="item text-primary hover" [routerLink]="['/monthly', month?.name.toLowerCase()]" [ngClass]="{'text-danger': month?.expense > month?.income }"><span *ngIf="month?.income > month?.expense ">+</span>{{ month?.income - month?.expense | number: "1.2-2" }}</div>
     </div>
   </div>
   <div *ngIf="monthlyList.length == 0">
