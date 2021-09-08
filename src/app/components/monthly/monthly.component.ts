@@ -61,6 +61,7 @@ export class MonthlyComponent implements OnInit {
         });
       }
     });
+    
     this.calculateBudgetPercetange(this.monthlyList);
   }
 

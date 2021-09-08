@@ -39,6 +39,7 @@ export class CategoryDetailComponent implements OnInit {
     this.viewMode = this.commonService.viewMode;
 
     this.route.queryParams.subscribe(params => {
+      console.log(params);
       let id = params['id'];
       this.categoryID = this.data.categories.findIndex(category => category && category.id == id);
 
