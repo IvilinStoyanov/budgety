@@ -18,7 +18,7 @@
     <mat-icon class="material-icons-outlined" matTooltip="add transaction" (click)="openAddItemDialog(category.id)">add
     </mat-icon>
   </div>
-  <div fxLayout="column" class="pt-2" *ngIf="category.items.length > 1 && chartData.length > 0">
+  <div fxLayout="column" class="pt-2" *ngIf="transactions.length > 1 && chartData.length > 0">
     <!-- buttons -->
     <div fxLayout="row" class="pl-3 mt-4 mb-2">
       <button (click)="chartDataLatest(latestCount)" mat-raised-button class="ml-2 mr-2" [style.position]="'relative'">
@@ -68,7 +68,7 @@
     </div>
   </div>
   <div class="pl-4 pr-4 pt-1 pb-1">
-    <div *ngFor="let item of category.items; let i = index" class="line-item">
+    <div *ngFor="let item of transactions; let i = index" class="line-item">
       <span class="chip text-black text-bold text-transparent text-ex-sm">{{ item.dateCreated | date: "dd/MM/yy"
         }}</span>
       <div class="item" fxLayout="row" fxLayoutAlign="space-between center">
@@ -91,6 +91,18 @@
               (click)="openConfirmDialog(item, i)">delete</mat-icon>
           </div>
         </div>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center" class="pagination">
+      <div *ngIf="pageIndex != 0" fxLayout="row" fxLayoutAlign="center center" class="text-black text-bold text-transparent text-sm hover mr-2"
+      (click)="changePage('prev')">
+        <span class="material-icons-outlined">chevron_left</span>
+        <span>prev</span>
+      </div>
+      <div *ngIf="pageIndex < totalPages" fxLayout="row" fxLayoutAlign="center center" class="text-black text-bold text-transparent text-sm hover"
+      (click)="changePage('next')">
+        <span>next</span>
+        <span class="material-icons-outlined">chevron_right</span>
       </div>
     </div>
   </div>

@@ -5,8 +5,10 @@ import { CommonService } from 'src/services/common.service';
 import { NotificationService } from 'src/services/notification.service';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { AddItemComponent } from '../add-item/add-item.component';
+import { ICategory } from 'src/app/models/interface/category';
 import { Category } from 'src/app/models/category';
 import * as shape from 'd3-shape';
+import { ITransaction } from 'src/app/models/interface/transaction';
 
 @Component({
   selector: 'app-category-detail',
@@ -16,8 +18,13 @@ import * as shape from 'd3-shape';
 export class CategoryDetailComponent implements OnInit {
   data: any;
   categoryID: number;
-  category: any;
+  category: ICategory;
+  transactions: ITransaction[];
   viewMode: string;
+
+  pageIndex = 0;
+  pageSize = 20;
+  totalPages: number;
 
 
   colorScheme = { domain: ['#28B9B5', '#FF5049'] };
@@ -30,7 +37,6 @@ export class CategoryDetailComponent implements OnInit {
 
   constructor(public route: ActivatedRoute, public commonService: CommonService, public notification: NotificationService,
     public router: Router, public dialog: MatDialog) {
-
   }
 
   ngOnInit() {
@@ -39,11 +45,12 @@ export class CategoryDetailComponent implements OnInit {
     this.viewMode = this.commonService.viewMode;
 
     this.route.queryParams.subscribe(params => {
-      console.log(params);
       let id = params['id'];
       this.categoryID = this.data.categories.findIndex(category => category && category.id == id);
 
       if (this.data) this.category = this.data.categories.find(category => category && category.id == id);
+
+      this.changePageIndex();
 
       this.sortByDate();
 
@@ -53,6 +60,23 @@ export class CategoryDetailComponent implements OnInit {
 
   sortByDate() {
     this.category.items.sort((a, b) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime());
+  }
+
+  changePageIndex(pageIndex: number = 0) {
+    let pageStart = pageIndex * this.pageSize;
+    let pageEnd = (pageIndex * this.pageSize) + this.pageSize;
+
+    this.transactions = this.category.items.slice(pageStart, pageEnd);
+
+    this.totalPages = Math.floor(this.category.items.length / this.pageSize);
+  }
+
+  changePage(action: string) {
+    this.pageIndex = action === 'next' ? this.pageIndex = this.pageIndex + 1 : this.pageIndex = this.pageIndex - 1;
+    
+    this.changePageIndex(this.pageIndex);
+
+    this.commonService.scrollToTop();
   }
 
   openAddItemDialog(categoryID?: number): void {
