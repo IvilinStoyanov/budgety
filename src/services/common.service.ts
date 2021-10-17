@@ -18,6 +18,10 @@ export class CommonService {
   navigateTo(path: string) {
     this.router.navigate([`/${path}`]);
   }
+  
+  scrollToTop() {
+    window.scroll(0,0);
+  }
 
   isDateToday(date: Date) {
     let today = new Date(new Date().setHours(0, 0, 0, 0)).getTime();
