@@ -113,5 +113,13 @@ $categoryBanner: 100px;
 }
 
 .pagination {
-    padding: 10px 5px 5px 5px;
+    background: $light-grey;
+    padding: 15px 5px 10px 5px;
+
+    .pagination-active {
+        color: $orange !important;
+        // background: #1f1f1f;
+        // border-radius: 50%;
+        // padding: 5px 10px 5px 10px;
+    }
 }
