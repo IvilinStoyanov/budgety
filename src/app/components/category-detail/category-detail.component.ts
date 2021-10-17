@@ -23,7 +23,7 @@ export class CategoryDetailComponent implements OnInit {
   viewMode: string;
 
   pageIndex = 0;
-  pageSize = 20;
+  pageSize = 40;
   totalPages: number;
 
 
@@ -50,6 +50,9 @@ export class CategoryDetailComponent implements OnInit {
 
       if (this.data) this.category = this.data.categories.find(category => category && category.id == id);
 
+
+      this.totalPages = Math.ceil(this.category.items.length / this.pageSize);
+
       this.changePageIndex();
 
       this.sortByDate();
@@ -58,23 +61,21 @@ export class CategoryDetailComponent implements OnInit {
     });
   }
 
+  counter(i: number) {
+    return new Array(i);
+  }
+
   sortByDate() {
     this.category.items.sort((a, b) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime());
   }
 
-  changePageIndex(pageIndex: number = 0) {
-    let pageStart = pageIndex * this.pageSize;
-    let pageEnd = (pageIndex * this.pageSize) + this.pageSize;
+  changePageIndex(currentPageIndex: number = 0) {
+    this.pageIndex = currentPageIndex;
+
+    let pageStart = currentPageIndex * this.pageSize;
+    let pageEnd = (currentPageIndex * this.pageSize) + this.pageSize;
 
     this.transactions = this.category.items.slice(pageStart, pageEnd);
-
-    this.totalPages = Math.floor(this.category.items.length / this.pageSize);
-  }
-
-  changePage(action: string) {
-    this.pageIndex = action === 'next' ? this.pageIndex = this.pageIndex + 1 : this.pageIndex = this.pageIndex - 1;
-    
-    this.changePageIndex(this.pageIndex);
 
     this.commonService.scrollToTop();
   }
