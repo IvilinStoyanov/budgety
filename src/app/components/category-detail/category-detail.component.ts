@@ -50,12 +50,11 @@ export class CategoryDetailComponent implements OnInit {
 
       if (this.data) this.category = this.data.categories.find(category => category && category.id == id);
 
-
       this.totalPages = Math.ceil(this.category.items.length / this.pageSize);
 
-      this.changePageIndex();
-
       this.sortByDate();
+
+      this.changePageIndex();
 
       this.chartDataLatest(this.latestCount);
     });
@@ -66,7 +65,9 @@ export class CategoryDetailComponent implements OnInit {
   }
 
   sortByDate() {
-    this.category.items.sort((a, b) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime());
+    this.data.categories[this.categoryID].items.sort((a, b) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime());
+    if (this.transactions)
+      this.transactions.sort((a, b) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime());
   }
 
   changePageIndex(currentPageIndex: number = 0) {
@@ -99,6 +100,8 @@ export class CategoryDetailComponent implements OnInit {
       if (result) {
         this.addItem(result);
         this.sortByDate();
+        this.changePageIndex();
+        this.chartDataLatest(this.latestCount);
         this.notification.success("Item successfully added");
       }
     });
@@ -130,6 +133,11 @@ export class CategoryDetailComponent implements OnInit {
         this.data.categories[categoryIndex].inc += params.items.value;
       }
 
+      // create uniqueID
+      // let lastTransaction = this.data.categories[categoryIndex].items.slice(-1);
+
+      // params.items.id = lastTransaction.length > 0 ? lastTransaction[0].id + 1 : 1;
+
       // Push it into our data structure
       this.data.categories[categoryIndex].items.push(params.items);
 
@@ -142,36 +150,35 @@ export class CategoryDetailComponent implements OnInit {
       // calculate global income/expense percetanges of current budget
       this.data = this.commonService.calculatePercentageEach(this.data);
 
-      // update chart with the new item inside
-      this.sortByDate();
-      this.chartDataLatest(this.latestCount);
-
       this.commonService.saveData(this.data);
     } else {
       this.notification.danger("Not able to add category.");
     }
   }
 
-  openConfirmDialog(item: any, index: number): void {
+  openConfirmDialog(item: any): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       autoFocus: false,
       data: {
         title: 'Delete Item',
         message: 'Are you sure you want to delete this item?',
-        item: { item: item, index: index }
+        item: item
       }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.deleteItem(result.item, result.index);
+        this.deleteItem(result);
+        this.changePageIndex();
+        this.chartDataLatest(this.latestCount);
         this.notification.success("Item successfully deleted.");
       }
     });
   }
 
-  deleteItem(item: any, index: number) {
-    this.data.categories[this.categoryID].items.splice(index, 1);
+  deleteItem(item: any) {
+    let transactionIndex = this.data.categories[this.categoryID].items.findIndex(trans => trans.id === item.id);
+    this.data.categories[this.categoryID].items.splice(transactionIndex, 1);
 
     // calculate total budget
     if (item.type === 'inc') {
@@ -194,8 +201,6 @@ export class CategoryDetailComponent implements OnInit {
 
     this.commonService.saveData(this.data);
 
-    this.notification.danger('Item successfully deleted');
-
     if (this.data.categories[this.categoryID].items.length === 0) this.router.navigate(['/latest']);
   }
 
@@ -215,7 +220,7 @@ export class CategoryDetailComponent implements OnInit {
     let incData = { name: 'inc', series: [] };
     let expData = { name: 'exp', series: [] };
 
-    let latestTransactions = this.category.items.slice(0, count);
+    let latestTransactions = this.transactions.slice(0, count);
     latestTransactions.reverse();
 
     latestTransactions.forEach((element, index) => {
