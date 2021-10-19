@@ -148,6 +148,11 @@ export class LatestComponent implements OnInit {
         this.data.categories[categoryIndex].inc += params.items.value;
       }
 
+      // create uniqueID
+      // let lastTransaction = this.data.categories[categoryIndex].items.slice(-1);
+
+      // params.items.id = lastTransaction.length > 0 ? lastTransaction[0].id + 1 : 1;
+
       // Push it into our data structure
       this.data.categories[categoryIndex].items.push(params.items);
 
