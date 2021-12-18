@@ -23,7 +23,7 @@ export class CategoryDetailComponent implements OnInit {
   viewMode: string;
 
   pageIndex = 0;
-  pageSize = 40;
+  pageSize = 10;
   totalPages: number;
 
 
@@ -134,9 +134,9 @@ export class CategoryDetailComponent implements OnInit {
       }
 
       // create uniqueID
-      // let lastTransaction = this.data.categories[categoryIndex].items.slice(-1);
+      let lastTransaction = this.data.categories[categoryIndex].items.slice(0, 1);
 
-      // params.items.id = lastTransaction.length > 0 ? lastTransaction[0].id + 1 : 1;
+      params.items.id = lastTransaction.length > 0 ? lastTransaction[0].id + 1 : 1;
 
       // Push it into our data structure
       this.data.categories[categoryIndex].items.push(params.items);
