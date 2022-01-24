@@ -9,7 +9,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MonthlyTransactionListComponent implements OnInit {
   monthName: any;
+  monthlyIncome: number = 0;
   items: any[] = [];
+  monthlyCategories: any[] = [];
+  panelOpenState: boolean;
 
   monthsList: any = [
     { name: 'january', id: 0 },
@@ -40,15 +43,24 @@ export class MonthlyTransactionListComponent implements OnInit {
   }
 
   createMonthlyTransanctions(data: any, currentMonthId: number) {
-    data.categories.forEach((element) => {
+    data.categories.forEach((element, categoryIndex) => {
+      this.monthlyCategories.push({name: element.name, exp: 0, inc: 0, items: []});
       if (element) {
             element.items.forEach(item => {
               let monthId = new Date(item.dateCreated).getMonth();
 
               if (monthId == currentMonthId) {
                 item.category = element.name;
+                this.monthlyCategories[categoryIndex].items.push(item);
+
+                if (item.type === 'exp') {
+                  this.monthlyCategories[categoryIndex].exp += item.value;
+                }
+                if (item.type === 'inc') {
+                 this.monthlyCategories[categoryIndex].inc += item.value;
+                 this.monthlyIncome += item.value;
+                }
                 this.items.push(item);
-              
               }
             });
       }

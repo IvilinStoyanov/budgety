@@ -1,0 +1,25 @@
+@import '../../../../../../theme/colors.scss';
+
+.mat-icon-wrapper {
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: $custom-white;
+    z-index: 2;
+  
+    .mat-icon-title-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: $primary;
+  
+      .mat-icon {
+        font-size: 30px;
+        height: 30px;
+        width: 30px;
+        padding-left: 1px;
+      }
+    }
+  }
+  

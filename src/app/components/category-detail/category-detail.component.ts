@@ -23,7 +23,7 @@ export class CategoryDetailComponent implements OnInit {
   viewMode: string;
 
   pageIndex = 0;
-  pageSize = 40;
+  pageSize = 10;
   totalPages: number;
 
 
@@ -83,14 +83,13 @@ export class CategoryDetailComponent implements OnInit {
 
   openAddItemDialog(categoryID?: number): void {
     let selectedCategory: any;
-    let templates = this.data.categoryTemplates.filter(t => t.isVisible == true);
 
-    if (categoryID) selectedCategory = this.data.categoryTemplates.find(c => c && c.id == categoryID);
+    selectedCategory = this.data.categoryTemplates.find(c => c && c.id == categoryID);
 
     const dialogRef = this.dialog.open(AddItemComponent, {
       autoFocus: false,
       data: {
-        category: templates,
+        category: this.data.categoryTemplates,
         selectedCategory: selectedCategory,
         viewMode: this.viewMode,
       }
@@ -134,15 +133,15 @@ export class CategoryDetailComponent implements OnInit {
       }
 
       // create uniqueID
-      // let lastTransaction = this.data.categories[categoryIndex].items.slice(-1);
+      let lastTransaction = this.data.categories[categoryIndex].items.slice(0, 1);
 
-      // params.items.id = lastTransaction.length > 0 ? lastTransaction[0].id + 1 : 1;
+      params.items.id = lastTransaction.length > 0 ? lastTransaction[0].id + 1 : 1;
 
       // Push it into our data structure
       this.data.categories[categoryIndex].items.push(params.items);
 
       // calculate budget
-      this.data.budget = this.data.totals.inc - this.data.totals.exp;
+      this.data.budget = parseFloat((this.data.totals.inc - this.data.totals.exp).toFixed(2));
 
       // calculate category income/expense percetanges of current budget
       this.data = this.commonService.calculateTotalExpPercentage(this.data);
@@ -191,7 +190,7 @@ export class CategoryDetailComponent implements OnInit {
       this.data.totals.exp -= item.value;
     }
 
-    this.data.budget = parseFloat(this.data.totals.inc.toFixed(2)) - parseFloat(this.data.totals.exp.toFixed(2));
+    this.data.budget = parseFloat((this.data.totals.inc - this.data.totals.exp).toFixed(2));
 
     // calculate category income/expense percetanges of current budget
     this.data = this.commonService.calculateTotalExpPercentage(this.data);

@@ -42,7 +42,7 @@ export class EditCategoryComponent implements OnInit {
       this.data.categories.splice(categoryIndex, 1);
     }
 
-    this.data.budget = parseFloat(this.data.totals.inc.toFixed(2)) - parseFloat(this.data.totals.exp.toFixed(2));
+    this.data.budget = parseFloat((this.data.totals.inc - this.data.totals.exp).toFixed(2));
 
     // calculate category income/expense percetanges of current budget
     this.data = this.commonService.calculateTotalExpPercentage(this.data);

@@ -10,10 +10,8 @@ import { Subscription } from 'rxjs';
 })
 export class AddItemComponent implements OnInit, OnDestroy {
   private _categorySubscription: Subscription = new Subscription();
-
   form: FormGroup;
   categoryPicked: any;
-
   templateData: any;
 
   constructor(
