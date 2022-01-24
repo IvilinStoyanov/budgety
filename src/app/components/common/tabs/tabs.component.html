@@ -1,9 +1,11 @@
 <div class="pl-3 pr-3 pb-4">
-  <div class="text-center text-sm text-transparent text-uppercase pb-1">
-    Balance
-  </div>
-  <div class="budget-value text-center">
-    <span *ngIf="data.budget > 0">+</span>{{ data.budget | number: "1.2-2" }}
+  <div fxLayout="column" fxLayoutAlign="center center" class="hover" (click)="openBalanceModal()">
+    <div class="text-sm text-transparent text-uppercase pb-1">
+      Balance
+    </div>
+    <div class="budget-value">
+      <span *ngIf="data.budget > 0">+</span>{{ data.budget + data.savings | number: "1.2-2" }}
+    </div>
   </div>
 </div>
 <div fxLayout="row" fxLayoutAlign="center end">

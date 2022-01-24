@@ -65,6 +65,5 @@ export class MonthlyTransactionListComponent implements OnInit {
             });
       }
     });
-    console.log(this.monthlyCategories);
   }
 }

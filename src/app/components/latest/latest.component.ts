@@ -27,6 +27,7 @@ export class LatestComponent implements OnInit {
         exp: 0,
         inc: 0,
       },
+      savings: 0,
       budget: 0,
       incPercentage: 0,
       expPercentage: 0,
@@ -74,8 +75,7 @@ export class LatestComponent implements OnInit {
       { id: Categories.Holiday, icon: 'holiday_village', name: 'Holiday', color: CategoriesColors.Holiday, isVisible: true },
       { id: Categories.Utilities, icon: 'receipt', name: 'Utilities', color: CategoriesColors.Utilities, isVisible: true },
       { id: Categories.Rent, icon: 'bedroom_parent', name: 'Rent', color: CategoriesColors.Rent, isVisible: true },
-      { id: Categories.LoanPayments, icon: 'credit_score', name: 'Loan Payments', color: CategoriesColors.LoanPayments, isVisible: true },
-      { id: Categories.Savings, icon: 'savings', name: 'Savings', color: CategoriesColors.Savings, isVisible: true }
+      { id: Categories.LoanPayments, icon: 'credit_score', name: 'Loan Payments', color: CategoriesColors.LoanPayments, isVisible: true }
     ];
   }
 
@@ -157,7 +157,7 @@ export class LatestComponent implements OnInit {
       this.data.categories[categoryIndex].items.push(params.items);
 
       // calculate budget
-      this.data.budget = this.data.totals.inc - this.data.totals.exp;
+      this.data.budget =  parseFloat((this.data.totals.inc - this.data.totals.exp).toFixed(2));
 
       // calculate category income/expense percetanges of current budget
       this.data = this.commonService.calculateTotalExpPercentage(this.data);

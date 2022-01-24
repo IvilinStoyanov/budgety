@@ -20,6 +20,7 @@ import { AddCategoryComponent } from './components/add-category/add-category.com
 import { BackButtonComponent } from './components/common/back-button/back-button.component';
 import { ConfirmDialogComponent } from './components/common/confirm-dialog/confirm-dialog.component';
 import { EditCategoryComponent } from './components/edit-category/edit-category.component';
+import { BalanceModalComponent } from './components/common/tabs/modals/balance-modal/balance-modal.component';
 
 /* directives */
 import { StopPropagationDirective } from './directives/stop-propagation.directive';
@@ -63,7 +64,8 @@ import { NgxChartsModule }from '@swimlane/ngx-charts';
     BackButtonComponent,
     ConfirmDialogComponent,
     StopPropagationDirective,
-    MonthlyTransactionListComponent
+    MonthlyTransactionListComponent,
+    BalanceModalComponent
   ],
   imports: [
     BrowserModule,
