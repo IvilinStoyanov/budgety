@@ -16,9 +16,8 @@
   <app-back-button [path]="'/monthly'"></app-back-button>
   <div class="pl-4 pr-4 pt-1 pb-1">
     <div *ngFor="let category of monthlyCategories">
-      <!-- <div fxLayout="row"> -->
-      <div>
-        <span>test</span>
+      <div class="mt-2 mb-2">
+        <span class="text-bold">{{category.name}}</span>
       </div>
       <div>
         <!-- progress -->
@@ -44,7 +43,7 @@
                 category.exp | number: "1.2-2"
                 }}</span>
             </div>
-            <div class="text-black text-md">{{ category.exp / monthlyIncome * 100 | number:'2.2-2'}}%</div>
+            <div class="text-black text-md">{{ category.exp / monthlyIncome * 100 | number:'1.2-2'}}%</div>
           </div>
           <div class="pb-3">
             <app-progress-bar class="exp-progress-bar" [percentage]="category.exp / monthlyIncome * 100">
@@ -52,7 +51,6 @@
           </div>
         </div>
       </div>
-    <!-- </div> -->
       <div *ngFor="let item of category.items; let i = index" class="line-item">
         <span class="chip text-black text-bold text-transparent text-ex-sm">{{ item.dateCreated | date: "dd/MM/yy"
           }}</span>
