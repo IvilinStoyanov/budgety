@@ -7,6 +7,7 @@ import { EditCategoryComponent } from './components/edit-category/edit-category.
 import { LatestComponent } from './components/latest/latest.component';
 import { MonthlyTransactionListComponent } from './components/monthly/monthly-transaction-list/monthly-transaction-list.component';
 import { MonthlyComponent } from './components/monthly/monthly.component';
+import { YearlyComponent } from './components/yearly/yearly.component';
 
 const routes: Routes = [
     {
@@ -24,6 +25,10 @@ const routes: Routes = [
     {
       path: 'monthly/:month',
       component: MonthlyTransactionListComponent
+    },
+    {
+      path: 'yearly',
+      component: YearlyComponent
     },
     {
       path: 'add-category',

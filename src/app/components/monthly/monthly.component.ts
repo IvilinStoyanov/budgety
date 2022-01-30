@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDatepicker } from '@angular/material/datepicker';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-monthly',
@@ -8,8 +12,13 @@ import { Component, OnInit } from '@angular/core';
 export class MonthlyComponent implements OnInit {
   data: any;
   monthlyList: any = [];
+  dateForm: FormGroup;
 
-  constructor() { }
+  constructor(private fb: FormBuilder) {
+    this.dateForm = this.fb.group({
+      year: new FormControl(new Date())
+    });
+  }
 
   ngOnInit() {
     // get data from localstorage
@@ -20,7 +29,16 @@ export class MonthlyComponent implements OnInit {
     }
   }
 
-  createMonthlyList(data: any) {
+  chosenYearHandler(chosenDate: any, datepicker: MatDatepicker<any>) {
+    datepicker.close();
+
+    this.dateForm.get('year').setValue(chosenDate);
+    this.createMonthlyList(this.data, chosenDate);
+  }
+
+  createMonthlyList(data: any, date: Date = new Date()) {
+    this.monthlyList = [];
+
     const months = [
       'January',
       'February',
@@ -35,33 +53,34 @@ export class MonthlyComponent implements OnInit {
       'November',
       'December',
     ];
-
     data.categories.forEach((element) => {
       if (element) {
         element.items.forEach(item => {
-          let itemMonth = new Date(item.dateCreated).getMonth();
-          let income = 0;
-          let expense = 0;
+          if (new Date(item.dateCreated).getFullYear() == date.getFullYear()) {
+            let itemMonth = new Date(item.dateCreated).getMonth();
+            let income = 0;
+            let expense = 0;
 
-          if (this.monthlyList[itemMonth] == undefined) {
-            this.monthlyList[itemMonth] = [];
-            this.monthlyList[itemMonth].name = months[itemMonth];
-            this.monthlyList[itemMonth].income = 0;
-            this.monthlyList[itemMonth].expense = 0;
-          }
+            if (this.monthlyList[itemMonth] == undefined) {
+              this.monthlyList[itemMonth] = [];
+              this.monthlyList[itemMonth].name = months[itemMonth];
+              this.monthlyList[itemMonth].income = 0;
+              this.monthlyList[itemMonth].expense = 0;
+            }
 
-          if (this.monthlyList[itemMonth] !== undefined) {
-            if (item.type == 'inc') income = item.value;
+            if (this.monthlyList[itemMonth] !== undefined) {
+              if (item.type == 'inc') income = item.value;
 
-            if (item.type == 'exp') expense = item.value;
+              if (item.type == 'exp') expense = item.value;
 
-            this.monthlyList[itemMonth].income += income;
-            this.monthlyList[itemMonth].expense += expense;
+              this.monthlyList[itemMonth].income += income;
+              this.monthlyList[itemMonth].expense += expense;
+            }
           }
         });
       }
     });
-    
+
     this.calculateBudgetPercetange(this.monthlyList);
   }
 

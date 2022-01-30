@@ -78,15 +78,15 @@
 }
 
 .border-top {
-    border-top: 1px solid #e7e7e7;
+    border-top: 1px solid $border;
 }
 
 .border-bottom {
-    border-bottom: 1px solid #e7e7e7;
+    border-bottom: 1px solid $border;
 }
 
 .border {
-    border: 1px solid #d2d3d4 !important;
+    border: 1px solid #d2d3d4 $border;
 }
 
 .border-white {
