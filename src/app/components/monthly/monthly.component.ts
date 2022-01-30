@@ -29,7 +29,7 @@ export class MonthlyComponent implements OnInit {
     }
   }
 
-  chosenYearHandler(chosenDate: any, datepicker: MatDatepicker<Moment>) {
+  chosenYearHandler(chosenDate: any, datepicker: MatDatepicker<any>) {
     datepicker.close();
 
     this.dateForm.get('year').setValue(chosenDate);
