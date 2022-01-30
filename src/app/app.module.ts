@@ -48,6 +48,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ColorSketchModule } from 'ngx-color/sketch';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxChartsModule }from '@swimlane/ngx-charts';
+import { YearlyComponent } from './components/yearly/yearly.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { NgxChartsModule }from '@swimlane/ngx-charts';
     ConfirmDialogComponent,
     StopPropagationDirective,
     MonthlyTransactionListComponent,
-    BalanceModalComponent
+    BalanceModalComponent,
+    YearlyComponent
   ],
   imports: [
     BrowserModule,
