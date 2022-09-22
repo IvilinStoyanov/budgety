@@ -14,7 +14,7 @@ module.exports = app => {
         '/api/auth/google/callback',
         passport.authenticate('google'),
         (req, res) => {
-            res.redirect('https://budgety-dev.netlify.app/latest');
+            res.redirect(`${keys.redirectDomain}/latest`);
         }
     );
 

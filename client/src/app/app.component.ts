@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { CommonService } from 'src/services/common.service';
 
 @Component({
@@ -28,7 +29,7 @@ export class AppComponent implements OnInit {
   }
 
   login() {
-    window.open('http://localhost:5000/api/auth/google', '_self');
+    window.open(`${environment.domainUrl}/api/auth/google`, '_self');
   }
 
   logout() {
