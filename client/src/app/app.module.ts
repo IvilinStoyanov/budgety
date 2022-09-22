@@ -50,10 +50,12 @@ import { ColorSketchModule } from 'ngx-color/sketch';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxChartsModule }from '@swimlane/ngx-charts';
 import { YearlyComponent } from './components/yearly/yearly.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
     LatestComponent,
     MonthlyComponent,
     AddItemComponent,

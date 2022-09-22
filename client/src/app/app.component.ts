@@ -23,17 +23,24 @@ export class AppComponent implements OnInit {
     this.commonService.isAvailable.subscribe(data => {
       if (data) this.data = data
     });
+
+    this.http.get('/api/current_user').subscribe(result => console.log(result));
   }
 
   login() {
-  //  this.http.get('api/auth/google').subscribe(result => console.log(result));
+    window.open('http://localhost:5000/api/auth/google', '_self');
+  }
 
+  logout() {
+    this.http.get('/api/logout').subscribe(() => location.reload());
+  }
+
+  testAPI() {
     this.http.get('/api/users').subscribe(result => console.log(result));
-    this.http.get('https://budgety-api.herokuapp.com/api/users').subscribe(result => console.log(result));
   }
 
   navigateHome() {
-    this.router.navigate(['/latest']);
+    this.router.navigate(['/']);
     this.commonService.currentTabIndex.next(0);
   }
 
