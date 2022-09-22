@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  domainUrl: 'https://budgety-dev.netlify.app'
+  apiUrl: 'https://budgety-api.herokuapp.com'
 };

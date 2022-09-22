@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
   }
 
   login() {
-    window.open(`${environment.domainUrl}/api/auth/google`, '_self');
+    window.open(`${environment.apiUrl}/api/auth/google`, '_self');
   }
 
   logout() {
