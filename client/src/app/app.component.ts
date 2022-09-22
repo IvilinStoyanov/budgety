@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -12,7 +13,7 @@ export class AppComponent implements OnInit {
   title = 'budgety';
   data: any;
 
-  constructor(public dialog: MatDialog, public commonService: CommonService, public router: Router) {
+  constructor(public dialog: MatDialog, public commonService: CommonService, public router: Router, private http: HttpClient) {
   }
 
   ngOnInit() {
@@ -24,6 +25,13 @@ export class AppComponent implements OnInit {
     });
   }
 
+  login() {
+    //this.http.get('api/auth/google').subscribe(result => console.log(result));
+
+    this.http.get('/api/users').subscribe(result => console.log(result));
+    this.http.get('https://budgety-api.herokuapp.com/').subscribe(result => console.log(result));
+  }
+
   navigateHome() {
     this.router.navigate(['/latest']);
     this.commonService.currentTabIndex.next(0);
@@ -33,7 +41,6 @@ export class AppComponent implements OnInit {
     var element: HTMLElement = document.querySelector("#upload");
     element.click();
   }
-
   onFileChange(event) {
     const fileToLoad = event.target.files[0];
     const fileReader = new FileReader();
@@ -44,7 +51,6 @@ export class AppComponent implements OnInit {
     };
     fileReader.readAsText(fileToLoad, "UTF-8");
   }
-
   importFile(file) {
     this.commonService.saveData(file);
     window.location.reload();
