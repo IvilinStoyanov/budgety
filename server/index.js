@@ -12,4 +12,4 @@ app.get('/', (req, res) => {
     res.send('Budgety API');
 })
 
-app.listen(5000);
+app.listen(process.env.PORT || 5000);
