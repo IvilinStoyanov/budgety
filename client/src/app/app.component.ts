@@ -26,10 +26,10 @@ export class AppComponent implements OnInit {
   }
 
   login() {
-    //this.http.get('api/auth/google').subscribe(result => console.log(result));
+  //  this.http.get('api/auth/google').subscribe(result => console.log(result));
 
     this.http.get('/api/users').subscribe(result => console.log(result));
-    this.http.get('https://budgety-api.herokuapp.com/').subscribe(result => console.log(result));
+    this.http.get('https://budgety-api.herokuapp.com/api/users').subscribe(result => console.log(result));
   }
 
   navigateHome() {
