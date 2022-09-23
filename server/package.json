@@ -13,13 +13,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client && ng serve",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "preinstall": "npm install -g angular/cli",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && npm install && ng build --configuration production"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@angular/cli": "~12.0.2",
-    "@angular/compiler-cli": "~12.0.2",
     "body-parser": "^1.20.0",
     "concurrently": "^7.4.0",
     "cookie-session": "^2.0.0",
