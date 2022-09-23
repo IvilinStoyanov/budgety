@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/services/auth.service';
 import { CommonService } from 'src/services/common.service';
 import { NotificationService } from 'src/services/notification.service';
 
@@ -16,7 +17,7 @@ export class AppComponent implements OnInit {
   data: any;
 
   constructor(public dialog: MatDialog, public commonService: CommonService, public router: Router, private http: HttpClient,
-    private notificationService: NotificationService) {
+    public authService: AuthService) {
   }
 
   ngOnInit() {
@@ -27,7 +28,7 @@ export class AppComponent implements OnInit {
       if (data) this.data = data
     });
 
-    this.http.get('/api/current_user').subscribe(result => console.log(result));
+    this.authService.fetchUser().subscribe(user => this.authService.setCurrentUser(user));
   }
 
   login() {
@@ -36,10 +37,6 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.http.get('/api/logout').subscribe(() => location.reload());
-  }
-
-  testAPI() {
-    this.http.get('/api/users').subscribe(result => console.log(result))
   }
 
   navigateHome() {

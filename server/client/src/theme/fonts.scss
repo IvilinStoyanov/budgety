@@ -1,4 +1,4 @@
-@import 'colors.scss';
+@import "colors.scss";
 
 $small: 12px;
 $medium: 14px;
@@ -6,57 +6,57 @@ $large: 16px;
 
 /* utilities */
 .text-semi-bold {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .text-bold {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 .active {
-    color: $primary !important;
+  color: $primary !important;
 }
 
 .text-uppercase {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 /* text size */
 
 .text-ex-sm {
-    font-size: 11px;
+  font-size: 11px;
 }
 
 .text-sm {
-    font-size: $small;
+  font-size: $small;
 }
 
 .text-md {
-    font-size: $medium;
+  font-size: $medium;
 }
 
 .text-lg {
-    font-size: $large;
+  font-size: $large;
 }
 
 /* text colors */
 
 .text-white {
-    color: $custom-white;
+  color: $custom-white;
 }
 
 .text-black {
-    color: $black;
+  color: $black;
 }
 
 .text-primary {
-    color: $primary;
+  color: $primary;
 }
 
 .text-grey {
-    color: $grey;
+  color: $grey;
 }
 
 .text-danger {
-    color: $red !important;
+  color: $red !important;
 }

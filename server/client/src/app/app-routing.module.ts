@@ -10,6 +10,8 @@ import { MonthlyTransactionListComponent } from './components/monthly/monthly-tr
 import { MonthlyComponent } from './components/monthly/monthly.component';
 import { YearlyComponent } from './components/yearly/yearly.component';
 
+import { AuthGuard } from './guards/auth.guard';
+
 const routes: Routes = [
   {
     path: '',
@@ -17,7 +19,8 @@ const routes: Routes = [
   },
   {
     path: 'latest',
-    component: LatestComponent
+    component: LatestComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'category/:id',

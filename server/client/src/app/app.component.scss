@@ -1,31 +1,28 @@
-@import '../theme/colors.scss';
+@import "../theme/colors.scss";
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+nav {
+  background: $custom-white;
+  box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.2)!important;
+  min-height: 58px;
 }
 
 .clearfix::after {
-    content: "";
-    display: table;
-    clear: both;
+  content: "";
+  display: table;
+  clear: both;
 }
 
 body {
-    color: #555;
-    font-family: Open Sans;
-    font-size: 16px;
-    position: relative;
-    height: 100vh;
-    font-weight: 400;
+  color: #555;
+  font-family: Open Sans;
+  font-size: 16px;
+  position: relative;
+  height: 100vh;
+  font-weight: 400;
 }
 
-.title-container {
-    .title {
-        font-family: "Dancing Script", cursive !important;
-        color: $custom-white;
-        font-size: 30px;
-    }
+.title {
+  font-family: "Dancing Script", cursive !important;
+  color: $black;
+  font-size: 30px;
 }
-

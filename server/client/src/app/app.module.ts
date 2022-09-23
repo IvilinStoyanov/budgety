@@ -22,9 +22,8 @@ import { BackButtonComponent } from './components/common/back-button/back-button
 import { ConfirmDialogComponent } from './components/common/confirm-dialog/confirm-dialog.component';
 import { EditCategoryComponent } from './components/edit-category/edit-category.component';
 import { BalanceModalComponent } from './components/common/tabs/modals/balance-modal/balance-modal.component';
-
-/* directives */
-import { StopPropagationDirective } from './directives/stop-propagation.directive';
+import { YearlyComponent } from './components/yearly/yearly.component';
+import { HomeComponent } from './components/home/home.component';
 
 /* material modules */
 import { MatButtonModule } from '@angular/material/button';
@@ -49,9 +48,15 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ColorSketchModule } from 'ngx-color/sketch';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { YearlyComponent } from './components/yearly/yearly.component';
-import { HomeComponent } from './components/home/home.component';
+
+/* directives */
+import { StopPropagationDirective } from './directives/stop-propagation.directive';
+
+/* interceptors */
 import { ErrorCatchingInterceptor } from './interceptors/error-catching.interceptor';
+
+/* guards */
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -105,8 +110,10 @@ import { ErrorCatchingInterceptor } from './interceptors/error-catching.intercep
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: ErrorCatchingInterceptor,
-    multi: true
-  }],
+    multi: true,
+  },
+    AuthGuard,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

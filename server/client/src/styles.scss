@@ -3,7 +3,7 @@
 @import "theme/utilities.scss";
 
 @import "theme/custom/checkbox.scss";
-@import "theme/custom//ngx-chart.scss";
+@import "theme/custom/ngx-chart.scss";
 
 @import "theme/material/mat-tab.scss";
 @import "theme/material/mat-card.scss";
@@ -17,22 +17,28 @@
 html,
 body {
   height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background: url("assets/images/bg.jpg") no-repeat center center fixed;
+  background-size: cover;
+  height: 100%;
+  overflow: hidden;
 }
 
 body {
-  max-width: 875px;
-  margin: 0 auto;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background: $primary;
+  // background: $primary;
   // background: linear-gradient(
   //   90deg,
-  //   #69babe 0%,
-  //   #87cbd2 35%,
-  //   #6cc8dd 100%
+  //   #179ff7 0%,
+  //   #3ac7fd 35%,
+  //   #1cc9fe 100%
   // ) !important;
-
-  background: linear-gradient(90deg, #179ff7 0%, #3ac7fd 35%, #1cc9fe 100%) !important;
-  color: $custom-white;
+  color: $black;
 }
 
 .mat-select-panel .mat-optgroup-label,
@@ -58,11 +64,21 @@ body {
 
 .exp-progress-bar {
   .progress-line {
-    background: linear-gradient(90deg, $red 0%, #ff9393 50%, #ffa8b9 100%) !important;
+    background: linear-gradient(
+      90deg,
+      $red 0%,
+      #ff9393 50%,
+      #ffa8b9 100%
+    ) !important;
   }
 }
 
 .is-active {
-  background: linear-gradient(90deg, #19bfff 0%, #3ac7fd 35%, #1cc9fe 100%) !important;
+  background: linear-gradient(
+    90deg,
+    #19bfff 0%,
+    #3ac7fd 35%,
+    #1cc9fe 100%
+  ) !important;
   color: $custom-white !important;
 }
