@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { CommonService } from 'src/services/common.service';
+import { NotificationService } from 'src/services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,8 @@ export class AppComponent implements OnInit {
   title = 'budgety';
   data: any;
 
-  constructor(public dialog: MatDialog, public commonService: CommonService, public router: Router, private http: HttpClient) {
+  constructor(public dialog: MatDialog, public commonService: CommonService, public router: Router, private http: HttpClient,
+    private notificationService: NotificationService) {
   }
 
   ngOnInit() {
@@ -37,7 +39,7 @@ export class AppComponent implements OnInit {
   }
 
   testAPI() {
-    this.http.get('/api/users').subscribe(result => console.log(result));
+    this.http.get('/api/users').subscribe(result => console.log(result))
   }
 
   navigateHome() {

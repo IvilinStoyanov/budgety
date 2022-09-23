@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 /* components */
 import { AppComponent } from './app.component';
@@ -48,9 +48,10 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ColorSketchModule } from 'ngx-color/sketch';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { NgxChartsModule }from '@swimlane/ngx-charts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { YearlyComponent } from './components/yearly/yearly.component';
 import { HomeComponent } from './components/home/home.component';
+import { ErrorCatchingInterceptor } from './interceptors/error-catching.interceptor';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,11 @@ import { HomeComponent } from './components/home/home.component';
     Ng2SearchPipeModule,
     NgxChartsModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: ErrorCatchingInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

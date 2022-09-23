@@ -1,7 +1,7 @@
 module.exports = (req, res, next) => {
-    if (!req.user) {
-        return res.status(401).send({ error: 'You should log in' });
+    if (!req.isAuthenticated()) {
+        return res.status(401).send({ message: 'You are not authorized, please sign in first' });
     }
-    
+
     next();
 };
