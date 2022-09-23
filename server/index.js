@@ -19,7 +19,8 @@ app.use(
     cookieSession({
         maxAge: 30 * 24 * 60 * 60 * 1000,
         keys: [keys.cookieKey],
-        domain: 'https://budgety-dev.netlify.app'
+        domain: 'https://budgety-dev.netlify.app',
+        sameSite: 'none'
     }));
 
 app.use(passport.initialize());
