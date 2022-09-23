@@ -13,8 +13,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client && ng serve",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "cd client && npm install",
-    "postinstall": "ng build --configuration production --aot"
+    "heroku-postbuild": "cd client && npm install && ng build --configuration production --aot"
   },
   "author": "",
   "license": "ISC",
