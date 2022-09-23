@@ -29,8 +29,7 @@ export class AppComponent implements OnInit {
   }
 
   login() {
-    // window.open(`${environment.apiUrl}/api/auth/google`, '_self');
-    this.http.get(`${environment.apiUrl}/api/auth/google`).subscribe();
+    window.open(`${environment.apiUrl}/api/auth/google`, '_self');
   }
 
   logout() {
