@@ -3,5 +3,5 @@ module.exports = {
     googleClientSecret: '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',
     cookieKey: 'budgety-dev-cookie-secret-key',
     mongoURL: 'mongodb+srv://budgety-dev:9UN6IflthIq1rA7o@cluster0.pkt6oov.mongodb.net/budgety-dev?retryWrites=true&w=majority',
-    redirectDomain: '/latest'
+    redirectDomain: 'http://localhost:4200'
 }

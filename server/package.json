@@ -14,7 +14,7 @@
     "client": "cd client && ng serve",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "preinstall": "npm i @angular/cli @angular-devkit/build-angular @angular/compiler-cli typescript --save-prod",
-    "heroku-postbuild": "cd client && npm install && ng build --configuration production --aot"
+    "heroku-postbuild": "cd client && npm install && ng build --configuration production"
   },
   "author": "",
   "license": "ISC",
