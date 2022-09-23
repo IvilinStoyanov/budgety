@@ -11,6 +11,8 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/cli": "~12.0.2",
+    "@angular/compiler-cli": "~12.0.2",
     "@angular/animations": "~12.0.2",
     "@angular/cdk": "^12.0.2",
     "@angular/common": "~12.0.2",
@@ -32,8 +34,6 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^12.0.2",
-    "@angular/cli": "~12.0.2",
-    "@angular/compiler-cli": "~12.0.2",
     "@angular/language-service": "~12.0.2",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
