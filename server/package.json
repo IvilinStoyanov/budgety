@@ -13,7 +13,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client && ng serve",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "preinstall": "npm install -g @angular/cli",
+    "preinstall": "npm install -g @angular/cli && npm install -g @angular-devkit/build-angular",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && npm install && ng build --configuration production"
   },
   "author": "",
