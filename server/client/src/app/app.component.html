@@ -3,6 +3,10 @@
     Budgety<span class="text-md ml-1">v.1.0</span>
   </div>
   <div>
+    <a class="text-black" [routerLink]="['/latest']">Transactions</a>
+    <a class="text-black" [routerLink]="['/add-category']">Categories</a>
+  </div>
+  <div>
     <div *ngIf="!(authService.currentUser$ | async)">
       <button mat-raised-button color="primary" (click)="login()">Login with Google</button>
     </div>
@@ -11,7 +15,7 @@
     </div>
   </div>
   <!-- <mat-icon class="material-icons-outlined icon-sm hover" [matMenuTriggerFor]="menu">tune</mat-icon>
-  <mat-menu #menu="matMenu" class="main-menu mat-menu-md">
+      <mat-menu #menu="matMenu" class="main-menu mat-menu-md">
     <div fxLayout="column">
       <div>
         <div class="border-bottom margin-auto pb-1" [style.width.%]="85">

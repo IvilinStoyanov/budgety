@@ -41,6 +41,10 @@ body {
   color: $black;
 }
 
+a {
+  text-decoration: none;
+}
+
 .mat-select-panel .mat-optgroup-label,
 .mat-select-panel .mat-option {
   color: $black !important;
