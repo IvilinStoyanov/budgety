@@ -7,6 +7,8 @@ import { Category } from 'src/app/models/category';
 import { CategoriesColors } from 'src/app/enums/categories-colors.enum';
 import { Categories } from 'src/app/enums/categories.enum';
 import { Router } from '@angular/router';
+import { TransactionsService } from 'src/services/transactions.service';
+import { ICategory } from 'src/app/models/interface/category';
 
 @Component({
   selector: 'app-latest',
@@ -15,10 +17,11 @@ import { Router } from '@angular/router';
 })
 export class LatestComponent implements OnInit {
   data: any;
+  transactions: ICategory[];
   viewMode: any;
 
   constructor(private dialog: MatDialog, private commonService: CommonService, private router: Router,
-    public notification: NotificationService) {
+    public notification: NotificationService, private transactionsService: TransactionsService) {
     this.data = {
       categories: [],
       categoryTemplates: [],
@@ -37,16 +40,24 @@ export class LatestComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
+
     // get data from localstorage
-    if (localStorage.getItem('data') !== null) this.data = JSON.parse(localStorage.getItem('data'));
+    //  if (localStorage.getItem('data') !== null) this.data = JSON.parse(localStorage.getItem('data'));
+
+    this.transactionsService.transactions().subscribe(transactions => {
+      this.transactions = transactions;
+      console.log(this.transactions);
+    });
 
     // create initial values if none is provided
-    if (!this.data.isCreated) {
-      this.createCategoryInitialValues();
-      this.createCategoryColors();
+    // if (!this.data.isCreated) {
+    this.createCategoryInitialValues();
+    // this.createCategoryColors();
 
-      this.data.isCreated = true;
-    }
+    //   this.data.isCreated = true;
+    // }
 
     this.commonService.saveData(this.data);
     this.setViewMode('exp');
@@ -124,50 +135,57 @@ export class LatestComponent implements OnInit {
 
   addItem(params) {
     this.setViewMode(params.items.type);
-    
-    let isCategoryExist = this.data.categories.findIndex(c => c && c.id == params.category.id);
 
-    if (isCategoryExist < 0) {
-      let category = params.category;
+    // let isCategoryExist = this.data.categories.findIndex(c => c && c.id == params.category.id);
 
-      // initial create of category
-      let categoryClass = new Category(category.id, category.color, 0, 0, 0, category.icon, 0, category.name, true, []);
+    // if (isCategoryExist < 0) {
+    let category = params.category;
 
-      this.data.categories.push({ ...categoryClass });
-    }
+    // initial create of category
+    let categoryClass = new Category(category.id, category.color, 0, 0, 0, category.icon, 0, category.name, true, []);
 
-    let categoryIndex = this.data.categories.findIndex(category => category && category.id == params.category.id);
 
-    if (categoryIndex >= 0) {
-      if (params.items.type === 'exp') {
-        this.data.totals.exp += params.items.value;
-        this.data.categories[categoryIndex].exp += params.items.value;
-      }
-      if (params.items.type === 'inc') {
-        this.data.totals.inc += params.items.value;
-        this.data.categories[categoryIndex].inc += params.items.value;
-      }
-      
-      // create uniqueID
-      let lastTransaction = this.data.categories[categoryIndex].items.slice(-1);
+    // this.data.categories.push({ ...categoryClass });
+    //}
 
-      params.items.id = lastTransaction.length > 0 ? lastTransaction[0].id + 1 : 1;
+   // let categoryIndex = this.data.categories.findIndex(category => category && category.id == params.category.id);
 
-      // Push it into our data structure
-      this.data.categories[categoryIndex].items.push(params.items);
+    // if (categoryIndex >= 0) {
+    //   if (params.items.type === 'exp') {
+    //     this.data.totals.exp += params.items.value;
+    //     this.data.categories[categoryIndex].exp += params.items.value;
+    //   }
+    //   if (params.items.type === 'inc') {
+    //     this.data.totals.inc += params.items.value;
+    //     this.data.categories[categoryIndex].inc += params.items.value;
+    //   }
+
+    //   // create uniqueID
+    //   let lastTransaction = this.data.categories[categoryIndex].items.slice(-1);
+
+    //   params.items.id = lastTransaction.length > 0 ? lastTransaction[0].id + 1 : 1;
+
+    //   // Push it into our data structure
+    //   this.data.categories[categoryIndex].items.push(params.items);
 
       // calculate budget
-      this.data.budget =  parseFloat((this.data.totals.inc - this.data.totals.exp).toFixed(2));
+    //  this.data.budget = parseFloat((this.data.totals.inc - this.data.totals.exp).toFixed(2));
 
       // calculate category income/expense percetanges of current budget
-      this.data = this.commonService.calculateTotalExpPercentage(this.data);
+     // this.data = this.commonService.calculateTotalExpPercentage(this.data);
 
       // calculate global income/expense percetanges of current budget
-      this.data = this.commonService.calculatePercentageEach(this.data);
+    //  this.data = this.commonService.calculatePercentageEach(this.data);
+      categoryClass.items = params.items;
+      this.transactionsService.createTransaction(categoryClass).subscribe(transaction => {
+        console.log(transaction)
+        this.transactions = [...this.transactions, transaction];
+      });
 
       this.commonService.saveData(this.data);
-    } else {
-      this.notification.danger("Not able to add category.");
-    }
+    // }
+    // else {
+    //   this.notification.danger("Not able to add category.");
+    // }
   }
 }

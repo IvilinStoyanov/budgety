@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 const keys = require('./config/keys');
 
 require('./models/User');
+require('./models/Transactions');
+require('./models/Items');
 require('./services/passport');
 
 mongoose.connect(keys.mongoURL);
@@ -25,6 +27,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./routes/authRoutes')(app);
+require('./routes/transactionsRoutes')(app);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/dist'));
