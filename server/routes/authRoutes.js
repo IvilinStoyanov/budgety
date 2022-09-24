@@ -26,8 +26,4 @@ module.exports = app => {
     app.get('/api/current_user', requireLogin, (req, res) => {
         res.send(req.user);
     });
-
-    app.get('/api/users', requireLogin, (req, res) => {
-        res.send({ test: 'test'});
-    });
 };
