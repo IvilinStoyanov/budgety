@@ -2,17 +2,17 @@
   <div class="title hover ml-3" (click)="navigateHome()">
     Budgety<span class="text-md ml-1">v.1.0</span>
   </div>
-  <div>
-    <a class="text-black" [routerLink]="['/latest']">Transactions</a>
-    <a class="text-black" [routerLink]="['/add-category']">Categories</a>
-  </div>
-  <div>
-    <div *ngIf="!(authService.currentUser$ | async)">
-      <button mat-raised-button color="primary" (click)="login()">Login with Google</button>
+  <ng-container *ngIf="(authService.currentUser$ | async)">
+    <div>
+      <a class="text-black" [routerLink]="['/latest']">Transactions</a>
+      <a class="text-black" [routerLink]="['/add-category']">Categories</a>
     </div>
-    <div *ngIf="(authService.currentUser$ | async)">
+    <div>
       <button mat-raised-button color="primary" (click)="logout()">Logout</button>
     </div>
+  </ng-container>
+  <div *ngIf="!(authService.currentUser$ | async)">
+    <button mat-raised-button color="primary" (click)="login()">Login with Google</button>
   </div>
   <!-- <mat-icon class="material-icons-outlined icon-sm hover" [matMenuTriggerFor]="menu">tune</mat-icon>
       <mat-menu #menu="matMenu" class="main-menu mat-menu-md">

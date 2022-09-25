@@ -18,7 +18,7 @@ export class CommonService {
   navigateTo(path: string) {
     this.router.navigate([`/${path}`]);
   }
-  
+
   scrollToTop() {
     window.scroll(0,0);
   }
@@ -52,20 +52,20 @@ export class CommonService {
   calculateTotalExpPercentage(data: any) {
     if (data.totals.inc > 0) {
       data.expPercentage = Math.round((data.totals.exp / data.totals.inc) * 100);
-      data.incPercentage = 100 - data.expPercentage; 
+      data.incPercentage = 100 - data.expPercentage;
 
       if (data.expPercentage >= 100) {
         data.expPercentage = 100;
         data.incPercentage = 0;
-      } 
-        
+      }
+
     }
     else if (data.budget < 0) {
       data.expPercentage = 100;
-      data.incPercentage = 0; 
+      data.incPercentage = 0;
     }
     else {
-      data.incPercentage = 0; 
+      data.incPercentage = 0;
       data.expPercentage = 0;
     }
 

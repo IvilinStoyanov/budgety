@@ -16,6 +16,7 @@ export class AuthService {
   }
 
   setCurrentUser(user: any) {
+    console.log(user);
     this.currentUserSource.next(user);
   }
 

@@ -1,15 +1,19 @@
 const mongoose = require('mongoose');
+const Categories = mongoose.model('categories');
 const Transactions = mongoose.model('transactions');
-const Items = mongoose.model('items');
 
 const requireLogin = require('../middlewares/requireLogin');
 
 module.exports = app => {
     app.get('/api/transactions', async (req, res) => {
-        const transactions = await Transactions
-            .find({ _user: req.user.id });
+        try {
+            const transactions = await Transactions
+                .find({ _user: req.user.id });
 
-        res.send(transactions);
+            res.send(transactions);
+        } catch (error) {
+            res.status(400).send(error);
+        }
     });
 
 
@@ -18,7 +22,7 @@ module.exports = app => {
         const { id, color, icon, exp, inc, expPercentage, incPercentage, isVisible } = req.body;
 
         try {
-            const transactions = Transactions
+            const transactions = Categories
                 .updateOne({
                     categoryId: id
                 }, {
@@ -34,7 +38,7 @@ module.exports = app => {
                 }, { upsert: true })
                 .exec();
 
-            const items = new Items({
+            const items = new Transactions({
                 descriptions: req.body.items.descriptions,
                 type: req.body.items.type,
                 value: req.body.items.value,

@@ -9,6 +9,8 @@ import { Categories } from 'src/app/enums/categories.enum';
 import { Router } from '@angular/router';
 import { TransactionsService } from 'src/services/transactions.service';
 import { ICategory } from 'src/app/models/interface/category';
+import { AuthService } from 'src/services/auth.service';
+import { SetupCategoriesComponent } from './modals/setup-categories/setup-categories.component';
 
 @Component({
   selector: 'app-latest',
@@ -19,9 +21,10 @@ export class LatestComponent implements OnInit {
   data: any;
   transactions: ICategory[];
   viewMode: any;
+  user: any;
 
   constructor(private dialog: MatDialog, private commonService: CommonService, private router: Router,
-    public notification: NotificationService, private transactionsService: TransactionsService) {
+    public notification: NotificationService, private transactionsService: TransactionsService, private authService: AuthService) {
     this.data = {
       categories: [],
       categoryTemplates: [],
@@ -40,9 +43,10 @@ export class LatestComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
-
+    this.user = this.authService.currentUser$.subscribe(user => {
+      console.log(user);
+      if (!user?.isCategoriesSet) this.openSetupCategoriesModal();
+    })
     // get data from localstorage
     //  if (localStorage.getItem('data') !== null) this.data = JSON.parse(localStorage.getItem('data'));
 
@@ -66,6 +70,20 @@ export class LatestComponent implements OnInit {
     if (this.data.totals.exp === 0) this.viewMode = 'inc';
   }
 
+  openSetupCategoriesModal() {
+
+    const dialogRef = this.dialog.open(SetupCategoriesComponent, {
+      autoFocus: false,
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.notification.success("Categories successfully imported.");
+      }
+    });
+  }
+
   navigateToCategory(categoryName: string, categoryID: number) {
     this.router.navigate([`/category/${categoryName}`], { queryParams: { id: categoryID }, skipLocationChange: true, replaceUrl: false });
   }
@@ -76,17 +94,17 @@ export class LatestComponent implements OnInit {
 
   createCategoryInitialValues() {
     this.data.categoryTemplates = [
-      { id: Categories.Salary, icon: 'attach_money', name: 'Salary', color: CategoriesColors.Salary, isVisible: true },
-      { id: Categories.Car, icon: 'directions_car_filled', name: 'Car', color: CategoriesColors.Car, isVisible: true },
-      { id: Categories.Grocery, icon: 'shopping_cart', name: 'Grocery', color: CategoriesColors.Grocery, isVisible: true },
-      { id: Categories.Food, icon: 'restaurant', name: 'Food & Restaurant', color: CategoriesColors.Food, isVisible: true },
-      { id: Categories.Coffe, icon: 'local_cafe', name: 'Coffe', color: CategoriesColors.Coffe, isVisible: true },
-      { id: Categories.Haircut, icon: 'content_cut', name: 'Haircut', color: CategoriesColors.Haircut, isVisible: true },
-      { id: Categories.MedicalSupplies, icon: 'medication', name: 'Medical Supplies', color: CategoriesColors.MedicalSupplies, isVisible: true },
-      { id: Categories.Holiday, icon: 'holiday_village', name: 'Holiday', color: CategoriesColors.Holiday, isVisible: true },
-      { id: Categories.Utilities, icon: 'receipt', name: 'Utilities', color: CategoriesColors.Utilities, isVisible: true },
-      { id: Categories.Rent, icon: 'bedroom_parent', name: 'Rent', color: CategoriesColors.Rent, isVisible: true },
-      { id: Categories.LoanPayments, icon: 'credit_score', name: 'Loan Payments', color: CategoriesColors.LoanPayments, isVisible: true }
+      { name: Categories.Salary, icon: 'attach_money', color: CategoriesColors.Salary, isVisible: true },
+      { name: Categories.Car, icon: 'directions_car_filled', color: CategoriesColors.Car, isVisible: true },
+      { name: Categories.Grocery, icon: 'shopping_cart', color: CategoriesColors.Grocery, isVisible: true },
+      { name: Categories.Food, icon: 'restaurant', color: CategoriesColors.Food, isVisible: true },
+      { name: Categories.Coffe, icon: 'local_cafe', color: CategoriesColors.Coffe, isVisible: true },
+      { name: Categories.Haircut, icon: 'content_cut', color: CategoriesColors.Haircut, isVisible: true },
+      { name: Categories.MedicalSupplies, icon: 'medication', color: CategoriesColors.MedicalSupplies, isVisible: true },
+      { name: Categories.Holiday, icon: 'holiday_village', color: CategoriesColors.Holiday, isVisible: true },
+      { name: Categories.Utilities, icon: 'receipt', color: CategoriesColors.Utilities, isVisible: true },
+      { name: Categories.Rent, icon: 'bedroom_parent', color: CategoriesColors.Rent, isVisible: true },
+      { name: Categories.LoanPayments, icon: 'credit_score', color: CategoriesColors.LoanPayments, isVisible: true }
     ];
   }
 
@@ -148,7 +166,7 @@ export class LatestComponent implements OnInit {
     // this.data.categories.push({ ...categoryClass });
     //}
 
-   // let categoryIndex = this.data.categories.findIndex(category => category && category.id == params.category.id);
+    // let categoryIndex = this.data.categories.findIndex(category => category && category.id == params.category.id);
 
     // if (categoryIndex >= 0) {
     //   if (params.items.type === 'exp') {
@@ -168,21 +186,21 @@ export class LatestComponent implements OnInit {
     //   // Push it into our data structure
     //   this.data.categories[categoryIndex].items.push(params.items);
 
-      // calculate budget
+    // calculate budget
     //  this.data.budget = parseFloat((this.data.totals.inc - this.data.totals.exp).toFixed(2));
 
-      // calculate category income/expense percetanges of current budget
-     // this.data = this.commonService.calculateTotalExpPercentage(this.data);
+    // calculate category income/expense percetanges of current budget
+    // this.data = this.commonService.calculateTotalExpPercentage(this.data);
 
-      // calculate global income/expense percetanges of current budget
+    // calculate global income/expense percetanges of current budget
     //  this.data = this.commonService.calculatePercentageEach(this.data);
-      categoryClass.items = params.items;
-      this.transactionsService.createTransaction(categoryClass).subscribe(transaction => {
-        console.log(transaction)
-        this.transactions = [...this.transactions, transaction];
-      });
+    categoryClass.items = params.items;
+    this.transactionsService.createTransaction(categoryClass).subscribe(transaction => {
+      console.log(transaction)
+      this.transactions = [...this.transactions, transaction];
+    });
 
-      this.commonService.saveData(this.data);
+    this.commonService.saveData(this.data);
     // }
     // else {
     //   this.notification.danger("Not able to add category.");

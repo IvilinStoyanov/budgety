@@ -24,6 +24,11 @@ module.exports = app => {
     });
 
     app.get('/api/current_user', requireLogin, (req, res) => {
-        res.send(req.user);
+        try {
+            res.send(req.user);
+        } catch (error) {
+            res.status(400).send(error);
+        }
+      
     });
 };

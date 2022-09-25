@@ -57,6 +57,7 @@ import { ErrorCatchingInterceptor } from './interceptors/error-catching.intercep
 
 /* guards */
 import { AuthGuard } from './guards/auth.guard';
+import { SetupCategoriesComponent } from './components/latest/modals/setup-categories/setup-categories.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { AuthGuard } from './guards/auth.guard';
     StopPropagationDirective,
     MonthlyTransactionListComponent,
     BalanceModalComponent,
-    YearlyComponent
+    YearlyComponent,
+    SetupCategoriesComponent
   ],
   imports: [
     BrowserModule,

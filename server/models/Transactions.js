@@ -2,15 +2,11 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const transactionsSchema = new Schema({
-    color: String,
-    exp: Number,
-    expPercentage: Number,
-    icon: String,
-    categoryId: Number,
-    inc: Number,
-    incPercentage: Number,
-    isVisible: { type: Boolean, default: false },
-    _user: { type: Schema.Types.ObjectId, ref: 'user' }
-});
+    description: String,
+    dateCreated: Date,
+    type: String,
+    value: Number,
+    _categories: { type: Schema.Types.ObjectId, ref: 'categories' }
+})
 
 mongoose.model('transactions', transactionsSchema);

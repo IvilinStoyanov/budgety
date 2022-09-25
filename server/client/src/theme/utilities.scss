@@ -10,6 +10,10 @@
   text-align: center;
 }
 
+.text-right {
+  text-align: right;;
+}
+
 .text-uppercase {
   text-transform: uppercase;
 }
@@ -140,6 +144,10 @@
 
 .icon-danger {
   color: $red !important;
+}
+
+.icon-success {
+  color: $green !important;
 }
 
 /* shadow */
