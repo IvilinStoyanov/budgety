@@ -11,6 +11,8 @@ import { TransactionsService } from 'src/services/transactions.service';
 import { ICategory } from 'src/app/models/interface/category';
 import { AuthService } from 'src/services/auth.service';
 import { SetupCategoriesComponent } from './modals/setup-categories/setup-categories.component';
+import { CategoriesService } from 'src/services/categories.service';
+import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-latest',
@@ -20,11 +22,19 @@ import { SetupCategoriesComponent } from './modals/setup-categories/setup-catego
 export class LatestComponent implements OnInit {
   data: any;
   transactions: ICategory[];
+  categories: Category;
   viewMode: any;
   user: any;
 
-  constructor(private dialog: MatDialog, private commonService: CommonService, private router: Router,
-    public notification: NotificationService, private transactionsService: TransactionsService, private authService: AuthService) {
+  constructor(
+    private dialog: MatDialog,
+    private commonService: CommonService,
+    private router: Router,
+    public notification: NotificationService,
+    private transactionsService: TransactionsService,
+    private authService: AuthService,
+    private categoryService: CategoriesService,
+  ) {
     this.data = {
       categories: [],
       categoryTemplates: [],
@@ -43,22 +53,24 @@ export class LatestComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.authService.currentUser$.subscribe(user => {
-      console.log(user);
+    this.authService.currentUser$.subscribe(user => {
+      this.user = user;
+
       if (!user?.isCategoriesSet) this.openSetupCategoriesModal();
     })
     // get data from localstorage
     //  if (localStorage.getItem('data') !== null) this.data = JSON.parse(localStorage.getItem('data'));
 
-    this.transactionsService.transactions().subscribe(transactions => {
-      this.transactions = transactions;
-      console.log(this.transactions);
-    });
+    // this.transactionsService.transactions().subscribe(transactions => {
+    //   this.transactions = transactions;
+    //   console.log(this.transactions);
+    // });
+
+    this.categoryService.getCategories().subscribe(categories => {
+      this.categories = categories;
+    })
 
     // create initial values if none is provided
-    // if (!this.data.isCreated) {
-    this.createCategoryInitialValues();
-    // this.createCategoryColors();
 
     //   this.data.isCreated = true;
     // }
@@ -92,22 +104,6 @@ export class LatestComponent implements OnInit {
     this.data.categoryColors = Object.values(CategoriesColors);
   }
 
-  createCategoryInitialValues() {
-    this.data.categoryTemplates = [
-      { name: Categories.Salary, icon: 'attach_money', color: CategoriesColors.Salary, isVisible: true },
-      { name: Categories.Car, icon: 'directions_car_filled', color: CategoriesColors.Car, isVisible: true },
-      { name: Categories.Grocery, icon: 'shopping_cart', color: CategoriesColors.Grocery, isVisible: true },
-      { name: Categories.Food, icon: 'restaurant', color: CategoriesColors.Food, isVisible: true },
-      { name: Categories.Coffe, icon: 'local_cafe', color: CategoriesColors.Coffe, isVisible: true },
-      { name: Categories.Haircut, icon: 'content_cut', color: CategoriesColors.Haircut, isVisible: true },
-      { name: Categories.MedicalSupplies, icon: 'medication', color: CategoriesColors.MedicalSupplies, isVisible: true },
-      { name: Categories.Holiday, icon: 'holiday_village', color: CategoriesColors.Holiday, isVisible: true },
-      { name: Categories.Utilities, icon: 'receipt', color: CategoriesColors.Utilities, isVisible: true },
-      { name: Categories.Rent, icon: 'bedroom_parent', color: CategoriesColors.Rent, isVisible: true },
-      { name: Categories.LoanPayments, icon: 'credit_score', color: CategoriesColors.LoanPayments, isVisible: true }
-    ];
-  }
-
   setViewMode(mode: string) {
     this.viewMode = mode;
     this.commonService.viewMode = mode;
@@ -133,34 +129,35 @@ export class LatestComponent implements OnInit {
   }
 
   openAddItemDialog(): void {
-    let templates = this.data.categoryTemplates.filter(t => t.isVisible == true);
+    this.categoryService.getCategories().subscribe(categories => {
+      console.log(categories);
+      const dialogRef = this.dialog.open(AddItemComponent, {
+        autoFocus: false,
+        data: {
+          categories,
+          viewMode: this.viewMode,
+        }
+      });
 
-    const dialogRef = this.dialog.open(AddItemComponent, {
-      autoFocus: false,
-      data: {
-        category: templates,
-        viewMode: this.viewMode,
-      }
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.addItem(result);
-        this.notification.success("Item successfully added");
-      }
-    });
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.addItem(result);
+          this.notification.success("Item successfully added");
+        }
+      });
+    })
   }
 
   addItem(params) {
-    this.setViewMode(params.items.type);
+    this.setViewMode(params.type);
 
     // let isCategoryExist = this.data.categories.findIndex(c => c && c.id == params.category.id);
 
     // if (isCategoryExist < 0) {
-    let category = params.category;
+   // let category = params.category;
 
     // initial create of category
-    let categoryClass = new Category(category.id, category.color, 0, 0, 0, category.icon, 0, category.name, true, []);
+   // let categoryClass = new Category(category.id, category.color, 0, 0, 0, category.icon, 0, category.name, true, []);
 
 
     // this.data.categories.push({ ...categoryClass });
@@ -194,8 +191,7 @@ export class LatestComponent implements OnInit {
 
     // calculate global income/expense percetanges of current budget
     //  this.data = this.commonService.calculatePercentageEach(this.data);
-    categoryClass.items = params.items;
-    this.transactionsService.createTransaction(categoryClass).subscribe(transaction => {
+    this.transactionsService.createTransaction(params).subscribe(transaction => {
       console.log(transaction)
       this.transactions = [...this.transactions, transaction];
     });

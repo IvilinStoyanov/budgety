@@ -10,12 +10,12 @@ export class TransactionsService {
 
   constructor(private http: HttpClient) { }
 
-  transactions(): Observable<ICategory[]> {
+  transactions(): Observable<any[]> {
     return this.http.get<ICategory[]>('/api/transactions');
   }
 
-  createTransaction(params: ICategory): Observable<ICategory> {
-    return this.http.post<ICategory>('/api/transactions', params);
+  createTransaction(params: any): Observable<any> {
+    return this.http.post<any>('/api/transactions', params);
   }
 
 }

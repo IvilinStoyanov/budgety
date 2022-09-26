@@ -86,18 +86,15 @@ export class AddItemComponent implements OnInit, OnDestroy {
 
       if (this.form.get('isToday').value) this.form.value.dateCreated = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toJSON()
 
-      // modify form value
-      let category = {
-        category: this.form.getRawValue().category,
-        items: {
-          description: this.form.value.description,
-          dateCreated: this.form.value.dateCreated,
-          type: this.form.value.type,
-          value: parseFloat(this.form.value.value.toFixed(2))
-        },
-      }
+      let transaction = {
+        _categoryId: this.form.value.category._id,
+        description: this.form.value.description,
+        dateCreated: this.form.value.dateCreated,
+        type: this.form.value.type,
+        value: parseFloat(this.form.value.value.toFixed(2))
+      };
 
-      this.dialogRef.close(category);
+      this.dialogRef.close(transaction);
     }
   }
 }

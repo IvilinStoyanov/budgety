@@ -1,6 +1,6 @@
 <div class="ml-2 mr-2 mt-2 mb-0">
   <!-- tabs -->
-  <app-tabs [data]="data"></app-tabs>
+  <app-tabs [user]="user"></app-tabs>
   <!-- progress bar -->
   <mat-card class="
       border-bottom
@@ -12,25 +12,25 @@
       <div class="text-black text-md">
         Income
         <span class="text-transparent">{{
-          data.totals.inc | number: "1.2-2"
+          user.inc | number: "1.2-2"
           }}</span>
       </div>
-      <div class="text-black text-md">{{ data.incPercentage }}%</div>
+      <div class="text-black text-md">{{ user.incPercentage }}%</div>
     </div>
     <div class="pb-3">
-      <app-progress-bar [percentage]="data.incPercentage"></app-progress-bar>
+      <app-progress-bar [percentage]="user.incPercentage"></app-progress-bar>
     </div>
     <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-1">
       <div class="text-black text-md">
         Expense
         <span class="text-transparent">{{
-          data.totals.exp | number: "1.2-2"
+          user.exp | number: "1.2-2"
           }}</span>
       </div>
-      <div class="text-black text-md">{{ data.expPercentage }}%</div>
+      <div class="text-black text-md">{{ user.expPercentage }}%</div>
     </div>
     <div class="pb-3">
-      <app-progress-bar class="exp-progress-bar" [percentage]="data.expPercentage"></app-progress-bar>
+      <app-progress-bar class="exp-progress-bar" [percentage]="user.expPercentage"></app-progress-bar>
     </div>
   </mat-card>
 </div>
@@ -43,7 +43,7 @@
     <span class="text-grey text-transparent">No Transactions</span>
     <span class="text-grey text-transparent">Tap here to add one</span>
   </div>
-  <div *ngFor="let category of transactions">
+  <div *ngFor="let category of categories">
     <div class="item" *ngIf="category && showCategories(category) && category.isVisible">
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <div fxLayout="row" fxLayoutAlign="start center">
@@ -83,7 +83,7 @@
           </div>
           <div class="text-black text-transparent text-ex-sm">
             <span class="text-sm text-transparent hover link ml-2"
-              (click)="navigateToCategory(category.name, category.id)">{{ category.items?.length }} transactions</span>
+              (click)="navigateToCategory(category.name, category.id)">{{ category.transactionsCount }} transactions</span>
           </div>
         </div>
       </div>

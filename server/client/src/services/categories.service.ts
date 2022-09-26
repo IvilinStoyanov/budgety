@@ -9,6 +9,10 @@ export class CategoriesService {
 
   constructor(private http: HttpClient) { }
 
+  getCategories(): Observable<any> {
+    return this.http.get('/api/categories');
+  }
+
   importCategories(params): Observable<any> {
     return this.http.post('/api/categories', params);
   }

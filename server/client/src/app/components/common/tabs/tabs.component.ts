@@ -11,7 +11,7 @@ import { BalanceModalComponent } from './modals/balance-modal/balance-modal.comp
   styleUrls: ['./tabs.component.scss']
 })
 export class TabsComponent implements OnInit, OnDestroy {
-  @Input() data: any;
+  @Input() user: any;
 
   private subscription: Subscription;
   currentIndex: number;
@@ -24,6 +24,8 @@ export class TabsComponent implements OnInit, OnDestroy {
     const currentTabIndexSubscription$ = this.commonService.currentTabIndex.subscribe(value => this.currentIndex = value);
 
     this.subscription.add(currentTabIndexSubscription$);
+
+    console.log(this.user);
   }
 
   ngOnDestroy() {
@@ -38,13 +40,13 @@ export class TabsComponent implements OnInit, OnDestroy {
   openBalanceModal() {
       const dialogRef = this.dialog.open(BalanceModalComponent, {
         autoFocus: false,
-        data: this.data
+        data: this.user
       });
-  
+
       dialogRef.afterClosed().subscribe((result) => {
         if (result) {
-          this.data.savings = result;
-          this.commonService.saveData(this.data);
+          this.user.savings = result;
+         // this.commonService.saveData(this.data);
         }
       });
   }

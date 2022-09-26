@@ -16,39 +16,36 @@ module.exports = app => {
         }
     });
 
-
     app.post('/api/transactions', requireLogin, async (req, res) => {
+        const { description, dateCreated, type, value, _categoryId } = req.body;
         console.log(req.body);
-        const { id, color, icon, exp, inc, expPercentage, incPercentage, isVisible } = req.body;
 
         try {
-            const transactions = Categories
+            const category = Categories
                 .updateOne({
-                    categoryId: id
+                    _id: _categoryId
                 }, {
-                    $inc: { [req.body.items.type]: req.body.items.value },
-                    $set: {
-                        color,
-                        expPercentage,
-                        icon,
-                        incPercentage,
-                        isVisible,
-                        _user: req.user.id
+                    $inc: {
+                        [type]: value,
+                        transactionsCount: 1,
                     }
-                }, { upsert: true })
+                })
                 .exec();
 
-            const items = new Transactions({
-                descriptions: req.body.items.descriptions,
-                type: req.body.items.type,
-                value: req.body.items.value,
-                dateCreated: req.body.items.dateCreated,
-                _transaction: transactions._id
+            const transaction = new Transactions({
+                description,
+                type,
+                value,
+                dateCreated,
+                _categoryId
             });
 
-            await items.save();
+            req.user[type] += value;
 
-            res.send({ transactions });
+            await transaction.save();
+            const user = await req.user.save();
+
+            res.send({ category, transaction, user });
 
         } catch (error) {
             res.status(422).send(error);

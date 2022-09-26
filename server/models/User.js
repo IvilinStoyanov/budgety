@@ -3,12 +3,11 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema({
     googleId: String,
-    budget: { type: Number, default: 0 },
     savings: { type: Number, default: 0 },
-    totalInc: Number,
-    totalExp: Number,
-    incPercentage: Number,
-    expPercentage: Number,
+    inc: { type: Number, default: 0 },
+    exp: { type: Number, default: 0 },
+    incPercentage: { type: Number, default: 0 },
+    expPercentage: { type: Number, default: 0 },
     isCategoriesSet: { type: Boolean, default: false }
 });
 

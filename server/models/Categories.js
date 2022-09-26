@@ -10,6 +10,7 @@ const categoriesSchema = new Schema({
     categoryId: { type: Number, default: 0 },
     inc: { type: Number, default: 0 },
     incPercentage: { type: Number, default: 0 },
+    transactionsCount: { type: Number, default: 0 },
     isVisible: { type: Boolean, default: true },
     _user: { type: Schema.Types.ObjectId, ref: 'user' }
 });

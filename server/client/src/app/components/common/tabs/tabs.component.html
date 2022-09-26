@@ -4,7 +4,7 @@
       Balance
     </div>
     <div class="budget-value">
-      <span *ngIf="data.budget > 0">+</span>{{ data.budget + data.savings | number: "1.2-2" }}
+      <span *ngIf="(user.inc - user.exp) + user.savings > 0">+</span>{{ (user.inc - user.exp) + user.savings | number: "1.2-2" }}
     </div>
   </div>
 </div>
