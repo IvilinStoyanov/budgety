@@ -10,8 +10,12 @@ export class TransactionsService {
 
   constructor(private http: HttpClient) { }
 
-  transactions(): Observable<any[]> {
-    return this.http.get<ICategory[]>('/api/transactions');
+  transactions(_categoryId): Observable<any> {
+    const params = {
+      _categoryId: _categoryId
+    };
+
+    return this.http.get<any>('/api/transactions', { params });
   }
 
   createTransaction(params: any): Observable<any> {

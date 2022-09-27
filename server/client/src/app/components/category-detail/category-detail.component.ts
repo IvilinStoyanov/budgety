@@ -9,6 +9,8 @@ import { ICategory } from 'src/app/models/interface/category';
 import { Category } from 'src/app/models/category';
 import * as shape from 'd3-shape';
 import { ITransaction } from 'src/app/models/interface/transaction';
+import { TransactionsService } from 'src/services/transactions.service';
+import { CategoriesService } from 'src/services/categories.service';
 
 @Component({
   selector: 'app-category-detail',
@@ -19,7 +21,7 @@ export class CategoryDetailComponent implements OnInit {
   data: any;
   categoryID: number;
   category: ICategory;
-  transactions: ITransaction[];
+  transactions: ITransaction[] = [];
   viewMode: string;
 
   pageIndex = 0;
@@ -35,28 +37,46 @@ export class CategoryDetailComponent implements OnInit {
   latestCount: number = 5;
   isAxisVisible: boolean;
 
-  constructor(public route: ActivatedRoute, public commonService: CommonService, public notification: NotificationService,
-    public router: Router, public dialog: MatDialog) {
-  }
+  constructor(
+    public route: ActivatedRoute,
+    public commonService: CommonService,
+    public notification: NotificationService,
+    public router: Router,
+    public dialog: MatDialog,
+    private categoriesService: CategoriesService,
+    private transactionsService: TransactionsService,
+  ) { }
 
   ngOnInit() {
-    this.data = JSON.parse(localStorage.getItem('data'));
-
     this.viewMode = this.commonService.viewMode;
 
     this.route.queryParams.subscribe(params => {
       let id = params['id'];
-      this.categoryID = this.data.categories.findIndex(category => category && category.id == id);
+      // console.log(id);
+      console.log(params);
 
-      if (this.data) this.category = this.data.categories.find(category => category && category.id == id);
+      this.categoriesService.getCategoryById(id).subscribe(category => {
+        this.category = category;
+        console.log(this.category);
+        this.transactionsService.transactions(id).subscribe(transactions => {
+          this.transactions = transactions;
 
-      this.totalPages = Math.ceil(this.category.items.length / this.pageSize);
+          this.chartDataLatest(this.latestCount);
+        });
+      })
 
-      this.sortByDate();
 
-      this.changePageIndex();
+      //this.categoryID = this.data.categories.findIndex(category => category && category.id == id);
 
-      this.chartDataLatest(this.latestCount);
+      // if (this.data) this.category = this.data.categories.find(category => category && category.id == id);
+
+      // this.totalPages = Math.ceil(this.category.items.length / this.pageSize);
+
+      // this.sortByDate();
+
+      // this.changePageIndex();
+
+
     });
   }
 
@@ -220,7 +240,7 @@ export class CategoryDetailComponent implements OnInit {
     let expData = { name: 'exp', series: [] };
 
     let latestTransactions = this.transactions.slice(0, count);
-    latestTransactions.reverse();
+   // latestTransactions.reverse();
 
     latestTransactions.forEach((element, index) => {
       let day = new Date(element.dateCreated).getDate();

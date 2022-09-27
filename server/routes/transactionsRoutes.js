@@ -7,8 +7,10 @@ const requireLogin = require('../middlewares/requireLogin');
 module.exports = app => {
     app.get('/api/transactions', async (req, res) => {
         try {
+            const { _categoryId } = req.query;
+
             const transactions = await Transactions
-                .find({ _user: req.user.id });
+                .find({ _user: req.user.id, _categoryId });
 
             res.send(transactions);
         } catch (error) {

@@ -23,7 +23,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'category/:id',
+    path: 'category',
     component: CategoryDetailComponent
   },
   {

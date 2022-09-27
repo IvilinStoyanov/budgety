@@ -15,6 +15,18 @@ module.exports = app => {
         }
     });
 
+    app.get('/api/category/:id', requireLogin, async (req, res) => {
+        try {
+            console.log(req.params.id);
+            const category = await Categories
+                .findOne({ _user: req.user.id, _id: req.params.id });
+
+            res.send(category);
+        } catch (error) {
+            res.status(400).send(error);
+        }
+    });
+
     app.post('/api/categories', requireLogin, async (req, res) => {
         const categories = _.map(req.body, ({ name, icon, color }) => {
             return { name, icon, color, _user: req.user._id };

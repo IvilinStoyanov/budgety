@@ -13,6 +13,10 @@ export class CategoriesService {
     return this.http.get('/api/categories');
   }
 
+  getCategoryById(id: number): Observable<any> {
+    return this.http.get(`api/category/${id}`);
+  }
+
   importCategories(params): Observable<any> {
     return this.http.post('/api/categories', params);
   }

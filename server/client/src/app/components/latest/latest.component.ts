@@ -61,10 +61,6 @@ export class LatestComponent implements OnInit {
     // get data from localstorage
     //  if (localStorage.getItem('data') !== null) this.data = JSON.parse(localStorage.getItem('data'));
 
-    // this.transactionsService.transactions().subscribe(transactions => {
-    //   this.transactions = transactions;
-    //   console.log(this.transactions);
-    // });
 
     this.categoryService.getCategories().subscribe(categories => {
       this.categories = categories;
@@ -96,8 +92,8 @@ export class LatestComponent implements OnInit {
     });
   }
 
-  navigateToCategory(categoryName: string, categoryID: number) {
-    this.router.navigate([`/category/${categoryName}`], { queryParams: { id: categoryID }, skipLocationChange: true, replaceUrl: false });
+  navigateToCategory(categoryId: number) {
+    this.router.navigate(['/category'], { queryParams: { id: categoryId }, skipLocationChange: true, replaceUrl: false });
   }
 
   createCategoryColors() {
