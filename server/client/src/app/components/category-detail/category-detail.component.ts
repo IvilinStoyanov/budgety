@@ -23,12 +23,9 @@ export class CategoryDetailComponent implements OnInit {
   category: ICategory;
   transactions: ITransaction[] = [];
   viewMode: string;
-
   pageIndex = 0;
   pageSize = 10;
   totalPages: number;
-
-
   colorScheme = { domain: ['#28B9B5', '#FF5049'] };
 
   days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thrus', 'Fri', 'Sat'];

@@ -45,6 +45,19 @@ module.exports = app => {
             req.user[type] += value;
 
             await transaction.save();
+
+            // calculate budget in %
+            if (req.user.inc > 0) {
+                let expPercentage = Math.round((req.user.exp / req.user.inc) * 100);
+
+                if (expPercentage > 100) {
+                    expPercentage = 100;
+                }
+
+                req.user.expPercentage = expPercentage;
+                req.user.incPercetange = 100 - expPercentage;
+            }
+
             const user = await req.user.save();
 
             res.send({ category, transaction, user });

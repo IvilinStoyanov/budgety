@@ -38,7 +38,6 @@ export class SetupCategoriesComponent implements OnInit {
   import() {
     const filteredCategories = this.categoryTemplates.filter(category => category.isSelected);
 
-    this.categoriesService.importCategories(filteredCategories).subscribe(result => console.log(result));
+    this.categoriesService.importCategories(filteredCategories).subscribe(categories => this.dialogRef.close(categories));
   }
-
 }
