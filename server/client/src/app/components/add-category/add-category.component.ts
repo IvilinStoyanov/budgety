@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MaterialIcons } from 'src/app/enums/material-icons-type';
 import { Category } from 'src/app/models/category';
-import { CommonService } from 'src/services/common.service';
-import { NotificationService } from 'src/services/notification.service';
+import { CommonService } from 'src/app/services/common.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-add-category',

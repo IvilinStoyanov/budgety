@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ColorEvent } from 'ngx-color';
-import { CommonService } from 'src/services/common.service';
-import { NotificationService } from 'src/services/notification.service';
+import { CommonService } from 'src/app/services/common.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-add-color',

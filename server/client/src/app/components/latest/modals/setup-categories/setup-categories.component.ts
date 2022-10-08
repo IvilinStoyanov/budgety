@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Categories } from 'src/app/enums/categories.enum';
 import { CategoriesColors } from 'src/app/enums/categories-colors.enum';
-import { CategoriesService } from 'src/services/categories.service';
+import { CategoriesService } from 'src/app/services/categories.service';
 
 @Component({
   selector: 'app-setup-categories',

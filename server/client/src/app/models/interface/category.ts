@@ -2,6 +2,7 @@ import { ITransaction } from "./transaction";
 
 export interface ICategory {
     id: number;
+    _id: string;
     color: string;
     exp: number;
     expPercentage: number;

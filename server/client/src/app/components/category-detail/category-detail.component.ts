@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonService } from 'src/services/common.service';
-import { NotificationService } from 'src/services/notification.service';
+import { CommonService } from 'src/app/services/common.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { AddItemComponent } from '../add-item/add-item.component';
 import { ICategory } from 'src/app/models/interface/category';
 import { Category } from 'src/app/models/category';
 import * as shape from 'd3-shape';
 import { ITransaction } from 'src/app/models/interface/transaction';
-import { TransactionsService } from 'src/services/transactions.service';
-import { CategoriesService } from 'src/services/categories.service';
+import { TransactionsService } from 'src/app/services/transactions.service';
+import { CategoriesService } from 'src/app/services/categories.service';
 
 @Component({
   selector: 'app-category-detail',

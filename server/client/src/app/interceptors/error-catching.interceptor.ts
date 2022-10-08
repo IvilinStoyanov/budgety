@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { NotificationService } from 'src/services/notification.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { Router } from '@angular/router';
 
 @Injectable()

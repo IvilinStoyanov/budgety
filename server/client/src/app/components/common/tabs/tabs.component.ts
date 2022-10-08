@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Subscription } from 'rxjs';
-import { CommonService } from 'src/services/common.service';
+import { CommonService } from 'src/app/services/common.service';
 import { BalanceModalComponent } from './modals/balance-modal/balance-modal.component';
 
 @Component({

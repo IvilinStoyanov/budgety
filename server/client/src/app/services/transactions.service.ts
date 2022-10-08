@@ -18,8 +18,8 @@ export class TransactionsService {
     return this.http.get<any>('/api/transactions', { params });
   }
 
-  createTransaction(params: any): Observable<any> {
-    return this.http.post<any>('/api/transactions', params);
+  createTransactionGlobal(params: any): Observable<any> {
+    return this.http.post<any>('/api/transactions/global', params);
   }
 
 }

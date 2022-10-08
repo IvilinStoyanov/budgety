@@ -18,12 +18,11 @@ module.exports = app => {
         }
     });
 
-    app.post('/api/transactions', requireLogin, async (req, res) => {
+    app.post('/api/transactions/global', requireLogin, async (req, res) => {
         const { description, dateCreated, type, value, _categoryId } = req.body;
-        console.log(req.body);
 
         try {
-            const category = Categories
+            Categories
                 .updateOne({
                     _id: _categoryId
                 }, {
@@ -47,7 +46,10 @@ module.exports = app => {
             await transaction.save();
             const user = await req.user.save();
 
-            res.send({ category, transaction, user });
+            const category = await Categories
+                .findOne({ _user: req.user.id, _id: _categoryId });
+
+            res.send({ _categoryId, category, user });
 
         } catch (error) {
             res.status(422).send(error);

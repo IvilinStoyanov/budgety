@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from 'src/services/common.service';
-import { NotificationService } from 'src/services/notification.service';
+import { CommonService } from 'src/app/services/common.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddItemComponent } from '../add-item/add-item.component';
 import { Category } from 'src/app/models/category';
 import { CategoriesColors } from 'src/app/enums/categories-colors.enum';
 import { Categories } from 'src/app/enums/categories.enum';
 import { Router } from '@angular/router';
-import { TransactionsService } from 'src/services/transactions.service';
+import { TransactionsService } from 'src/app/services/transactions.service';
 import { ICategory } from 'src/app/models/interface/category';
-import { AuthService } from 'src/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { SetupCategoriesComponent } from './modals/setup-categories/setup-categories.component';
-import { CategoriesService } from 'src/services/categories.service';
+import { CategoriesService } from 'src/app/services/categories.service';
 
 import { Observable } from 'rxjs';
+import { TouchSequence } from 'selenium-webdriver';
 
 
 
@@ -180,15 +181,12 @@ export class LatestComponent implements OnInit {
 
     // calculate global income/expense percetanges of current budget
     //  this.data = this.commonService.calculatePercentageEach(this.data);
-    this.transactionsService.createTransaction(params).subscribe(transaction => {
-      console.log(transaction)
-      //this.transactions = [...this.transactions, transaction];
-    });
+    this.transactionsService.createTransactionGlobal(params).subscribe(result => {
+      if (result) {
+        const key = this.categories.findIndex(category => category._id === result._categoryId);
 
-    this.commonService.saveData(this.data);
-    // }
-    // else {
-    //   this.notification.danger("Not able to add category.");
-    // }
+        this.categories[key] = result.category;
+      }
+    });
   }
 }
