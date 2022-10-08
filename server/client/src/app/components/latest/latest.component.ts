@@ -13,6 +13,10 @@ import { AuthService } from 'src/services/auth.service';
 import { SetupCategoriesComponent } from './modals/setup-categories/setup-categories.component';
 import { CategoriesService } from 'src/services/categories.service';
 
+import { Observable } from 'rxjs';
+
+
+
 @Component({
   selector: 'app-latest',
   templateUrl: './latest.component.html',
@@ -21,7 +25,6 @@ import { CategoriesService } from 'src/services/categories.service';
 export class LatestComponent implements OnInit {
   data: any;
   transactions: ICategory[];
-  categories: Category;
   viewMode: any;
   user: any;
 
@@ -57,18 +60,6 @@ export class LatestComponent implements OnInit {
 
       if (!user?.isCategoriesSet) this.openSetupCategoriesModal();
     })
-    // get data from localstorage
-    //  if (localStorage.getItem('data') !== null) this.data = JSON.parse(localStorage.getItem('data'));
-
-
-    this.categoryService.getCategories().subscribe(categories => {
-      this.categories = categories;
-    })
-
-    // create initial values if none is provided
-
-    //   this.data.isCreated = true;
-    // }
 
     this.commonService.saveData(this.data);
     this.setViewMode('exp');
@@ -149,10 +140,10 @@ export class LatestComponent implements OnInit {
     // let isCategoryExist = this.data.categories.findIndex(c => c && c.id == params.category.id);
 
     // if (isCategoryExist < 0) {
-   // let category = params.category;
+    // let category = params.category;
 
     // initial create of category
-   // let categoryClass = new Category(category.id, category.color, 0, 0, 0, category.icon, 0, category.name, true, []);
+    // let categoryClass = new Category(category.id, category.color, 0, 0, 0, category.icon, 0, category.name, true, []);
 
 
     // this.data.categories.push({ ...categoryClass });
