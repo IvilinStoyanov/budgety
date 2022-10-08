@@ -58,10 +58,7 @@ import { ErrorCatchingInterceptor } from './interceptors/error-catching.intercep
 /* guards */
 import { AuthGuard } from './guards/auth.guard';
 import { SetupCategoriesComponent } from './components/latest/modals/setup-categories/setup-categories.component';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { categoriesReducer } from './reducers/categories.reducer';
-import { CategoriesEffects } from './effects/categories.effects';
+
 
 @NgModule({
   declarations: [
@@ -111,9 +108,7 @@ import { CategoriesEffects } from './effects/categories.effects';
     NoopAnimationsModule,
     ColorSketchModule,
     Ng2SearchPipeModule,
-    NgxChartsModule,
-    StoreModule.forRoot({categories: categoriesReducer}, {}),
-    EffectsModule.forRoot([CategoriesEffects])
+    NgxChartsModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
