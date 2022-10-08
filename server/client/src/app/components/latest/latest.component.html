@@ -99,9 +99,9 @@
     </mat-icon>
   </div>
   <div fxLayout="row" fxLayoutAlign="space-around center" class="bottom-menu text-black text-bold">
-    <div class="hover" [ngClass]="{'active': viewMode === 'inc', 'pointer-events-none': data.totals.inc === 0}"
+    <div class="hover" [ngClass]="{'active': viewMode === 'inc', 'pointer-events-none': user.inc === 0}"
       (click)="setViewMode('inc')">Incomes</div>
-    <div class="hover" [ngClass]="{'active': viewMode === 'exp', 'pointer-events-none': data.totals.exp === 0}"
+    <div class="hover" [ngClass]="{'active': viewMode === 'exp', 'pointer-events-none': user.exp === 0}"
       (click)="setViewMode('exp')">Expenses</div>
   </div>
 </div>

@@ -24,7 +24,6 @@ import { TouchSequence } from 'selenium-webdriver';
   styleUrls: ['./latest.component.scss'],
 })
 export class LatestComponent implements OnInit {
-  data: any;
   categories: ICategory[];
   viewMode: any;
   user: any;
@@ -37,23 +36,7 @@ export class LatestComponent implements OnInit {
     private transactionsService: TransactionsService,
     private authService: AuthService,
     private categoryService: CategoriesService,
-  ) {
-    this.data = {
-      categories: [],
-      categoryTemplates: [],
-      categoryColors: null,
-      totals: {
-        exp: 0,
-        inc: 0,
-      },
-      savings: 0,
-      budget: 0,
-      incPercentage: 0,
-      expPercentage: 0,
-      siteVersion: '0.0.0',
-      isCreated: false
-    };
-  }
+  ) { }
 
   ngOnInit() {
     this.authService.currentUser$.subscribe(user => {
@@ -64,12 +47,12 @@ export class LatestComponent implements OnInit {
 
     this.categoryService.getCategories().subscribe(categories => {
       this.categories = categories;
+
+      this.setViewMode('exp');
+
+      // set viewMode to inc if there is no expenses on first load.
+      if (this.user.exp === 0) this.viewMode = 'inc';
     })
-
-    this.setViewMode('exp');
-
-    // set viewMode to inc if there is no expenses on first load.
-    if (this.data.totals.exp === 0) this.viewMode = 'inc';
   }
 
   openSetupCategoriesModal() {
@@ -90,17 +73,17 @@ export class LatestComponent implements OnInit {
     this.router.navigate(['/category'], { queryParams: { id: categoryId }, skipLocationChange: true, replaceUrl: false });
   }
 
-  createCategoryColors() {
-    this.data.categoryColors = Object.values(CategoriesColors);
-  }
+  // createCategoryColors() {
+  //   this.data.categoryColors = Object.values(CategoriesColors);
+  // }
 
   setViewMode(mode: string) {
     this.viewMode = mode;
     this.commonService.viewMode = mode;
 
-    if (mode === 'inc') this.data.categories.sort(function (a: { inc: number; }, b: { inc: number; }) { return b.inc - a.inc; });
+    if (mode === 'inc') this.categories.sort(function (a: { inc: number; }, b: { inc: number; }) { return b.inc - a.inc; });
 
-    if (mode === 'exp') this.data.categories.sort(function (a: { exp: number; }, b: { exp: number; }) { return b.exp - a.exp; });
+    if (mode === 'exp') this.categories.sort(function (a: { exp: number; }, b: { exp: number; }) { return b.exp - a.exp; });
   }
 
   showCategories(category: Category) {
