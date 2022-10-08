@@ -12,7 +12,6 @@ import { ICategory } from 'src/app/models/interface/category';
 import { AuthService } from 'src/services/auth.service';
 import { SetupCategoriesComponent } from './modals/setup-categories/setup-categories.component';
 import { CategoriesService } from 'src/services/categories.service';
-import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-latest',
