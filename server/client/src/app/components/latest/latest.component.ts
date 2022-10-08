@@ -78,6 +78,7 @@ export class LatestComponent implements OnInit {
   }
 
   openSetupCategoriesModal() {
+
     const dialogRef = this.dialog.open(SetupCategoriesComponent, {
       autoFocus: false,
       disableClose: true
