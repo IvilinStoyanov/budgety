@@ -24,7 +24,7 @@ import { Observable } from 'rxjs';
 })
 export class LatestComponent implements OnInit {
   data: any;
-  transactions: ICategory[];
+  categories: ICategory[];
   viewMode: any;
   user: any;
 
@@ -61,7 +61,10 @@ export class LatestComponent implements OnInit {
       if (!user?.isCategoriesSet) this.openSetupCategoriesModal();
     })
 
-    this.commonService.saveData(this.data);
+    this.categoryService.getCategories().subscribe(categories => {
+      this.categories = categories;
+    })
+
     this.setViewMode('exp');
 
     // set viewMode to inc if there is no expenses on first load.
@@ -179,7 +182,7 @@ export class LatestComponent implements OnInit {
     //  this.data = this.commonService.calculatePercentageEach(this.data);
     this.transactionsService.createTransaction(params).subscribe(transaction => {
       console.log(transaction)
-      this.transactions = [...this.transactions, transaction];
+      //this.transactions = [...this.transactions, transaction];
     });
 
     this.commonService.saveData(this.data);
