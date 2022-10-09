@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
+import { ICategory } from '../models/interface/category';
+import { User } from '../models/interface/User';
 
 @Injectable({
   providedIn: 'root',
@@ -38,37 +40,39 @@ export class CommonService {
     localStorage.setItem('data', JSON.stringify(data));
   }
 
-  calculatePercentageEach(data: any) {
-    data.categories.forEach(category => {
+  calculatePercentageEach(categories: ICategory[], user: User) {
+    categories.forEach(category => {
       if (category) {
-        if (category.exp > 0 && data.totals.inc > 0) category.expPercentage = Math.round((category.exp / data.totals.inc) * 100);
-        if (category.inc > 0) category.incPercentage = Math.round((category.inc / data.totals.inc) * 100);
+        if (category.exp > 0 && user.inc > 0) category.expPercentage = Math.round((category.exp / user.inc) * 100);
+        if (category.inc > 0) category.incPercentage = Math.round((category.inc / user.inc) * 100);
       }
     });
 
-    return data;
+    return categories;
   }
 
-  calculateTotalExpPercentage(data: any) {
-    if (data.totals.inc > 0) {
-      data.expPercentage = Math.round((data.totals.exp / data.totals.inc) * 100);
-      data.incPercentage = 100 - data.expPercentage;
+  calculateTotalExpPercentage(user: User) {
+    const budget = user.inc - user.exp;
 
-      if (data.expPercentage >= 100) {
-        data.expPercentage = 100;
-        data.incPercentage = 0;
+    if (user.inc > 0) {
+      user.expPercentage = Math.round((user.exp / user.inc) * 100);
+      user.incPercentage = 100 - user.expPercentage;
+
+      if (user.expPercentage >= 100) {
+        user.expPercentage = 100;
+        user.incPercentage = 0;
       }
 
     }
-    else if (data.budget < 0) {
-      data.expPercentage = 100;
-      data.incPercentage = 0;
+    else if (budget < 0) {
+      user.expPercentage = 100;
+      user.incPercentage = 0;
     }
     else {
-      data.incPercentage = 0;
-      data.expPercentage = 0;
+      user.incPercentage = 0;
+      user.expPercentage = 0;
     }
 
-    return data;
+    return user;
   }
 }

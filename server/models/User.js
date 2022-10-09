@@ -6,8 +6,6 @@ const userSchema = new Schema({
     savings: { type: Number, default: 0 },
     inc: { type: Number, default: 0 },
     exp: { type: Number, default: 0 },
-    incPercentage: { type: Number, default: 0 },
-    expPercentage: { type: Number, default: 0 },
     isCategoriesSet: { type: Boolean, default: false }
 });
 

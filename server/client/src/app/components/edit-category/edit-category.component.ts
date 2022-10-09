@@ -48,7 +48,7 @@ export class EditCategoryComponent implements OnInit {
     this.data = this.commonService.calculateTotalExpPercentage(this.data);
 
     // calculate global income/expense percetanges of current budget
-    this.data = this.commonService.calculatePercentageEach(this.data);
+    //this.data = this.commonService.calculatePercentageEach(this.data);
 
     this.commonService.isAvailable.next(this.data);
     this.commonService.saveData(this.data);

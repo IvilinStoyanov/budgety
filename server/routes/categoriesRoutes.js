@@ -17,7 +17,6 @@ module.exports = app => {
 
     app.get('/api/category/:id', requireLogin, async (req, res) => {
         try {
-            console.log(req.params.id);
             const category = await Categories
                 .findOne({ _user: req.user.id, _id: req.params.id });
 

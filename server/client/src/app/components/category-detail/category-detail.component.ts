@@ -167,7 +167,7 @@ export class CategoryDetailComponent implements OnInit {
       this.data = this.commonService.calculateTotalExpPercentage(this.data);
 
       // calculate global income/expense percetanges of current budget
-      this.data = this.commonService.calculatePercentageEach(this.data);
+      //this.data = this.commonService.calculatePercentageEach(this.data);
 
       this.commonService.saveData(this.data);
     } else {
@@ -216,7 +216,7 @@ export class CategoryDetailComponent implements OnInit {
     this.data = this.commonService.calculateTotalExpPercentage(this.data);
 
     // calculate global income/expense percetanges of current budget
-    this.data = this.commonService.calculatePercentageEach(this.data);
+   // this.data = this.commonService.calculatePercentageEach(this.data);
 
     this.commonService.saveData(this.data);
 
