@@ -20,6 +20,7 @@ export class AddItemComponent implements OnInit, OnDestroy {
     private fb: FormBuilder
   ) {
     this.templateData = data;
+    console.log(data);
   }
 
   ngOnInit() {

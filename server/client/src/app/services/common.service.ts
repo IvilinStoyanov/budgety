@@ -11,6 +11,7 @@ export class CommonService {
   viewMode: string;
   currentTabIndex: ReplaySubject<number>;
   isAvailable: BehaviorSubject<any>;
+  categoryTemplates: ICategory[];
 
   constructor(private router: Router) {
     this.currentTabIndex = new ReplaySubject<number>(0);

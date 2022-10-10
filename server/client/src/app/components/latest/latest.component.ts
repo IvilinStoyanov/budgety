@@ -43,6 +43,7 @@ export class LatestComponent implements OnInit {
       } else {
         this.categoryService.getCategories().subscribe(categories => {
           this.categories = this.commonService.calculatePercentageEach(categories, this.user);
+          this.commonService.categoryTemplates = this.categories;
 
           this.setViewMode('exp');
 

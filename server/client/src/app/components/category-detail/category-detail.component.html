@@ -93,7 +93,7 @@
         </div>
       </div>
     </div>
-    <div fxLayout="row" fxLayoutAlign="center" class="pagination">
+    <div fxLayout="row" fxLayoutAlign="center" class="pagination" *ngIf="totalPages !== 0">
       <div [ngClass]="{'pointer-events-none': pageIndex == 0}" fxLayout="row" fxLayoutAlign="center start"
         class="text-black text-bold text-transparent text-sm hover mr-2" (click)="changePageIndex(pageIndex - 1)">
         <span class="material-icons-outlined" [style.margin-top.px]="-2">chevron_left</span>
@@ -101,7 +101,7 @@
       </div>
       <div *ngFor='let in of counter(totalPages) ;let i = index'>
         <span [ngClass]="{'pagination-active': pageIndex == i}"
-          class="step text-black text-bold text-transparent hover ml-1 mr-1" (click)="changePageIndex(i)">{{i +1}}</span>
+          class="step text-black text-bold text-transparent hover ml-1 mr-1" (click)="changePageIndex(i)">{{i + 1}}</span>
       </div>
       <div [ngClass]="{'pointer-events-none': pageIndex + 1 >= totalPages}" fxLayout="row" fxLayoutAlign="center start"
         class="text-black text-bold text-transparent text-sm hover ml-1" (click)="changePageIndex(pageIndex + 1)">
