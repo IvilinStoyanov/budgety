@@ -58,11 +58,13 @@ import { ErrorCatchingInterceptor } from './interceptors/error-catching.intercep
 /* guards */
 import { AuthGuard } from './guards/auth.guard';
 import { SetupCategoriesComponent } from './components/latest/modals/setup-categories/setup-categories.component';
+import { HeaderComponent } from './components/common/header/header.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
     HomeComponent,
     LatestComponent,
     MonthlyComponent,
