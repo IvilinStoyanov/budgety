@@ -27,4 +27,14 @@ export class TransactionsService {
     return this.http.post<any>('/api/transactions', params);
   }
 
+  deleteTransaction(_id: string, type: string, value: number, _categoryId: string): Observable<any> {
+    const params = {
+      _id: _id,
+      type: type,
+      value: value,
+      _categoryId: _categoryId
+    };
+
+    return this.http.delete<any>('/api/transactions', { params });
+  }
 }

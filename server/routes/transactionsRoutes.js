@@ -97,4 +97,35 @@ module.exports = app => {
             res.status(422).send(error);
         }
     });
+
+    app.delete('/api/transactions', requireLogin, async (req, res) => {
+        const { _id, type, value, _categoryId } = req.query;
+
+        try {
+            const transaction = await Transactions.deleteOne({ _user: req.user.id, _id });
+            let user;
+
+            if (transaction.deletedCount > 0) {
+                req.user[type] -= value;
+
+                user = await req.user.save();
+
+                await Categories
+                    .updateOne({
+                        _id: _categoryId
+                    }, {
+                        $inc: {
+                            [type]: -value,
+                            transactionsCount: -1,
+                        }
+                    })
+                    .exec();
+            }
+
+            res.send({ user });
+
+        } catch (error) {
+            res.status(422).send(error);
+        }
+    });
 };

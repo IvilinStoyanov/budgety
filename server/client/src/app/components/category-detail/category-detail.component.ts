@@ -11,6 +11,7 @@ import * as shape from 'd3-shape';
 import { ITransaction } from 'src/app/models/interface/transaction';
 import { TransactionsService } from 'src/app/services/transactions.service';
 import { CategoriesService } from 'src/app/services/categories.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-category-detail',
@@ -45,6 +46,7 @@ export class CategoryDetailComponent implements OnInit {
     public dialog: MatDialog,
     private categoriesService: CategoriesService,
     private transactionsService: TransactionsService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -183,39 +185,25 @@ export class CategoryDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.deleteItem(result);
-        // this.changePageIndex();
-        this.chartDataLatest(this.latestCount);
-        this.notification.success("Item successfully deleted.");
       }
     });
   }
 
-  deleteItem(item: any) {
-    let transactionIndex = this.data.categories[this.categoryId].items.findIndex(trans => trans.id === item.id);
-    this.data.categories[this.categoryId].items.splice(transactionIndex, 1);
+  deleteItem(transaction: any) {
+    this.transactionsService.deleteTransaction(transaction._id, transaction.type, transaction.value, transaction._categoryId)
+      .subscribe(result => {
+        if (result) {
+          let transactionIndex = this.transactions.findIndex(t => t._id === transaction._id);
+          this.transactions.splice(transactionIndex, 1);
 
-    // calculate total budget
-    if (item.type === 'inc') {
-      this.data.categories[this.categoryId].inc -= item.value;
-      this.data.totals.inc -= item.value;
-    }
+          this.notification.success("Item successfully deleted.");
 
-    if (item.type === 'exp') {
-      this.data.categories[this.categoryId].exp -= item.value;
-      this.data.totals.exp -= item.value;
-    }
+          this.chartDataLatest(this.latestCount);
 
-    this.data.budget = parseFloat((this.data.totals.inc - this.data.totals.exp).toFixed(2));
-
-    // calculate category income/expense percetanges of current budget
-    this.data = this.commonService.calculateTotalExpPercentage(this.data);
-
-    // calculate global income/expense percetanges of current budget
-    // this.data = this.commonService.calculatePercentageEach(this.data);
-
-    this.commonService.saveData(this.data);
-
-    if (this.data.categories[this.categoryId].items.length === 0) this.router.navigate(['/latest']);
+          this.authService.setCurrentUser(result.user);
+        }
+      });
+    //if (this.data.categories[this.categoryId].items.length === 0) this.router.navigate(['/latest']);
   }
 
   setViewMode(mode: string) {
