@@ -201,9 +201,11 @@ export class CategoryDetailComponent implements OnInit {
           this.chartDataLatest(this.latestCount);
 
           this.authService.setCurrentUser(result.user);
+
+          // return to the latest page if there is no more transactions
+          if (this.transactions.length === 0) this.router.navigate(['/latest']);
         }
       });
-    //if (this.data.categories[this.categoryId].items.length === 0) this.router.navigate(['/latest']);
   }
 
   setViewMode(mode: string) {
