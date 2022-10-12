@@ -9,7 +9,10 @@ module.exports = app => {
         try {
             const { _categoryId, pageIndex, pageSize } = req.query;
 
-            const count = await Transactions.count();
+            const count = await Transactions
+                .find({ _user: req.user.id, _categoryId })
+                .count();
+
             const skip = pageIndex * pageSize;
 
             const totalPages = Math.ceil(count / pageSize);
