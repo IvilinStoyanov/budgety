@@ -131,4 +131,25 @@ module.exports = app => {
             res.status(422).send(error);
         }
     });
+
+    app.get('/api/transactions/monthly', requireLogin, async (req, res) => {
+        const { year } = req.query;
+
+        try {
+            const transactions = await Transactions
+                .find(
+                    {
+                        _user: req.user.id,
+                        dateCreated: {
+                            $gte: new Date(`${year}-01-01`),
+                            $lt: new Date(`${year}-12-31`)
+                        },
+                    });
+
+            res.send(transactions);
+
+        } catch (error) {
+            res.status(422).send(error);
+        }
+    });
 };

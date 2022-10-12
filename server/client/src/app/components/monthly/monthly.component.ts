@@ -1,8 +1,9 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
-import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
+import { CommonService } from 'src/app/services/common.service';
+import { TransactionsService } from 'src/app/services/transactions.service';
 
 @Component({
   selector: 'app-monthly',
@@ -10,33 +11,40 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./monthly.component.scss'],
 })
 export class MonthlyComponent implements OnInit {
-  data: any;
+  user: any;
   monthlyList: any = [];
   dateForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor
+    (
+      private fb: FormBuilder,
+      private authService: AuthService,
+      private commonService: CommonService,
+      private transactionsService: TransactionsService,
+    ) {
     this.dateForm = this.fb.group({
       year: new FormControl(new Date())
     });
   }
 
   ngOnInit() {
-    // get data from localstorage
-    if (localStorage.getItem('data') !== null) {
-      this.data = JSON.parse(localStorage.getItem('data'));
+    this.authService.currentUser$
+      .subscribe(user => {
+        this.user = this.commonService.calculateTotalExpPercentage(user);
 
-      if (this.data) this.createMonthlyList(this.data);
-    }
+        this.createMonthlyList();
+      });
   }
 
   chosenYearHandler(chosenDate: any, datepicker: MatDatepicker<any>) {
     datepicker.close();
 
     this.dateForm.get('year').setValue(chosenDate);
-    this.createMonthlyList(this.data, chosenDate);
+
+    this.createMonthlyList(chosenDate);
   }
 
-  createMonthlyList(data: any, date: Date = new Date()) {
+  createMonthlyList(date: Date = new Date()) {
     this.monthlyList = [];
 
     const months = [
@@ -53,35 +61,36 @@ export class MonthlyComponent implements OnInit {
       'November',
       'December',
     ];
-    data.categories.forEach((element) => {
-      if (element) {
-        element.items.forEach(item => {
-          if (new Date(item.dateCreated).getFullYear() == date.getFullYear()) {
-            let itemMonth = new Date(item.dateCreated).getMonth();
-            let income = 0;
-            let expense = 0;
 
-            if (this.monthlyList[itemMonth] == undefined) {
-              this.monthlyList[itemMonth] = [];
-              this.monthlyList[itemMonth].name = months[itemMonth];
-              this.monthlyList[itemMonth].income = 0;
-              this.monthlyList[itemMonth].expense = 0;
-            }
+    const year = date.getFullYear();
 
-            if (this.monthlyList[itemMonth] !== undefined) {
-              if (item.type == 'inc') income = item.value;
+    this.transactionsService.getMonthlyTransactions(year).subscribe(transactions => {
+      transactions.forEach(item => {
+        let itemMonth = new Date(item.dateCreated).getMonth();
+        let income = 0;
+        let expense = 0;
 
-              if (item.type == 'exp') expense = item.value;
+        if (this.monthlyList[itemMonth] == undefined) {
+          this.monthlyList[itemMonth] = [];
+          this.monthlyList[itemMonth].name = months[itemMonth];
+          this.monthlyList[itemMonth].income = 0;
+          this.monthlyList[itemMonth].expense = 0;
+        }
 
-              this.monthlyList[itemMonth].income += income;
-              this.monthlyList[itemMonth].expense += expense;
-            }
-          }
-        });
-      }
+        if (this.monthlyList[itemMonth] !== undefined) {
+          if (item.type == 'inc') income = item.value;
+
+          if (item.type == 'exp') expense = item.value;
+
+          this.monthlyList[itemMonth].income += income;
+          this.monthlyList[itemMonth].expense += expense;
+        }
+      });
+
+      this.calculateBudgetPercetange(this.monthlyList);
     });
 
-    this.calculateBudgetPercetange(this.monthlyList);
+
   }
 
   calculateBudgetPercetange(data: any) {

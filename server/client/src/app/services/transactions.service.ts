@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ITransaction } from '../models/interface/transaction';
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +37,13 @@ export class TransactionsService {
     };
 
     return this.http.delete<any>('/api/transactions', { params });
+  }
+
+  getMonthlyTransactions(year: number): Observable<ITransaction[]> {
+    const params = {
+      year: year
+    };
+
+    return this.http.get<ITransaction[]>('/api/transactions/monthly', { params });
   }
 }

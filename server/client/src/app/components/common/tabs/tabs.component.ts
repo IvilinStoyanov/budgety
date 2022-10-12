@@ -24,8 +24,6 @@ export class TabsComponent implements OnInit, OnDestroy {
     const currentTabIndexSubscription$ = this.commonService.currentTabIndex.subscribe(value => this.currentIndex = value);
 
     this.subscription.add(currentTabIndexSubscription$);
-
-    console.log(this.user);
   }
 
   ngOnDestroy() {
