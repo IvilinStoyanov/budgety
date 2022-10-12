@@ -2,8 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { CategoriesColors } from 'src/app/enums/categories-colors.enum';
 import { MaterialIcons } from 'src/app/enums/material-icons-type';
 import { Category } from 'src/app/models/category';
+import { CategoriesService } from 'src/app/services/categories.service';
 import { CommonService } from 'src/app/services/common.service';
 import { NotificationService } from 'src/app/services/notification.service';
 
@@ -16,23 +18,27 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
   private _searchIconSubscription: Subscription = new Subscription();
 
   form: FormGroup;
-  data: any;
   searchText: string;
 
   panelOpenState: boolean;
 
   currentIconName: string;
+  categoryColors: string[];
   currentColorIndex: number;
 
   icons: any = [];
   foundedIcons: any = [];
 
-  constructor(public commonService: CommonService, public notification: NotificationService, private fb: FormBuilder, public router: Router) { }
+  constructor
+    (
+      private notification: NotificationService,
+      private categoriesService: CategoriesService,
+      private fb: FormBuilder,
+      public router: Router) { }
 
   ngOnInit() {
-    this.data = JSON.parse(localStorage.getItem('data'));
-
-    this.icons = Object.values(MaterialIcons).filter(icon => typeof icon !== 'number').map(value => ({ name: value }))
+    this.icons = Object.values(MaterialIcons).filter(icon => typeof icon !== 'number').map(value => ({ name: value }));
+    this.categoryColors = Object.values(CategoriesColors);
 
     this.createForm();
 
@@ -71,27 +77,19 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
   }
 
   addCategory() {
-    if(!this.currentIconName || !this.currentColorIndex)
-    {
+    if (!this.currentIconName || !this.currentColorIndex) {
       this.notification.warn("Please select icon and color");
     }
     if (this.form.valid) {
-      let nextCategoryIndex = this.data.categoryTemplates.length;
+      const params = this.form.value;
 
-      // initial create of category
-      let params = this.form.value;
+      const category = { color: params.color, icon: params.icon, name: params.name };
 
-      let category = { id: nextCategoryIndex, color: params.color, icon: params.icon, name: params.name, isVisible: true };
-
-      this.data.categoryTemplates.push(category);
-
-      this.commonService.saveData(this.data);
-
-      this.form.reset();
-
-      this.commonService.isAvailable.next(this.data);
-      this.router.navigate(['/latest']);
-      this.notification.success('Category successfully added');
+      this.categoriesService.importCategory(category)
+        .subscribe(() => {
+          this.router.navigate(['/latest']);
+          this.notification.success('Category successfully added');
+        });
     }
   }
 }

@@ -22,5 +22,8 @@ export class CategoriesService {
     return this.http.post<ICategory[]>('/api/categories', params);
   }
 
+  importCategory(params): Observable<ICategory> {
+    return this.http.post<ICategory>('/api/category', params);
+  }
 }
 

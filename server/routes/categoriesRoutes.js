@@ -42,4 +42,24 @@ module.exports = app => {
             res.status(422).send(error);
         }
     });
+
+    app.post('/api/category', requireLogin, async (req, res) => {
+        const { name, icon, color } = req.body;
+        const _user = req.user._id;
+        try {
+            const category = new Categories({
+                name,
+                icon,
+                color,
+                _user
+            });
+
+            await category.save();
+
+            res.send(category);
+
+        } catch (error) {
+            res.status(422).send(error);
+        }
+    });
 };
