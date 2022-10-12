@@ -13,7 +13,7 @@ import { AddItemComponent } from './components/add-item/add-item.component';
 import { LatestComponent } from './components/latest/latest.component';
 import { MonthlyComponent } from './components/monthly/monthly.component';
 import { MonthlyTransactionListComponent } from './components/monthly/monthly-transaction-list/monthly-transaction-list.component';
-import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
+import { ProgressBarComponent } from './components/common/progress-bar/progress-bar.component';
 import { CategoryDetailComponent } from './components/category-detail/category-detail.component';
 import { TabsComponent } from './components/common/tabs/tabs.component';
 import { AddColorComponent } from './components/add-color/add-color.component';
