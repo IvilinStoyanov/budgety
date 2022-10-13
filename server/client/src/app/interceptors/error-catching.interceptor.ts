@@ -15,7 +15,6 @@ export class ErrorCatchingInterceptor implements HttpInterceptor {
     return next.handle(request)
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          console.log(error);
           const message = error.error?.message || 'Unexpected error, please try again.';
 
           this.notificationService.danger(message);

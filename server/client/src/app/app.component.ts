@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CommonService } from 'src/app/services/common.service';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,6 +14,8 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class AppComponent implements OnInit {
   title = 'budgety';
+
+
 
   constructor(public authService: AuthService) { }
 

@@ -54,12 +54,29 @@ import { StopPropagationDirective } from './directives/stop-propagation.directiv
 
 /* interceptors */
 import { ErrorCatchingInterceptor } from './interceptors/error-catching.interceptor';
+import { LoaderInterceptor } from './interceptors/loader.interceptor.ts';
 
 /* guards */
 import { AuthGuard } from './guards/auth.guard';
 import { SetupCategoriesComponent } from './components/latest/modals/setup-categories/setup-categories.component';
 import { HeaderComponent } from './components/common/header/header.component';
 
+/* loader */
+import {
+  NgxUiLoaderModule,
+  NgxUiLoaderConfig
+} from "ngx-ui-loader";
+
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  fgsColor: '#179ff7',
+  fgsPosition: 'center-center',
+  fgsSize: 80,
+  fgsType: 'three-bounce',
+  overlayColor: 'rgb(255,255,255)',
+  pbColor: '#179ff7',
+  pbThickness: 3,
+  hasProgressBar: true
+};
 
 @NgModule({
   declarations: [
@@ -110,11 +127,17 @@ import { HeaderComponent } from './components/common/header/header.component';
     NoopAnimationsModule,
     ColorSketchModule,
     Ng2SearchPipeModule,
-    NgxChartsModule
+    NgxChartsModule,
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: ErrorCatchingInterceptor,
+    multi: true,
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: LoaderInterceptor,
     multi: true,
   },
     AuthGuard,
