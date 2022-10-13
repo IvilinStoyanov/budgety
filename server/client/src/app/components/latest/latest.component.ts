@@ -96,22 +96,20 @@ export class LatestComponent implements OnInit {
   }
 
   openAddItemDialog(): void {
-    this.categoryService.getCategories().subscribe(categories => {
-      const dialogRef = this.dialog.open(AddItemComponent, {
-        autoFocus: false,
-        data: {
-          categories,
-          viewMode: this.viewMode,
-        }
-      });
+    const dialogRef = this.dialog.open(AddItemComponent, {
+      autoFocus: false,
+      data: {
+        categories: this.categories,
+        viewMode: this.viewMode,
+      }
+    });
 
-      dialogRef.afterClosed().subscribe((result) => {
-        if (result) {
-          this.addItem(result);
-          this.notification.success("Item successfully added");
-        }
-      });
-    })
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.addItem(result);
+        this.notification.success("Item successfully added");
+      }
+    });
   }
 
   addItem(params) {

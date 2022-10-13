@@ -2,29 +2,66 @@ import { Injectable } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpResponse,
+  HttpEvent
 } from '@angular/common/http';
-import { finalize } from 'rxjs/operators';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { LoaderService } from '../services/loader.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
-  private totalRequests = 0;
+  private requests: HttpRequest<any>[] = [];
 
-  constructor(private ngxService: NgxUiLoaderService) { }
+  constructor(private ngxService: NgxUiLoaderService, private loaderService: LoaderService) { }
 
-  intercept(request: HttpRequest<any>, next: HttpHandler) {
-    this.totalRequests++;
-    this.ngxService.startLoader('loader');
+  addRequest(request: HttpRequest<any>) {
+    if (!this.loaderService.isUrlIgnored(request.url)) {
+      this.requests.push(request);
 
+      this.ngxService.startLoader('loader');
+    }
+  }
 
-    return next.handle(request).pipe(
-      finalize(() => {
-        this.totalRequests--;
-        if (this.totalRequests === 0) {
-          this.ngxService.stopAllLoader('loader');
-        }
-      })
-    );
+  removeRequest(request: HttpRequest<any>) {
+    if (!this.loaderService.isUrlIgnored(request.url)) {
+      const index = this.requests.indexOf(request);
+      if (index >= 0)
+        this.requests.splice(index, 1);
+
+      this.ngxService.stopAllLoader('loader');
+    }
+  }
+
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    console.log(request);
+    this.addRequest(request);
+
+    return new Observable(observable => {
+      const subscription = next.handle(request)
+        .subscribe(
+          event => {
+            if (event instanceof HttpResponse) {
+              this.removeRequest(request);
+            }
+
+            observable.next(event);
+          },
+          error => {
+            this.removeRequest(request);
+            observable.next(error);
+          },
+          () => {
+            this.removeRequest(request);
+            observable.next();
+          }
+        );
+
+      return () => {
+        this.removeRequest(request);
+        subscription.unsubscribe();
+      }
+    })
   }
 }
