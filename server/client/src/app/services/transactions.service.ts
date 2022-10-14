@@ -7,6 +7,7 @@ import { ITransaction } from '../models/interface/transaction';
   providedIn: 'root'
 })
 export class TransactionsService {
+  monthlyYearSelected: Date = new Date();
 
   constructor(private http: HttpClient) { }
 
@@ -45,5 +46,18 @@ export class TransactionsService {
     };
 
     return this.http.get<ITransaction[]>('/api/transactions/monthly', { params });
+  }
+
+  getMonthlyIndividualTransactions(year: number, month: string): Observable<ITransaction[]> {
+    return this.http.get<ITransaction[]>(`/api/transactions/monthly/${year}/${month}`);
+  }
+
+  getYearlyTransactions(startYear: number, endYear: number): Observable<ITransaction[]> {
+    const params = {
+      startYear: startYear,
+      endYear: endYear
+    };
+
+    return this.http.get<ITransaction[]>('/api/transactions/yearly', { params });
   }
 }

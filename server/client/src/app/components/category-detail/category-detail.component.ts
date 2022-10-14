@@ -89,7 +89,7 @@ export class CategoryDetailComponent implements OnInit {
     });
   }
 
-  openAddItemDialog(categoryId?: number): void {
+  openAddItemDialog(): void {
     //let selectedCategory: any;
 
     // selectedCategory = this.data.categoryTemplates.find(c => c && c.id == categoryId);
@@ -239,48 +239,48 @@ export class CategoryDetailComponent implements OnInit {
     this.chartData = [incData, expData];
   }
 
-  chartDataWeekly() {
-    this.isAxisVisible = true;
+  // chartDataWeekly() {
+  //   this.isAxisVisible = true;
 
-    let incData = { name: 'inc', series: [] };
-    let expData = { name: 'exp', series: [] };
+  //   let incData = { name: 'inc', series: [] };
+  //   let expData = { name: 'exp', series: [] };
 
-    let curr = new Date;
-    let first = curr.getDate() - curr.getDay() + 1; // first day of the current week
-    let last = first + 6; // last day of the current weeek
+  //   let curr = new Date;
+  //   let first = curr.getDate() - curr.getDay() + 1; // first day of the current week
+  //   let last = first + 6; // last day of the current weeek
 
-    let firstday = new Date(curr.setDate(first)).valueOf();
-    let lastday = new Date(curr.setDate(last)).valueOf();
+  //   let firstday = new Date(curr.setDate(first)).valueOf();
+  //   let lastday = new Date(curr.setDate(last)).valueOf();
 
-    this.category.items.forEach(element => {
-      let day = new Date(element.dateCreated).valueOf();
-      if (firstday <= day && day <= lastday) {
-        let dayName = this.days[new Date(element.dateCreated).getDay()];
-        let item = { value: element.value, name: dayName };
+  //   this.category.items.forEach(element => {
+  //     let day = new Date(element.dateCreated).valueOf();
+  //     if (firstday <= day && day <= lastday) {
+  //       let dayName = this.days[new Date(element.dateCreated).getDay()];
+  //       let item = { value: element.value, name: dayName };
 
-        let dayIndex = new Date(element.dateCreated).getDay();
+  //       let dayIndex = new Date(element.dateCreated).getDay();
 
-        if (element.type == 'exp') {
-          if (expData.series[dayIndex] == undefined) {
-            expData.series[dayIndex] = item;
-          } else {
-            expData.series[dayIndex].value += item.value;
-          }
-        }
+  //       if (element.type == 'exp') {
+  //         if (expData.series[dayIndex] == undefined) {
+  //           expData.series[dayIndex] = item;
+  //         } else {
+  //           expData.series[dayIndex].value += item.value;
+  //         }
+  //       }
 
-        if (element.type == 'inc') {
-          if (incData.series[dayIndex] == undefined) {
-            incData.series[dayIndex] = item;
-          } else {
-            incData.series[dayIndex].value += item.value;
-          }
-        }
-      }
-    });
+  //       if (element.type == 'inc') {
+  //         if (incData.series[dayIndex] == undefined) {
+  //           incData.series[dayIndex] = item;
+  //         } else {
+  //           incData.series[dayIndex].value += item.value;
+  //         }
+  //       }
+  //     }
+  //   });
 
-    incData.series = incData.series.filter(e => e != null);
-    expData.series = expData.series.filter(e => e != null);
+  //   incData.series = incData.series.filter(e => e != null);
+  //   expData.series = expData.series.filter(e => e != null);
 
-    this.chartData = [incData, expData];
-  }
+  //   this.chartData = [incData, expData];
+  // }
 }

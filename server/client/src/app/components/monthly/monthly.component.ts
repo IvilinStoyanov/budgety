@@ -40,6 +40,7 @@ export class MonthlyComponent implements OnInit {
     datepicker.close();
 
     this.dateForm.get('year').setValue(chosenDate);
+    this.transactionsService.monthlyYearSelected = chosenDate;
 
     this.createMonthlyList(chosenDate);
   }

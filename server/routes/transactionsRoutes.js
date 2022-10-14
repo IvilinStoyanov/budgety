@@ -152,4 +152,67 @@ module.exports = app => {
             res.status(422).send(error);
         }
     });
+
+    app.get('/api/transactions/monthly/:year/:month', requireLogin, async (req, res) => {
+        const { year, month } = req.params;
+
+        const monthsList = [
+            { name: 'january', id: 0 },
+            { name: 'february', id: 1 },
+            { name: 'march', id: 2 },
+            { name: 'april', id: 3 },
+            { name: 'may', id: 4 },
+            { name: 'june', id: 5 },
+            { name: 'july', id: 6 },
+            { name: 'august', id: 7 },
+            { name: 'september', id: 8 },
+            { name: 'october', id: 9 },
+            { name: 'november', id: 10 },
+            { name: 'december', id: 11 }
+        ];
+
+        const currentMonth = monthsList.find(m => m.name == month);
+
+        const startDate = new Date(Date.UTC(year, (currentMonth.id + 1), 0));
+        const endDate = new Date(Date.UTC(year, (currentMonth.id), 1));
+
+        try {
+            const transactions = await Transactions
+                .find(
+                    {
+                        _user: req.user.id,
+                        dateCreated: {
+                            $gte: endDate,
+                            $lt: startDate
+                        }
+                    });
+
+            res.send(transactions);
+
+        } catch (error) {
+            res.status(422).send(error);
+        }
+    });
+
+    app.get('/api/transactions/yearly', requireLogin, async (req, res) => {
+        const { startYear, endYear } = req.query;
+        console.log(req.query);
+
+        try {
+            const transactions = await Transactions
+                .find(
+                    {
+                        _user: req.user.id,
+                        dateCreated: {
+                            $gte: new Date(`${endYear}-01-01`),
+                            $lt: new Date(`${startYear}-12-31`)
+                        },
+                    });
+
+            res.send(transactions);
+
+        } catch (error) {
+            res.status(422).send(error);
+        }
+    });
 };

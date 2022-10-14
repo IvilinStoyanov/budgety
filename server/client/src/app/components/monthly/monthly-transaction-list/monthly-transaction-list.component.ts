@@ -1,6 +1,8 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CategoriesService } from 'src/app/services/categories.service';
+import { TransactionsService } from 'src/app/services/transactions.service';
 
 @Component({
   selector: 'app-monthly-transaction-list',
@@ -14,56 +16,44 @@ export class MonthlyTransactionListComponent implements OnInit {
   monthlyCategories: any[] = [];
   panelOpenState: boolean;
 
-  monthsList: any = [
-    { name: 'january', id: 0 },
-    { name: 'february', id: 1 },
-    { name: 'march', id: 2 },
-    { name: 'april', id: 3 },
-    { name: 'may', id: 4 },
-    { name: 'june', id: 5 },
-    { name: 'july', id: 6 },
-    { name: 'august', id: 7 },
-    { name: 'september', id: 8 },
-    { name: 'october', id: 9 },
-    { name: 'november', id: 10 },
-    { name: 'december', id: 11 }
-  ];
 
-  constructor(private route: ActivatedRoute) { }
+
+  constructor(private route: ActivatedRoute, private categoriesService: CategoriesService, private transactionsService: TransactionsService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.monthName = params['month']; 
-      let currentMonth = this.monthsList.findIndex(m => m.name == params['month']);
+      this.monthName = params['month'];
 
-      let data = JSON.parse(localStorage.getItem('data'));
+      const year = this.transactionsService.monthlyYearSelected.getFullYear();
 
-      this.createMonthlyTransanctions(data, currentMonth)
+      this.createMonthlyTransanctions(year, this.monthName)
     })
   }
 
-  createMonthlyTransanctions(data: any, currentMonthId: number) {
-    data.categories.forEach((element, categoryIndex) => {
-      this.monthlyCategories.push({name: element.name, exp: 0, inc: 0, items: []});
-      if (element) {
-            element.items.forEach(item => {
-              let monthId = new Date(item.dateCreated).getMonth();
+  createMonthlyTransanctions(year: number, monthName: string) {
+    this.categoriesService.getCategories().subscribe(categories => {
+      this.transactionsService.getMonthlyIndividualTransactions(year, monthName).subscribe(transactions => {
+        categories.forEach((category, categoryIndex) => {
+          if (category.transactionsCount > 0)
+            this.monthlyCategories[category._id] = [{ name: category.name, exp: 0, inc: 0, items: [] }];
 
-              if (monthId == currentMonthId) {
-                item.category = element.name;
-                this.monthlyCategories[categoryIndex].items.push(item);
+            transactions.forEach(transaction => {
+              if (transaction._categoryId === category._id) {
+                this.monthlyCategories[transaction._categoryId][0].items.push(transaction);
 
-                if (item.type === 'exp') {
-                  this.monthlyCategories[categoryIndex].exp += item.value;
+                if (transaction.type === 'exp') {
+                  this.monthlyCategories[transaction._categoryId][0].exp += transaction.value;
                 }
-                if (item.type === 'inc') {
-                 this.monthlyCategories[categoryIndex].inc += item.value;
-                 this.monthlyIncome += item.value;
+                if (transaction.type === 'inc') {
+                  this.monthlyCategories[transaction._categoryId][0].inc += transaction.value;
+                  this.monthlyIncome += transaction.value;
                 }
-                this.items.push(item);
+                this.items.push(transaction);
               }
             });
-      }
-    });
+        });
+        console.log(this.monthlyCategories);
+      })
+    })
   }
 }

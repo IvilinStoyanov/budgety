@@ -15,7 +15,7 @@
   </div>
   <app-back-button [path]="'/latest'"></app-back-button>
   <div class="menu-right hover">
-    <mat-icon class="material-icons-outlined" matTooltip="add transaction" (click)="openAddItemDialog(category.id)">add
+    <mat-icon class="material-icons-outlined" matTooltip="add transaction" (click)="openAddItemDialog()">add
     </mat-icon>
   </div>
   <div fxLayout="column" class="pt-2" *ngIf="transactions.length > 1 && chartData.length > 0">
@@ -24,8 +24,8 @@
       <button (click)="chartDataLatest(latestCount)" mat-raised-button class="ml-2 mr-2" [style.position]="'relative'">
         <div class="badge" click-stop-propagation [matMenuTriggerFor]="chartNenu">{{latestCount}}</div>Latest
       </button>
-      <button (click)="chartDataWeekly()" mat-raised-button class="ml-2 mr-2">Weekly</button>
-      <button mat-raised-button class="ml-2 mr-2">Monthly</button>
+      <!-- <button (click)="chartDataWeekly()" mat-raised-button class="ml-2 mr-2">Weekly</button> -->
+      <!-- <button mat-raised-button class="ml-2 mr-2">Monthly</button> -->
       <mat-menu #chartNenu="matMenu" class="mat-menu-sm">
         <div fxLayout="column" class="text-black text-bold text-sm">
           <div class="border-bottom p-1 hover" (click)="chartDataLatest(5)">5</div>

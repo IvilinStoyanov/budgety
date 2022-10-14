@@ -5,4 +5,5 @@ export interface ITransaction {
     description: string;
     type: string;
     value: number;
+    _categoryId: string;
 }
