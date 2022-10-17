@@ -11,6 +11,19 @@
       <mat-icon class="material-icons-outlined icon-md hover" [matMenuTriggerFor]="menu">menu</mat-icon>
       <mat-menu #menu="matMenu" class="main-menu mat-menu-md">
         <div fxLayout="column">
+          <div *appHasRole="'Admin'">
+            <div class="border-bottom margin-auto pb-1" [style.width.%]="85">
+              <span fxLayout="row" fxLayoutAlign="centet center" class="text-black text-uppercase text-bold text-sm">
+                <mat-icon class="material-icons-outlined icon-sm hover mr-1">person</mat-icon>
+                admin
+              </span>
+            </div>
+            <div fxLayout="row">
+              <div fxFlex="100">
+                <button mat-menu-item [routerLink]="['/dashboard']">dashboard</button>
+              </div>
+            </div>
+          </div>
           <div>
             <div class="border-bottom margin-auto pb-1" [style.width.%]="85">
               <span fxLayout="row" fxLayoutAlign="centet center" class="text-black text-uppercase text-bold text-sm">

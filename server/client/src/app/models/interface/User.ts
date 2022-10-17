@@ -7,4 +7,5 @@ export interface User {
   incPercentage: number;
   expPercentage: number;
   isCategoriesSet: boolean;
+  role: string;
 }

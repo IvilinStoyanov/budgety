@@ -51,6 +51,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 /* directives */
 import { StopPropagationDirective } from './directives/stop-propagation.directive';
+import { HasRoleDirective } from './directives/hasRole.directive';
 
 /* interceptors */
 import { ErrorCatchingInterceptor } from './interceptors/error-catching.interceptor';
@@ -66,6 +67,7 @@ import {
   NgxUiLoaderModule,
   NgxUiLoaderConfig
 } from "ngx-ui-loader";
+
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   fgsColor: '#179ff7',
@@ -94,11 +96,13 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     EditCategoryComponent,
     BackButtonComponent,
     ConfirmDialogComponent,
-    StopPropagationDirective,
     MonthlyTransactionListComponent,
     BalanceModalComponent,
     YearlyComponent,
-    SetupCategoriesComponent
+    SetupCategoriesComponent,
+
+    HasRoleDirective,
+    StopPropagationDirective
   ],
   imports: [
     BrowserModule,

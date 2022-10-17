@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { ICategory } from '../models/interface/category';
-import { User } from '../models/interface/User';
+import { User } from '../models/interface/user';
 
 @Injectable({
   providedIn: 'root',
