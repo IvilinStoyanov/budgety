@@ -32,7 +32,6 @@ export class SetupCategoriesComponent implements OnInit {
 
   select(index: number) {
     this.categoryTemplates[index].isSelected = !this.categoryTemplates[index].isSelected;
-    console.log(this.categoryTemplates);
   }
 
   import() {

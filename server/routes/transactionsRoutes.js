@@ -10,7 +10,7 @@ module.exports = app => {
             const { _categoryId, pageIndex, pageSize } = req.query;
 
             const count = await Transactions
-                .find({ _user: req.user.id, _categoryId })
+                .find({ _categoryId })
                 .count();
 
             const skip = pageIndex * pageSize;
@@ -105,7 +105,7 @@ module.exports = app => {
         const { _id, type, value, _categoryId } = req.query;
 
         try {
-            const transaction = await Transactions.deleteOne({ _user: req.user.id, _id });
+            const transaction = await Transactions.deleteOne({ _categoryId, _id });
             let user;
 
             if (transaction.deletedCount > 0) {
@@ -135,15 +135,21 @@ module.exports = app => {
     app.get('/api/transactions/monthly', requireLogin, async (req, res) => {
         const { year } = req.query;
 
+        const categories = await Categories.find({ _user: req.user.id });
+
+        const obj_ids = categories.map(category => {
+            return category._id.valueOf();
+        });
+
         try {
             const transactions = await Transactions
                 .find(
                     {
-                        _user: req.user.id,
+                        _categoryId: { $in: obj_ids },
                         dateCreated: {
                             $gte: new Date(`${year}-01-01`),
                             $lt: new Date(`${year}-12-31`)
-                        },
+                        }
                     });
 
             res.send(transactions);
@@ -177,10 +183,16 @@ module.exports = app => {
         const endDate = new Date(Date.UTC(year, (currentMonth.id), 1));
 
         try {
+            const categories = await Categories.find({ _user: req.user.id });
+
+            const obj_ids = categories.map(category => {
+                return category._id.valueOf();
+            });
+
             const transactions = await Transactions
                 .find(
                     {
-                        _user: req.user.id,
+                        _categoryId: { $in: obj_ids },
                         dateCreated: {
                             $gte: endDate,
                             $lt: startDate
@@ -199,10 +211,16 @@ module.exports = app => {
         console.log(req.query);
 
         try {
+            const categories = await Categories.find({ _user: req.user.id });
+
+            const obj_ids = categories.map(category => {
+                return category._id.valueOf();
+            });
+
             const transactions = await Transactions
                 .find(
                     {
-                        _user: req.user.id,
+                        _categoryId: { $in: obj_ids },
                         dateCreated: {
                             $gte: new Date(`${endYear}-01-01`),
                             $lt: new Date(`${startYear}-12-31`)
