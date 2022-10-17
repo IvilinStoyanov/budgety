@@ -24,6 +24,9 @@ import { EditCategoryComponent } from './components/edit-category/edit-category.
 import { BalanceModalComponent } from './components/common/tabs/modals/balance-modal/balance-modal.component';
 import { YearlyComponent } from './components/yearly/yearly.component';
 import { HomeComponent } from './components/home/home.component';
+import { SetupCategoriesComponent } from './components/latest/modals/setup-categories/setup-categories.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { HeaderComponent } from './components/common/header/header.component';
 
 /* material modules */
 import { MatButtonModule } from '@angular/material/button';
@@ -59,14 +62,15 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor.ts';
 
 /* guards */
 import { AuthGuard } from './guards/auth.guard';
-import { SetupCategoriesComponent } from './components/latest/modals/setup-categories/setup-categories.component';
-import { HeaderComponent } from './components/common/header/header.component';
+import { RoleGuardGuard } from './guards/role-guard.guard';
+
 
 /* loader */
 import {
   NgxUiLoaderModule,
   NgxUiLoaderConfig
 } from "ngx-ui-loader";
+
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -100,6 +104,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     BalanceModalComponent,
     YearlyComponent,
     SetupCategoriesComponent,
+    DashboardComponent,
 
     HasRoleDirective,
     StopPropagationDirective
@@ -134,17 +139,19 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     NgxChartsModule,
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
   ],
-  providers: [{
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true,
+    },
+    {
     provide: HTTP_INTERCEPTORS,
     useClass: ErrorCatchingInterceptor,
     multi: true,
   },
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: LoaderInterceptor,
-    multi: true,
-  },
     AuthGuard,
+    RoleGuardGuard
   ],
   bootstrap: [AppComponent],
 })

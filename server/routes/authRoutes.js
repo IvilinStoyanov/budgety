@@ -23,7 +23,7 @@ module.exports = app => {
         res.status(200).send({status: 'OK'})
     });
 
-    app.get('/api/current_user', requireLogin, (req, res) => {
+    app.get('/api/current_user', (req, res) => {
         try {
             res.send(req.user);
         } catch (error) {

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map, take } from 'rxjs/operators';
 import { Observable, ReplaySubject } from 'rxjs';
 
 import { User } from '../models/interface/user';
@@ -21,4 +22,16 @@ export class AuthService {
     this.currentUserSource.next(user);
   }
 
+  roleMatch(allowedRoles: string[], userRole: string): boolean {
+    let isMatch = false;
+
+    allowedRoles.forEach(role => {
+      if (userRole === role) {
+        isMatch = true;
+        return;
+      }
+    });
+
+    return isMatch;
+  }
 }

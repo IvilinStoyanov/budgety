@@ -35,7 +35,6 @@ export class LoaderInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(request);
     this.addRequest(request);
 
     return new Observable(observable => {
