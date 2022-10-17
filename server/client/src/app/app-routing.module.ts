@@ -24,31 +24,38 @@ const routes: Routes = [
   },
   {
     path: 'category',
-    component: CategoryDetailComponent
+    component: CategoryDetailComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'monthly',
-    component: MonthlyComponent
+    component: MonthlyComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'monthly/:month',
-    component: MonthlyTransactionListComponent
+    component: MonthlyTransactionListComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'yearly',
-    component: YearlyComponent
+    component: YearlyComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'add-category',
-    component: AddCategoryComponent
+    component: AddCategoryComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'edit-category',
-    component: EditCategoryComponent
+    component: EditCategoryComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'add-color',
-    component: AddColorComponent
+    component: AddColorComponent,
+    canActivate: [AuthGuard]
   },
   { path: '**', redirectTo: '', }
 ];
