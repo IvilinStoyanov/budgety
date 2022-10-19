@@ -13,6 +13,8 @@ import { TransactionsService } from 'src/app/services/transactions.service';
 
 import { Category } from 'src/app/models/category';
 import { ICategory } from 'src/app/models/interface/category';
+import { map, switchMap, take } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-latest',
@@ -35,7 +37,8 @@ export class LatestComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authService.currentUser$.subscribe(user => {
+    this.authService.currentUser$.pipe(take(1)).subscribe(user => {
+      console.log(user);
       this.user = this.commonService.calculateTotalExpPercentage(user);
 
       if (!user?.isCategoriesSet) {

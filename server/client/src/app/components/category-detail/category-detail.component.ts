@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
@@ -6,20 +6,20 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { AddItemComponent } from '../add-item/add-item.component';
 import { ICategory } from 'src/app/models/interface/category';
-import { Category } from 'src/app/models/category';
 import * as shape from 'd3-shape';
 import { ITransaction } from 'src/app/models/interface/transaction';
 import { TransactionsService } from 'src/app/services/transactions.service';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-category-detail',
   templateUrl: './category-detail.component.html',
   styleUrls: ['./category-detail.component.scss']
 })
-export class CategoryDetailComponent implements OnInit {
-  data: any;
+export class CategoryDetailComponent implements OnInit, OnDestroy {
   categoryId: string;
   category: ICategory;
   transactions: ITransaction[] = [];
@@ -28,15 +28,12 @@ export class CategoryDetailComponent implements OnInit {
   pageIndex = 0;
   pageSize = 10;
   totalPages: number = 0;
-
-
   colorScheme = { domain: ['#28B9B5', '#FF5049'] };
-
-  days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thrus', 'Fri', 'Sat'];
   curve: any = shape.curveBasis;
   chartData: any = [];
   latestCount: number = 5;
   isAxisVisible: boolean;
+  $destroyed = new Subject();
 
   constructor(
     public route: ActivatedRoute,
@@ -50,32 +47,37 @@ export class CategoryDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.route.queryParams
+      .pipe((takeUntil(this.$destroyed)),
+        switchMap(params => {
+          this.categoryId = params['id'];
+
+          return this.categoriesService.getCategoryById(this.categoryId);
+        }),
+        switchMap(category => {
+          this.category = category;
+
+          return this.transactionsService.getTransactions(category._id, this.pageIndex, this.pageSize);
+        })
+      ).subscribe(result => {
+        this.transactions = result.transactions;
+
+        this.totalPages = result.totalPages;
+
+        this.chartDataLatest(this.latestCount);
+      });
+
     this.viewMode = this.commonService.viewMode;
+  }
 
-    this.route.queryParams.subscribe(params => {
-      this.categoryId = params['id'];
-      this.categoriesService.getCategoryById(this.categoryId).subscribe(category => {
-        this.category = category;
-        this.transactionsService.getTransactions(this.categoryId, this.pageIndex, this.pageSize).subscribe(result => {
-          this.transactions = result.transactions;
-
-          this.totalPages = result.totalPages;
-
-          this.chartDataLatest(this.latestCount);
-        });
-      })
-    });
+  ngOnDestroy(): void {
+    this.$destroyed.next(true);
+    this.$destroyed.unsubscribe();
   }
 
   counter(i: number) {
     return new Array(i);
   }
-
-  // sortByDate() {
-  //   this.data.categories[this.categoryId].items.sort((a, b) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime());
-  //   if (this.transactions)
-  //     this.transactions.sort((a, b) => new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime());
-  // }
 
   changePageIndex(currentPageIndex: number = 0) {
     this.pageIndex = currentPageIndex;
@@ -90,10 +92,6 @@ export class CategoryDetailComponent implements OnInit {
   }
 
   openAddItemDialog(): void {
-    //let selectedCategory: any;
-
-    // selectedCategory = this.data.categoryTemplates.find(c => c && c.id == categoryId);
-
     const dialogRef = this.dialog.open(AddItemComponent, {
       autoFocus: false,
       data: {
@@ -106,8 +104,6 @@ export class CategoryDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.addItem(result);
-        //  this.sortByDate();
-        //  this.changePageIndex();
         this.chartDataLatest(this.latestCount);
         this.notification.success("Item successfully added");
       }
@@ -115,61 +111,9 @@ export class CategoryDetailComponent implements OnInit {
   }
 
   addItem(params) {
-    console.log(params);
-
-    // this.setViewMode(params.type);
-
     this.transactionsService.createTransation(params).subscribe(transaction => {
-      console.log(this.transactions);
-      console.log(transaction);
-
       this.transactions.push(transaction);
     })
-
-    //   let isCategoryExist = this.data.categories.findIndex(c => c && c.id == params.category.id);
-
-    // if (isCategoryExist < 0) {
-    //   let category = params.category;
-
-    //   // initial create of category
-    //   let categoryClass = new Category(category.id, category.color, 0, 0, 0, category.icon, 0, category.name, true, []);
-
-    //   this.data.categories.push({ ...categoryClass });
-    // }
-
-    // let categoryIndex = this.data.categories.findIndex(category => category && category.id == params.category.id);
-
-    // if (categoryIndex >= 0) {
-    //   if (params.items.type === 'exp') {
-    //     this.data.totals.exp += params.items.value;
-    //     this.data.categories[categoryIndex].exp += params.items.value;
-    //   }
-    //   if (params.items.type === 'inc') {
-    //     this.data.totals.inc += params.items.value;
-    //     this.data.categories[categoryIndex].inc += params.items.value;
-    //   }
-
-    // create uniqueID
-    //  let lastTransaction = this.data.categories[categoryIndex].items.slice(0, 1);
-
-    //  params.items.id = lastTransaction.length > 0 ? lastTransaction[0].id + 1 : 1;
-
-    // Push it into our data structure
-    // this.data.categories[categoryIndex].items.push(params.items);
-
-    // calculate budget
-    // this.data.budget = parseFloat((this.data.totals.inc - this.data.totals.exp).toFixed(2));
-
-    // calculate category income/expense percetanges of current budget
-    // this.data = this.commonService.calculateTotalExpPercentage(this.data);
-
-    // calculate global income/expense percetanges of current budget
-    //this.data = this.commonService.calculatePercentageEach(this.data);
-
-    // this.commonService.saveData(this.data);
-    // } else {
-    // this.notification.danger("Not able to add category.");
-    // }
   }
 
   openConfirmDialog(item: any): void {
@@ -206,15 +150,6 @@ export class CategoryDetailComponent implements OnInit {
           if (this.transactions.length === 0) this.router.navigate(['/latest']);
         }
       });
-  }
-
-  setViewMode(mode: string) {
-    this.viewMode = mode;
-    this.commonService.viewMode = mode;
-
-    if (mode === 'inc') this.data.categories.sort(function (a: { inc: number; }, b: { inc: number; }) { return b.inc - a.inc; });
-
-    if (mode === 'exp') this.data.categories.sort(function (a: { exp: number; }, b: { exp: number; }) { return b.exp - a.exp; });
   }
 
   chartDataLatest(count: number) {

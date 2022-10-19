@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { CommonService } from 'src/app/services/common.service';
 import { TransactionsService } from 'src/app/services/transactions.service';
@@ -29,6 +30,7 @@ export class MonthlyComponent implements OnInit {
 
   ngOnInit() {
     this.authService.currentUser$
+      .pipe(take(1))
       .subscribe(user => {
         this.user = this.commonService.calculateTotalExpPercentage(user);
 
