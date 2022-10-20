@@ -13,8 +13,8 @@ import { TransactionsService } from 'src/app/services/transactions.service';
 
 import { Category } from 'src/app/models/category';
 import { ICategory } from 'src/app/models/interface/category';
-import { map, switchMap, take } from 'rxjs/operators';
-import { forkJoin } from 'rxjs';
+import { switchMap, take } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-latest',
@@ -33,28 +33,31 @@ export class LatestComponent implements OnInit {
     public notification: NotificationService,
     private transactionsService: TransactionsService,
     private authService: AuthService,
-    private categoryService: CategoriesService,
+    private categoryService: CategoriesService
   ) { }
 
   ngOnInit() {
-    this.authService.currentUser$.pipe(take(1)).subscribe(user => {
-      console.log(user);
-      this.user = this.commonService.calculateTotalExpPercentage(user);
+    this.authService.currentUser$.pipe(take(1),
+      switchMap(user => {
+        this.user = this.commonService.calculateTotalExpPercentage(user);
 
-      if (!user?.isCategoriesSet) {
-        this.openSetupCategoriesModal();
-      } else {
-        this.categoryService.getCategories().subscribe(categories => {
-          this.categories = this.commonService.calculatePercentageEach(categories, this.user);
+        if (!user?.isCategoriesSet) {
+          this.openSetupCategoriesModal();
+          return of(null);
+        } else {
+          return this.categoryService.getCategories();
+        }
+      })).subscribe(result => {
+        if (result) {
+          this.categories = this.commonService.calculatePercentageEach(result, this.user);
           this.commonService.categoryTemplates = this.categories;
 
           this.setViewMode('exp');
 
           // set viewMode to inc if there is no expenses on first load.
           if (this.user.exp === 0) this.viewMode = 'inc';
-        })
-      }
-    })
+        }
+      })
   }
 
   openSetupCategoriesModal() {
