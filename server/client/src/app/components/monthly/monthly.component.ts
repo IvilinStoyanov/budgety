@@ -12,15 +12,13 @@ import { TransactionsService } from 'src/app/services/transactions.service';
   styleUrls: ['./monthly.component.scss'],
 })
 export class MonthlyComponent implements OnInit {
-  user: any;
   monthlyList: any = [];
   dateForm: FormGroup;
 
   constructor
     (
       private fb: FormBuilder,
-      private authService: AuthService,
-      private commonService: CommonService,
+      public authService: AuthService,
       private transactionsService: TransactionsService,
     ) {
     this.dateForm = this.fb.group({
@@ -29,13 +27,7 @@ export class MonthlyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.currentUser$
-      .pipe(take(1))
-      .subscribe(user => {
-        this.user = this.commonService.calculateTotalExpPercentage(user);
-
-        this.createMonthlyList();
-      });
+      this.createMonthlyList();
   }
 
   chosenYearHandler(chosenDate: any, datepicker: MatDatepicker<any>) {

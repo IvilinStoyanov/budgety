@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
-import { CommonService } from 'src/app/services/common.service';
 import { TransactionsService } from 'src/app/services/transactions.service';
 
 @Component({
@@ -13,16 +11,12 @@ export class YearlyComponent implements OnInit {
   user: any;
   yearlyList: any = [];
 
-  constructor(private authService: AuthService, private transactionsService: TransactionsService, private commonService: CommonService) { }
+  constructor(
+    public authService: AuthService,
+    private transactionsService: TransactionsService) { }
 
   ngOnInit() {
-    this.authService.currentUser$
-      .pipe(take(1))
-      .subscribe(user => {
-        this.user = this.commonService.calculateTotalExpPercentage(user);
-
-        this.createYearlyList();
-      });
+    this.createYearlyList();
   }
 
   createYearlyList() {

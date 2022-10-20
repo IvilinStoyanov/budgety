@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -11,20 +11,23 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { TransactionsService } from 'src/app/services/transactions.service';
 
-import { Category } from 'src/app/models/category';
 import { ICategory } from 'src/app/models/interface/category';
-import { switchMap, take } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { Category } from 'src/app/models/category';
+import { User } from 'src/app/models/interface/user';
+
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { of, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-latest',
   templateUrl: './latest.component.html',
   styleUrls: ['./latest.component.scss'],
 })
-export class LatestComponent implements OnInit {
+export class LatestComponent implements OnInit, OnDestroy {
   categories: ICategory[];
+  user: User;
   viewMode: any;
-  user: any;
+  private destroyed$ = new Subject<boolean>();
 
   constructor(
     private dialog: MatDialog,
@@ -37,7 +40,7 @@ export class LatestComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authService.currentUser$.pipe(take(1),
+    this.authService.currentUser$.pipe(
       switchMap(user => {
         this.user = this.commonService.calculateTotalExpPercentage(user);
 
@@ -47,18 +50,26 @@ export class LatestComponent implements OnInit {
         } else {
           return this.categoryService.getCategories();
         }
-      })).subscribe(result => {
-        if (result) {
-          this.categories = this.commonService.calculatePercentageEach(result, this.user);
-          this.commonService.categoryTemplates = this.categories;
+      }),
+      takeUntil(this.destroyed$)
+    ).subscribe(result => {
+      if (result) {
+        this.categories = this.commonService.calculatePercentageEach(result, this.user);
+        this.commonService.categoryTemplates = this.categories;
 
-          this.setViewMode('exp');
+        this.setViewMode('exp');
 
-          // set viewMode to inc if there is no expenses on first load.
-          if (this.user.exp === 0) this.viewMode = 'inc';
-        }
-      })
+        // set viewMode to inc if there is no expenses on first load.
+        if (this.user.exp === 0) this.viewMode = 'inc';
+      }
+    })
   }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next(true);
+    this.destroyed$.unsubscribe();
+  }
+
 
   openSetupCategoriesModal() {
     const dialogRef = this.dialog.open(SetupCategoriesComponent, {
@@ -123,6 +134,8 @@ export class LatestComponent implements OnInit {
     this.transactionsService.createTransactionGlobal(params).subscribe(result => {
       if (result) {
         this.user = this.commonService.calculateTotalExpPercentage(result.user);
+
+        this.authService.setCurrentUser(this.user);
         const key = this.categories.findIndex(category => category._id === result._categoryId);
 
         this.categories[key] = result.category;

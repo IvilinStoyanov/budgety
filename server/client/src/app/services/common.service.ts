@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, ReplaySubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { ICategory } from '../models/interface/category';
 import { User } from '../models/interface/user';
 
@@ -9,12 +9,12 @@ import { User } from '../models/interface/user';
 })
 export class CommonService {
   viewMode: string;
-  currentTabIndex: ReplaySubject<number>;
+  currentTabIndex: BehaviorSubject<number>;
   isAvailable: BehaviorSubject<any>;
   categoryTemplates: ICategory[];
 
   constructor(private router: Router) {
-    this.currentTabIndex = new ReplaySubject<number>(0);
+    this.currentTabIndex = new BehaviorSubject<number>(0);
     this.isAvailable = new BehaviorSubject<any>(null);
    }
 

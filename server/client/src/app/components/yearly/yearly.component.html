@@ -1,4 +1,4 @@
-<app-tabs [user]="user"></app-tabs>
+<app-tabs [user]="authService.currentUser$ | async"></app-tabs>
 <mat-card class="ml-2 mr-2 mb-0 mt-0">
   <div fxLayoutAlign="end">
   </div>

@@ -1,7 +1,7 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { CommonService } from 'src/app/services/common.service';
 import { BalanceModalComponent } from './modals/balance-modal/balance-modal.component';
 
@@ -10,24 +10,14 @@ import { BalanceModalComponent } from './modals/balance-modal/balance-modal.comp
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.scss']
 })
-export class TabsComponent implements OnInit, OnDestroy {
+export class TabsComponent implements OnInit  {
   @Input() user: any;
-
-  private subscription: Subscription;
   currentIndex: number;
 
-  constructor(public commonService: CommonService, private dialog: MatDialog) {
-    this.subscription = new Subscription();
-  }
+  constructor(public commonService: CommonService, private dialog: MatDialog) { }
 
   ngOnInit() {
-    const currentTabIndexSubscription$ = this.commonService.currentTabIndex.subscribe(value => this.currentIndex = value);
-
-    this.subscription.add(currentTabIndexSubscription$);
-  }
-
-  ngOnDestroy() {
-    if (this.subscription) this.subscription.unsubscribe();
+    this.commonService.currentTabIndex.pipe(take(1)).subscribe(value => this.currentIndex = value);
   }
 
   onChange(event: MatTabChangeEvent) {
