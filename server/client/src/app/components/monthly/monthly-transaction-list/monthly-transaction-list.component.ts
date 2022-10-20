@@ -23,13 +23,13 @@ export class MonthlyTransactionListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.route.params.pipe(
-      takeUntil(this.$destroyed),
       switchMap(params => {
         this.monthName = params['month'];
         const year = this.transactionsService.monthlyYearSelected.getFullYear();
 
         return combineLatest([this.categoriesService.getCategories(), this.transactionsService.getMonthlyIndividualTransactions(year, this.monthName)]);
       }),
+      takeUntil(this.$destroyed)
     ).subscribe(
       ([categories, transactions]) => {
         categories.forEach(category => {
