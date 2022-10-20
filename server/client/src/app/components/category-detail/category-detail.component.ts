@@ -48,7 +48,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.queryParams
-      .pipe((takeUntil(this.$destroyed)),
+      .pipe(
         switchMap(params => {
           this.categoryId = params['id'];
 
@@ -58,8 +58,9 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
           this.category = category;
 
           return this.transactionsService.getTransactions(category._id, this.pageIndex, this.pageSize);
-        })
-      ).subscribe(result => {
+        }),
+        takeUntil(this.$destroyed))
+      .subscribe(result => {
         this.transactions = result.transactions;
 
         this.totalPages = result.totalPages;
