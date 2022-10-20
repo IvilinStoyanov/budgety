@@ -15,11 +15,11 @@ import { CommonService } from 'src/app/services/common.service';
 export class AppComponent implements OnInit {
   title = 'budgety';
 
-
-
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService) {
+    this.authService.fetchUser().subscribe(user => this.authService.setCurrentUser(user));
+  }
 
   ngOnInit() {
-    this.authService.fetchUser().subscribe(user => this.authService.setCurrentUser(user));
+
   }
 }

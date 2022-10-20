@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { User } from '../models/interface/user';
 
@@ -8,17 +9,14 @@ import { User } from '../models/interface/user';
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUserSource: BehaviorSubject<User>;
+  private currentUserSource: ReplaySubject<User>;
   readonly currentUser$: Observable<User>;
 
   constructor(private http: HttpClient) {
-    this.currentUserSource = new BehaviorSubject<User>(null);
+
+    this.currentUserSource = new ReplaySubject<User>(1);
 
     this.currentUser$ = this.currentUserSource.asObservable();
-  }
-
-  get currentUser(): User {
-    return this.currentUserSource.getValue();
   }
 
   fetchUser(): Observable<User> {
