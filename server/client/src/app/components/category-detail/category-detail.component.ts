@@ -48,7 +48,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.queryParams
-      .pipe(
+      .pipe((takeUntil(this.$destroyed)),
         switchMap(params => {
           this.categoryId = params['id'];
 
