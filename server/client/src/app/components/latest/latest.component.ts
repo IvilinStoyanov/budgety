@@ -13,7 +13,7 @@ import { TransactionsService } from 'src/app/services/transactions.service';
 
 import { ICategory } from 'src/app/models/interface/category';
 import { Category } from 'src/app/models/category';
-import { User } from 'src/app/models/interface/user';
+import { IUser } from 'src/app/models/interface/user';
 
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { of, Subject } from 'rxjs';
@@ -25,7 +25,7 @@ import { of, Subject } from 'rxjs';
 })
 export class LatestComponent implements OnInit, OnDestroy {
   categories: ICategory[];
-  user: User;
+  user: IUser;
   viewMode: any;
   private destroyed$ = new Subject<boolean>();
 

@@ -1,27 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
-import { User } from '../models/interface/user';
+import { IUser } from '../models/interface/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUserSource: ReplaySubject<User>;
-  readonly currentUser$: Observable<User>;
+  private currentUserSource: ReplaySubject<IUser>;
+  readonly currentUser$: Observable<IUser>;
 
   constructor(private http: HttpClient) {
 
-    this.currentUserSource = new ReplaySubject<User>(1);
+    this.currentUserSource = new ReplaySubject<IUser>(1);
 
     this.currentUser$ = this.currentUserSource.asObservable();
   }
 
-  fetchUser(): Observable<User> {
-    return this.http.get<User>('/api/current_user');
+  fetchUser(): Observable<IUser> {
+    return this.http.get<IUser>('/api/current_user');
   }
 
-  setCurrentUser(user: User) {
+  setCurrentUser(user: IUser) {
     this.currentUserSource.next(user);
   }
 
@@ -31,7 +31,6 @@ export class AuthService {
     allowedRoles.forEach(role => {
       if (userRole === role) {
         isMatch = true;
-        return;
       }
     });
 

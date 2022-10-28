@@ -1,6 +1,6 @@
 import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { take } from 'rxjs/operators';
-import { User } from '../models/interface/user';
+import { IUser } from '../models/interface/user';
 import { AuthService } from '../services/auth.service';
 
 @Directive({
@@ -18,7 +18,7 @@ export class HasRoleDirective implements OnInit {
 
 
   ngOnInit(): void {
-    this.authService.currentUser$.pipe(take(1)).subscribe((user: User) => {
+    this.authService.currentUser$.pipe(take(1)).subscribe((user: IUser) => {
       if (!user.role) {
         this.viewContainerRef.clear();
       }

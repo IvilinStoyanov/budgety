@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { ICategory } from '../models/interface/category';
-import { User } from '../models/interface/user';
+import { IUser } from '../models/interface/user';
 
 @Injectable({
   providedIn: 'root',
@@ -41,7 +41,7 @@ export class CommonService {
     localStorage.setItem('data', JSON.stringify(data));
   }
 
-  calculatePercentageEach(categories: ICategory[], user: User) {
+  calculatePercentageEach(categories: ICategory[], user: IUser) {
     categories.forEach(category => {
       if (category) {
         if (category.exp > 0 && user.inc > 0) category.expPercentage = Math.round((category.exp / user.inc) * 100);
@@ -52,7 +52,7 @@ export class CommonService {
     return categories;
   }
 
-  calculateTotalExpPercentage(user: User) {
+  calculateTotalExpPercentage(user: IUser) {
     const budget = user.inc - user.exp;
 
     if (user.inc > 0) {

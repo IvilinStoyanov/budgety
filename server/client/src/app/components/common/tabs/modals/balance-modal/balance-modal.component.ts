@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { User } from 'src/app/models/interface/user';
+import { IUser } from 'src/app/models/interface/user';
 
 @Component({
   selector: 'app-balance-modal',
@@ -10,11 +10,11 @@ import { User } from 'src/app/models/interface/user';
 })
 export class BalanceModalComponent implements OnInit {
   form: FormGroup;
-  user: User;
+  user: IUser;
 
   constructor(
     public dialogRef: MatDialogRef<BalanceModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: User,
+    @Inject(MAT_DIALOG_DATA) public data: IUser,
     private fb: FormBuilder
   ) {
     this.user = data;
