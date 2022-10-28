@@ -5,11 +5,11 @@ import { AuthService } from 'src/app/services/auth.service';
 import { TransactionsService } from 'src/app/services/transactions.service';
 
 @Component({
-  selector: 'app-monthly',
-  templateUrl: './monthly.component.html',
-  styleUrls: ['./monthly.component.scss'],
+  selector: 'app-monthly-list',
+  templateUrl: './monthly-list.component.html',
+  styleUrls: ['./monthly-list.component.scss'],
 })
-export class MonthlyComponent implements OnInit {
+export class MonthlyListComponent implements OnInit {
   monthlyList: any = [];
   dateForm: FormGroup;
 

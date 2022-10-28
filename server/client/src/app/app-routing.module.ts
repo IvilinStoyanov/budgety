@@ -7,8 +7,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EditCategoryComponent } from './components/edit-category/edit-category.component';
 import { HomeComponent } from './components/home/home.component';
 import { LatestComponent } from './components/latest/latest.component';
-import { MonthlyTransactionListComponent } from './components/monthly/monthly-transaction-list/monthly-transaction-list.component';
-import { MonthlyComponent } from './components/monthly/monthly.component';
+// import { MonthlyTransactionListComponent } from './modules/monthly/components/monthly-transaction-list/monthly-transaction-list.component';
+// import { MonthlyComponent } from './modules/monthly/components/monthly/monthly.component';
 import { YearlyComponent } from './components/yearly/yearly.component';
 
 import { AuthGuard } from './guards/auth.guard';
@@ -29,16 +29,16 @@ const routes: Routes = [
     component: CategoryDetailComponent,
     canActivate: [AuthGuard]
   },
-  {
-    path: 'monthly',
-    component: MonthlyComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'monthly/:month',
-    component: MonthlyTransactionListComponent,
-    canActivate: [AuthGuard]
-  },
+  // {
+  //   path: 'monthly',
+  //   component: MonthlyComponent,
+  //   canActivate: [AuthGuard]
+  // },
+  // {
+  //   path: 'monthly/:month',
+  //   component: MonthlyTransactionListComponent,
+  //   canActivate: [AuthGuard]
+  // },
   {
     path: 'yearly',
     component: YearlyComponent,
@@ -64,6 +64,11 @@ const routes: Routes = [
     component: DashboardComponent,
     canActivate: [AuthGuard, RoleGuardGuard],
     data: { role: ['Admin'] }
+  },
+  {
+    path: 'monthly',
+    loadChildren: () => import('./modules/monthly/monthly.module').then(m => m.MonthlyModule),
+    canActivate: [AuthGuard],
   },
   { path: '**', redirectTo: '', }
 ];
