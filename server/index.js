@@ -29,6 +29,7 @@ app.use(passport.session());
 require('./routes/authRoutes')(app);
 require('./routes/categoriesRoutes')(app);
 require('./routes/transactionsRoutes')(app);
+require('./routes/savingsRoutes')(app);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/dist'));

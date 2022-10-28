@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { User } from 'src/app/models/interface/user';
 
 @Component({
   selector: 'app-balance-modal',
@@ -9,24 +10,25 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class BalanceModalComponent implements OnInit {
   form: FormGroup;
-  data: any;
+  user: User;
 
   constructor(
     public dialogRef: MatDialogRef<BalanceModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public modalData: BalanceModalComponent,
+    @Inject(MAT_DIALOG_DATA) public data: User,
     private fb: FormBuilder
   ) {
-    this.data = modalData;
+    this.user = data;
   }
 
   ngOnInit() {
     this.createForm();
+    console.log(this.user);
   }
 
   createForm() {
     this.form = this.fb.group({
-      savings: [this.data.savings],
-      budget: [this.data.budget]
+      savings: [this.user.savings],
+      budget: [this.user.inc - this.user.exp]
     });
   }
 
