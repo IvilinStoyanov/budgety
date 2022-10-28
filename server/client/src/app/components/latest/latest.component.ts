@@ -13,7 +13,7 @@ import { TransactionsService } from 'src/app/services/transactions.service';
 
 import { ICategory } from 'src/app/models/interface/category';
 import { Category } from 'src/app/models/category';
-import { IUser } from 'src/app/models/interface/user';
+import { IUser } from 'src/app/models/interface/User';
 
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { of, Subject } from 'rxjs';

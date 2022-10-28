@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IUser } from 'src/app/models/interface/user';
+import { IUser } from 'src/app/models/interface/User';
 
 @Component({
   selector: 'app-balance-modal',

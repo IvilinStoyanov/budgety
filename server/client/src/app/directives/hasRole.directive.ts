@@ -1,6 +1,6 @@
 import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { take } from 'rxjs/operators';
-import { IUser } from '../models/interface/user';
+import { IUser } from '../models/interface/User';
 import { AuthService } from '../services/auth.service';
 
 @Directive({
