@@ -3,7 +3,7 @@ export enum Categories {
     Car = 'Car',
     Grocery = 'Grocery',
     Food = 'Food & Restauran',
-    Coffe = 'Coffe',
+    Coffee = 'Coffee',
     Holiday = 'Holiday',
     Utilities = 'Utilities',
     Rent = 'Rent',

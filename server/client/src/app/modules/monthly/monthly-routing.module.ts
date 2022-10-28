@@ -5,11 +5,9 @@ import { MonthlyTransactionListComponent } from './components/monthly-transactio
 
 const routes: Routes = [
   {
-    path: '', component: MonthlyListComponent,
-    children: [
-      { path: ':month', component: MonthlyTransactionListComponent }
-    ]
-  }
+    path: '', component: MonthlyListComponent
+  },
+  { path: ':month', component: MonthlyTransactionListComponent }
 ];
 
 @NgModule({

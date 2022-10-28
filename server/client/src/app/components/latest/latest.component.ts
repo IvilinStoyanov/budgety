@@ -36,7 +36,7 @@ export class LatestComponent implements OnInit, OnDestroy {
     public notification: NotificationService,
     private transactionsService: TransactionsService,
     private authService: AuthService,
-    private categoryService: CategoriesService
+    private categoriesService: CategoriesService
   ) { }
 
   ngOnInit() {
@@ -49,7 +49,7 @@ export class LatestComponent implements OnInit, OnDestroy {
           this.openSetupCategoriesModal();
           return of(null);
         } else {
-          return this.categoryService.getCategories();
+          return this.categoriesService.getCategories();
         }
       }),
       takeUntil(this.destroyed$)
@@ -71,16 +71,21 @@ export class LatestComponent implements OnInit, OnDestroy {
     this.destroyed$.unsubscribe();
   }
 
-
   openSetupCategoriesModal() {
     const dialogRef = this.dialog.open(SetupCategoriesComponent, {
       autoFocus: false,
       disableClose: true,
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.notification.success("Categories successfully imported.");
+    dialogRef.afterClosed().subscribe((filteredCategories) => {
+      if (filteredCategories) {
+        this.categoriesService.importCategories(filteredCategories).subscribe(result => {
+          if (result) {
+            console.log(result);
+            this.categories = result.categories;
+            this.notification.success("Categories successfully imported.");
+          }
+        });
       }
     });
   }

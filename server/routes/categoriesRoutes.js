@@ -11,7 +11,7 @@ module.exports = app => {
 
             return res.send(categories);
         } catch (error) {
-            res.status(400).send({message: 'Not able to load categories.'});
+            res.status(400).send({ message: 'Not able to load categories.' });
         }
     });
 
@@ -27,17 +27,17 @@ module.exports = app => {
     });
 
     app.post('/api/categories', requireLogin, async (req, res) => {
-        const categories = _.map(req.body, ({ name, icon, color }) => {
-            return { name, icon, color, _user: req.user._id };
-        });
-
         try {
-            await Categories.insertMany(categories);
+            const categories = _.map(req.body, ({ name, icon, color }) => {
+                return { name, icon, color, _user: req.user._id };
+            });
+
+            const importedCategories = await Categories.insertMany(categories);
 
             req.user.isCategoriesSet = true;
             const user = await req.user.save();
 
-            res.send(user);
+            res.send({ user, categories: importedCategories });
         } catch (error) {
             res.status(422).send(error);
         }

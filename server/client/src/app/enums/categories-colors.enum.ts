@@ -3,7 +3,7 @@ export enum CategoriesColors {
     Car = '#ffa721',
     Grocery = '#ff9fa9',
     Food = '#1ec9fe',
-    Coffe = '#ff20cb',
+    Coffee = '#ff20cb',
     Holiday = '#24f012',
     Utilities = '#e8500e',
     Rent = '#d1165f',
