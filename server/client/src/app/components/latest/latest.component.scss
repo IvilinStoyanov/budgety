@@ -66,14 +66,17 @@ $mat-icon-size: 60px;
   }
 }
 
-.bottom {
-  position: sticky;
-  position: -webkit-sticky; /* Safari */
-  bottom: 0;
-  left: 0;
+.bottom-menu {
+  position: fixed;
+  width: 96%;
+  max-width: 860px;
+  bottom: -25px;
+  left: 50%;
+  transform: translate(-50%, -50%);
   height: 50px;
   background: $custom-white;
   border-top: 1px solid $border;
+  margin: 0 auto !important;
 
   .bottom-menu {
     position: absolute;

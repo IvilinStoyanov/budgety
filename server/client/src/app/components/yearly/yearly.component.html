@@ -1,4 +1,6 @@
-<app-tabs [user]="authService.currentUser$ | async"></app-tabs>
+<div class="ml-2 mr-2 mt-2 mb-0">
+  <app-tabs [user]="authService.currentUser$ | async"></app-tabs>
+</div>
 <mat-card class="ml-2 mr-2 mb-0 mt-0">
   <div fxLayoutAlign="end">
   </div>
@@ -25,7 +27,8 @@
       <div class="item text-black">{{ yearly?.expense | number: "1.2-2" }}</div>
       <div class="item text-primary hover" [routerLink]="['/yearlyly', yearly?.name]"
         [ngClass]="{'text-danger': yearly?.expense > yearly?.income }"><span
-          *ngIf="yearly?.income > yearly?.expense ">+</span>{{ yearly?.income - yearly?.expense | number: "1.2-2" }}</div>
+          *ngIf="yearly?.income > yearly?.expense ">+</span>{{ yearly?.income - yearly?.expense | number: "1.2-2" }}
+      </div>
     </div>
   </div>
   <div *ngIf="yearlyList.length == 0">

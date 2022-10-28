@@ -1,6 +1,5 @@
 <ng-container *ngIf="user">
   <div class="ml-2 mr-2 mt-2 mb-0">
-    <!-- tabs -->
     <app-tabs [user]="user"></app-tabs>
     <!-- progress bar -->
     <mat-card class="
@@ -36,7 +35,7 @@
     </mat-card>
   </div>
   <!-- list -->
-  <mat-card [style.min-height.px]="650" class="ml-2 mr-2 mb-0 mt-0 pt-0 pl-1 border-radius-none">
+  <mat-card [style.min-height.vh]="100" class="ml-2 mr-2 mb-0 mt-0 pt-0 pl-1 border-radius-none">
     <ng-container *ngIf="categories">
       <div *ngIf="categories.length == 0" fxLayout="column" fxLayoutAlign="center center" class="hover"
         (click)="openAddItemDialog()">
@@ -95,7 +94,7 @@
     </ng-container>
   </mat-card>
   <!-- bottom menu -->
-  <div class="bottom ml-2 mr-2">
+  <div class="bottom-menu ml-2 mr-2">
     <div class="add-item-chip" matTooltip="add new item">
       <mat-icon class="material-icons-outlined position-center-absolute icon-lg hover" (click)="openAddItemDialog()">add
       </mat-icon>
