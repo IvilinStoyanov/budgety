@@ -83,6 +83,8 @@ export class LatestComponent implements OnInit, OnDestroy {
           if (result) {
             console.log(result);
             this.categories = result.categories;
+            this.authService.setCurrentUser(result.user);
+
             this.notification.success("Categories successfully imported.");
           }
         });

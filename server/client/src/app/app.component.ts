@@ -1,10 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/services/auth.service';
-import { CommonService } from 'src/app/services/common.service';
 
 
 @Component({
@@ -12,14 +9,15 @@ import { CommonService } from 'src/app/services/common.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'budgety';
 
-  constructor(public authService: AuthService) {
-    this.authService.fetchUser().subscribe(user => this.authService.setCurrentUser(user));
-  }
+  constructor(public authService: AuthService, private router: Router) {
+    this.authService.fetchUser().subscribe(user => {
+      this.authService.setCurrentUser(user);
 
-  ngOnInit() {
-
+      if (user) this.router.navigate(['/latest']);
+    }
+    );
   }
 }
