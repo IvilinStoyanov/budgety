@@ -11,7 +11,7 @@
 }
 
 .text-right {
-  text-align: right;;
+  text-align: right;
 }
 
 .text-uppercase {
@@ -152,8 +152,8 @@
 
 /* shadow */
 .box-shadow {
-  box-shadow: 0px 10px 10px -20px rgb(0 0 0 / 2%),
-    0px 10px 25px 1px rgb(0 0 0 / 5%), 0px 9px 50px 8px rgb(0 0 0 / 5%);
+  box-shadow: 0px 10px 10px -10px rgb(0 0 0 / 2%),
+    0px 10px 10px 1px rgb(0 0 0 / 5%), 0px 9px 60px 8px rgb(0 0 0 / 5%);
 }
 
 /* input */
@@ -165,6 +165,10 @@
 
 .bg-transparent {
   background: #ffffffed !important;
+}
+
+.bg-hover {
+  background: #f9f9f9;
 }
 
 /* badge */
