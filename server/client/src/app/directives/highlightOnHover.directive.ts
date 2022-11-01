@@ -1,9 +1,9 @@
 import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
 
 @Directive({
-  selector: '[showOnHover]'
+  selector: '[highlightOnHover]'
 })
-export class ShowOnHoverDirective {
+export class HighlightOnHoverDirective {
   constructor(private el: ElementRef, private renderer: Renderer2) { }
 
   @HostListener('mouseenter') mouseover() {

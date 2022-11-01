@@ -29,12 +29,14 @@ import { StopPropagationDirective } from 'src/app/directives/stop-propagation.di
 import { ProgressBarComponent } from 'src/app/components/common/progress-bar/progress-bar.component';
 import { BackButtonComponent } from 'src/app/components/common/back-button/back-button.component';
 import { RouterModule } from '@angular/router';
+import { HighlightOnHoverDirective } from 'src/app/directives/highlightOnHover.directive';
 
 
 @NgModule({
   declarations: [
     HasRoleDirective,
     StopPropagationDirective,
+    HighlightOnHoverDirective,
 
     TabsComponent,
     ProgressBarComponent,
@@ -95,8 +97,16 @@ import { RouterModule } from '@angular/router';
     BackButtonComponent,
 
     HasRoleDirective,
-    StopPropagationDirective
+    StopPropagationDirective,
+    HighlightOnHoverDirective
   ]
 
 })
-export class SharedModule { }
+export class SharedModule {
+  // static forRoot(): ModuleWithProviders<SharedModule> {
+  //   return {
+  //     ngModule: SharedModule,
+  //     providers: [ShowOnHoverDirective]
+  //   };
+  // }
+}
