@@ -193,7 +193,7 @@ module.exports = app => {
                         _categoryId: { $in: obj_ids },
                         dateCreated: {
                             $gte: endDate,
-                            $lt: startDate
+                            $lte: startDate
                         }
                     });
 
