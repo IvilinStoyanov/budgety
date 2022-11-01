@@ -25,8 +25,7 @@
       </div>
       <div class="item text-black">{{ yearly?.income | number: "1.2-2" }}</div>
       <div class="item text-black">{{ yearly?.expense | number: "1.2-2" }}</div>
-      <div class="item text-primary hover" [routerLink]="['/yearlyly', yearly?.name]"
-        [ngClass]="{'text-danger': yearly?.expense > yearly?.income }"><span
+      <div class="item text-black" [ngClass]="{'text-danger': yearly?.expense > yearly?.income }"><span
           *ngIf="yearly?.income > yearly?.expense ">+</span>{{ yearly?.income - yearly?.expense | number: "1.2-2" }}
       </div>
     </div>
