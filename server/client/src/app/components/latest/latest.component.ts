@@ -42,7 +42,6 @@ export class LatestComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.authService.currentUser$.pipe(
       switchMap(user => {
-        console.log(user);
         this.user = this.commonService.calculateTotalExpPercentage(user);
 
         if (!user?.isCategoriesSet) {
