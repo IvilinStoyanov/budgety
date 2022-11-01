@@ -1,5 +1,5 @@
 import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { take } from 'rxjs/operators';
+import { filter, take, tap } from 'rxjs/operators';
 import { IUser } from '../models/interface/User';
 import { AuthService } from '../services/auth.service';
 
@@ -8,7 +8,6 @@ import { AuthService } from '../services/auth.service';
 })
 export class HasRoleDirective implements OnInit {
   @Input() appHasRole: string;
-  isVisible: boolean = false;
 
   constructor(
     private viewContainerRef: ViewContainerRef,
@@ -18,20 +17,13 @@ export class HasRoleDirective implements OnInit {
 
 
   ngOnInit(): void {
-    this.authService.currentUser$.pipe(take(1)).subscribe((user: IUser) => {
-      if (!user.role) {
-        this.viewContainerRef.clear();
-      }
-
-      if (user.role === this.appHasRole) {
-        if (!this.isVisible) {
-          this.isVisible = true;
-          this.viewContainerRef.createEmbeddedView(this.templateRef);
-        }
-      } else {
-        this.isVisible = false;
-        this.viewContainerRef.clear();
-      }
-    })
+    this.authService.currentUser$
+      .pipe(
+        take(1),
+        tap(() => this.viewContainerRef.clear())
+        , filter(user => user.role === this.appHasRole))
+      .subscribe(() => {
+        this.viewContainerRef.createEmbeddedView(this.templateRef);
+      });
   }
 }
