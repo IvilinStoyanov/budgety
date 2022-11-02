@@ -19,13 +19,6 @@ export class ErrorCatchingInterceptor implements HttpInterceptor {
 
           this.notificationService.danger(message);
 
-          switch (error.status) {
-            case 401:
-              this.router.navigate(['/']);
-            default:
-              break;
-          }
-
           return throwError(message);
         })
       )

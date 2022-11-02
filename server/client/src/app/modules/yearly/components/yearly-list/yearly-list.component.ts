@@ -4,10 +4,10 @@ import { TransactionsService } from 'src/app/services/transactions.service';
 
 @Component({
   selector: 'app-yearly',
-  templateUrl: './yearly.component.html',
-  styleUrls: ['./yearly.component.scss']
+  templateUrl: './yearly-list.component.html',
+  styleUrls: ['./yearly-list.component.scss']
 })
-export class YearlyComponent implements OnInit {
+export class YearlyListComponent implements OnInit {
   user: any;
   yearlyList: any = [];
 

@@ -7,7 +7,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EditCategoryComponent } from './components/edit-category/edit-category.component';
 import { HomeComponent } from './components/home/home.component';
 import { LatestComponent } from './components/latest/latest.component';
-import { YearlyComponent } from './components/yearly/yearly.component';
 
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuardGuard } from './guards/role-guard.guard';
@@ -25,11 +24,6 @@ const routes: Routes = [
   {
     path: 'category',
     component: CategoryDetailComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'yearly',
-    component: YearlyComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -57,6 +51,11 @@ const routes: Routes = [
     path: 'monthly',
     loadChildren: () => import('./modules/monthly/monthly.module').then(m => m.MonthlyModule),
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'yearly',
+    loadChildren: () => import('./modules/yearly/yearly.module').then(m => m.YearlyModule),
+    canActivate: [AuthGuard]
   },
   { path: '**', redirectTo: '', }
 ];

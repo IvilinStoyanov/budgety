@@ -13,7 +13,6 @@ import { AddCategoryComponent } from './components/add-category/add-category.com
 import { ConfirmDialogComponent } from './components/common/confirm-dialog/confirm-dialog.component';
 import { EditCategoryComponent } from './components/edit-category/edit-category.component';
 import { BalanceModalComponent } from './components/common/tabs/modals/balance-modal/balance-modal.component';
-import { YearlyComponent } from './components/yearly/yearly.component';
 import { HomeComponent } from './components/home/home.component';
 import { SetupCategoriesComponent } from './components/latest/modals/setup-categories/setup-categories.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -61,7 +60,6 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     EditCategoryComponent,
     ConfirmDialogComponent,
     BalanceModalComponent,
-    YearlyComponent,
     SetupCategoriesComponent,
     DashboardComponent
   ],

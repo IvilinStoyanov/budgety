@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { YearlyComponent } from './yearly.component';
+import { YearlyListComponent } from './yearly-list.component';
 
-describe('YearlyComponent', () => {
-  let component: YearlyComponent;
-  let fixture: ComponentFixture<YearlyComponent>;
+describe('YearlyListComponent', () => {
+  let component: YearlyListComponent;
+  let fixture: ComponentFixture<YearlyListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ YearlyComponent ]
+      declarations: [ YearlyListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(YearlyComponent);
+    fixture = TestBed.createComponent(YearlyListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
