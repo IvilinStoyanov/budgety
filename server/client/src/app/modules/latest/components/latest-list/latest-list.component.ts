@@ -2,14 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
-import { AddItemComponent } from '../add-item/add-item.component';
-import { SetupCategoriesComponent } from './modals/setup-categories/setup-categories.component';
-
 import { AuthService } from 'src/app/services/auth.service';
 import { CommonService } from 'src/app/services/common.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { TransactionsService } from 'src/app/services/transactions.service';
+
+import { SetupCategoriesComponent } from './modals/setup-categories/setup-categories.component';
+import { AddItemComponent } from 'src/app/components/add-item/add-item.component';
 
 import { ICategory } from 'src/app/models/interface/category';
 import { Category } from 'src/app/models/category';
@@ -18,12 +18,13 @@ import { IUser } from 'src/app/models/interface/User';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { of, Subject } from 'rxjs';
 
+
 @Component({
   selector: 'app-latest',
-  templateUrl: './latest.component.html',
-  styleUrls: ['./latest.component.scss'],
+  templateUrl: './latest-list.component.html',
+  styleUrls: ['./latest-list.component.scss'],
 })
-export class LatestComponent implements OnInit, OnDestroy {
+export class LatestListComponent implements OnInit, OnDestroy {
   categories: ICategory[];
   user: IUser;
   viewMode: any;
@@ -92,7 +93,8 @@ export class LatestComponent implements OnInit, OnDestroy {
   }
 
   navigateToCategory(categoryId: number) {
-    this.router.navigate(['/category'], { queryParams: { id: categoryId }, skipLocationChange: true, replaceUrl: false });
+    console.log(categoryId);
+    this.router.navigate(['/latest/category'], { queryParams: { id: categoryId }, skipLocationChange: true, replaceUrl: false });
   }
 
   setViewMode(mode: string) {

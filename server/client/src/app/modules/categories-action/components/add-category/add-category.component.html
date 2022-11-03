@@ -29,7 +29,7 @@
           <div class="icon-container border border-radius ml-1 mr-1 mb-4 pt-1 pb-1"
             [ngClass]="{'is-open': panelOpenState}">
             <div fxLayout="row wrap" fxLayoutGap="4px" fxLayoutAlign="center">
-              <div *ngFor="let icon of icons | filter:searchText">
+              <div *ngFor="let icon of icons$ | async">
                 <mat-icon class="material-icons-outlined icon-lg icon-primary hover"
                   [ngClass]="icon.name === currentIconName ? 'icon-active' : ''" (click)="selectIcon(icon)">
                   {{icon.name}}</mat-icon>
@@ -45,11 +45,11 @@
             </button>
           </div>
         </div>
-      </div>
-      <div class="mt-4">
-        <button fxFlex mat-stroked-button color="primary" class="ml-1 mr-1" (click)="addCategory()">
-          Add
-        </button>
+        <div class="mt-4">
+          <button fxFlex mat-stroked-button color="primary" class="ml-1 mr-1" (click)="addCategory()">
+            Add
+          </button>
+        </div>
       </div>
     </form>
   </div>

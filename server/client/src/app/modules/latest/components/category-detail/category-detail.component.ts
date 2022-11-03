@@ -3,15 +3,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
-import { AddItemComponent } from '../add-item/add-item.component';
+import { ConfirmDialogComponent } from '../../../../components/common/confirm-dialog/confirm-dialog.component';
+import { AddItemComponent } from '../../../../components/add-item/add-item.component';
 import { ICategory } from 'src/app/models/interface/category';
 import * as shape from 'd3-shape';
 import { ITransaction } from 'src/app/models/interface/transaction';
 import { TransactionsService } from 'src/app/services/transactions.service';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { map, startWith, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -54,17 +54,18 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
 
           return this.categoriesService.getCategoryById(this.categoryId);
         }),
+        tap(category => this.category = category),
         switchMap(category => {
-          this.category = category;
-
           return this.transactionsService.getTransactions(category._id, this.pageIndex, this.pageSize);
         }),
+        tap(result => {
+          console.log(result);
+          this.transactions = result.transactions;
+
+          this.totalPages = result.totalPages;
+        }),
         takeUntil(this.$destroyed))
-      .subscribe(result => {
-        this.transactions = result.transactions;
-
-        this.totalPages = result.totalPages;
-
+      .subscribe(() => {
         this.chartDataLatest(this.latestCount);
       });
 

@@ -16,7 +16,7 @@ export class AppComponent {
     this.authService.fetchUser().subscribe(user => {
       this.authService.setCurrentUser(user);
 
-      if (user) this.router.navigate(['/latest']);
+     // if (user) this.router.navigate(['/latest']);
     }
     );
   }

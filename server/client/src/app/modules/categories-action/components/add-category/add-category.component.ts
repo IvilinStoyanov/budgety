@@ -1,22 +1,19 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { CategoriesColors } from 'src/app/enums/categories-colors.enum';
-import { MaterialIcons } from 'src/app/enums/material-icons-type';
-import { Category } from 'src/app/models/category';
-import { CategoriesService } from 'src/app/services/categories.service';
-import { CommonService } from 'src/app/services/common.service';
+import { Component, OnInit } from '@angular/core';
 import { NotificationService } from 'src/app/services/notification.service';
+import { CategoriesColors } from 'src/app/enums/categories-colors.enum';
+import { CategoriesService } from 'src/app/services/categories.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MaterialIcons } from 'src/app/enums/material-icons-type';
+import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-category',
   templateUrl: './add-category.component.html',
   styleUrls: ['./add-category.component.scss']
 })
-export class AddCategoryComponent implements OnInit, OnDestroy {
-  private _searchIconSubscription: Subscription = new Subscription();
-
+export class AddCategoryComponent implements OnInit {
   form: FormGroup;
   searchText: string;
 
@@ -25,9 +22,9 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
   currentIconName: string;
   categoryColors: string[];
   currentColorIndex: number;
-
   icons: any = [];
   foundedIcons: any = [];
+  icons$: Observable<any>;
 
   constructor
     (
@@ -37,22 +34,32 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
       public router: Router) { }
 
   ngOnInit() {
-    this.icons = Object.values(MaterialIcons).filter(icon => typeof icon !== 'number').map(value => ({ name: value }));
+    this.icons = Object.values(MaterialIcons)
+      .filter(icon => typeof icon !== 'number')
+      .map(value => ({ name: value }
+      ));
+
     this.categoryColors = Object.values(CategoriesColors);
 
     this.createForm();
 
-    const searchIconSubscription$ = this.form
-      .get('searchText')
-      .valueChanges.subscribe((value) => { this.searchText = value; });
+    this.icons$ = this.form.get('searchText').valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        map(value => value.trim()),
+        filter(value => value !== ''),
+        switchMap((value => {
+          let filteredIcons = [];
+          this.icons.map(icon => {
 
-    this._searchIconSubscription.add(searchIconSubscription$);
+            if (icon.name.includes(value)) filteredIcons.push(icon);
+          });
+          return of(filteredIcons);
+        })
+        )
+      )
   }
-
-  ngOnDestroy() {
-    this._searchIconSubscription.unsubscribe();
-  }
-
   createForm() {
     this.form = this.fb.group({
       name: ['', Validators.required],
