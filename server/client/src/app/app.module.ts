@@ -6,10 +6,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 /* components */
 import { AppComponent } from './app.component';
 import { AddItemComponent } from './components/add-item/add-item.component';
-import { CategoryDetailComponent } from './modules/latest/components/category-detail/category-detail.component';
 import { ConfirmDialogComponent } from './components/common/confirm-dialog/confirm-dialog.component';
 import { BalanceModalComponent } from './components/common/tabs/modals/balance-modal/balance-modal.component';
-import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HeaderComponent } from './components/common/header/header.component';
 
@@ -45,9 +43,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   declarations: [
     AppComponent,
     HeaderComponent,
-    HomeComponent,
     AddItemComponent,
-    CategoryDetailComponent,
     ConfirmDialogComponent,
     BalanceModalComponent,
     DashboardComponent

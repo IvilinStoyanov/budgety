@@ -6,10 +6,6 @@ import { LatestListComponent } from './components/latest-list/latest-list.compon
 const routes: Routes = [
   {
     path: '', component: LatestListComponent,
-
-    children: [{
-      path: 'category', component: CategoryDetailComponent
-    }],
   },
   {
     path: 'category', component: CategoryDetailComponent

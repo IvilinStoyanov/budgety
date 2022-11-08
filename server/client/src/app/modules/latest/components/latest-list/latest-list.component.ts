@@ -94,7 +94,7 @@ export class LatestListComponent implements OnInit, OnDestroy {
 
   navigateToCategory(categoryId: number) {
     console.log(categoryId);
-    this.router.navigate(['/latest/category'], { queryParams: { id: categoryId }, skipLocationChange: true, replaceUrl: false });
+    this.router.navigate(['latest/category'], { queryParams: { id: categoryId }, skipLocationChange: true, replaceUrl: false });
   }
 
   setViewMode(mode: string) {

@@ -1,11 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AddCategoryComponent } from './modules/categories-action/components/add-category/add-category.component';
-import { AddColorComponent } from './modules/colors/components/add-color/add-color.component';
-import { CategoryDetailComponent } from './modules/latest/components/category-detail/category-detail.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { EditCategoryComponent } from './modules/categories-action/components/edit-category/edit-category.component';
-import { HomeComponent } from './components/home/home.component';
 
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuardGuard } from './guards/role-guard.guard';
@@ -13,18 +8,7 @@ import { RoleGuardGuard } from './guards/role-guard.guard';
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
-  },
-  {
-    path: 'add-color',
-    component: AddColorComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [AuthGuard, RoleGuardGuard],
-    data: { role: ['Admin'] }
+    loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule)
   },
   {
     path: 'latest',
@@ -48,8 +32,14 @@ const routes: Routes = [
   },
   {
     path: 'colors',
-     loadChildren: () => import('./modules/colors/colors.module').then(m => m.ColorsModule),
+    loadChildren: () => import('./modules/colors/colors.module').then(m => m.ColorsModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard, RoleGuardGuard],
+    data: { role: ['Admin'] }
   },
   { path: '**', redirectTo: '', }
 ];
