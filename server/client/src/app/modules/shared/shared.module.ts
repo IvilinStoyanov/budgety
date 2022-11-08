@@ -30,6 +30,7 @@ import { ProgressBarComponent } from 'src/app/components/common/progress-bar/pro
 import { BackButtonComponent } from 'src/app/components/common/back-button/back-button.component';
 import { RouterModule } from '@angular/router';
 import { HighlightOnHoverDirective } from 'src/app/directives/highlightOnHover.directive';
+import { BalanceModalComponent } from 'src/app/components/common/tabs/modals/balance-modal/balance-modal.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { HighlightOnHoverDirective } from 'src/app/directives/highlightOnHover.d
     HighlightOnHoverDirective,
 
     TabsComponent,
+    BalanceModalComponent,
     ProgressBarComponent,
     BackButtonComponent
   ],

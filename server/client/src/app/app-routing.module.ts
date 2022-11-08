@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DashboardComponent } from './modules/dashboard/components/dashboard/dashboard.component';
 
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuardGuard } from './guards/role-guard.guard';
@@ -37,11 +37,14 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent,
+    loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule),
     canActivate: [AuthGuard, RoleGuardGuard],
     data: { role: ['Admin'] }
   },
-  { path: '**', redirectTo: '', }
+  {
+    path: '**',
+    redirectTo: '',
+  }
 ];
 
 @NgModule({

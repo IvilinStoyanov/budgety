@@ -7,8 +7,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AddItemComponent } from './components/add-item/add-item.component';
 import { ConfirmDialogComponent } from './components/common/confirm-dialog/confirm-dialog.component';
-import { BalanceModalComponent } from './components/common/tabs/modals/balance-modal/balance-modal.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HeaderComponent } from './components/common/header/header.component';
 
 /* interceptors */
@@ -44,9 +42,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     AppComponent,
     HeaderComponent,
     AddItemComponent,
-    ConfirmDialogComponent,
-    BalanceModalComponent,
-    DashboardComponent
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,
