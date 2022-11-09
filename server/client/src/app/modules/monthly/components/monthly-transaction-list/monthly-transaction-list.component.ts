@@ -1,8 +1,7 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest, forkJoin, observable, Subject } from 'rxjs';
-import { mergeMap, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { combineLatest, Subject } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { TransactionsService } from 'src/app/services/transactions.service';
 
@@ -17,7 +16,7 @@ export class MonthlyTransactionListComponent implements OnInit, OnDestroy {
   monthlyIncome: number = 0;
   items: any[] = [];
   monthlyCategories: any[] = [];
-  panelOpenState: boolean;
+  panelOpenState: boolean = false;
 
   constructor(private route: ActivatedRoute, private categoriesService: CategoriesService, private transactionsService: TransactionsService) { }
 

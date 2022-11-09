@@ -6,9 +6,7 @@ import { Injectable } from '@angular/core';
 export class LoaderService {
   private ignoredUrl: string[] = [];
 
-  constructor() { }
-
-  isUrlIgnored(url) {
+  isUrlIgnored(url: string) {
     if (this.ignoredUrl.some(fragment => url.includes(fragment)))
       return true;
 

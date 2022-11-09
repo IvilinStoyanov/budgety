@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -18,15 +18,15 @@ import { IUser } from 'src/app/models/interface/User';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { of, Subject } from 'rxjs';
 
-
 @Component({
   selector: 'app-latest',
   templateUrl: './latest-list.component.html',
   styleUrls: ['./latest-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LatestListComponent implements OnInit, OnDestroy {
-  categories: ICategory[];
-  user: IUser;
+  categories: ICategory[] = [];
+  user: IUser | undefined;
   viewMode: any;
   private destroyed$ = new Subject<boolean>();
 
@@ -37,7 +37,8 @@ export class LatestListComponent implements OnInit, OnDestroy {
     public notification: NotificationService,
     private transactionsService: TransactionsService,
     private authService: AuthService,
-    private categoriesService: CategoriesService
+    private categoriesService: CategoriesService,
+    private cd: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -55,13 +56,17 @@ export class LatestListComponent implements OnInit, OnDestroy {
       takeUntil(this.destroyed$)
     ).subscribe(result => {
       if (result) {
-        this.categories = this.commonService.calculatePercentageEach(result, this.user);
+        if (this.user) {
+          this.categories = this.commonService.calculatePercentageEach(result, this.user);
+        }
+
         this.commonService.categoryTemplates = this.categories;
 
         this.setViewMode('exp');
-
         // set viewMode to inc if there is no expenses on first load.
-        if (this.user.exp === 0) this.viewMode = 'inc';
+        if (this.user?.exp === 0) this.viewMode = 'inc';
+
+        this.cd.detectChanges();
       }
     })
   }
@@ -137,7 +142,7 @@ export class LatestListComponent implements OnInit, OnDestroy {
     });
   }
 
-  addItem(params) {
+  addItem(params: any) {
     this.setViewMode(params.type);
     this.transactionsService.createTransactionGlobal(params).subscribe(result => {
       if (result) {

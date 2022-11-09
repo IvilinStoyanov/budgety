@@ -18,11 +18,11 @@ export class CategoriesService {
     return this.http.get<ICategory>(`api/category/${id}`);
   }
 
-  importCategories(params): Observable<any> {
+  importCategories(params: any): Observable<any> {
     return this.http.post<any>('/api/categories', params);
   }
 
-  importCategory(params): Observable<ICategory> {
+  importCategory(params: any): Observable<ICategory> {
     return this.http.post<ICategory>('/api/category', params);
   }
 }

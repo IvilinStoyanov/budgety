@@ -55,7 +55,7 @@ export class YearlyListComponent implements OnInit {
   }
 
   calculateBudgetPercetange(data: any) {
-    data.forEach((element, index) => {
+    data.forEach((element: any, index: number) => {
       let percentage = Math.round(
         (element.expense / element.income) * 100
       );

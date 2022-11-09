@@ -8,10 +8,10 @@ import { IUser } from '../models/interface/User';
   providedIn: 'root',
 })
 export class CommonService {
-  viewMode: string;
+  viewMode: string = 'exp';
   currentTabIndex: BehaviorSubject<number>;
   isAvailable: BehaviorSubject<any>;
-  categoryTemplates: ICategory[];
+  categoryTemplates: ICategory[] = [];
 
   constructor(private router: Router) {
     this.currentTabIndex = new BehaviorSubject<number>(0);
