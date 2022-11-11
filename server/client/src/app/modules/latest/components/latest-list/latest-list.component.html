@@ -1,4 +1,4 @@
-<ng-container *ngIf="user">
+<ng-container *ngIf="user && categories">
   <div class="ml-2 mr-2 mt-2 mb-0">
     <app-tabs [user]="user"></app-tabs>
     <!-- progress bar -->
@@ -8,7 +8,6 @@
       border-bottom-left-radius-none
       border-bottom-right-radius-none
     ">
-
       <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-1">
         <div class="text-black text-md">
           Income

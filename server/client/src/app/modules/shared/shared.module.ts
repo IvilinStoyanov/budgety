@@ -23,6 +23,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 /* components */
 import { TabsComponent } from 'src/app/components/common/tabs/tabs.component';
+import { BalanceModalComponent } from 'src/app/components/common/tabs/modals/balance-modal/balance-modal.component';
+import { AddItemComponent } from 'src/app/components/add-item/add-item.component';
+import { ConfirmDialogComponent } from 'src/app/components/common/confirm-dialog/confirm-dialog.component';
 
 import { HasRoleDirective } from 'src/app/directives/hasRole.directive';
 import { StopPropagationDirective } from 'src/app/directives/stop-propagation.directive';
@@ -30,8 +33,6 @@ import { ProgressBarComponent } from 'src/app/components/common/progress-bar/pro
 import { BackButtonComponent } from 'src/app/components/common/back-button/back-button.component';
 import { RouterModule } from '@angular/router';
 import { HighlightOnHoverDirective } from 'src/app/directives/highlightOnHover.directive';
-import { BalanceModalComponent } from 'src/app/components/common/tabs/modals/balance-modal/balance-modal.component';
-
 
 @NgModule({
   declarations: [
@@ -42,7 +43,9 @@ import { BalanceModalComponent } from 'src/app/components/common/tabs/modals/bal
     TabsComponent,
     BalanceModalComponent,
     ProgressBarComponent,
-    BackButtonComponent
+    BackButtonComponent,
+    AddItemComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     RouterModule,

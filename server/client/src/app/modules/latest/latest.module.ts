@@ -12,7 +12,7 @@ import { CategoryDetailComponent } from './components/category-detail/category-d
   declarations: [
     LatestListComponent,
     CategoryDetailComponent,
-    SetupCategoriesComponent
+    SetupCategoriesComponent,
   ],
   imports: [
     CommonModule,

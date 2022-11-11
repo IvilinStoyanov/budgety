@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -15,7 +15,7 @@ import { ICategory } from 'src/app/models/interface/category';
 import { Category } from 'src/app/models/category';
 import { IUser } from 'src/app/models/interface/User';
 
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { of, Subject } from 'rxjs';
 
 @Component({
@@ -24,11 +24,11 @@ import { of, Subject } from 'rxjs';
   styleUrls: ['./latest-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LatestListComponent implements OnInit, OnDestroy {
+export class LatestListComponent implements OnInit {
+
   categories: ICategory[] = [];
   user: IUser | undefined;
   viewMode: any;
-  private destroyed$ = new Subject<boolean>();
 
   constructor(
     private dialog: MatDialog,
@@ -53,27 +53,23 @@ export class LatestListComponent implements OnInit, OnDestroy {
           return this.categoriesService.getCategories();
         }
       }),
-      takeUntil(this.destroyed$)
+      map(categories => {
+        return this.commonService.calculatePercentageEach(categories, this.user);
+      }),
+      tap(categories => {
+        this.categories = categories;
+        this.categoriesService.categories = this.categories;
+      }),
+      take(1),
     ).subscribe(result => {
       if (result) {
-        if (this.user) {
-          this.categories = this.commonService.calculatePercentageEach(result, this.user);
-        }
-
-        this.commonService.categoryTemplates = this.categories;
-
         this.setViewMode('exp');
         // set viewMode to inc if there is no expenses on first load.
         if (this.user?.exp === 0) this.viewMode = 'inc';
 
         this.cd.detectChanges();
       }
-    })
-  }
-
-  ngOnDestroy(): void {
-    this.destroyed$.next(true);
-    this.destroyed$.unsubscribe();
+    });
   }
 
   openSetupCategoriesModal() {
@@ -86,9 +82,8 @@ export class LatestListComponent implements OnInit, OnDestroy {
       if (filteredCategories) {
         this.categoriesService.importCategories(filteredCategories).subscribe(result => {
           if (result) {
-            console.log(result);
             this.categories = result.categories;
-            this.authService.setCurrentUser(result.user);
+            this.user = result.user;
 
             this.notification.success("Categories successfully imported.");
           }
@@ -154,6 +149,8 @@ export class LatestListComponent implements OnInit, OnDestroy {
         this.categories[key] = result.category;
 
         this.categories = this.commonService.calculatePercentageEach(this.categories, this.user);
+
+        this.cd.detectChanges();
       }
     });
   }

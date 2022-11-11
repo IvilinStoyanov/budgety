@@ -5,8 +5,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 /* components */
 import { AppComponent } from './app.component';
-import { AddItemComponent } from './components/add-item/add-item.component';
-import { ConfirmDialogComponent } from './components/common/confirm-dialog/confirm-dialog.component';
 import { HeaderComponent } from './components/common/header/header.component';
 
 /* interceptors */
@@ -40,9 +38,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    AddItemComponent,
-    ConfirmDialogComponent
+    HeaderComponent
   ],
   imports: [
     CommonModule,

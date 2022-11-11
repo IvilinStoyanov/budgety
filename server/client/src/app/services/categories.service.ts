@@ -7,6 +7,7 @@ import { ICategory } from '../models/interface/category';
   providedIn: 'root'
 })
 export class CategoriesService {
+  categories: ICategory[] = [];
 
   constructor(private http: HttpClient) { }
 
