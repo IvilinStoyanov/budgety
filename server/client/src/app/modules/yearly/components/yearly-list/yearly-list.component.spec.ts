@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { YearlyListComponent } from './yearly-list.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('YearlyListComponent', () => {
   let component: YearlyListComponent;
@@ -11,7 +12,8 @@ describe('YearlyListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ YearlyListComponent ]
+      declarations: [ YearlyListComponent ],
+      imports: [ HttpClientTestingModule ]
     })
     .compileComponents();
   }));

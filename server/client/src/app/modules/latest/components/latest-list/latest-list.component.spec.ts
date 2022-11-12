@@ -4,6 +4,10 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { LatestListComponent } from './latest-list.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('LatestListComponent', () => {
   let component: LatestListComponent;
@@ -11,7 +15,8 @@ describe('LatestListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LatestListComponent ]
+      declarations: [ LatestListComponent ],
+      imports: [ MatDialogModule, RouterTestingModule, MatSnackBarModule, HttpClientTestingModule ]
     })
     .compileComponents();
   }));
