@@ -1,0 +1,78 @@
+<mat-card *ngIf="monthlyCategories" [style.min-height.px]="600" [style.margin-top.px]="50" class="ml-2 mr-2 mb-0 p-0">
+  <div [style.height.px]="110">
+    <div class="category-icon-wrapper" fxLayout="column" fxLayoutAlign="center center">
+      <div class="category-icon-container box-shadow border mb-2">
+        <mat-icon class="material-icons-outlined category-icon icon-lg">
+          date_range</mat-icon>
+      </div>
+      <div class="text-lg text-center text-bold text-uppercase text-transparent">
+        {{monthName}}
+      </div>
+      <div class="text-bold text-md">
+        Monthly Transactions
+      </div>
+    </div>
+  </div>
+  <app-back-button [path]="'/monthly'"></app-back-button>
+  <div class="pl-4 pr-4 pt-1 pb-1">
+    <ng-container *ngFor="let category of monthlyCategories | keyvalue">
+      <div *ngFor="let category of category.value">
+        <div *ngIf="category.inc > 0 || category.exp > 0">
+          <div class="mt-2 mb-2">
+            <span class="text-bold">{{category.name}}</span>
+          </div>
+          <div>
+            <!-- progress -->
+            <div *ngIf="category.inc > 0">
+              <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-1">
+                <div class="text-black text-md">
+                  Income
+                  <span class="text-transparent">{{
+                    category.inc | number: "1.2-2"
+                    }}</span>
+                </div>
+                <div class="text-black text-md">{{ category.inc / monthlyIncome * 100 | number:'1.2-2' }}%</div>
+              </div>
+              <div class="pb-3">
+                <app-progress-bar [percentage]="category.inc / monthlyIncome * 100 "></app-progress-bar>
+              </div>
+            </div>
+            <div *ngIf="category.exp > 0">
+              <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-1">
+                <div class="text-black text-md">
+                  Expense
+                  <span class="text-transparent">{{
+                    category.exp | number: "1.2-2"
+                    }}</span>
+                </div>
+                <div class="text-black text-md">{{ category.exp / monthlyIncome * 100 | number:'1.2-2'}}%</div>
+              </div>
+              <div class="pb-3">
+                <app-progress-bar class="exp-progress-bar" [percentage]="category.exp / monthlyIncome * 100">
+                </app-progress-bar>
+              </div>
+            </div>
+          </div>
+          <div *ngFor="let item of category.items; let i = index" class="line-item">
+            <span class="chip text-black text-bold text-transparent text-ex-sm">{{ item.dateCreated | date: "dd/MM/yy"
+              }}</span>
+            <div class="item" fxLayout="row" fxLayoutAlign="space-between center">
+              <div fxLayout="row" fxLayoutAlign="center center" matTooltip="{{ item.description }}">
+                <span class="text-black">{{ item.description || category.name | titlecase }}</span>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <div fxLayout="column" fxLayoutAlign="end end">
+                  <div class="item__value item-type-{{ item.type }}">
+                    <span *ngIf="item.type === 'inc'">+</span>
+                    <span *ngIf="item.type === 'exp'">-</span>
+                    {{ item.value | number: "1.2-2" }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</mat-card>

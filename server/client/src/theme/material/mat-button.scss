@@ -1,0 +1,58 @@
+@import '../colors.scss';
+
+button {
+     font-size: 13px !important;
+
+    // stroked
+    &.mat-stroked-button {
+      &.mat-primary {
+        border-color: $primary !important;
+        color: $primary !important;
+      }
+
+      &.mat-secondary {
+        border-color: $secondary !important;
+        color: $secondary !important;
+      }
+
+      &.mat-info {
+        border-color: $blue !important;
+        color: $blue !important;
+      }
+
+      &.mat-danger {
+        border-color: $red !important;
+        color: $red !important;
+      }
+    }
+    // icon-button
+    &.mat-icon-button {
+      &.mat-primary {
+        background: $custom-white;
+        color: $black;
+      }
+    }
+
+    // mini fab
+    &.mat-mini-fab {
+      &.mat-primary {
+        background: $custom-white;
+        color: $black;
+      }
+    }
+
+    .badge {
+      position: absolute;
+      top: -10px !important;
+      right: -10px !important;
+      background: linear-gradient(90deg, #179ff7 0%, #3ac7fd 70%, #1cc9fe 100%) !important;
+      color: $custom-white !important;
+      height: 3px;
+      width: 3px;
+      border-radius: 50%;
+      display: flex;
+      place-content: center;
+      vertical-align: middle;
+      align-items: center;
+  }
+}

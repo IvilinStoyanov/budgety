@@ -1,0 +1,77 @@
+<nav fxLayout="row" fxLayoutAlign="space-between center" class="p-2">
+  <div class="title hover ml-3" (click)="navigateHome()">
+    Budgety
+  </div>
+  <ng-container *ngIf="(authService.currentUser$ | async)">
+    <div>
+      <!-- menu region -->
+      <mat-icon class="material-icons-outlined icon-md hover" [matMenuTriggerFor]="menu">menu</mat-icon>
+      <mat-menu #menu="matMenu" class="main-menu mat-menu-md">
+        <div fxLayout="column">
+          <div *appHasRole="'Admin'">
+            <div class="border-bottom margin-auto pb-1" [style.width.%]="85">
+              <span fxLayout="row" fxLayoutAlign="centet center" class="text-black text-uppercase text-bold text-sm">
+                <mat-icon class="material-icons-outlined icon-sm hover mr-1">person</mat-icon>
+                admin
+              </span>
+            </div>
+            <div fxLayout="row">
+              <div fxFlex="100">
+                <button mat-menu-item [routerLink]="['/dashboard']">dashboard</button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="border-bottom margin-auto pb-1" [style.width.%]="85">
+              <span fxLayout="row" fxLayoutAlign="centet center" class="text-black text-uppercase text-bold text-sm">
+                <mat-icon class="material-icons-outlined icon-sm hover mr-1">category</mat-icon>
+                categories
+              </span>
+            </div>
+            <div fxLayout="row">
+              <div fxFlex="50">
+                <button mat-menu-item [routerLink]="['categories-action/add']">create</button>
+              </div>
+              <div class="divider"></div>
+              <!-- <div fxFlex="50">
+                <button mat-menu-item [routerLink]="['/edit-category']">edit</button>
+              </div> -->
+            </div>
+          </div>
+          <!-- <div>
+            <div class="border-bottom margin-auto pb-1" [style.width.%]="85">
+              <span fxLayout="row" class="text-black text-uppercase text-bold text-sm ">
+                <mat-icon class="material-icons-outlined icon-sm hover mr-1">palette</mat-icon>
+                colors
+              </span>
+            </div>
+            <div fxLayout="row">
+              <div fxFlex="50">
+                <button mat-menu-item [routerLink]="['/add-color']">create</button>
+              </div>
+              <div class="divider"></div>
+              <div fxFlex="50">
+                <button mat-menu-item [routerLink]="['/edit-color']">edit</button>
+              </div>
+            </div>
+          </div> -->
+        </div>
+        <div>
+          <div class="border-bottom margin-auto pb-1" [style.width.%]="85">
+            <span fxLayout="row" class="text-black text-uppercase text-bold text-sm ">
+              <mat-icon class="material-icons-outlined icon-sm hover mr-1">action</mat-icon>
+              Action
+            </span>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="end center" class="p-1">
+            <button mat-raised-button color="primary" (click)="logout()">Logout</button>
+          </div>
+        </div>
+      </mat-menu>
+      <!-- menu region -->
+    </div>
+  </ng-container>
+  <div *ngIf="!(authService.currentUser$ | async)">
+    <button mat-raised-button color="primary" (click)="login()">Login with Google</button>
+  </div>
+</nav>

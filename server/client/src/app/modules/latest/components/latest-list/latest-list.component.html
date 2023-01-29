@@ -1,0 +1,109 @@
+<ng-container *ngIf="user && categories">
+  <div class="ml-2 mr-2 mt-2 mb-0">
+    <app-tabs [user]="user"></app-tabs>
+    <!-- progress bar -->
+    <mat-card class="
+      border-bottom
+      border-top-right-radius-none
+      border-bottom-left-radius-none
+      border-bottom-right-radius-none
+    ">
+      <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-1">
+        <div class="text-black text-md">
+          Income
+          <span class="text-transparent">{{
+            user.inc | number: "1.2-2"
+            }}</span>
+        </div>
+        <div class="text-black text-md">{{ user.incPercentage }}%</div>
+      </div>
+      <div class="pb-3">
+        <app-progress-bar [percentage]="user.incPercentage"></app-progress-bar>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-1">
+        <div class="text-black text-md">
+          Expense
+          <span class="text-transparent">{{
+            user.exp | number: "1.2-2"
+            }}</span>
+        </div>
+        <div class="text-black text-md">{{ user.expPercentage }}%</div>
+      </div>
+      <div class="pb-3">
+        <app-progress-bar class="exp-progress-bar" [percentage]="user.expPercentage"></app-progress-bar>
+      </div>
+    </mat-card>
+  </div>
+  <!-- list -->
+  <mat-card [style.min-height.vh]="100" class="ml-2 mr-2 mb-0 mt-0 pt-0 pl-1 border-radius-none">
+    <ng-container *ngIf="categories">
+      <div *ngIf="categories.length == 0" fxLayout="column" fxLayoutAlign="center center" class="hover"
+        (click)="openAddItemDialog()">
+        <mat-icon class="material-icons-outlined icon-md-lg text-transparent text-grey" [style.margin-top.px]="100">
+          note_alt
+        </mat-icon>
+        <span class="text-grey text-transparent">No Transactions</span>
+        <span class="text-grey text-transparent">Tap here to add one</span>
+      </div>
+      <div *ngFor="let category of categories">
+        <div class="item" *ngIf="category && showCategories(category) && category.isVisible">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <div class="category-title-container">
+                <svg width="100%" height="100%" viewBox="0 0 42 42" class="circle-chart">
+                  <circle cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+                  <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="1.5">
+                  </circle>
+                  <circle *ngIf="viewMode === 'exp'" class="donut-segment" cx="21" cy="21" r="15.91549430918954"
+                    fill="transparent" attr.stroke="{{category.color}}" stroke-width="1.5"
+                    attr.stroke-dasharray="{{category.expPercentage}} {{100 - category.expPercentage}}"
+                    stroke-dashoffset="25"></circle>
+                  <circle *ngIf="viewMode === 'inc'" class="donut-segment" cx="21" cy="21" r="15.91549430918954"
+                    fill="transparent" attr.stroke="{{category.color}}" stroke-width="1.5"
+                    attr.stroke-dasharray="{{category.incPercentage}} {{100 - category.incPercentage}}"
+                    stroke-dashoffset="25"></circle>
+                </svg>
+                <mat-icon class="position-center-absolute material-icons-outlined icon-md icon-primary mr-2">{{
+                  category.icon }}</mat-icon>
+              </div>
+              <div fxLayout="column" class="pl-2">
+                <span class="text-black text-bold">{{
+                  category.name | titlecase
+                  }}</span>
+                <span *ngIf="viewMode === 'inc'" class="text-transparent text-sm">{{category.incPercentage}}% of
+                  budget</span>
+                <span *ngIf="viewMode === 'exp'" class="text-transparent text-sm">{{category.expPercentage}}% of
+                  budget</span>
+              </div>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center end">
+              <div *ngIf="viewMode === 'inc'" class="item-type-{{ category.type }}">
+                {{ category.inc | number: "1.2-2" }}
+              </div>
+              <div *ngIf="viewMode === 'exp'" class="item-type-{{ category.type }}">
+                {{ category.exp | number: "1.2-2" }}
+              </div>
+              <div class="text-black text-transparent text-ex-sm">
+                <span class="text-sm text-transparent hover link ml-2" (click)="navigateToCategory(category._id)">{{
+                  category.transactionsCount }} transactions</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </mat-card>
+  <!-- bottom menu -->
+  <div class="bottom-menu ml-2 mr-2">
+    <div class="add-item-chip" matTooltip="add new item">
+      <mat-icon class="material-icons-outlined position-center-absolute icon-lg hover" (click)="openAddItemDialog()">add
+      </mat-icon>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-around center" class="bottom-menu text-black text-bold">
+      <div class="hover" [ngClass]="{'active': viewMode === 'inc', 'pointer-events-none': user.inc === 0}"
+        (click)="setViewMode('inc')">Incomes</div>
+      <div class="hover" [ngClass]="{'active': viewMode === 'exp', 'pointer-events-none': user.exp === 0}"
+        (click)="setViewMode('exp')">Expenses</div>
+    </div>
+  </div>
+</ng-container>

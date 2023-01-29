@@ -1,0 +1,87 @@
+@import "theme/spacing-mixin.scss";
+@import "theme/colors.scss";
+@import "theme/utilities.scss";
+
+@import "theme/custom/checkbox.scss";
+@import "theme/custom/ngx-chart.scss";
+
+@import "theme/material/mat-tab.scss";
+@import "theme/material/mat-card.scss";
+@import "theme/material/mat-dialog.scss";
+@import "theme/material/mat-button.scss";
+@import "theme/material/mat-input.scss";
+@import "theme/material/mat-menu.scss";
+@import "theme/material/mat-snackbar.scss";
+@import "theme/material/mat-toggle.scss";
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background: url("assets/images/bg-min.jpg") no-repeat center center fixed;
+  background-size: cover;
+  height: 100%;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  // background: $primary;
+  // background: linear-gradient(
+  //   90deg,
+  //   #179ff7 0%,
+  //   #3ac7fd 35%,
+  //   #1cc9fe 100%
+  // ) !important;
+  color: $black;
+}
+
+a {
+  text-decoration: none;
+}
+
+.mat-select-panel .mat-optgroup-label,
+.mat-select-panel .mat-option {
+  color: $black !important;
+}
+
+.relative {
+  position: relative;
+}
+
+.main-menu {
+  .mat-menu-content {
+    width: 150px;
+    padding: 12px 8px 4px 8px !important;
+
+    button {
+      text-align: center;
+      font-weight: 500;
+    }
+  }
+}
+
+.exp-progress-bar {
+  .progress-line {
+    background: linear-gradient(
+      90deg,
+      $red 0%,
+      #ff9393 50%,
+      #ffa8b9 100%
+    ) !important;
+  }
+}
+
+.is-active {
+  background: linear-gradient(
+    90deg,
+    #19bfff 0%,
+    #3ac7fd 35%,
+    #1cc9fe 100%
+  ) !important;
+  color: $custom-white !important;
+}

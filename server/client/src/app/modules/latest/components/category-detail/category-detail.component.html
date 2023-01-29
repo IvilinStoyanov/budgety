@@ -1,0 +1,114 @@
+<mat-card *ngIf="category" [style.min-height.px]="600" [style.margin-top.px]="15" [style.margin-top.px]="50"
+  class=" ml-2 mr-2 mb-0 p-0">
+  <div [style.height.px]="110">
+    <div class="category-icon-wrapper" fxLayout="column" fxLayoutAlign="center center">
+      <div class="category-icon-container box-shadow border mb-2" [style.border-color]="category.color">
+        <mat-icon class="material-icons-outlined category-icon icon-lg" [style.color]="category.color">{{
+          category.icon }}</mat-icon>
+      </div>
+      <div class="text-lg text-center text-bold text-uppercase text-transparent">
+        Category
+      </div>
+      <div class="text-bold text-md">
+        {{category.name}}
+      </div>
+    </div>
+  </div>
+  <app-back-button [path]="'/latest'"></app-back-button>
+  <div class="menu-right hover">
+    <mat-icon class="material-icons-outlined" matTooltip="add transaction" (click)="openAddItemDialog()">add
+    </mat-icon>
+  </div>
+  <div fxLayout="column" class="pt-2" *ngIf="transactions.length > 1 && chartData.length > 0">
+    <!-- buttons -->
+    <div fxLayout="row" class="pl-3 mt-4 mb-2">
+      <button (click)="chartDataLatest(latestCount)" mat-raised-button class="ml-2 mr-2" [style.position]="'relative'">
+        <div class="badge" click-stop-propagation [matMenuTriggerFor]="chartNenu">{{latestCount}}</div>Latest
+      </button>
+      <!-- <button (click)="chartDataWeekly()" mat-raised-button class="ml-2 mr-2">Weekly</button> -->
+      <!-- <button mat-raised-button class="ml-2 mr-2">Monthly</button> -->
+      <mat-menu #chartNenu="matMenu" class="mat-menu-sm">
+        <div fxLayout="column" class="text-black text-bold text-sm">
+          <div class="border-bottom p-1 hover" (click)="chartDataLatest(5)">5</div>
+          <div class="border-bottom p-1 hover" (click)="chartDataLatest(10)">10</div>
+          <div class="p-1 hover" (click)="chartDataLatest(15)">15</div>
+        </div>
+      </mat-menu>
+    </div>
+    <div class="chart-container">
+      <ngx-charts-line-chart *ngIf="chartData" [results]="chartData" [showGridLines]="true" [showYAxisLabel]="true"
+        [scheme]="colorScheme" [xAxis]="isAxisVisible" [yAxis]="true" [gradient]="true" [curve]="curve">
+      </ngx-charts-line-chart>
+      <div *ngIf="!chartData">No transactions for this period</div>
+    </div>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="space-around center" class="pl-4 pr-4 pt-1 pb-1 mt-4 mb-4">
+    <div [style.width.%]="100" class="mb-1" *ngIf="category.inc > 0">
+      <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-1">
+        <div class="text-black text-md">
+          Incomes
+          <span class="text-transparent">{{
+            category.inc | number: "1.2-2"
+            }}</span>
+        </div>
+        <div class="text-black text-md">{{ category.incPercentage }}%</div>
+      </div>
+      <app-progress-bar [percentage]="category.incPercentage"></app-progress-bar>
+    </div>
+    <div [style.width.%]="100" class="mt-1" *ngIf="category.exp > 0">
+      <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-1">
+        <div class="text-black text-md">
+          Expenses
+          <span class="text-transparent">{{
+            category.exp | number: "1.2-2"
+            }}</span>
+        </div>
+        <div class="text-black text-md">{{ category.expPercentage }}%</div>
+      </div>
+      <app-progress-bar class="exp-progress-bar" [percentage]="category.expPercentage"></app-progress-bar>
+    </div>
+  </div>
+  <div class="pl-4 pr-4 pt-1 pb-1">
+    <ng-container *ngFor="let item of transactions; let i = index">
+      <div class="line-item" highlightOnHover>
+        <span class="chip text-black text-bold text-transparent text-ex-sm">{{ item.dateCreated | date: "dd/MM/yy"
+          }}</span>
+        <div class="item" fxLayout="row" fxLayoutAlign="space-between center">
+          <div fxLayout="row" fxLayoutAlign="center center" matTooltip="{{ item.description }}">
+            <span class="text-black">{{ item.description || category.name | titlecase }}</span>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <div fxLayout="column" fxLayoutAlign="end end">
+              <div class="item__value item-type-{{ item.type }}">
+                <span *ngIf="item.type === 'inc'">+</span>
+                <span *ngIf="item.type === 'exp'">-</span>
+                {{ item.value | number: "1.2-2" }}
+              </div>
+            </div>
+            <div class="hover-menu ml-2">
+              <mat-icon class="material-icons-outlined icon-danger hover" matTooltip="delete item"
+                (click)="openConfirmDialog(item)">delete</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <div fxLayout="row" fxLayoutAlign="center" class="pagination" *ngIf="totalPages !== 0">
+      <div [ngClass]="{'pointer-events-none': pageIndex == 0}" fxLayout="row" fxLayoutAlign="center start"
+        class="text-black text-bold text-transparent text-sm hover mr-2" (click)="changePageIndex(pageIndex - 1)">
+        <span class="material-icons-outlined" [style.margin-top.px]="-2">chevron_left</span>
+        <span>prev</span>
+      </div>
+      <div *ngFor='let in of counter(totalPages) ;let i = index'>
+        <span [ngClass]="{'pagination-active': pageIndex == i}"
+          class="step text-black text-bold text-transparent hover ml-1 mr-1" (click)="changePageIndex(i)">{{i +
+          1}}</span>
+      </div>
+      <div [ngClass]="{'pointer-events-none': pageIndex + 1 >= totalPages}" fxLayout="row" fxLayoutAlign="center start"
+        class="text-black text-bold text-transparent text-sm hover ml-1" (click)="changePageIndex(pageIndex + 1)">
+        <span>next</span>
+        <span class="material-icons-outlined" [style.margin-top.px]="-2">chevron_right</span>
+      </div>
+    </div>
+  </div>
+</mat-card>

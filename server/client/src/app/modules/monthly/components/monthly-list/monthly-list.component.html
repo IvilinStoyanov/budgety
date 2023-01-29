@@ -1,0 +1,47 @@
+<div class="ml-2 mr-2 mt-2 mb-0">
+  <app-tabs [user]="authService.currentUser$ | async"></app-tabs>
+</div>
+<mat-card class="ml-2 mr-2 mb-0 mt-0">
+  <div fxLayoutAlign="end">
+    <form [formGroup]="dateForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Choose year</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="year">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenYearHandler($event, picker)">
+        </mat-datepicker>
+      </mat-form-field>
+    </form>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-between center"
+    class="item-row border-bottom text-transparent text-card text-black">
+    <div class="item">Month</div>
+    <div class="item">Income</div>
+    <div class="item">Expense</div>
+    <div class="item">Balance</div>
+  </div>
+  <div *ngFor="let month of monthlyList">
+    <div *ngIf="month?.name" fxLayout="row" fxLayoutAlign="space-between center"
+      class="item-row border-bottom text-card">
+      <div class="ml-4" class="month-wrapper">
+        <svg *ngIf="month?.budgetPercetange > 0" viewBox="0 0 36 36" class="circular-chart">
+          <path class="circle" attr.stroke-dasharray="{{month?.budgetPercetange}}, 100" d="M18 2.0845
+                a 15.9155 15.9155 0 0 1 0 31.831
+                a 15.9155 15.9155 0 0 1 0 -31.831" />
+        </svg>
+        <div class="position-center-absolute budget-circle"></div>
+        <span class="position-center-absolute text-black">{{ month?.name }}</span>
+      </div>
+      <div class="item text-black">{{ month?.income | number: "1.2-2" }}</div>
+      <div class="item text-black">{{ month?.expense | number: "1.2-2" }}</div>
+      <div class="item text-primary hover" [routerLink]="['/monthly', month?.name.toLowerCase()]"
+        [ngClass]="{'text-danger': month?.expense > month?.income }"><span
+          *ngIf="month?.income > month?.expense ">+</span>{{ month?.income - month?.expense | number: "1.2-2" }}</div>
+    </div>
+  </div>
+  <div *ngIf="monthlyList.length == 0">
+    <div fxLayout="column" fxLayoutAlign="center center" class="mt-4">
+      <span class="text-transparent">No Transactions</span>
+    </div>
+  </div>
+</mat-card>

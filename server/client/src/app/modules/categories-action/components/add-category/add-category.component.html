@@ -1,0 +1,74 @@
+<mat-card class="m-2">
+  <app-back-button></app-back-button>
+  <div>
+    <div fxLayout="column" fxLayoutAlign="center center" class="pl-3 pr-3 pt-1 pb-3">
+      <span class="title text-bold">Add new category</span>
+      <span class="text-center text-sm text-grey pl-2 pr-2" [style.max-width.px]="380">By pressing button below you can
+        add your custom category</span>
+    </div>
+    <form [formGroup]="form" autocomplete="off">
+      <div fxLayout="column">
+        <mat-form-field class="ml-1 mr-1" fxFlex appearance="outline">
+          <mat-label>Category</mat-label>
+          <input formControlName="name" matInput required />
+        </mat-form-field>
+        <div class="border border-radius ml-1 mr-1 mb-3 pt-2 pb-2 pl-1 pr-1" fxFlex>
+          <span class="input-label">Color *</span>
+          <div fxLayout="row wrap">
+            <div *ngFor="let color of categoryColors;  let i = index">
+              <div class="color hover" [style.background-color]="color"
+                [ngClass]="i === currentColorIndex ? 'color-active' : ''" (click)="selectColor(color, i)"></div>
+            </div>
+          </div>
+        </div>
+        <mat-form-field class="ml-1 mr-1" fxFlex appearance="outline">
+          <mat-label>Search icon</mat-label>
+          <input formControlName="searchText" matInput />
+        </mat-form-field>
+        <div class="icon-wrapper">
+          <div class="icon-container border border-radius ml-1 mr-1 mb-4 pt-1 pb-1"
+            [ngClass]="{'is-open': panelOpenState}">
+            <div fxLayout="row wrap" fxLayoutGap="4px" fxLayoutAlign="center">
+              <div *ngFor="let icon of icons$ | async">
+                <mat-icon class="material-icons-outlined icon-lg icon-primary hover"
+                  [ngClass]="icon.name === currentIconName ? 'icon-active' : ''" (click)="selectIcon(icon)">
+                  {{icon.name}}</mat-icon>
+              </div>
+            </div>
+          </div>
+          <div class="arrow-toggle">
+            <button mat-icon-button color="primary" class="box-shadow border" (click)="openPanel()">
+              <mat-icon class="material-icons-outlined">
+                <ng-container *ngIf="!panelOpenState">keyboard_arrow_down</ng-container>
+                <ng-container *ngIf="panelOpenState">keyboard_arrow_up</ng-container>
+              </mat-icon>
+            </button>
+          </div>
+        </div>
+        <div class="mt-4">
+          <button fxFlex mat-stroked-button color="primary" class="ml-1 mr-1" (click)="addCategory()">
+            Add
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- <div fxLayout="column" fxLayoutAlign="center center" class="pl-3 pr-3 pt-3 pb-3">
+    <span class="title text-bold mb-2">My category</span>
+    <div fxLayout="row wrap">
+      <div *ngFor="let category of data.categoryTemplatesCustom">
+        <div class="category-title-container">
+          <svg width="100%" height="100%" viewBox="0 0 42 42" class="circle-chart">
+            <circle cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+            <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="1.5">
+            </circle>
+            <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent"
+              attr.stroke="{{category.color}}" stroke-width="1.5" stroke-dasharray="100"></circle>
+          </svg>
+          <mat-icon class="position-center-absolute material-icons-outlined icon-md icon-primary mr-2">{{
+            category.icon }}</mat-icon>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</mat-card>

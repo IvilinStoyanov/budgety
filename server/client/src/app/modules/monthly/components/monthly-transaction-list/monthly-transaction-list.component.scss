@@ -1,0 +1,115 @@
+@import '../../../../../theme/colors.scss';
+
+$categoryBanner: 100px;
+
+.category-icon-wrapper {
+    position: absolute;
+    top: 45px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    .category-icon-container {
+        position: relative;
+        width: $categoryBanner;
+        height: $categoryBanner;
+        border-radius: 15%;
+        background: $custom-white;
+
+        .category-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+    }
+}
+
+/*** chart ***/
+.chart-container {
+    height: 200px;
+    left: -20px !important;
+    position: relative;
+}
+
+/*** menu ***/
+.menu-right {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.menu-left {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
+/*** list ***/
+.item {
+    min-height: 76px;
+    padding: 20px 8px 15px 8px;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.chip {
+    position: absolute;
+    margin-top: -2px;
+}
+
+.item__description {
+    color: $black;
+}
+
+.item-type-inc {
+    color: $green !important;
+}
+
+.item-type-exp {
+    color: $red !important;
+}
+
+.item-delete-btn-inc {
+    color: #28b9b5;
+}
+
+.item-delete-btn-exp {
+    color: #ff5049;
+}
+
+.line-item {
+    padding: 0 0 0 10px;
+    border-left: 2px solid $primary;
+    position: relative;
+}
+
+.line-item::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50px;
+    left: -8px;
+    top: 0px;
+    background: #fff;
+    border: 2px solid $primary;
+}
+
+.color {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border: 2px solid #eaeaea;
+    margin: 5px;
+}
+
+.hover-menu {
+    display: none;
+}
+
+.line-item:hover {
+    .hover-menu {
+        display: block;
+    }
+}
+
+

@@ -1,0 +1,18 @@
+@import "../theme/colors.scss";
+@import "../theme/fonts.scss";
+
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+body {
+  color: #555;
+  font-family: Open Sans;
+  font-size: 16px;
+  position: relative;
+  height: 100vh;
+  font-weight: 400;
+}
