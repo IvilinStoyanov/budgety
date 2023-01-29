@@ -4,6 +4,10 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { CategoryDetailComponent } from './category-detail.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('CategoryDetailComponent', () => {
   let component: CategoryDetailComponent;
@@ -11,7 +15,8 @@ describe('CategoryDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CategoryDetailComponent ]
+      declarations: [ CategoryDetailComponent ],
+      imports: [ RouterTestingModule, MatSnackBarModule, MatDialogModule, HttpClientTestingModule ]
     })
     .compileComponents();
   }));

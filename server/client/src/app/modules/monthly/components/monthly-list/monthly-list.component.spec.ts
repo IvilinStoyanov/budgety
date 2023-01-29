@@ -4,14 +4,17 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { MonthlyListComponent } from './monthly-list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('MonthlyComponent', () => {
+describe('MonthlyListComponent', () => {
   let component: MonthlyListComponent;
   let fixture: ComponentFixture<MonthlyListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MonthlyListComponent ]
+      declarations: [ MonthlyListComponent ],
+      imports: [ FormsModule, ReactiveFormsModule, HttpClientTestingModule ]
     })
     .compileComponents();
   }));

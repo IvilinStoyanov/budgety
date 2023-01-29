@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { EditCategoryComponent } from './edit-category.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('EditCategoryComponent', () => {
   let component: EditCategoryComponent;
@@ -11,7 +12,8 @@ describe('EditCategoryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditCategoryComponent ]
+      declarations: [ EditCategoryComponent ],
+      imports: [ RouterTestingModule ]
     })
     .compileComponents();
   }));
