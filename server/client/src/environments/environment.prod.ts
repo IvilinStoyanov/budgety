@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://budgety-me.herokuapp.com/api'
+  apiUrl: 'https://budgety-api.onrender.com/api'
 };
