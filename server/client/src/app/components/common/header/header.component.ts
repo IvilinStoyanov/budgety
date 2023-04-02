@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   constructor
     (
       private http: HttpClient,
@@ -19,15 +19,12 @@ export class HeaderComponent implements OnInit {
       public commonService: CommonService,
       public authService: AuthService) { }
 
-  ngOnInit() {
-  }
-
   login() {
     window.open(`${environment.apiUrl}/auth/google`, '_self');
   }
 
   logout() {
-    this.http.get('/api/logout').subscribe(() => location.reload());
+    this.http.get('/api/logout').subscribe(() => this.router.navigate(['/']));
   }
 
   navigateHome() {

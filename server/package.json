@@ -13,7 +13,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client && ng serve",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "preinstall": "npm i @angular/cli @angular-devkit/build-angular @angular/compiler-cli typescript --save-prod",
     "postbuild": "cd client && npm install && ng build --configuration production"
   },
   "author": "",
