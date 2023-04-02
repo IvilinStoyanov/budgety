@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://budgety.onrender.com/api'
+  apiUrl: 'https://budgety-me.onrender.com/api'
 };
