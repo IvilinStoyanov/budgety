@@ -97,8 +97,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(AddItemComponent, {
       autoFocus: false,
       data: {
-        categories: this.commonService.categoryTemplates,
-        // selectedCategory: selectedCategory,
+        categories: [this.category],
         viewMode: this.viewMode,
       }
     });

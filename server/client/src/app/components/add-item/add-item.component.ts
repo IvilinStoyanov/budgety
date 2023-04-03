@@ -25,26 +25,11 @@ export class AddItemComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.createForm();
 
-    var categorySubscription$ = this.form
+    const categorySubscription$ = this.form
       .get('category')
       .valueChanges.subscribe((value) => (this.categoryPicked = value?.name));
 
-    var isTodaySubscription$ = this.form
-      .get('isToday')
-      .valueChanges.subscribe(value => this.setDatepickerValidation(value));
-
     this._categorySubscription.add(categorySubscription$);
-    this._categorySubscription.add(isTodaySubscription$);
-  }
-
-  setDatepickerValidation(value: any): void {
-    if (value) {
-      this.form.get('dateCreated').disable();
-    } else {
-      this.form.get('dateCreated').enable();
-      this.form.get('dateCreated').setValidators([Validators.required]);
-      this.form.get('dateCreated').updateValueAndValidity();
-    }
   }
 
   ngOnDestroy() {
@@ -58,23 +43,22 @@ export class AddItemComponent implements OnInit, OnDestroy {
 
     this.form = this.fb.group({
       type: [type, Validators.required],
-      category: [this.templateData.selectedCategory, Validators.required],
+      category: [null, Validators.required],
       value: ['', Validators.required],
-      dateCreated: [{ value: '', disabled: true }],
+      dateCreated: [new Date(),  Validators.required],
       description: [''],
       isToday: [true],
     });
 
-    if (this.templateData.selectedCategory) {
-      this.categoryPicked = this.templateData.selectedCategory.name;
-      this.form.get('category').setValue(this.templateData.selectedCategory);
-      this.form.get('category').disable();
+    if (this.templateData.categories.length === 1) {
+      this.categoryPicked = this.templateData.categories[0].name;
+      this.form.get('category').setValue(this.templateData.categories[0]);
     }
   }
 
   addItem() {
     if (this.form.valid) {
-      if (this.form.get('type').value == false) {
+      if (this.form.get('type').value === false) {
         this.form.get('type').setValue('inc');
       } else {
         this.form.get('type').setValue('exp');
@@ -82,16 +66,22 @@ export class AddItemComponent implements OnInit, OnDestroy {
 
       // set date
       let date = new Date(this.form.value.dateCreated);
-      this.form.value.dateCreated = new Date(date.getTime() - date.getTimezoneOffset() * 60000).toJSON();
+      this.form.value.dateCreated = new Date(
+        date.getTime() - date.getTimezoneOffset() * 60000
+      ).toJSON();
 
-      if (this.form.get('isToday').value) this.form.value.dateCreated = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toJSON()
+      if (this.form.get('isToday').value)
+        this.form.value.dateCreated = new Date(
+          new Date().getTime() - new Date().getTimezoneOffset() * 60000
+        ).toJSON();
 
+      console.log(this.form);
       let transaction = {
         _categoryId: this.form.value.category._id,
         description: this.form.value.description,
         dateCreated: this.form.value.dateCreated,
         type: this.form.value.type,
-        value: parseFloat(this.form.value.value.toFixed(2))
+        value: parseFloat(this.form.value.value.toFixed(2)),
       };
 
       this.dialogRef.close(transaction);
