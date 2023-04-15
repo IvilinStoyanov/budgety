@@ -19,6 +19,7 @@ module.exports = app => {
 
             const transactions = await Transactions
                 .find({ _user: req.user.id, _categoryId })
+                .sort({ dateCreated: -1})
                 .skip(skip)
                 .limit(pageSize);
 

@@ -11,20 +11,27 @@ import { ITransaction } from 'src/app/models/interface/transaction';
 import { TransactionsService } from 'src/app/services/transactions.service';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { map, startWith, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import {
+  map,
+  startWith,
+  switchMap,
+  take,
+  takeUntil,
+  tap,
+} from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-category-detail',
   templateUrl: './category-detail.component.html',
-  styleUrls: ['./category-detail.component.scss']
+  styleUrls: ['./category-detail.component.scss'],
 })
 export class CategoryDetailComponent implements OnInit, OnDestroy {
   categoryId: string;
   category: ICategory;
   transactions: ITransaction[] = [];
   viewMode: string;
-
   pageIndex = 0;
   pageSize = 10;
   totalPages: number = 0;
@@ -49,22 +56,26 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.queryParams
       .pipe(
-        switchMap(params => {
+        switchMap((params) => {
           this.categoryId = params['id'];
 
           return this.categoriesService.getCategoryById(this.categoryId);
         }),
-        tap(category => this.category = category),
-        switchMap(category => {
-          return this.transactionsService.getTransactions(category._id, this.pageIndex, this.pageSize);
+        tap((category) => (this.category = category)),
+        switchMap((category) => {
+          return this.transactionsService.getTransactions(
+            category._id,
+            this.pageIndex,
+            this.pageSize
+          );
         }),
-        tap(result => {
-          console.log(result);
+        tap((result) => {
           this.transactions = result.transactions;
 
           this.totalPages = result.totalPages;
         }),
-        takeUntil(this.$destroyed))
+        takeUntil(this.$destroyed)
+      )
       .subscribe(() => {
         this.chartDataLatest(this.latestCount);
       });
@@ -84,13 +95,15 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   changePageIndex(currentPageIndex: number = 0) {
     this.pageIndex = currentPageIndex;
 
-    this.transactionsService.getTransactions(this.categoryId, this.pageIndex, this.pageSize).subscribe(result => {
-      this.transactions = result.transactions;
+    this.transactionsService
+      .getTransactions(this.categoryId, this.pageIndex, this.pageSize)
+      .subscribe((result) => {
+        this.transactions = result.transactions;
 
-      this.totalPages = result.totalPages;
+        this.totalPages = result.totalPages;
 
-      this.commonService.scrollToTop();
-    });
+        this.commonService.scrollToTop();
+      });
   }
 
   openAddItemDialog(): void {
@@ -99,22 +112,34 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       data: {
         categories: [this.category],
         viewMode: this.viewMode,
-      }
+      },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.addItem(result);
         this.chartDataLatest(this.latestCount);
-        this.notification.success("Item successfully added");
+        this.notification.success('Item successfully added');
       }
     });
   }
 
-  addItem(params) {
-    this.transactionsService.createTransation(params).subscribe(transaction => {
-      this.transactions.push(transaction);
-    })
+  addItem(params: any): void {
+    this.transactionsService.createTransation(params).pipe(
+      switchMap((transaction) => {
+        if (transaction) {
+          return this.transactionsService.getTransactions(
+            params._categoryId,
+            0,
+            10
+          );
+        }
+
+        return of(null);
+      })
+    ).subscribe(result => {
+      if (result) this.transactions = result.transactions;
+    });
   }
 
   openConfirmDialog(item: any): void {
@@ -123,8 +148,8 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       data: {
         title: 'Delete Item',
         message: 'Are you sure you want to delete this item?',
-        item: item
-      }
+        item: item,
+      },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -135,13 +160,21 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   }
 
   deleteItem(transaction: any) {
-    this.transactionsService.deleteTransaction(transaction._id, transaction.type, transaction.value, transaction._categoryId)
-      .subscribe(result => {
+    this.transactionsService
+      .deleteTransaction(
+        transaction._id,
+        transaction.type,
+        transaction.value,
+        transaction._categoryId
+      )
+      .subscribe((result) => {
         if (result) {
-          let transactionIndex = this.transactions.findIndex(t => t._id === transaction._id);
+          let transactionIndex = this.transactions.findIndex(
+            (t) => t._id === transaction._id
+          );
           this.transactions.splice(transactionIndex, 1);
 
-          this.notification.success("Item successfully deleted.");
+          this.notification.success('Item successfully deleted.');
 
           this.chartDataLatest(this.latestCount);
 
@@ -166,7 +199,10 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       let day = new Date(element.dateCreated).getDate();
       let month = new Date(element.dateCreated).getMonth();
 
-      let item = { value: element.value, name: `${index + 1}.${day}/${month + 1}` };
+      let item = {
+        value: element.value,
+        name: `${index + 1}.${day}/${month + 1}`,
+      };
 
       if (element.type == 'inc') incData.series.push(item);
       if (element.type == 'exp') expData.series.push(item);
