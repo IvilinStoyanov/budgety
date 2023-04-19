@@ -35,5 +35,4 @@ export class BalanceModalComponent implements OnInit {
   save() {
     this.dialogRef.close(this.form.get('savings').value);
   }
-
 }

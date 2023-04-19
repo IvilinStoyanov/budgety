@@ -5,10 +5,10 @@ import { ICategory } from '../models/interface/category';
 import { IUser } from '../models/interface/User';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class CommonService {
-  viewMode: string = 'exp';
+  viewMode = 'exp';
   currentTabIndex: BehaviorSubject<number>;
   isAvailable: BehaviorSubject<any>;
   categoryTemplates: ICategory[] = [];
@@ -16,19 +16,19 @@ export class CommonService {
   constructor(private router: Router) {
     this.currentTabIndex = new BehaviorSubject<number>(0);
     this.isAvailable = new BehaviorSubject<any>(null);
-   }
+  }
 
   navigateTo(path: string) {
     this.router.navigate([`/${path}`]);
   }
 
   scrollToTop() {
-    window.scroll(0,0);
+    window.scroll(0, 0);
   }
 
   isDateToday(date: Date) {
-    let today = new Date(new Date().setHours(0, 0, 0, 0)).getTime();
-    let itemDate = new Date(new Date(date).setHours(0, 0, 0, 0)).getTime();
+    const today = new Date(new Date().setHours(0, 0, 0, 0)).getTime();
+    const itemDate = new Date(new Date(date).setHours(0, 0, 0, 0)).getTime();
 
     if (today === itemDate) return true;
 
@@ -44,8 +44,12 @@ export class CommonService {
   calculatePercentageEach(categories: ICategory[], user: IUser) {
     categories.forEach(category => {
       if (category) {
-        if (category.exp > 0 && user.inc > 0) category.expPercentage = Math.round((category.exp / user.inc) * 100);
-        if (category.inc > 0) category.incPercentage = Math.round((category.inc / user.inc) * 100);
+        if (category.exp > 0 && user.inc > 0) {
+          category.expPercentage = Math.round((category.exp / user.inc) * 100);
+        }
+        if (category.inc > 0) {
+          category.incPercentage = Math.round((category.inc / user.inc) * 100);
+        }
       }
     });
 
@@ -63,13 +67,10 @@ export class CommonService {
         user.expPercentage = 100;
         user.incPercentage = 0;
       }
-
-    }
-    else if (budget < 0) {
+    } else if (budget < 0) {
       user.expPercentage = 100;
       user.incPercentage = 0;
-    }
-    else {
+    } else {
       user.incPercentage = 0;
       user.expPercentage = 0;
     }

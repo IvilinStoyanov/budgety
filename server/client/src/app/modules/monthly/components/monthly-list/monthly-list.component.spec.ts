@@ -13,10 +13,9 @@ describe('MonthlyListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MonthlyListComponent ],
-      imports: [ FormsModule, ReactiveFormsModule, HttpClientTestingModule ]
-    })
-    .compileComponents();
+      declarations: [MonthlyListComponent],
+      imports: [FormsModule, ReactiveFormsModule, HttpClientTestingModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

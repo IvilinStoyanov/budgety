@@ -15,10 +15,14 @@ describe('CategoryDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CategoryDetailComponent ],
-      imports: [ RouterTestingModule, MatSnackBarModule, MatDialogModule, HttpClientTestingModule ]
-    })
-    .compileComponents();
+      declarations: [CategoryDetailComponent],
+      imports: [
+        RouterTestingModule,
+        MatSnackBarModule,
+        MatDialogModule,
+        HttpClientTestingModule
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

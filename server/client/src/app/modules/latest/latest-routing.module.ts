@@ -5,10 +5,12 @@ import { LatestListComponent } from './components/latest-list/latest-list.compon
 
 const routes: Routes = [
   {
-    path: '', component: LatestListComponent,
+    path: '',
+    component: LatestListComponent
   },
   {
-    path: 'category', component: CategoryDetailComponent
+    path: 'category',
+    component: CategoryDetailComponent
   }
 ];
 
@@ -16,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LatestRoutingModule { }
+export class LatestRoutingModule {}

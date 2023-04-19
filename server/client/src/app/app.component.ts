@@ -3,11 +3,10 @@ import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/services/auth.service';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'budgety';
@@ -16,8 +15,7 @@ export class AppComponent {
     this.authService.fetchUser().subscribe(user => {
       this.authService.setCurrentUser(user);
 
-     // if (user) this.router.navigate(['/latest']);
-    }
-    );
+      // if (user) this.router.navigate(['/latest']);
+    });
   }
 }

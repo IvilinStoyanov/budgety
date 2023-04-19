@@ -10,10 +10,9 @@ describe('MonthlyTransactionListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MonthlyTransactionListComponent ],
-      imports: [ RouterTestingModule, HttpClientTestingModule ]
-    })
-    .compileComponents();
+      declarations: [MonthlyTransactionListComponent],
+      imports: [RouterTestingModule, HttpClientTestingModule]
+    }).compileComponents();
   });
 
   beforeEach(() => {

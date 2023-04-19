@@ -5,8 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root'
 })
 export class NotificationService {
-
-  constructor(public _snackbar: MatSnackBar) { }
+  constructor(public snackbar: MatSnackBar) {}
 
   success(message: string) {
     this.showNotification(message, 'sucess');
@@ -21,13 +20,11 @@ export class NotificationService {
   }
 
   private showNotification(message: string, customClass: string) {
-    this._snackbar.open(message, 'close',
-      {
-        duration: 2500,
-        horizontalPosition: 'right',
-        verticalPosition: 'top',
-        panelClass: customClass
-      });
+    this.snackbar.open(message, 'close', {
+      duration: 2500,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      panelClass: customClass
+    });
   }
-
 }

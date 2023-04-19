@@ -14,10 +14,9 @@ describe('TabsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TabsComponent ],
-      imports: [ RouterTestingModule, HttpClientTestingModule, MatDialogModule ]
-    })
-    .compileComponents();
+      declarations: [TabsComponent],
+      imports: [RouterTestingModule, HttpClientTestingModule, MatDialogModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController
+} from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { IUser } from './models/interface/User';
@@ -13,16 +16,9 @@ describe('AppComponent', () => {
   let app: AppComponent;
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-      imports: [
-        HttpClientTestingModule,
-        RouterTestingModule
-      ],
-      providers: [
-        AuthService
-      ]
+      declarations: [AppComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule],
+      providers: [AuthService]
     }).compileComponents();
 
     authService = TestBed.get(AuthService);
@@ -33,7 +29,7 @@ describe('AppComponent', () => {
 
   afterEach(() => {
     httpMock.verify();
-  })
+  });
 
   // it('should create the app', () => {
   //   app = fixture.componentInstance;
@@ -47,11 +43,12 @@ describe('AppComponent', () => {
   it('should fetch user after ngOnInit via GET', () => {
     const mockUser: IUser = {
       exp: 0,
-      googleId: "108281570134163898926",
-      inc: 23556, isCategoriesSet: true,
-      role: "Member",
+      googleId: '108281570134163898926',
+      inc: 23556,
+      isCategoriesSet: true,
+      role: 'Member',
       savings: 0,
-      _id: "636be8ee116de1f94191284e",
+      _id: '636be8ee116de1f94191284e',
       incPercentage: 0,
       expPercentage: 0
     };
@@ -63,11 +60,11 @@ describe('AppComponent', () => {
 
     const request = httpMock.match(`/api/current_user`);
 
-   // expect(request.).toBe('GET');
+    // expect(request.).toBe('GET');
 
-   request.forEach(request => {
-    request.flush(mockUser);
-   })
+    request.forEach(request => {
+      request.flush(mockUser);
+    });
     // request.flush(mockUser);
-  })
+  });
 });

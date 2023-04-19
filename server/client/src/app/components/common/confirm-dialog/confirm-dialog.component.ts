@@ -11,16 +11,16 @@ export class ConfirmDialogComponent implements OnInit {
   message: string;
   item: any;
 
-  constructor(public dialogRef: MatDialogRef<ConfirmDialogComponent>,
+  constructor(
+    public dialogRef: MatDialogRef<ConfirmDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogComponent
   ) {
     this.title = data.title;
     this.message = data.message;
-    this.item = data.item
+    this.item = data.item;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   cancel() {
     this.dialogRef.close();
@@ -29,5 +29,4 @@ export class ConfirmDialogComponent implements OnInit {
   confirm() {
     this.dialogRef.close(this.item);
   }
-
 }

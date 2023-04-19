@@ -5,15 +5,8 @@ import { SharedModule } from '../shared/shared.module';
 
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
-
 @NgModule({
-  declarations: [
-    DashboardComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    DashboardRoutingModule
-  ]
+  declarations: [DashboardComponent],
+  imports: [CommonModule, SharedModule, DashboardRoutingModule]
 })
-export class DashboardModule { }
+export class DashboardModule {}

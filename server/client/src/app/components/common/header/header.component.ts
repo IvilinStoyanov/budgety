@@ -12,12 +12,12 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  constructor
-    (
-      private http: HttpClient,
-      public router: Router,
-      public commonService: CommonService,
-      public authService: AuthService) { }
+  constructor(
+    private http: HttpClient,
+    public router: Router,
+    public commonService: CommonService,
+    public authService: AuthService
+  ) {}
 
   login() {
     window.open(`${environment.apiUrl}/auth/google`, '_self');

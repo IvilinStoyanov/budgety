@@ -5,15 +5,8 @@ import { YearlyRoutingModule } from './yearly-routing.module';
 
 import { YearlyListComponent } from './components/yearly-list/yearly-list.component';
 
-
 @NgModule({
-  declarations: [
-    YearlyListComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    YearlyRoutingModule
-  ]
+  declarations: [YearlyListComponent],
+  imports: [CommonModule, SharedModule, YearlyRoutingModule]
 })
-export class YearlyModule { }
+export class YearlyModule {}

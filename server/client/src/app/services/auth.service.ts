@@ -11,7 +11,6 @@ export class AuthService {
   readonly currentUser$: Observable<IUser>;
 
   constructor(private http: HttpClient) {
-
     this.currentUserSource = new ReplaySubject<IUser>(1);
 
     this.currentUser$ = this.currentUserSource.asObservable();

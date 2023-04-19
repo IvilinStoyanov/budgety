@@ -5,7 +5,8 @@ import { MonthlyTransactionListComponent } from './components/monthly-transactio
 
 const routes: Routes = [
   {
-    path: '', component: MonthlyListComponent
+    path: '',
+    component: MonthlyListComponent
   },
   { path: ':month', component: MonthlyTransactionListComponent }
 ];
@@ -14,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class MonthlyRoutingModule { }
+export class MonthlyRoutingModule {}

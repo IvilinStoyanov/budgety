@@ -20,11 +20,13 @@ export class TabsComponent implements OnInit {
     public commonService: CommonService,
     private savingsService: SavingsService,
     private authService: AuthService,
-    private dialog: MatDialog,
-  ) { }
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit() {
-    this.commonService.currentTabIndex.pipe(take(1)).subscribe(value => this.currentIndex = value);
+    this.commonService.currentTabIndex
+      .pipe(take(1))
+      .subscribe(value => (this.currentIndex = value));
   }
 
   onChange(event: MatTabChangeEvent) {
@@ -38,10 +40,10 @@ export class TabsComponent implements OnInit {
       data: this.user
     });
 
-    dialogRef.afterClosed().subscribe((savings) => {
+    dialogRef.afterClosed().subscribe(savings => {
       if (savings) {
         this.savingsService.updateSavings(savings).subscribe(user => {
-          if (user) this.authService.setCurrentUser(user);
+          if (user) { this.authService.setCurrentUser(user); }
         });
       }
     });

@@ -7,15 +7,7 @@ import { EditCategoryComponent } from './components/edit-category/edit-category.
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [
-    AddCategoryComponent,
-    EditCategoryComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    CategoriesActionRoutingModule
-
-  ]
+  declarations: [AddCategoryComponent, EditCategoryComponent],
+  imports: [CommonModule, SharedModule, CategoriesActionRoutingModule]
 })
-export class CategoriesActionModule { }
+export class CategoriesActionModule {}

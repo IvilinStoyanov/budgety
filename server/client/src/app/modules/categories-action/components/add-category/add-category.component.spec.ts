@@ -15,10 +15,15 @@ describe('AddCategoryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddCategoryComponent ],
-      imports: [ MatSnackBarModule, HttpClientTestingModule, FormsModule, ReactiveFormsModule, RouterTestingModule ]
-    })
-    .compileComponents();
+      declarations: [AddCategoryComponent],
+      imports: [
+        MatSnackBarModule,
+        HttpClientTestingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterTestingModule
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

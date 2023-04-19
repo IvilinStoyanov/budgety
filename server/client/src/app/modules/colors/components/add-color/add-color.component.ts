@@ -12,7 +12,10 @@ export class AddColorComponent implements OnInit {
   currentColor: string;
   data: any;
 
-  constructor(private commonService: CommonService, public notification: NotificationService) { }
+  constructor(
+    private commonService: CommonService,
+    public notification: NotificationService
+  ) {}
 
   ngOnInit() {
     this.data = JSON.parse(localStorage.getItem('data'));
@@ -28,14 +31,15 @@ export class AddColorComponent implements OnInit {
 
   addColor() {
     if (this.currentColor) {
-      if (this.data.categoryColors) this.data.categoryColors.push(this.currentColor);
+      if (this.data.categoryColors) {
+        this.data.categoryColors.push(this.currentColor);
+      }
 
       this.commonService.saveData(this.data);
 
       this.notification.success('Category successfully added');
-    }
-    else {
-      this.notification.warn("Please select color");
+    } else {
+      this.notification.warn('Please select color');
     }
   }
 }

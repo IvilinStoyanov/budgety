@@ -17,10 +17,7 @@ import { RoleGuardGuard } from './guards/role-guard.guard';
 import { SharedModule } from './modules/shared/shared.module';
 
 /* loader */
-import {
-  NgxUiLoaderModule,
-  NgxUiLoaderConfig
-} from "ngx-ui-loader";
+import { NgxUiLoaderModule, NgxUiLoaderConfig } from 'ngx-ui-loader';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 
@@ -36,10 +33,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
 };
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent
-  ],
+  declarations: [AppComponent, HeaderComponent],
   imports: [
     CommonModule,
     AppRoutingModule,
@@ -47,22 +41,22 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     NoopAnimationsModule,
     HttpClientModule,
     SharedModule,
-    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
-      multi: true,
+      multi: true
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorCatchingInterceptor,
-      multi: true,
+      multi: true
     },
     AuthGuard,
     RoleGuardGuard
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

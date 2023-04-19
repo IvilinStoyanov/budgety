@@ -7,14 +7,13 @@ import { IUser } from '../models/interface/User';
   providedIn: 'root'
 })
 export class SavingsService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   updateSavings(savings: number): Observable<IUser> {
     const params = {
-      savings: savings
-    }
+      savings
+    };
 
-    return this.http.post<IUser>('api/savings', params)
+    return this.http.post<IUser>('api/savings', params);
   }
 }

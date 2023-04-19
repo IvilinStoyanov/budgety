@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -25,7 +30,6 @@ import { of, Subject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LatestListComponent implements OnInit {
-
   categories: ICategory[] = [];
   user: IUser | undefined;
   viewMode: any;
@@ -39,81 +43,100 @@ export class LatestListComponent implements OnInit {
     private authService: AuthService,
     private categoriesService: CategoriesService,
     private cd: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.authService.currentUser$.pipe(
-      switchMap(user => {
-        this.user = this.commonService.calculateTotalExpPercentage(user);
+    this.authService.currentUser$
+      .pipe(
+        switchMap(user => {
+          this.user = this.commonService.calculateTotalExpPercentage(user);
 
-        if (!user?.isCategoriesSet) {
-          this.openSetupCategoriesModal();
-          return of(null);
-        } else {
-          return this.categoriesService.getCategories();
+          if (!user?.isCategoriesSet) {
+            this.openSetupCategoriesModal();
+            return of(null);
+          } else {
+            return this.categoriesService.getCategories();
+          }
+        }),
+        map(categories => {
+          return this.commonService.calculatePercentageEach(
+            categories,
+            this.user
+          );
+        }),
+        tap(categories => {
+          this.categories = categories;
+          this.categoriesService.categories = this.categories;
+        }),
+        take(1)
+      )
+      .subscribe(result => {
+        if (result) {
+          this.setViewMode('exp');
+          // set viewMode to inc if there is no expenses on first load.
+          if (this.user?.exp === 0) { this.viewMode = 'inc'; }
+
+          this.cd.detectChanges();
         }
-      }),
-      map(categories => {
-        return this.commonService.calculatePercentageEach(categories, this.user);
-      }),
-      tap(categories => {
-        this.categories = categories;
-        this.categoriesService.categories = this.categories;
-      }),
-      take(1),
-    ).subscribe(result => {
-      if (result) {
-        this.setViewMode('exp');
-        // set viewMode to inc if there is no expenses on first load.
-        if (this.user?.exp === 0) this.viewMode = 'inc';
-
-        this.cd.detectChanges();
-      }
-    });
+      });
   }
 
   openSetupCategoriesModal() {
     const dialogRef = this.dialog.open(SetupCategoriesComponent, {
       autoFocus: false,
-      disableClose: true,
+      disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe((filteredCategories) => {
+    dialogRef.afterClosed().subscribe(filteredCategories => {
       if (filteredCategories) {
-        this.categoriesService.importCategories(filteredCategories).subscribe(result => {
-          if (result) {
-            this.categories = result.categories;
-            this.user = result.user;
+        this.categoriesService
+          .importCategories(filteredCategories)
+          .subscribe(result => {
+            if (result) {
+              this.categories = result.categories;
+              this.user = result.user;
 
-            this.notification.success("Categories successfully imported.");
-          }
-        });
+              this.notification.success('Categories successfully imported.');
+            }
+          });
       }
     });
   }
 
   navigateToCategory(categoryId: number) {
-    this.router.navigate(['latest/category'], { queryParams: { id: categoryId }, skipLocationChange: true, replaceUrl: false });
+    this.router.navigate(['latest/category'], {
+      queryParams: { id: categoryId },
+      skipLocationChange: true,
+      replaceUrl: false
+    });
   }
 
   setViewMode(mode: string) {
     this.viewMode = mode;
     this.commonService.viewMode = mode;
 
-    if (mode === 'inc') this.categories.sort(function (a: { inc: number; }, b: { inc: number; }) { return b.inc - a.inc; });
+    if (mode === 'inc') {
+      this.categories.sort(function(a: { inc: number }, b: { inc: number }) {
+        return b.inc - a.inc;
+      });
+    }
 
-    if (mode === 'exp') this.categories.sort(function (a: { exp: number; }, b: { exp: number; }) { return b.exp - a.exp; });
+    if (mode === 'exp') {
+      this.categories.sort(function(a: { exp: number }, b: { exp: number }) {
+        return b.exp - a.exp;
+      });
+    }
   }
 
   showCategories(category: Category) {
     if (category) {
       if (this.viewMode === 'inc') {
-        if (category.inc > 0) return true;
+        if (category.inc > 0) { return true; }
 
         return false;
       }
       if (this.viewMode === 'exp') {
-        if (category.exp > 0) return true;
+        if (category.exp > 0) { return true; }
 
         return false;
       }
@@ -125,33 +148,42 @@ export class LatestListComponent implements OnInit {
       autoFocus: false,
       data: {
         categories: this.categories,
-        viewMode: this.viewMode,
+        viewMode: this.viewMode
       }
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.addItem(result);
-        this.notification.success("Item successfully added");
+        this.notification.success('Item successfully added');
       }
     });
   }
 
   addItem(params: any) {
     this.setViewMode(params.type);
-    this.transactionsService.createTransactionGlobal(params).subscribe(result => {
-      if (result) {
-        this.user = this.commonService.calculateTotalExpPercentage(result.user);
+    this.transactionsService
+      .createTransactionGlobal(params)
+      .subscribe(result => {
+        if (result) {
+          this.user = this.commonService.calculateTotalExpPercentage(
+            result.user
+          );
 
-        this.authService.setCurrentUser(this.user);
-        const key = this.categories.findIndex(category => category._id === result._categoryId);
+          this.authService.setCurrentUser(this.user);
+          const key = this.categories.findIndex(
+            category => category._id === result._categoryId
+          );
 
-        this.categories[key] = result.category;
+          this.categories[key] = result.category;
 
-        this.categories = this.commonService.calculatePercentageEach(this.categories, this.user);
+          this.categories = this.commonService.calculatePercentageEach(
+            this.categories,
+            this.user
+          );
 
-        this.cd.detectChanges();
-      }
-    });
+          this.cd.detectChanges();
+        }
+      });
   }
 }

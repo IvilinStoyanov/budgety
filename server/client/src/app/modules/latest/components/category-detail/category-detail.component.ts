@@ -17,7 +17,7 @@ import {
   switchMap,
   take,
   takeUntil,
-  tap,
+  tap
 } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { of } from 'rxjs';
@@ -25,7 +25,7 @@ import { of } from 'rxjs';
 @Component({
   selector: 'app-category-detail',
   templateUrl: './category-detail.component.html',
-  styleUrls: ['./category-detail.component.scss'],
+  styleUrls: ['./category-detail.component.scss']
 })
 export class CategoryDetailComponent implements OnInit, OnDestroy {
   categoryId: string;
@@ -34,11 +34,11 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   viewMode: string;
   pageIndex = 0;
   pageSize = 10;
-  totalPages: number = 0;
+  totalPages = 0;
   colorScheme = { domain: ['#28B9B5', '#FF5049'] };
   curve: any = shape.curveBasis;
   chartData: any = [];
-  latestCount: number = 5;
+  latestCount = 5;
   isAxisVisible: boolean;
   $destroyed = new Subject();
 
@@ -51,25 +51,25 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     private categoriesService: CategoriesService,
     private transactionsService: TransactionsService,
     private authService: AuthService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.route.queryParams
       .pipe(
-        switchMap((params) => {
-          this.categoryId = params['id'];
+        switchMap(params => {
+          this.categoryId = params.id;
 
           return this.categoriesService.getCategoryById(this.categoryId);
         }),
-        tap((category) => (this.category = category)),
-        switchMap((category) => {
+        tap(category => (this.category = category)),
+        switchMap(category => {
           return this.transactionsService.getTransactions(
             category._id,
             this.pageIndex,
             this.pageSize
           );
         }),
-        tap((result) => {
+        tap(result => {
           this.transactions = result.transactions;
 
           this.totalPages = result.totalPages;
@@ -97,7 +97,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
 
     this.transactionsService
       .getTransactions(this.categoryId, this.pageIndex, this.pageSize)
-      .subscribe((result) => {
+      .subscribe(result => {
         this.transactions = result.transactions;
 
         this.totalPages = result.totalPages;
@@ -111,11 +111,11 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       autoFocus: false,
       data: {
         categories: [this.category],
-        viewMode: this.viewMode,
-      },
+        viewMode: this.viewMode
+      }
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.addItem(result);
         this.chartDataLatest(this.latestCount);
@@ -125,21 +125,24 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   }
 
   addItem(params: any): void {
-    this.transactionsService.createTransation(params).pipe(
-      switchMap((transaction) => {
-        if (transaction) {
-          return this.transactionsService.getTransactions(
-            params._categoryId,
-            0,
-            10
-          );
-        }
+    this.transactionsService
+      .createTransation(params)
+      .pipe(
+        switchMap(transaction => {
+          if (transaction) {
+            return this.transactionsService.getTransactions(
+              params._categoryId,
+              0,
+              10
+            );
+          }
 
-        return of(null);
-      })
-    ).subscribe(result => {
-      if (result) this.transactions = result.transactions;
-    });
+          return of(null);
+        })
+      )
+      .subscribe(result => {
+        if (result) { this.transactions = result.transactions; }
+      });
   }
 
   openConfirmDialog(item: any): void {
@@ -148,11 +151,11 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       data: {
         title: 'Delete Item',
         message: 'Are you sure you want to delete this item?',
-        item: item,
-      },
+        item
+      }
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.deleteItem(result);
       }
@@ -167,10 +170,10 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
         transaction.value,
         transaction._categoryId
       )
-      .subscribe((result) => {
+      .subscribe(result => {
         if (result) {
-          let transactionIndex = this.transactions.findIndex(
-            (t) => t._id === transaction._id
+          const transactionIndex = this.transactions.findIndex(
+            t => t._id === transaction._id
           );
           this.transactions.splice(transactionIndex, 1);
 
@@ -181,7 +184,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
           this.authService.setCurrentUser(result.user);
 
           // return to the latest page if there is no more transactions
-          if (this.transactions.length === 0) this.router.navigate(['/latest']);
+          if (this.transactions.length === 0) { this.router.navigate(['/latest']); }
         }
       });
   }
@@ -190,22 +193,22 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     this.isAxisVisible = false;
     this.latestCount = count;
 
-    let incData = { name: 'inc', series: [] };
-    let expData = { name: 'exp', series: [] };
+    const incData = { name: 'inc', series: [] };
+    const expData = { name: 'exp', series: [] };
 
-    let latestTransactions = this.transactions.slice(0, count);
+    const latestTransactions = this.transactions.slice(0, count);
 
     latestTransactions.forEach((element, index) => {
-      let day = new Date(element.dateCreated).getDate();
-      let month = new Date(element.dateCreated).getMonth();
+      const day = new Date(element.dateCreated).getDate();
+      const month = new Date(element.dateCreated).getMonth();
 
-      let item = {
+      const item = {
         value: element.value,
-        name: `${index + 1}.${day}/${month + 1}`,
+        name: `${index + 1}.${day}/${month + 1}`
       };
 
-      if (element.type == 'inc') incData.series.push(item);
-      if (element.type == 'exp') expData.series.push(item);
+      if (element.type === 'inc') { incData.series.push(item); }
+      if (element.type === 'exp') { expData.series.push(item); }
     });
 
     this.chartData = [incData, expData];

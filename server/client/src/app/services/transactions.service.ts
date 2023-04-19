@@ -9,13 +9,17 @@ import { ITransaction } from '../models/interface/transaction';
 export class TransactionsService {
   monthlyYearSelected: Date = new Date();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getTransactions(_categoryId: string, pageIndex: number, pageSize: number): Observable<any> {
+  getTransactions(
+    categoryId: string,
+    pageIndex: number,
+    pageSize: number
+  ): Observable<any> {
     const params = {
-      _categoryId: _categoryId,
-      pageIndex: pageIndex,
-      pageSize: pageSize
+      categoryId,
+      pageIndex,
+      pageSize
     };
 
     return this.http.get<any>('/api/transactions', { params });
@@ -29,12 +33,17 @@ export class TransactionsService {
     return this.http.post<any>('/api/transactions', params);
   }
 
-  deleteTransaction(_id: string, type: string, value: number, _categoryId: string): Observable<any> {
+  deleteTransaction(
+    id: string,
+    type: string,
+    value: number,
+    categoryId: string
+  ): Observable<any> {
     const params = {
-      _id: _id,
-      type: type,
-      value: value,
-      _categoryId: _categoryId
+      id,
+      type,
+      value,
+      categoryId
     };
 
     return this.http.delete<any>('/api/transactions', { params });
@@ -42,22 +51,34 @@ export class TransactionsService {
 
   getMonthlyTransactions(year: number): Observable<ITransaction[]> {
     const params = {
-      year: year
+      year
     };
 
-    return this.http.get<ITransaction[]>('/api/transactions/monthly', { params });
+    return this.http.get<ITransaction[]>('/api/transactions/monthly', {
+      params
+    });
   }
 
-  getMonthlyIndividualTransactions(year: number, month: string): Observable<ITransaction[]> {
-    return this.http.get<ITransaction[]>(`/api/transactions/monthly/${year}/${month}`);
+  getMonthlyIndividualTransactions(
+    year: number,
+    month: string
+  ): Observable<ITransaction[]> {
+    return this.http.get<ITransaction[]>(
+      `/api/transactions/monthly/${year}/${month}`
+    );
   }
 
-  getYearlyTransactions(startYear: number, endYear: number): Observable<ITransaction[]> {
+  getYearlyTransactions(
+    startYear: number,
+    endYear: number
+  ): Observable<ITransaction[]> {
     const params = {
-      startYear: startYear,
-      endYear: endYear
+      startYear,
+      endYear
     };
 
-    return this.http.get<ITransaction[]>('/api/transactions/yearly', { params });
+    return this.http.get<ITransaction[]>('/api/transactions/yearly', {
+      params
+    });
   }
 }

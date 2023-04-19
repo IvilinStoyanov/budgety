@@ -5,15 +5,8 @@ import { SharedModule } from '../shared/shared.module';
 
 import { AddColorComponent } from './components/add-color/add-color.component';
 
-
 @NgModule({
-  declarations: [
-    AddColorComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    ColorsRoutingModule
-  ]
+  declarations: [AddColorComponent],
+  imports: [CommonModule, SharedModule, ColorsRoutingModule]
 })
-export class ColorsModule { }
+export class ColorsModule {}

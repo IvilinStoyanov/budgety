@@ -8,9 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class BackButtonComponent implements OnInit {
   @Input() path: string;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

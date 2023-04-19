@@ -14,11 +14,15 @@ describe('LatestListComponent', () => {
   let fixture: ComponentFixture<LatestListComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ LatestListComponent ],
-      imports: [ MatDialogModule, RouterTestingModule, MatSnackBarModule, HttpClientTestingModule ]
-    })
-    .compileComponents();
+   TestBed.configureTestingModule({
+      declarations: [LatestListComponent],
+      imports: [
+        MatDialogModule,
+        RouterTestingModule,
+        MatSnackBarModule,
+        HttpClientTestingModule
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -7,25 +7,24 @@ import { TransactionsService } from 'src/app/services/transactions.service';
 @Component({
   selector: 'app-monthly-list',
   templateUrl: './monthly-list.component.html',
-  styleUrls: ['./monthly-list.component.scss'],
+  styleUrls: ['./monthly-list.component.scss']
 })
 export class MonthlyListComponent implements OnInit {
   monthlyList: any = [];
   dateForm: FormGroup;
 
-  constructor
-    (
-      private fb: FormBuilder,
-      public authService: AuthService,
-      private transactionsService: TransactionsService,
-    ) {
+  constructor(
+    private fb: FormBuilder,
+    public authService: AuthService,
+    private transactionsService: TransactionsService
+  ) {
     this.dateForm = this.fb.group({
       year: new FormControl(new Date())
     });
   }
 
   ngOnInit() {
-      this.createMonthlyList();
+    this.createMonthlyList();
   }
 
   chosenYearHandler(chosenDate: any, datepicker: MatDatepicker<any>) {
@@ -52,51 +51,48 @@ export class MonthlyListComponent implements OnInit {
       'September',
       'October',
       'November',
-      'December',
+      'December'
     ];
 
     const year = date.getFullYear();
 
-    this.transactionsService.getMonthlyTransactions(year).subscribe(transactions => {
-      transactions.forEach(item => {
-        let itemMonth = new Date(item.dateCreated).getMonth();
-        let income = 0;
-        let expense = 0;
+    this.transactionsService
+      .getMonthlyTransactions(year)
+      .subscribe(transactions => {
+        transactions.forEach(item => {
+          const itemMonth = new Date(item.dateCreated).getMonth();
+          let income = 0;
+          let expense = 0;
 
-        if (this.monthlyList[itemMonth] == undefined) {
-          this.monthlyList[itemMonth] = [];
-          this.monthlyList[itemMonth].name = months[itemMonth];
-          this.monthlyList[itemMonth].income = 0;
-          this.monthlyList[itemMonth].expense = 0;
-        }
+          if (this.monthlyList[itemMonth] === undefined) {
+            this.monthlyList[itemMonth] = [];
+            this.monthlyList[itemMonth].name = months[itemMonth];
+            this.monthlyList[itemMonth].income = 0;
+            this.monthlyList[itemMonth].expense = 0;
+          }
 
-        if (this.monthlyList[itemMonth] !== undefined) {
-          if (item.type == 'inc') income = item.value;
+          if (this.monthlyList[itemMonth] !== undefined) {
+            if (item.type === 'inc') { income = item.value; }
 
-          if (item.type == 'exp') expense = item.value;
+            if (item.type === 'exp') { expense = item.value; }
 
-          this.monthlyList[itemMonth].income += income;
-          this.monthlyList[itemMonth].expense += expense;
-        }
+            this.monthlyList[itemMonth].income += income;
+            this.monthlyList[itemMonth].expense += expense;
+          }
+        });
+
+        this.calculateBudgetPercetange(this.monthlyList);
       });
-
-      this.calculateBudgetPercetange(this.monthlyList);
-    });
-
-
   }
 
   calculateBudgetPercetange(data: any) {
-    data.forEach((element, index) => {
-      let percentage = Math.round(
-        (element.expense / element.income) * 100
-      );
+    data.forEach((element, index: number) => {
+      let percentage = Math.round((element.expense / element.income) * 100);
       percentage = 100 - percentage;
 
-      if (percentage < 0) percentage = 0;
+      if (percentage < 0) { percentage = 0; }
 
       this.monthlyList[index].budgetPercetange = percentage;
     });
-
   }
 }

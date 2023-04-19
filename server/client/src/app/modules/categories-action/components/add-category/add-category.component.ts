@@ -6,7 +6,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MaterialIcons } from 'src/app/enums/material-icons-type';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap
+} from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-category',
@@ -26,39 +32,35 @@ export class AddCategoryComponent implements OnInit {
   foundedIcons: any = [];
   icons$: Observable<any>;
 
-  constructor
-    (
-      private notification: NotificationService,
-      private categoriesService: CategoriesService,
-      private fb: FormBuilder,
-      public router: Router) { }
+  constructor(
+    private notification: NotificationService,
+    private categoriesService: CategoriesService,
+    private fb: FormBuilder,
+    public router: Router
+  ) {}
 
   ngOnInit() {
     this.icons = Object.values(MaterialIcons)
       .filter(icon => typeof icon !== 'number')
-      .map(value => ({ name: value }
-      ));
+      .map(value => ({ name: value }));
 
     this.categoryColors = Object.values(CategoriesColors);
 
     this.createForm();
 
-    this.icons$ = this.form.get('searchText').valueChanges
-      .pipe(
-        debounceTime(300),
-        distinctUntilChanged(),
-        map(value => value.trim()),
-        filter(value => value !== ''),
-        switchMap((value => {
-          let filteredIcons = [];
-          this.icons.map(icon => {
-
-            if (icon.name.includes(value)) filteredIcons.push(icon);
-          });
-          return of(filteredIcons);
-        })
-        )
-      )
+    this.icons$ = this.form.get('searchText').valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      map(value => value.trim()),
+      filter(value => value !== ''),
+      switchMap(value => {
+        const filteredIcons = [];
+        this.icons.map(icon => {
+          if (icon.name.includes(value)) { filteredIcons.push(icon); }
+        });
+        return of(filteredIcons);
+      })
+    );
   }
   createForm() {
     this.form = this.fb.group({
@@ -85,18 +87,21 @@ export class AddCategoryComponent implements OnInit {
 
   addCategory() {
     if (!this.currentIconName || !this.currentColorIndex) {
-      this.notification.warn("Please select icon and color");
+      this.notification.warn('Please select icon and color');
     }
     if (this.form.valid) {
       const params = this.form.value;
 
-      const category = { color: params.color, icon: params.icon, name: params.name };
+      const category = {
+        color: params.color,
+        icon: params.icon,
+        name: params.name
+      };
 
-      this.categoriesService.importCategory(category)
-        .subscribe(() => {
-          this.router.navigate(['/latest']);
-          this.notification.success('Category successfully added');
-        });
+      this.categoriesService.importCategory(category).subscribe(() => {
+        this.router.navigate(['/latest']);
+        this.notification.success('Category successfully added');
+      });
     }
   }
 }

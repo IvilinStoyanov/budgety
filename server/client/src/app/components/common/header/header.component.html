@@ -71,7 +71,7 @@
       <!-- menu region -->
     </div>
   </ng-container>
-  <div *ngIf="!(authService.currentUser$ | async)">
+  <div *ngIf="(authService.currentUser$ | async) === null">
     <button mat-raised-button color="primary" (click)="login()">Login with Google</button>
   </div>
 </nav>

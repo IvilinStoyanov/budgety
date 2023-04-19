@@ -105,7 +105,6 @@ import { HighlightOnHoverDirective } from 'src/app/directives/highlightOnHover.d
     StopPropagationDirective,
     HighlightOnHoverDirective
   ]
-
 })
 export class SharedModule {
   // static forRoot(): ModuleWithProviders<SharedModule> {

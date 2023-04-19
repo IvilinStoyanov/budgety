@@ -8,9 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ProgressBarComponent implements OnInit {
   @Input() percentage: number;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

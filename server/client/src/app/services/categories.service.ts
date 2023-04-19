@@ -9,7 +9,7 @@ import { ICategory } from '../models/interface/category';
 export class CategoriesService {
   categories: ICategory[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getCategories(): Observable<ICategory[]> {
     return this.http.get<ICategory[]>('/api/categories');
@@ -27,4 +27,3 @@ export class CategoriesService {
     return this.http.post<ICategory>('/api/category', params);
   }
 }
-

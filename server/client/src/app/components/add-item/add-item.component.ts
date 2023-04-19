@@ -6,10 +6,10 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-add-item',
   templateUrl: './add-item.component.html',
-  styleUrls: ['./add-item.component.scss'],
+  styleUrls: ['./add-item.component.scss']
 })
 export class AddItemComponent implements OnInit, OnDestroy {
-  private _categorySubscription: Subscription = new Subscription();
+  private categorySubscription: Subscription = new Subscription();
   form: FormGroup;
   categoryPicked: any;
   templateData: any;
@@ -27,27 +27,27 @@ export class AddItemComponent implements OnInit, OnDestroy {
 
     const categorySubscription$ = this.form
       .get('category')
-      .valueChanges.subscribe((value) => (this.categoryPicked = value?.name));
+      .valueChanges.subscribe(value => (this.categoryPicked = value?.name));
 
-    this._categorySubscription.add(categorySubscription$);
+    this.categorySubscription.add(categorySubscription$);
   }
 
   ngOnDestroy() {
-    this._categorySubscription.unsubscribe();
+    this.categorySubscription.unsubscribe();
   }
 
   createForm() {
     let type = false;
 
-    if (this.templateData.viewMode == 'exp') type = true;
+    if (this.templateData.viewMode === 'exp') { type = true; }
 
     this.form = this.fb.group({
       type: [type, Validators.required],
       category: [null, Validators.required],
       value: ['', Validators.required],
-      dateCreated: [new Date(),  Validators.required],
+      dateCreated: [new Date(), Validators.required],
       description: [''],
-      isToday: [true],
+      isToday: [true]
     });
 
     if (this.templateData.categories.length === 1) {
@@ -65,23 +65,24 @@ export class AddItemComponent implements OnInit, OnDestroy {
       }
 
       // set date
-      let date = new Date(this.form.value.dateCreated);
+      const date = new Date(this.form.value.dateCreated);
       this.form.value.dateCreated = new Date(
         date.getTime() - date.getTimezoneOffset() * 60000
       ).toJSON();
 
-      if (this.form.get('isToday').value)
+      if (this.form.get('isToday').value) {
         this.form.value.dateCreated = new Date(
           new Date().getTime() - new Date().getTimezoneOffset() * 60000
         ).toJSON();
+      }
 
       console.log(this.form);
-      let transaction = {
+      const transaction = {
         _categoryId: this.form.value.category._id,
         description: this.form.value.description,
         dateCreated: this.form.value.dateCreated,
         type: this.form.value.type,
-        value: parseFloat(this.form.value.value.toFixed(2)),
+        value: parseFloat(this.form.value.value.toFixed(2))
       };
 
       this.dialogRef.close(transaction);

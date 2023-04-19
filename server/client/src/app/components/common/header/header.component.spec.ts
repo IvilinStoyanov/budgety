@@ -1,8 +1,9 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+
+import {
+  HttpClientTestingModule,
+} from '@angular/common/http/testing';
 
 import { HeaderComponent } from './header.component';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -10,14 +11,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
-  let httpTestingController: HttpTestingController;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ],
-       imports: [ HttpClientTestingModule, RouterTestingModule ]
-    })
-    .compileComponents();
+      declarations: [HeaderComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
