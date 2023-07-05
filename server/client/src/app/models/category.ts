@@ -1,3 +1,5 @@
+import { Items } from './interface/items';
+
 export class Category {
   id: number;
   color: string;
@@ -8,19 +10,19 @@ export class Category {
   inc: number;
   name: string;
   isVisible: boolean;
-  items: [];
+  items: Items[];
 
   constructor(
-    id: number = 0,
-    color: string = '',
-    exp: number = 0,
-    expPercentage: number = 0,
-    incPercentage: number = 0,
-    icon: string = '',
-    inc: number = 0,
-    name: string = '',
-    isVisible: boolean = true,
-    items: []
+    id = 0,
+    color = '',
+    exp = 0,
+    expPercentage = 0,
+    incPercentage = 0,
+    icon = '',
+    inc = 0,
+    name = '',
+    isVisible = true,
+    items = []
   ) {
     this.id = id;
     this.color = color;
