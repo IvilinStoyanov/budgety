@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
 import {
-  HttpRequest,
+  HttpEvent,
   HttpHandler,
   HttpInterceptor,
-  HttpResponse,
-  HttpEvent
+  HttpRequest,
+  HttpResponse
 } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { LoaderService } from '../services/loader.service';
 import { Observable } from 'rxjs';
+
+import { LoaderService } from '../services/loader.service';
 
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
@@ -30,7 +31,9 @@ export class LoaderInterceptor implements HttpInterceptor {
   removeRequest(request: HttpRequest<any>) {
     if (!this.loaderService.isUrlIgnored(request.url)) {
       const index = this.requests.indexOf(request);
-      if (index >= 0) { this.requests.splice(index, 1); }
+      if (index >= 0) {
+        this.requests.splice(index, 1);
+      }
 
       this.ngxService.stopAllLoader('loader');
     }

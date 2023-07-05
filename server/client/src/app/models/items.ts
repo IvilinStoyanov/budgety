@@ -5,10 +5,10 @@ export class Items {
   value: number;
 
   constructor(
-    description: string = '',
+    description = '',
     dateCreated: Date = new Date(),
-    type: string = '',
-    value: number = 0
+    type = '',
+    value = 0
   ) {
     this.description = description;
     this.dateCreated = dateCreated;

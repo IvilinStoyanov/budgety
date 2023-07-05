@@ -85,7 +85,9 @@ export class EditCategoryComponent implements OnInit {
     if (categoryTemplateIndex >= 0) {
       this.data.categoryTemplates[categoryTemplateIndex].color = color;
     }
-    if (categoryIndex >= 0) { this.data.categories[categoryIndex].color = color; }
+    if (categoryIndex >= 0) {
+      this.data.categories[categoryIndex].color = color;
+    }
 
     this.commonService.saveData(this.data);
   }

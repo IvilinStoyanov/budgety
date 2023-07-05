@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -14,8 +13,6 @@ export class AppComponent {
   constructor(public authService: AuthService, private router: Router) {
     this.authService.fetchUser().subscribe(user => {
       this.authService.setCurrentUser(user);
-
-      // if (user) this.router.navigate(['/latest']);
     });
   }
 }

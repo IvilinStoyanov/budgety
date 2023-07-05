@@ -1,11 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { take } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
 import { CommonService } from 'src/app/services/common.service';
 import { SavingsService } from 'src/app/services/savings.service';
-import { AuthService } from 'src/app/services/auth.service';
+
 import { BalanceModalComponent } from './modals/balance-modal/balance-modal.component';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tabs',
@@ -43,7 +44,9 @@ export class TabsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(savings => {
       if (savings) {
         this.savingsService.updateSavings(savings).subscribe(user => {
-          if (user) { this.authService.setCurrentUser(user); }
+          if (user) {
+            this.authService.setCurrentUser(user);
+          }
         });
       }
     });

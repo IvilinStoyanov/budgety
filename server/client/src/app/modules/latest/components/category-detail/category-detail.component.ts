@@ -1,16 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonService } from 'src/app/services/common.service';
-import { NotificationService } from 'src/app/services/notification.service';
-import { ConfirmDialogComponent } from '../../../../components/common/confirm-dialog/confirm-dialog.component';
-import { AddItemComponent } from '../../../../components/add-item/add-item.component';
-import { ICategory } from 'src/app/models/interface/category';
 import * as shape from 'd3-shape';
-import { ITransaction } from 'src/app/models/interface/transaction';
-import { TransactionsService } from 'src/app/services/transactions.service';
-import { CategoriesService } from 'src/app/services/categories.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { Subject } from 'rxjs';
+import { of } from 'rxjs';
 import {
   map,
   startWith,
@@ -19,8 +12,16 @@ import {
   takeUntil,
   tap
 } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-import { of } from 'rxjs';
+import { ICategory } from 'src/app/models/interface/category';
+import { ITransaction } from 'src/app/models/interface/transaction';
+import { AuthService } from 'src/app/services/auth.service';
+import { CategoriesService } from 'src/app/services/categories.service';
+import { CommonService } from 'src/app/services/common.service';
+import { NotificationService } from 'src/app/services/notification.service';
+import { TransactionsService } from 'src/app/services/transactions.service';
+
+import { AddItemComponent } from '../../../../components/add-item/add-item.component';
+import { ConfirmDialogComponent } from '../../../../components/common/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-category-detail',
@@ -62,13 +63,13 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
           return this.categoriesService.getCategoryById(this.categoryId);
         }),
         tap(category => (this.category = category)),
-        switchMap(category => {
-          return this.transactionsService.getTransactions(
+        switchMap(category =>
+          this.transactionsService.getTransactions(
             category._id,
             this.pageIndex,
             this.pageSize
-          );
-        }),
+          )
+        ),
         tap(result => {
           this.transactions = result.transactions;
 
@@ -92,7 +93,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     return new Array(i);
   }
 
-  changePageIndex(currentPageIndex: number = 0) {
+  changePageIndex(currentPageIndex = 0) {
     this.pageIndex = currentPageIndex;
 
     this.transactionsService
@@ -141,7 +142,9 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe(result => {
-        if (result) { this.transactions = result.transactions; }
+        if (result) {
+          this.transactions = result.transactions;
+        }
       });
   }
 
@@ -184,7 +187,9 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
           this.authService.setCurrentUser(result.user);
 
           // return to the latest page if there is no more transactions
-          if (this.transactions.length === 0) { this.router.navigate(['/latest']); }
+          if (this.transactions.length === 0) {
+            this.router.navigate(['/latest']);
+          }
         }
       });
   }
@@ -207,8 +212,12 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
         name: `${index + 1}.${day}/${month + 1}`
       };
 
-      if (element.type === 'inc') { incData.series.push(item); }
-      if (element.type === 'exp') { expData.series.push(item); }
+      if (element.type === 'inc') {
+        incData.series.push(item);
+      }
+      if (element.type === 'exp') {
+        expData.series.push(item);
+      }
     });
 
     this.chartData = [incData, expData];

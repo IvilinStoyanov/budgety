@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificationService } from 'src/app/services/notification.service';
-import { CategoriesColors } from 'src/app/enums/categories-colors.enum';
-import { CategoriesService } from 'src/app/services/categories.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MaterialIcons } from 'src/app/enums/material-icons-type';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import {
@@ -13,6 +9,10 @@ import {
   map,
   switchMap
 } from 'rxjs/operators';
+import { CategoriesColors } from 'src/app/enums/categories-colors.enum';
+import { MaterialIcons } from 'src/app/enums/material-icons-type';
+import { CategoriesService } from 'src/app/services/categories.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-add-category',
@@ -56,7 +56,9 @@ export class AddCategoryComponent implements OnInit {
       switchMap(value => {
         const filteredIcons = [];
         this.icons.map(icon => {
-          if (icon.name.includes(value)) { filteredIcons.push(icon); }
+          if (icon.name.includes(value)) {
+            filteredIcons.push(icon);
+          }
         });
         return of(filteredIcons);
       })

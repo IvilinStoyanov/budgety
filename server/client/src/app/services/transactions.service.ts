@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { ITransaction } from '../models/interface/transaction';
 
 @Injectable({
@@ -63,9 +65,21 @@ export class TransactionsService {
     year: number,
     month: string
   ): Observable<ITransaction[]> {
-    return this.http.get<ITransaction[]>(
-      `/api/transactions/monthly/${year}/${month}`
-    );
+    return this.http
+      .get<ITransaction[]>(`/api/transactions/monthly/${year}/${month}`)
+      .pipe(
+        map((transactions: ITransaction[]) => {
+          transactions.forEach((transaction: ITransaction) => {
+            const date = new Date(transaction.dateCreated);
+
+            transaction.dateCreated = date
+              .toISOString()
+              .substring(0, date.toISOString().length - 1);
+          });
+
+          return transactions;
+        })
+      );
   }
 
   getYearlyTransactions(

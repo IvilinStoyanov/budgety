@@ -72,9 +72,13 @@ export class MonthlyListComponent implements OnInit {
           }
 
           if (this.monthlyList[itemMonth] !== undefined) {
-            if (item.type === 'inc') { income = item.value; }
+            if (item.type === 'inc') {
+              income = item.value;
+            }
 
-            if (item.type === 'exp') { expense = item.value; }
+            if (item.type === 'exp') {
+              expense = item.value;
+            }
 
             this.monthlyList[itemMonth].income += income;
             this.monthlyList[itemMonth].expense += expense;
@@ -90,7 +94,9 @@ export class MonthlyListComponent implements OnInit {
       let percentage = Math.round((element.expense / element.income) * 100);
       percentage = 100 - percentage;
 
-      if (percentage < 0) { percentage = 0; }
+      if (percentage < 0) {
+        percentage = 0;
+      }
 
       this.monthlyList[index].budgetPercetange = percentage;
     });

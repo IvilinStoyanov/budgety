@@ -6,22 +6,19 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-
+import { of, Subject } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
+import { AddItemComponent } from 'src/app/components/add-item/add-item.component';
+import { Category } from 'src/app/models/category';
+import { ICategory } from 'src/app/models/interface/category';
+import { IUser } from 'src/app/models/interface/User';
 import { AuthService } from 'src/app/services/auth.service';
+import { CategoriesService } from 'src/app/services/categories.service';
 import { CommonService } from 'src/app/services/common.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { CategoriesService } from 'src/app/services/categories.service';
 import { TransactionsService } from 'src/app/services/transactions.service';
 
 import { SetupCategoriesComponent } from './modals/setup-categories/setup-categories.component';
-import { AddItemComponent } from 'src/app/components/add-item/add-item.component';
-
-import { ICategory } from 'src/app/models/interface/category';
-import { Category } from 'src/app/models/category';
-import { IUser } from 'src/app/models/interface/User';
-
-import { map, switchMap, take, tap } from 'rxjs/operators';
-import { of, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-latest',
@@ -58,12 +55,9 @@ export class LatestListComponent implements OnInit {
             return this.categoriesService.getCategories();
           }
         }),
-        map(categories => {
-          return this.commonService.calculatePercentageEach(
-            categories,
-            this.user
-          );
-        }),
+        map(categories =>
+          this.commonService.calculatePercentageEach(categories, this.user)
+        ),
         tap(categories => {
           this.categories = categories;
           this.categoriesService.categories = this.categories;
@@ -74,7 +68,9 @@ export class LatestListComponent implements OnInit {
         if (result) {
           this.setViewMode('exp');
           // set viewMode to inc if there is no expenses on first load.
-          if (this.user?.exp === 0) { this.viewMode = 'inc'; }
+          if (this.user?.exp === 0) {
+            this.viewMode = 'inc';
+          }
 
           this.cd.detectChanges();
         }
@@ -116,13 +112,13 @@ export class LatestListComponent implements OnInit {
     this.commonService.viewMode = mode;
 
     if (mode === 'inc') {
-      this.categories.sort(function(a: { inc: number }, b: { inc: number }) {
+      this.categories.sort(function (a: { inc: number }, b: { inc: number }) {
         return b.inc - a.inc;
       });
     }
 
     if (mode === 'exp') {
-      this.categories.sort(function(a: { exp: number }, b: { exp: number }) {
+      this.categories.sort(function (a: { exp: number }, b: { exp: number }) {
         return b.exp - a.exp;
       });
     }
@@ -131,12 +127,16 @@ export class LatestListComponent implements OnInit {
   showCategories(category: Category) {
     if (category) {
       if (this.viewMode === 'inc') {
-        if (category.inc > 0) { return true; }
+        if (category.inc > 0) {
+          return true;
+        }
 
         return false;
       }
       if (this.viewMode === 'exp') {
-        if (category.exp > 0) { return true; }
+        if (category.exp > 0) {
+          return true;
+        }
 
         return false;
       }
