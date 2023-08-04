@@ -2,18 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as shape from 'd3-shape';
-import { Subject } from 'rxjs';
-import { of } from 'rxjs';
-import {
-  map,
-  startWith,
-  switchMap,
-  take,
-  takeUntil,
-  tap
-} from 'rxjs/operators';
+import { of, Subject } from 'rxjs';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ICategory } from 'src/app/models/interface/category';
 import { ITransaction } from 'src/app/models/interface/transaction';
+import { IUser } from 'src/app/models/interface/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { CommonService } from 'src/app/services/common.service';
@@ -54,7 +47,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     private authService: AuthService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.queryParams
       .pipe(
         switchMap(params => {
@@ -89,11 +82,11 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     this.$destroyed.unsubscribe();
   }
 
-  counter(i: number) {
+  counter(i: number): Array<number> {
     return new Array(i);
   }
 
-  changePageIndex(currentPageIndex = 0) {
+  changePageIndex(currentPageIndex = 0): void {
     this.pageIndex = currentPageIndex;
 
     this.transactionsService
@@ -125,12 +118,14 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  addItem(params: any): void {
+  addItem(params: ITransaction): void {
     this.transactionsService
       .createTransation(params)
       .pipe(
         switchMap(transaction => {
+          console.log(transaction);
           if (transaction) {
+            console.log(params);
             return this.transactionsService.getTransactions(
               params._categoryId,
               0,
@@ -148,7 +143,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       });
   }
 
-  openConfirmDialog(item: any): void {
+  openConfirmDialog(item: ITransaction): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       autoFocus: false,
       data: {
@@ -158,14 +153,14 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.deleteItem(result);
+    dialogRef.afterClosed().subscribe((transaction: ITransaction) => {
+      if (transaction) {
+        this.deleteItem(transaction);
       }
     });
   }
 
-  deleteItem(transaction: any) {
+  deleteItem(transaction: ITransaction): void {
     this.transactionsService
       .deleteTransaction(
         transaction._id,
@@ -173,8 +168,8 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
         transaction.value,
         transaction._categoryId
       )
-      .subscribe(result => {
-        if (result) {
+      .subscribe((user: IUser) => {
+        if (user) {
           const transactionIndex = this.transactions.findIndex(
             t => t._id === transaction._id
           );
@@ -184,7 +179,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
 
           this.chartDataLatest(this.latestCount);
 
-          this.authService.setCurrentUser(result.user);
+          this.authService.setCurrentUser(user);
 
           // return to the latest page if there is no more transactions
           if (this.transactions.length === 0) {
@@ -194,7 +189,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       });
   }
 
-  chartDataLatest(count: number) {
+  chartDataLatest(count: number): void {
     this.isAxisVisible = false;
     this.latestCount = count;
 

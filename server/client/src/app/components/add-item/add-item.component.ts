@@ -2,6 +2,8 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
+import { AddItemModalData } from 'src/app/models/interface/add-item-modal-data';
+import { ITransaction } from 'src/app/models/interface/transaction';
 
 @Component({
   selector: 'app-add-item',
@@ -12,11 +14,11 @@ export class AddItemComponent implements OnInit, OnDestroy {
   private categorySubscription: Subscription = new Subscription();
   form: FormGroup;
   categoryPicked: string;
-  templateData: any;
+  templateData: AddItemModalData;
 
   constructor(
     public dialogRef: MatDialogRef<AddItemComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: AddItemComponent,
+    @Inject(MAT_DIALOG_DATA) public data: AddItemModalData,
     private fb: FormBuilder
   ) {
     this.templateData = data;
@@ -68,20 +70,13 @@ export class AddItemComponent implements OnInit, OnDestroy {
         this.form.get('type').setValue('exp');
       }
 
-      debugger;
       // set date
       const date = new Date(this.form.value.dateCreated);
       this.form.value.dateCreated = new Date(
         date.getTime() - date.getTimezoneOffset() * 60000
       ).toJSON();
 
-      // if (this.form.get('isToday').value) {
-      //   this.form.value.dateCreated = new Date(
-      //     new Date().getTime() - new Date().getTimezoneOffset() * 60000
-      //   ).toJSON();
-      // }
-
-      const transaction = {
+      const transaction: ITransaction = {
         _categoryId: this.form.value.category._id,
         description: this.form.value.description,
         dateCreated: this.form.value.dateCreated,

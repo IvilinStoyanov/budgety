@@ -105,8 +105,9 @@ module.exports = app => {
     app.delete('/api/transactions', requireLogin, async (req, res) => {
         try {
             const { _id, type, value, _categoryId } = req.query;
-
             const transaction = await Transactions.deleteOne({ _categoryId, _id });
+            console.log(req.query);
+            console.log(transaction);
             let user;
 
             if (transaction.deletedCount > 0) {

@@ -160,7 +160,8 @@ export class LatestListComponent implements OnInit {
     });
   }
 
-  addItem(params: any) {
+  addItem(params: any): void {
+    console.log(params);
     this.setViewMode(params.type);
     this.transactionsService
       .createTransactionGlobal(params)
@@ -172,7 +173,7 @@ export class LatestListComponent implements OnInit {
 
           this.authService.setCurrentUser(this.user);
           const key = this.categories.findIndex(
-            category => category._id === result._categoryId
+            category => category._id === result.categoryId
           );
 
           this.categories[key] = result.category;

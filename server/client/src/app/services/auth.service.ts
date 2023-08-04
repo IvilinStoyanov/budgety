@@ -21,7 +21,7 @@ export class AuthService {
     return this.http.get<IUser>('/api/current_user');
   }
 
-  setCurrentUser(user: IUser) {
+  setCurrentUser(user: IUser): void {
     this.currentUserSource.next(user);
   }
 

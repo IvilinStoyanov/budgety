@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ITransaction } from '../models/interface/transaction';
+import { IUser } from '../models/interface/User';
+import { CategoryTransactionsResponse } from '../modules/latest/models/category-transactions-response';
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +19,16 @@ export class TransactionsService {
     categoryId: string,
     pageIndex: number,
     pageSize: number
-  ): Observable<any> {
+  ): Observable<CategoryTransactionsResponse> {
     const params = {
-      categoryId,
+      _categoryId: categoryId,
       pageIndex,
       pageSize
     };
 
-    return this.http.get<any>('/api/transactions', { params });
+    return this.http.get<CategoryTransactionsResponse>('/api/transactions', {
+      params
+    });
   }
 
   createTransactionGlobal(params: any): Observable<any> {
@@ -36,19 +40,19 @@ export class TransactionsService {
   }
 
   deleteTransaction(
-    id: string,
+    _id: string,
     type: string,
     value: number,
-    categoryId: string
-  ): Observable<any> {
+    _categoryId: string
+  ): Observable<IUser> {
     const params = {
-      id,
+      _id,
       type,
       value,
-      categoryId
+      _categoryId
     };
 
-    return this.http.delete<any>('/api/transactions', { params });
+    return this.http.delete<IUser>('/api/transactions', { params });
   }
 
   getMonthlyTransactions(year: number): Observable<ITransaction[]> {
