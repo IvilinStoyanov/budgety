@@ -11,6 +11,7 @@ import {
 } from 'rxjs/operators';
 import { CategoriesColors } from 'src/app/enums/categories-colors.enum';
 import { MaterialIcons } from 'src/app/enums/material-icons-type';
+import { Category } from 'src/app/models/category';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { NotificationService } from 'src/app/services/notification.service';
 
@@ -39,7 +40,7 @@ export class AddCategoryComponent implements OnInit {
     public router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.icons = Object.values(MaterialIcons)
       .filter(icon => typeof icon !== 'number')
       .map(value => ({ name: value }));
@@ -64,7 +65,7 @@ export class AddCategoryComponent implements OnInit {
       })
     );
   }
-  createForm() {
+  createForm(): void {
     this.form = this.fb.group({
       name: ['', Validators.required],
       icon: ['', Validators.required],
@@ -73,32 +74,39 @@ export class AddCategoryComponent implements OnInit {
     });
   }
 
-  openPanel() {
+  openPanel(): void {
     this.panelOpenState = !this.panelOpenState;
   }
 
-  selectColor(color: string, index: number) {
+  selectColor(color: string, index: number): void {
     this.currentColorIndex = index;
     this.form.get('color').setValue(color);
   }
 
-  selectIcon(icon) {
+  selectIcon(icon): void {
     this.currentIconName = icon.name;
     this.form.get('icon').setValue(icon.name);
   }
 
-  addCategory() {
+  addCategory(): void {
     if (!this.currentIconName || !this.currentColorIndex) {
       this.notification.warn('Please select icon and color');
     }
     if (this.form.valid) {
       const params = this.form.value;
 
-      const category = {
-        color: params.color,
-        icon: params.icon,
-        name: params.name
-      };
+      const category = new Category(
+        0,
+        params.color,
+        0,
+        0,
+        0,
+        params.icon,
+        0,
+        params.name,
+        false,
+        []
+      );
 
       this.categoriesService.importCategory(category).subscribe(() => {
         this.router.navigate(['/latest']);

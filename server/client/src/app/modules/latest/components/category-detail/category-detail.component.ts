@@ -123,9 +123,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       .createTransation(params)
       .pipe(
         switchMap(transaction => {
-          console.log(transaction);
           if (transaction) {
-            console.log(params);
             return this.transactionsService.getTransactions(
               params._categoryId,
               0,

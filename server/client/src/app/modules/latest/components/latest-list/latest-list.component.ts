@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { of, Subject } from 'rxjs';
+import { of } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { AddItemComponent } from 'src/app/components/add-item/add-item.component';
 import { Category } from 'src/app/models/category';
@@ -19,6 +19,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { TransactionsService } from 'src/app/services/transactions.service';
 
 import { SetupCategoriesComponent } from './modals/setup-categories/setup-categories.component';
+import { ITransaction } from 'src/app/models/interface/transaction';
 
 @Component({
   selector: 'app-latest',
@@ -29,7 +30,7 @@ import { SetupCategoriesComponent } from './modals/setup-categories/setup-catego
 export class LatestListComponent implements OnInit {
   categories: ICategory[] = [];
   user: IUser | undefined;
-  viewMode: any;
+  viewMode: string;
 
   constructor(
     private dialog: MatDialog,
@@ -42,7 +43,7 @@ export class LatestListComponent implements OnInit {
     private cd: ChangeDetectorRef
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.authService.currentUser$
       .pipe(
         switchMap(user => {
@@ -77,7 +78,7 @@ export class LatestListComponent implements OnInit {
       });
   }
 
-  openSetupCategoriesModal() {
+  openSetupCategoriesModal(): void {
     const dialogRef = this.dialog.open(SetupCategoriesComponent, {
       autoFocus: false,
       disableClose: true
@@ -99,7 +100,7 @@ export class LatestListComponent implements OnInit {
     });
   }
 
-  navigateToCategory(categoryId: number) {
+  navigateToCategory(categoryId: number): void {
     this.router.navigate(['latest/category'], {
       queryParams: { id: categoryId },
       skipLocationChange: true,
@@ -107,7 +108,7 @@ export class LatestListComponent implements OnInit {
     });
   }
 
-  setViewMode(mode: string) {
+  setViewMode(mode: string): void {
     this.viewMode = mode;
     this.commonService.viewMode = mode;
 
@@ -124,7 +125,7 @@ export class LatestListComponent implements OnInit {
     }
   }
 
-  showCategories(category: Category) {
+  showCategories(category: Category): boolean {
     if (category) {
       if (this.viewMode === 'inc') {
         if (category.inc > 0) {
@@ -160,11 +161,10 @@ export class LatestListComponent implements OnInit {
     });
   }
 
-  addItem(params: any): void {
-    console.log(params);
-    this.setViewMode(params.type);
+  addItem(transaction: ITransaction): void {
+    this.setViewMode(transaction.type);
     this.transactionsService
-      .createTransactionGlobal(params)
+      .createTransactionGlobal(transaction)
       .subscribe(result => {
         if (result) {
           this.user = this.commonService.calculateTotalExpPercentage(
@@ -173,7 +173,7 @@ export class LatestListComponent implements OnInit {
 
           this.authService.setCurrentUser(this.user);
           const key = this.categories.findIndex(
-            category => category._id === result.categoryId
+            category => category._id === result.category._id
           );
 
           this.categories[key] = result.category;

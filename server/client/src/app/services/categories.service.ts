@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ICategory } from '../models/interface/category';
+import { CategoryInitialImportResponse } from '../modules/latest/models/category-initial-import-response';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +21,16 @@ export class CategoriesService {
     return this.http.get<ICategory>(`api/category/${id}`);
   }
 
-  importCategories(params: any): Observable<any> {
-    return this.http.post<any>('/api/categories', params);
+  importCategories(
+    categories: ICategory[]
+  ): Observable<CategoryInitialImportResponse> {
+    return this.http.post<CategoryInitialImportResponse>(
+      '/api/categories',
+      categories
+    );
   }
 
-  importCategory(params: any): Observable<ICategory> {
-    return this.http.post<ICategory>('/api/category', params);
+  importCategory(category: ICategory): Observable<ICategory> {
+    return this.http.post<ICategory>('/api/category', category);
   }
 }

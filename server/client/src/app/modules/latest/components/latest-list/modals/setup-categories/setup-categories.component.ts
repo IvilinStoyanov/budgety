@@ -83,12 +83,12 @@ export class SetupCategoriesComponent {
     @Inject(MAT_DIALOG_DATA) public data: SetupCategoriesComponent
   ) {}
 
-  select(index: number) {
+  select(index: number): void {
     this.categoryTemplates[index].isSelected =
       !this.categoryTemplates[index].isSelected;
   }
 
-  import() {
+  import(): void {
     const filteredCategories = this.categoryTemplates.filter(
       category => category.isSelected
     );

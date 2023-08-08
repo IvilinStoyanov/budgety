@@ -6,6 +6,8 @@ import { map } from 'rxjs/operators';
 import { ITransaction } from '../models/interface/transaction';
 import { IUser } from '../models/interface/User';
 import { CategoryTransactionsResponse } from '../modules/latest/models/category-transactions-response';
+import { TransactionGlobalResponse } from '../modules/latest/models/transaction-global-response';
+import { TransactionResponse } from '../modules/latest/models/transaction-response';
 
 @Injectable({
   providedIn: 'root'
@@ -31,12 +33,20 @@ export class TransactionsService {
     });
   }
 
-  createTransactionGlobal(params: any): Observable<any> {
-    return this.http.post<any>('/api/transactions/global', params);
+  createTransactionGlobal(
+    transaction: ITransaction
+  ): Observable<TransactionGlobalResponse> {
+    return this.http.post<TransactionGlobalResponse>(
+      '/api/transactions/global',
+      transaction
+    );
   }
 
-  createTransation(params: any): Observable<any> {
-    return this.http.post<any>('/api/transactions', params);
+  createTransation(transaction: ITransaction): Observable<TransactionResponse> {
+    return this.http.post<TransactionResponse>(
+      '/api/transactions',
+      transaction
+    );
   }
 
   deleteTransaction(

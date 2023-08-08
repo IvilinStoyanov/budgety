@@ -106,8 +106,6 @@ module.exports = app => {
         try {
             const { _id, type, value, _categoryId } = req.query;
             const transaction = await Transactions.deleteOne({ _categoryId, _id });
-            console.log(req.query);
-            console.log(transaction);
             let user;
 
             if (transaction.deletedCount > 0) {
@@ -208,7 +206,6 @@ module.exports = app => {
 
     app.get('/api/transactions/yearly', requireLogin, async (req, res) => {
         const { startYear, endYear } = req.query;
-        console.log(req.query);
 
         try {
             const categories = await Categories.find({ _user: req.user.id });

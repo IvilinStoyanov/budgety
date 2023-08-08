@@ -20,19 +20,18 @@ export class BalanceModalComponent implements OnInit {
     this.user = data;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.createForm();
-    console.log(this.user);
   }
 
-  createForm() {
+  createForm(): void {
     this.form = this.fb.group({
       savings: [this.user.savings],
       budget: [this.user.inc - this.user.exp]
     });
   }
 
-  save() {
+  save(): void {
     this.dialogRef.close(this.form.get('savings').value);
   }
 }
