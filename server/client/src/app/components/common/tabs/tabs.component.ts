@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { take } from 'rxjs/operators';
+import { IUser } from 'src/app/models/interface/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { CommonService } from 'src/app/services/common.service';
 import { SavingsService } from 'src/app/services/savings.service';
@@ -14,7 +15,7 @@ import { BalanceModalComponent } from './modals/balance-modal/balance-modal.comp
   styleUrls: ['./tabs.component.scss']
 })
 export class TabsComponent implements OnInit {
-  @Input() user: any;
+  @Input() user: IUser;
   currentIndex: number;
 
   constructor(
@@ -24,18 +25,18 @@ export class TabsComponent implements OnInit {
     private dialog: MatDialog
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.commonService.currentTabIndex
       .pipe(take(1))
       .subscribe(value => (this.currentIndex = value));
   }
 
-  onChange(event: MatTabChangeEvent) {
+  onChange(event: MatTabChangeEvent): void {
     this.commonService.currentTabIndex.next(event.index);
     this.commonService.navigateTo(event.tab.textLabel.toLowerCase());
   }
 
-  openBalanceModal() {
+  openBalanceModal(): void {
     const dialogRef = this.dialog.open(BalanceModalComponent, {
       autoFocus: false,
       data: this.user

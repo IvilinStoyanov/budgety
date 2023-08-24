@@ -23,11 +23,11 @@ export class MonthlyListComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.createMonthlyList();
   }
 
-  chosenYearHandler(chosenDate: any, datepicker: MatDatepicker<any>) {
+  chosenYearHandler(chosenDate: any, datepicker: MatDatepicker<any>): void {
     datepicker.close();
 
     this.dateForm.get('year').setValue(chosenDate);
@@ -36,7 +36,7 @@ export class MonthlyListComponent implements OnInit {
     this.createMonthlyList(chosenDate);
   }
 
-  createMonthlyList(date: Date = new Date()) {
+  createMonthlyList(date: Date = new Date()): void {
     this.monthlyList = [];
 
     const months = [
@@ -89,7 +89,7 @@ export class MonthlyListComponent implements OnInit {
       });
   }
 
-  calculateBudgetPercetange(data: any) {
+  calculateBudgetPercetange(data: any): void {
     data.forEach((element, index: number) => {
       let percentage = Math.round((element.expense / element.income) * 100);
       percentage = 100 - percentage;
