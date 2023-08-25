@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { SharedModule } from '../shared/shared.module';
 import { CategoriesActionRoutingModule } from './categories-action-routing.module';
@@ -8,6 +9,11 @@ import { EditCategoryComponent } from './components/edit-category/edit-category.
 
 @NgModule({
   declarations: [AddCategoryComponent, EditCategoryComponent],
-  imports: [CommonModule, SharedModule, CategoriesActionRoutingModule]
+  imports: [
+    CommonModule,
+    SharedModule,
+    CategoriesActionRoutingModule,
+    NgbModule
+  ]
 })
-export class CategoriesActionModule {}
+export class CategoriesActionModule { }

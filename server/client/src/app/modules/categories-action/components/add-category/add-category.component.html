@@ -6,6 +6,34 @@
       <span class="text-center text-sm text-grey pl-2 pr-2" [style.max-width.px]="380">By pressing button below you can
         add your custom category</span>
     </div>
+
+    <!-- <div [formGroup]="formTest" ngbDropdown class="dropdown custom-dropdown mb-5">
+      <div class="custom-input" ngbDropdownToggle>
+        <input class="form-control selected-value" type="text" id="dropdownMultiSelect"
+          [value]="getSelectedOptionsText() || 'Select Items'" readonly />
+      </div>
+      <div ngbDropdownMenu aria-labelledby="dropdownMultiSelect">
+        <div class="dropdown-item" *ngFor="let option of options">
+          <ng-container *ngIf="isMultiSelect">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" [value]="option.value"
+                [checked]="selectedOptionsArray.value.includes(option.value)" (change)="toggleOption(option.value)" />
+              {{ option.label }}
+            </label>
+          </ng-container>
+          <ng-container *ngIf="!isMultiSelect">
+            <div
+            class="dropdown-item"
+            (click)="selectValue(option.value)"
+          >
+            {{ option.label }}
+          </div>
+          </ng-container>
+        </div>
+      </div>
+    </div> -->
+
+
     <form [formGroup]="form" autocomplete="off">
       <div fxLayout="column">
         <mat-form-field class="ml-1 mr-1" fxFlex appearance="outline">

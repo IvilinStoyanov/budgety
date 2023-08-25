@@ -11,6 +11,7 @@ import { map, switchMap, take, tap } from 'rxjs/operators';
 import { AddItemComponent } from 'src/app/components/add-item/add-item.component';
 import { Category } from 'src/app/models/category';
 import { ICategory } from 'src/app/models/interface/category';
+import { ITransaction } from 'src/app/models/interface/transaction';
 import { IUser } from 'src/app/models/interface/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { CategoriesService } from 'src/app/services/categories.service';
@@ -19,7 +20,6 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { TransactionsService } from 'src/app/services/transactions.service';
 
 import { SetupCategoriesComponent } from './modals/setup-categories/setup-categories.component';
-import { ITransaction } from 'src/app/models/interface/transaction';
 
 @Component({
   selector: 'app-latest',

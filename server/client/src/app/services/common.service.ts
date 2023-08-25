@@ -11,23 +11,23 @@ import { IUser } from '../models/interface/User';
 export class CommonService {
   viewMode = 'exp';
   currentTabIndex: BehaviorSubject<number>;
-  isAvailable: BehaviorSubject<any>;
+  isAvailable: BehaviorSubject<boolean>;
   categoryTemplates: ICategory[] = [];
 
   constructor(private router: Router) {
     this.currentTabIndex = new BehaviorSubject<number>(0);
-    this.isAvailable = new BehaviorSubject<any>(null);
+    this.isAvailable = new BehaviorSubject<boolean>(null);
   }
 
-  navigateTo(path: string) {
+  navigateTo(path: string): void {
     this.router.navigate([`/${path}`]);
   }
 
-  scrollToTop() {
+  scrollToTop(): void {
     window.scroll(0, 0);
   }
 
-  isDateToday(date: Date) {
+  isDateToday(date: Date): boolean {
     const today = new Date(new Date().setHours(0, 0, 0, 0)).getTime();
     const itemDate = new Date(new Date(date).setHours(0, 0, 0, 0)).getTime();
 
@@ -36,13 +36,14 @@ export class CommonService {
     return false;
   }
 
-  saveData(data: any) {
+  // TOOD: To be removed
+  saveData(data: any): void {
     data.totals.inc = parseFloat(data.totals.inc.toFixed(2));
     data.totals.exp = parseFloat(data.totals.exp.toFixed(2));
     localStorage.setItem('data', JSON.stringify(data));
   }
 
-  calculatePercentageEach(categories: ICategory[], user: IUser) {
+  calculatePercentageEach(categories: ICategory[], user: IUser): ICategory[] {
     categories.forEach(category => {
       if (category) {
         if (category.exp > 0 && user.inc > 0) {
@@ -57,7 +58,7 @@ export class CommonService {
     return categories;
   }
 
-  calculateTotalExpPercentage(user: IUser) {
+  calculateTotalExpPercentage(user: IUser): IUser {
     const budget = user.inc - user.exp;
 
     if (user.inc > 0) {

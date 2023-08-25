@@ -125,7 +125,7 @@ module.exports = app => {
                     .exec();
             }
 
-            res.send({ user });
+            res.send(user);
 
         } catch (error) {
             res.status(422).send(error);

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import {
@@ -33,12 +33,35 @@ export class AddCategoryComponent implements OnInit {
   foundedIcons: any = [];
   icons$: Observable<any>;
 
+  // formTest: FormGroup;
+
+  // options = [
+  //   { label: 'Option 1', value: '1' },
+  //   { label: 'Option 2', value: '2' },
+  //   { label: 'Option 3', value: '3' }
+  //   // ... Add more options as needed
+  // ];
+
+  // isMultiSelect: boolean;
+
+
+
+  // get selectedOptionsArray(): FormArray {
+  //   return this.formTest.get('selectedOptions') as FormArray;
+  // }
+
   constructor(
     private notification: NotificationService,
     private categoriesService: CategoriesService,
     private fb: FormBuilder,
     public router: Router
-  ) {}
+  ) {
+    // this.isMultiSelect = false;
+
+    // this.formTest = this.fb.group({
+    //   selectedOptions: this.fb.array([])
+    // });
+  }
 
   ngOnInit(): void {
     this.icons = Object.values(MaterialIcons)
@@ -65,6 +88,41 @@ export class AddCategoryComponent implements OnInit {
       })
     );
   }
+
+  // getSelectedOptionsText(): string {
+  //   const selectedValues = this.selectedOptionsArray.value;
+  //   const selectedLabels = this.options
+  //     .filter(option => selectedValues.includes(option.value))
+  //     .map(option => option.label);
+  //   return selectedLabels.join(', ');
+  // }
+
+  // toggleOption(value: string): void {
+  //   const selectedOptions = this.selectedOptionsArray;
+
+  //   if (selectedOptions.value.includes(value)) {
+  //     selectedOptions.removeAt(selectedOptions.value.indexOf(value));
+  //   } else {
+  //     selectedOptions.push(new FormControl(value));
+  //   }
+
+  //   console.log(this.formTest.value);
+  // }
+
+  // selectValue(value: string): void {
+  //   const selectedOptions = this.selectedOptionsArray;
+
+  //   if (!selectedOptions.value.includes(value)) {
+  //     selectedOptions.removeAt(selectedOptions.value.indexOf(value));
+  //   }
+
+  //   selectedOptions.push(new FormControl(value));
+
+  //   console.log(this.formTest.value);
+  //   // this.formTest.get('selectedOptions')?.setValue(value);
+
+  // }
+
   createForm(): void {
     this.form = this.fb.group({
       name: ['', Validators.required],

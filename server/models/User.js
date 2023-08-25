@@ -3,6 +3,10 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema({
     googleId: String,
+    name: Object,
+    picture: String,
+    email: String,
+    locale: String,
     savings: { type: Number, default: 0 },
     inc: { type: Number, default: 0 },
     exp: { type: Number, default: 0 },
