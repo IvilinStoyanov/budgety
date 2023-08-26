@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -14,6 +14,8 @@ import { MaterialIcons } from 'src/app/shared/enums/material-icons-type';
 import { Category } from 'src/app/shared/models/class/category';
 import { CategoriesService } from 'src/app/shared/services/categories.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
+
+import { Icon } from '../../models/icon';
 
 @Component({
   selector: 'app-add-category',
@@ -29,9 +31,10 @@ export class AddCategoryComponent implements OnInit {
   currentIconName: string;
   categoryColors: string[];
   currentColorIndex: number;
-  icons: any = [];
-  foundedIcons: any = [];
-  icons$: Observable<any>;
+  icons: Icon[] = [];
+  icons$: Observable<Icon[]>;
+
+  destroy$: Subject<boolean>;
 
   // formTest: FormGroup;
 
@@ -66,7 +69,7 @@ export class AddCategoryComponent implements OnInit {
   ngOnInit(): void {
     this.icons = Object.values(MaterialIcons)
       .filter(icon => typeof icon !== 'number')
-      .map(value => ({ name: value }));
+      .map(value => ({ name: value })) as Icon[];
 
     this.categoryColors = Object.values(CategoriesColors);
 
@@ -78,12 +81,13 @@ export class AddCategoryComponent implements OnInit {
       map(value => value.trim()),
       filter(value => value !== ''),
       switchMap(value => {
-        const filteredIcons = [];
+        const filteredIcons: Icon[] = [];
         this.icons.map(icon => {
           if (icon.name.includes(value)) {
             filteredIcons.push(icon);
           }
         });
+
         return of(filteredIcons);
       })
     );
@@ -141,7 +145,7 @@ export class AddCategoryComponent implements OnInit {
     this.form.get('color').setValue(color);
   }
 
-  selectIcon(icon): void {
+  selectIcon(icon: Icon): void {
     this.currentIconName = icon.name;
     this.form.get('icon').setValue(icon.name);
   }
