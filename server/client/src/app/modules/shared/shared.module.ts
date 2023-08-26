@@ -21,16 +21,16 @@ import { RouterModule } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ColorSketchModule } from 'ngx-color/sketch';
-import { AddItemComponent } from 'src/app/components/add-item/add-item.component';
-import { BackButtonComponent } from 'src/app/components/common/back-button/back-button.component';
-import { ConfirmDialogComponent } from 'src/app/components/common/confirm-dialog/confirm-dialog.component';
-import { ProgressBarComponent } from 'src/app/components/common/progress-bar/progress-bar.component';
-import { BalanceModalComponent } from 'src/app/components/common/tabs/modals/balance-modal/balance-modal.component';
+import { AddItemComponent } from 'src/app/shared/components/add-item/add-item.component';
+import { BalanceModalComponent } from 'src/app/shared/components/balance-modal/balance-modal.component';
 /* components */
-import { TabsComponent } from 'src/app/components/common/tabs/tabs.component';
-import { HasRoleDirective } from 'src/app/directives/hasRole.directive';
-import { HighlightOnHoverDirective } from 'src/app/directives/highlightOnHover.directive';
-import { StopPropagationDirective } from 'src/app/directives/stop-propagation.directive';
+import { TabsComponent } from 'src/app/shared/components/tabs/tabs.component';
+import { HasRoleDirective } from 'src/app/shared/directives/hasRole.directive';
+import { HighlightOnHoverDirective } from 'src/app/shared/directives/highlightOnHover.directive';
+import { StopPropagationDirective } from 'src/app/shared/directives/stop-propagation.directive';
+import { BackButtonComponent } from 'src/app/shared/components/back-button/back-button.component';
+import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
+import { ProgressBarComponent } from 'src/app/shared/components/progress-bar/progress-bar.component';
 
 @NgModule({
   declarations: [

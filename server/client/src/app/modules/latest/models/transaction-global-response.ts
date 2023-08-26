@@ -1,5 +1,5 @@
-import { ICategory } from '../../../models/interface/category';
-import { IUser } from '../../../models/interface/User';
+import { ICategory } from '../../../shared/models/interface/category';
+import { IUser } from '../../../shared/models/interface/User';
 
 export interface TransactionGlobalResponse {
   user: IUser;

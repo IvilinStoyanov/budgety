@@ -1,4 +1,4 @@
-import { Items } from './interface/items';
+import { Items } from '../interface/items';
 
 export class Category {
   id: number;

@@ -2,12 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { take } from 'rxjs/operators';
-import { IUser } from 'src/app/models/interface/User';
-import { AuthService } from 'src/app/services/auth.service';
-import { CommonService } from 'src/app/services/common.service';
-import { SavingsService } from 'src/app/services/savings.service';
+import { IUser } from 'src/app/shared/models/interface/User';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { CommonService } from 'src/app/shared/services/common.service';
+import { SavingsService } from 'src/app/shared/services/savings.service';
 
-import { BalanceModalComponent } from './modals/balance-modal/balance-modal.component';
+import { BalanceModalComponent } from '../balance-modal/balance-modal.component';
 
 @Component({
   selector: 'app-tabs',

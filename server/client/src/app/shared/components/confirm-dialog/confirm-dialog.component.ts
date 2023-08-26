@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ITransaction } from 'src/app/models/interface/transaction';
+import { ITransaction } from 'src/app/shared/models/interface/transaction';
 
 @Component({
   selector: 'app-confirm-dialog',

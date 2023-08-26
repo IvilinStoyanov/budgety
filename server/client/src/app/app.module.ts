@@ -7,12 +7,12 @@ import { NgxUiLoaderConfig, NgxUiLoaderModule } from 'ngx-ui-loader';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HeaderComponent } from './components/common/header/header.component';
-import { AuthGuard } from './guards/auth.guard';
-import { RoleGuardGuard } from './guards/role-guard.guard';
-import { ErrorCatchingInterceptor } from './interceptors/error-catching.interceptor';
-import { LoaderInterceptor } from './interceptors/loader.interceptor.ts';
 import { SharedModule } from './modules/shared/shared.module';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { AuthGuard } from './shared/guards/auth.guard';
+import { RoleGuardGuard } from './shared/guards/role-guard.guard';
+import { ErrorCatchingInterceptor } from './shared/interceptors/error-catching.interceptor';
+import { LoaderInterceptor } from './shared/interceptors/loader.interceptor.ts';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   fgsColor: '#179ff7',

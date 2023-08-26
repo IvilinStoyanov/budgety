@@ -8,16 +8,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
-import { AddItemComponent } from 'src/app/components/add-item/add-item.component';
-import { Category } from 'src/app/models/category';
-import { ICategory } from 'src/app/models/interface/category';
-import { ITransaction } from 'src/app/models/interface/transaction';
-import { IUser } from 'src/app/models/interface/User';
-import { AuthService } from 'src/app/services/auth.service';
-import { CategoriesService } from 'src/app/services/categories.service';
-import { CommonService } from 'src/app/services/common.service';
-import { NotificationService } from 'src/app/services/notification.service';
-import { TransactionsService } from 'src/app/services/transactions.service';
+import { AddItemComponent } from 'src/app/shared/components/add-item/add-item.component';
+import { Category } from 'src/app/shared/models/class/category';
+import { ICategory } from 'src/app/shared/models/interface/category';
+import { ITransaction } from 'src/app/shared/models/interface/transaction';
+import { IUser } from 'src/app/shared/models/interface/User';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { CategoriesService } from 'src/app/shared/services/categories.service';
+import { CommonService } from 'src/app/shared/services/common.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
+import { TransactionsService } from 'src/app/shared/services/transactions.service';
 
 import { SetupCategoriesComponent } from './modals/setup-categories/setup-categories.component';
 

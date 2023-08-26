@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
-import { AuthService } from 'src/app/services/auth.service';
-import { TransactionsService } from 'src/app/services/transactions.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { TransactionsService } from 'src/app/shared/services/transactions.service';
 
 @Component({
   selector: 'app-monthly-list',

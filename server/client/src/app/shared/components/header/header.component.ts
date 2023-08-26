@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { CommonService } from 'src/app/services/common.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { CommonService } from 'src/app/shared/services/common.service';
 import { environment } from 'src/environments/environment';
 
 @Component({

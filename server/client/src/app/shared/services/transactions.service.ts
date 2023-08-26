@@ -5,9 +5,9 @@ import { map } from 'rxjs/operators';
 
 import { ITransaction } from '../models/interface/transaction';
 import { IUser } from '../models/interface/User';
-import { CategoryTransactionsResponse } from '../modules/latest/models/category-transactions-response';
-import { TransactionGlobalResponse } from '../modules/latest/models/transaction-global-response';
-import { TransactionResponse } from '../modules/latest/models/transaction-response';
+import { CategoryTransactionsResponse } from '../../modules/latest/models/category-transactions-response';
+import { TransactionGlobalResponse } from '../../modules/latest/models/transaction-global-response';
+import { TransactionResponse } from '../../modules/latest/models/transaction-response';
 
 @Injectable({
   providedIn: 'root'

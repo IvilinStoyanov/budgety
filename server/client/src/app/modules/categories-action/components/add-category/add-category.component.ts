@@ -9,11 +9,11 @@ import {
   map,
   switchMap
 } from 'rxjs/operators';
-import { CategoriesColors } from 'src/app/enums/categories-colors.enum';
-import { MaterialIcons } from 'src/app/enums/material-icons-type';
-import { Category } from 'src/app/models/category';
-import { CategoriesService } from 'src/app/services/categories.service';
-import { NotificationService } from 'src/app/services/notification.service';
+import { CategoriesColors } from 'src/app/shared/enums/categories-colors.enum';
+import { MaterialIcons } from 'src/app/shared/enums/material-icons-type';
+import { Category } from 'src/app/shared/models/class/category';
+import { CategoriesService } from 'src/app/shared/services/categories.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 
 @Component({
   selector: 'app-add-category',

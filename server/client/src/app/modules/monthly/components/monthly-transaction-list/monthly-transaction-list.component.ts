@@ -3,9 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { combineLatest, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 
-import { ITransaction } from '../../../../models/interface/transaction';
-import { CategoriesService } from '../../../../services/categories.service';
-import { TransactionsService } from '../../../../services/transactions.service';
+import { ITransaction } from '../../../../shared/models/interface/transaction';
+import { CategoriesService } from '../../../../shared/services/categories.service';
+import { TransactionsService } from '../../../../shared/services/transactions.service';
 import { MonthlyTransaction } from '../../models/monthly-transaction';
 
 @Component({

@@ -1,4 +1,4 @@
-import { ITransaction } from 'src/app/models/interface/transaction';
+import { ITransaction } from 'src/app/shared/models/interface/transaction';
 
 export interface CategoryTransactionsResponse {
   totalPages: number;

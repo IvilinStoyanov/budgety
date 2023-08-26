@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
-import { TransactionsService } from 'src/app/services/transactions.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { TransactionsService } from 'src/app/shared/services/transactions.service';
 
 @Component({
   selector: 'app-yearly',

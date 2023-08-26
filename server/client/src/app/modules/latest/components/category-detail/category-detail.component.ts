@@ -4,17 +4,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as shape from 'd3-shape';
 import { of, Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
-import { ICategory } from 'src/app/models/interface/category';
-import { ITransaction } from 'src/app/models/interface/transaction';
-import { IUser } from 'src/app/models/interface/User';
-import { AuthService } from 'src/app/services/auth.service';
-import { CategoriesService } from 'src/app/services/categories.service';
-import { CommonService } from 'src/app/services/common.service';
-import { NotificationService } from 'src/app/services/notification.service';
-import { TransactionsService } from 'src/app/services/transactions.service';
+import { ICategory } from 'src/app/shared/models/interface/category';
+import { ITransaction } from 'src/app/shared/models/interface/transaction';
+import { IUser } from 'src/app/shared/models/interface/User';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { CategoriesService } from 'src/app/shared/services/categories.service';
+import { CommonService } from 'src/app/shared/services/common.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
+import { TransactionsService } from 'src/app/shared/services/transactions.service';
 
-import { AddItemComponent } from '../../../../components/add-item/add-item.component';
-import { ConfirmDialogComponent } from '../../../../components/common/confirm-dialog/confirm-dialog.component';
+import { AddItemComponent } from '../../../../shared/components/add-item/add-item.component';
+import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-category-detail',
