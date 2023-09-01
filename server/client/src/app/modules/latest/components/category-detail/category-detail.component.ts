@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as shape from 'd3-shape';
-import { of, Subject } from 'rxjs';
-import { switchMap, takeUntil, tap } from 'rxjs/operators';
+import { combineLatest, of, Subject } from 'rxjs';
+import { map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { ICategory } from 'src/app/shared/models/interface/category';
 import { ITransaction } from 'src/app/shared/models/interface/transaction';
 import { IUser } from 'src/app/shared/models/interface/User';
@@ -15,6 +15,7 @@ import { TransactionsService } from 'src/app/shared/services/transactions.servic
 
 import { AddItemComponent } from '../../../../shared/components/add-item/add-item.component';
 import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { CategoryTransactionsResponse } from '../../models/category-transactions-response';
 
 @Component({
   selector: 'app-category-detail',
@@ -112,8 +113,6 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.addItem(result);
-        this.chartDataLatest(this.latestCount);
-        this.notification.success('Item successfully added');
       }
     });
   }
@@ -124,21 +123,41 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap(transaction => {
           if (transaction) {
-            return this.transactionsService.getTransactions(
-              params._categoryId,
-              0,
-              10
+            return combineLatest([
+              this.categoriesService.getCategoryById(this.categoryId),
+              this.transactionsService.getTransactions(
+                params._categoryId,
+                0,
+                10
+              )
+            ]).pipe(
+              map(([category, transaction]) => ({ category, transaction }))
             );
           }
 
           return of(null);
-        })
+        }),
+        take(1)
       )
-      .subscribe(result => {
-        if (result) {
-          this.transactions = result.transactions;
+      .subscribe(
+        (result: {
+          category: ICategory;
+          transaction: CategoryTransactionsResponse;
+        }) => {
+          if (result) {
+            this.category = result.category;
+            this.transactions = result.transaction.transactions;
+            this.chartDataLatest(this.latestCount);
+
+            this.category.expPercentage = Math.round(
+              (this.category.exp / this.category.inc) * 100
+            );
+            this.category.incPercentage = 100 - this.category.expPercentage;
+
+            this.notification.success('Item successfully added');
+          }
         }
-      });
+      );
   }
 
   openConfirmDialog(item: ITransaction): void {
