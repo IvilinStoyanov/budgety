@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { HomeRoutingModule } from './home-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { LandingComponent } from './components/home/landing.component';
+import { HomeRoutingModule } from './home-routing.module';
 
 @NgModule({
   declarations: [LandingComponent],

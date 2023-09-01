@@ -10,7 +10,7 @@ require('./models/User');
 require('./models/Categories');
 require('./models/Transactions');
 require('./services/passport');
-
+    
 mongoose.connect(keys.mongoURL);
 const app = express();
 

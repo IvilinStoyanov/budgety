@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Categories } from 'src/app/enums/categories.enum';
-import { CategoriesColors } from 'src/app/enums/categories-colors.enum';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Categories } from 'src/app/shared/enums/categories.enum';
+import { CategoriesColors } from 'src/app/shared/enums/categories-colors.enum';
 
 @Component({
   selector: 'app-setup-categories',
@@ -83,12 +83,12 @@ export class SetupCategoriesComponent {
     @Inject(MAT_DIALOG_DATA) public data: SetupCategoriesComponent
   ) {}
 
-  select(index: number) {
+  select(index: number): void {
     this.categoryTemplates[index].isSelected =
       !this.categoryTemplates[index].isSelected;
   }
 
-  import() {
+  import(): void {
     const filteredCategories = this.categoryTemplates.filter(
       category => category.isSelected
     );

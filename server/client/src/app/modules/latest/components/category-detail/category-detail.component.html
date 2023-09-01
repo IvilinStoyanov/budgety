@@ -42,7 +42,7 @@
       <div *ngIf="!chartData">No transactions for this period</div>
     </div>
   </div>
-  <div fxLayout="column" fxLayoutAlign="space-around center" class="pl-4 pr-4 pt-1 pb-1 mt-4 mb-4">
+  <!-- <div fxLayout="column" fxLayoutAlign="space-around center" class="pl-4 pr-4 pt-1 pb-1 mt-4 mb-4">
     <div [style.width.%]="100" class="mb-1" *ngIf="category.inc > 0">
       <div fxLayout="row" fxLayoutAlign="space-between center" class="mb-1">
         <div class="text-black text-md">
@@ -67,8 +67,8 @@
       </div>
       <app-progress-bar class="exp-progress-bar" [percentage]="category.expPercentage"></app-progress-bar>
     </div>
-  </div>
-  <div class="pl-4 pr-4 pt-1 pb-1">
+  </div> -->
+  <div class="mt-4 pl-4 pr-4 pt-1 pb-1">
     <ng-container *ngFor="let item of transactions; let i = index">
       <div class="line-item" highlightOnHover>
         <span class="chip text-black text-bold text-transparent text-ex-sm">{{ item.dateCreated | date: "dd/MM/yy"

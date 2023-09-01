@@ -52,3 +52,43 @@
     height: 75px;
   }
 }
+
+
+.custom-dropdown {
+  display: inline-block;
+  position: relative;
+
+  .selected-value {
+    padding: 5px;
+  font-size: 14px;
+  color: #999;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 25px); // Adjust the value based on your design
+  }
+}
+
+.custom-input {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  cursor: pointer;
+
+  input[type="text"] {
+    border: none;
+    outline: none;
+    flex: 1;
+    padding: 5px;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+}

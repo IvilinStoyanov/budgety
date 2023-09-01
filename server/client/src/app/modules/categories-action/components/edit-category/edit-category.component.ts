@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from 'src/app/services/common.service';
+import { CommonService } from 'src/app/shared/services/common.service';
 
 @Component({
   selector: 'app-edit-category',
@@ -11,18 +11,16 @@ export class EditCategoryComponent implements OnInit {
 
   constructor(public commonService: CommonService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.data = JSON.parse(localStorage.getItem('data'));
   }
 
-  edit() {}
-
-  onToggle(event, categoryID) {
+  onToggle(event, categoryId: string): void {
     const categoryTemplateIndex = this.data.categoryTemplates.findIndex(
-      category => category && category.id === categoryID
+      category => category && category.id === categoryId
     );
     const categoryIndex = this.data.categories.findIndex(
-      category => category && category.id === categoryID
+      category => category && category.id === categoryId
     );
 
     if (categoryTemplateIndex >= 0) {
@@ -36,14 +34,14 @@ export class EditCategoryComponent implements OnInit {
     this.commonService.saveData(this.data);
   }
 
-  deleteTemplate(index: number, categoryID: number) {
+  deleteTemplate(index: number, categoryId: string): void {
     this.data.categoryTemplates.splice(index, 1);
 
     const categoryIndex = this.data.categories.findIndex(
-      category => category && category.id === categoryID
+      category => category && category.id === categoryId
     );
     const category = this.data.categories.find(
-      category => category && category.id === categoryID
+      category => category && category.id === categoryId
     );
 
     if (category) {
@@ -74,18 +72,20 @@ export class EditCategoryComponent implements OnInit {
     }
   }
 
-  changeColor(categoryID: number, color: string) {
+  changeColor(categoryId: string, color: string): void {
     const categoryTemplateIndex = this.data.categoryTemplates.findIndex(
-      category => category && category.id === categoryID
+      category => category && category.id === categoryId
     );
     const categoryIndex = this.data.categories.findIndex(
-      category => category && category.id === categoryID
+      category => category && category.id === categoryId
     );
 
     if (categoryTemplateIndex >= 0) {
       this.data.categoryTemplates[categoryTemplateIndex].color = color;
     }
-    if (categoryIndex >= 0) { this.data.categories[categoryIndex].color = color; }
+    if (categoryIndex >= 0) {
+      this.data.categories[categoryIndex].color = color;
+    }
 
     this.commonService.saveData(this.data);
   }

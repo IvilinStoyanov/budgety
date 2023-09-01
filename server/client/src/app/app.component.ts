@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +13,6 @@ export class AppComponent {
   constructor(public authService: AuthService, private router: Router) {
     this.authService.fetchUser().subscribe(user => {
       this.authService.setCurrentUser(user);
-
-      // if (user) this.router.navigate(['/latest']);
     });
   }
 }

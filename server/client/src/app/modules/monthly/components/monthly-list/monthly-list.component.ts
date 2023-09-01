@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
-import { AuthService } from 'src/app/services/auth.service';
-import { TransactionsService } from 'src/app/services/transactions.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { TransactionsService } from 'src/app/shared/services/transactions.service';
 
 @Component({
   selector: 'app-monthly-list',
@@ -23,11 +23,11 @@ export class MonthlyListComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.createMonthlyList();
   }
 
-  chosenYearHandler(chosenDate: any, datepicker: MatDatepicker<any>) {
+  chosenYearHandler(chosenDate: any, datepicker: MatDatepicker<any>): void {
     datepicker.close();
 
     this.dateForm.get('year').setValue(chosenDate);
@@ -36,7 +36,7 @@ export class MonthlyListComponent implements OnInit {
     this.createMonthlyList(chosenDate);
   }
 
-  createMonthlyList(date: Date = new Date()) {
+  createMonthlyList(date: Date = new Date()): void {
     this.monthlyList = [];
 
     const months = [
@@ -72,9 +72,13 @@ export class MonthlyListComponent implements OnInit {
           }
 
           if (this.monthlyList[itemMonth] !== undefined) {
-            if (item.type === 'inc') { income = item.value; }
+            if (item.type === 'inc') {
+              income = item.value;
+            }
 
-            if (item.type === 'exp') { expense = item.value; }
+            if (item.type === 'exp') {
+              expense = item.value;
+            }
 
             this.monthlyList[itemMonth].income += income;
             this.monthlyList[itemMonth].expense += expense;
@@ -85,12 +89,14 @@ export class MonthlyListComponent implements OnInit {
       });
   }
 
-  calculateBudgetPercetange(data: any) {
+  calculateBudgetPercetange(data: any): void {
     data.forEach((element, index: number) => {
       let percentage = Math.round((element.expense / element.income) * 100);
       percentage = 100 - percentage;
 
-      if (percentage < 0) { percentage = 0; }
+      if (percentage < 0) {
+        percentage = 0;
+      }
 
       this.monthlyList[index].budgetPercetange = percentage;
     });

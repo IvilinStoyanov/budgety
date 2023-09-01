@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
-import { TransactionsService } from 'src/app/services/transactions.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { TransactionsService } from 'src/app/shared/services/transactions.service';
 
 @Component({
   selector: 'app-yearly',
@@ -42,9 +42,13 @@ export class YearlyListComponent implements OnInit {
           }
 
           if (this.yearlyList[year] !== undefined) {
-            if (item.type === 'inc') { income = item.value; }
+            if (item.type === 'inc') {
+              income = item.value;
+            }
 
-            if (item.type === 'exp') { expense = item.value; }
+            if (item.type === 'exp') {
+              expense = item.value;
+            }
 
             this.yearlyList[year].income += income;
             this.yearlyList[year].expense += expense;
@@ -60,7 +64,9 @@ export class YearlyListComponent implements OnInit {
       let percentage = Math.round((element.expense / element.income) * 100);
       percentage = 100 - percentage;
 
-      if (percentage < 0) { percentage = 0; }
+      if (percentage < 0) {
+        percentage = 0;
+      }
 
       this.yearlyList[index].budgetPercetange = percentage;
     });

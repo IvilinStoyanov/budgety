@@ -105,7 +105,6 @@ module.exports = app => {
     app.delete('/api/transactions', requireLogin, async (req, res) => {
         try {
             const { _id, type, value, _categoryId } = req.query;
-
             const transaction = await Transactions.deleteOne({ _categoryId, _id });
             let user;
 
@@ -126,7 +125,7 @@ module.exports = app => {
                     .exec();
             }
 
-            res.send({ user });
+            res.send(user);
 
         } catch (error) {
             res.status(422).send(error);
@@ -207,7 +206,6 @@ module.exports = app => {
 
     app.get('/api/transactions/yearly', requireLogin, async (req, res) => {
         const { startYear, endYear } = req.query;
-        console.log(req.query);
 
         try {
             const categories = await Categories.find({ _user: req.user.id });
