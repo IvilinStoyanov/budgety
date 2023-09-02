@@ -10,6 +10,7 @@ import { ITransaction } from 'src/app/shared/models/interface/transaction';
   templateUrl: './add-item.component.html',
   styleUrls: ['./add-item.component.scss']
 })
+// TODO: rename to AddTransaction
 export class AddItemComponent implements OnInit, OnDestroy {
   private categorySubscription: Subscription = new Subscription();
   form: FormGroup;
@@ -52,8 +53,7 @@ export class AddItemComponent implements OnInit, OnDestroy {
       category: [null, Validators.required],
       value: ['', Validators.required],
       dateCreated: [new Date(), Validators.required],
-      description: [''],
-      isToday: [true]
+      description: ['']
     });
 
     if (this.templateData.categories.length === 1) {
@@ -71,10 +71,10 @@ export class AddItemComponent implements OnInit, OnDestroy {
       }
 
       // set date
-      const date = new Date(this.form.value.dateCreated);
       this.form.value.dateCreated = new Date(
-        date.getTime() - date.getTimezoneOffset() * 60000
-      ).toJSON();
+        this.form.value.dateCreated
+      ).toUTCString();
+
 
       const transaction: ITransaction = {
         _categoryId: this.form.value.category._id,
