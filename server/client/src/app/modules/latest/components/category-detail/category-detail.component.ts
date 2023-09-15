@@ -124,6 +124,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
         switchMap(transaction => {
           if (transaction) {
             return combineLatest([
+              this.authService.fetchUser(),
               this.categoriesService.getCategoryById(this.categoryId),
               this.transactionsService.getTransactions(
                 params._categoryId,
@@ -131,7 +132,11 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
                 10
               )
             ]).pipe(
-              map(([category, transaction]) => ({ category, transaction }))
+              map(([user, category, transaction]) => ({
+                user,
+                category,
+                transaction
+              }))
             );
           }
 
@@ -141,10 +146,12 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         (result: {
+          user: IUser;
           category: ICategory;
           transaction: CategoryTransactionsResponse;
         }) => {
           if (result) {
+            this.authService.setCurrentUser(result.user);
             this.category = result.category;
             this.transactions = result.transaction.transactions;
             this.chartDataLatest(this.latestCount);
