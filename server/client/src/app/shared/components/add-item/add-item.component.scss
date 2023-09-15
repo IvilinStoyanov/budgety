@@ -1,0 +1,104 @@
+@import "../../../../theme/colors.scss";
+@import "../../../../theme/fonts.scss";
+
+.mat-icon-wrapper {
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background: $custom-white;
+  z-index: 2;
+
+  .mat-icon-title-circle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: $primary;
+
+    .mat-icon {
+      font-size: 30px;
+      height: 30px;
+      width: 30px;
+      padding-left: 1px;
+    }
+  }
+}
+
+/* checkbox */
+.checkbox-wrapper {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+/* switch button */
+.switch-button {
+  background: $border;
+  border-radius: 30px;
+  overflow: hidden;
+  width: 130px;
+  text-align: center;
+  font-size: $small;
+  letter-spacing: 1px;
+  color: $black;
+  position: relative;
+  padding-right: 120px;
+  position: relative;
+
+  &:before {
+    content: "Expense";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  &-checkbox {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 2;
+
+    &:checked + .switch-button-label:before {
+      transform: translateX(120px);
+      transition: transform 300ms linear;
+    }
+
+    & + .switch-button-label {
+      position: relative;
+      padding: 8px 0;
+      display: block;
+      user-select: none;
+      pointer-events: none;
+      background: $border;
+
+      &:before {
+        content: "";
+        background: $primary;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-radius: 30px;
+        transform: translateX(0);
+        transition: transform 300ms;
+      }
+
+      .switch-button-label-span {
+        position: relative;
+      }
+    }
+  }
+}

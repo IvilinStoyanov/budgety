@@ -1,0 +1,27 @@
+<div class="pl-3 pr-3 pb-4">
+  <div fxLayout="column" fxLayoutAlign="center center" class="hover" (click)="openBalanceModal()">
+    <div class="text-sm text-transparent text-uppercase pb-1">
+      Balance
+    </div>
+    <div class="budget-value" *ngIf="user">
+      <span *ngIf="(user.inc - user.exp) + user.savings > 0">+</span>{{ (user.inc - user.exp) + user.savings | number: "1.2-2" }}
+    </div>
+  </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="center end">
+  <button mat-raised-button
+    class="border-white border-bottom-left-radius-none border-bottom-right-radius-none border-top-right-radius-none"
+    [routerLink]="['/latest']" [routerLinkActive]="['is-active']">
+    Latest
+  </button>
+  <button mat-raised-button
+    class="border-white border-bottom-left-radius-none border-bottom-right-radius-none border-top-left-radius-none border-top-right-radius-none"
+    [routerLink]="['/monthly']" [routerLinkActive]="['is-active']">
+    Monthly
+  </button>
+  <button mat-raised-button
+    class="border-white border-bottom-left-radius-none border-bottom-right-radius-none border-top-left-radius-none"
+    [routerLink]="['/yearly']" [routerLinkActive]="['is-active']">
+    Yearly
+  </button>
+</div>
