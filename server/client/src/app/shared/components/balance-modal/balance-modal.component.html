@@ -1,0 +1,29 @@
+<div fxLayoutAlign="center center">
+  <div class="mat-icon-wrapper" fxLayoutAlign="center center">
+    <div class="mat-icon-title-circle" fxLayoutAlign="center center">
+      <mat-icon class="material-icons-outlined text-white">savings</mat-icon>
+    </div>
+  </div>
+</div>
+<div mat-dialog-content>
+  <div fxLayout="column" fxLayoutAlign="center center" class="mt-1 p-3">
+    <span class="title text-bold text-black">Balance</span>
+  </div>
+  <form [formGroup]="form" autocomplete="off">
+    <div fxLayout="column">
+      <mat-form-field appearance="outline" class="custom-green">
+        <mat-label>Savings</mat-label>
+        <input formControlName="savings" matInput type="number" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Budget</mat-label>
+        <input formControlName="budget" matInput readonly/>
+      </mat-form-field>
+    </div>
+    <div>
+      <button fxFlex mat-stroked-button color="primary" (click)="save()">
+        Update
+      </button>
+    </div>
+  </form>
+</div>

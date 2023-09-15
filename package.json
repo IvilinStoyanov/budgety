@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "engines": {
-    "node": "16.13.1",
+    "node": "16.14",
     "npm": "8.1.2"
   },
   "scripts": {
@@ -12,14 +12,12 @@
     "server": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client && ng serve",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "postbuild": "npm install && cd client && npm install -g @angular/cli && npm install && ng build --configuration production"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@angular-devkit/build-angular": "^15.1.5",
-    "@angular/cli": "^15.1.5",
-    "@angular/compiler-cli": "^15.1.4",
     "body-parser": "^1.20.0",
     "concurrently": "^7.4.0",
     "cookie-session": "^2.0.0",
@@ -28,7 +26,6 @@
     "mongoose": "^6.6.1",
     "nodemon": "^2.0.20",
     "passport": "^0.5.0",
-    "passport-google-oauth20": "^2.0.0",
-    "typescript": "^4.9.5"
+    "passport-google-oauth20": "^2.0.0"
   }
 }
