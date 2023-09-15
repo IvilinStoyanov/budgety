@@ -1,0 +1,37 @@
+<div fxLayout="column" class="pl-3 pr-3 pt-3 pb-3">
+  <div fxLayout="row">
+    <div class="badge border-bottom">
+      <span class="text-semi-bold">Categories</span>
+    </div>
+  </div>
+  <mat-dialog-content>
+    <div fxLayout="row wrap" class="bg-transparent border-top-left-radius-none">
+      <!-- default categories -->
+      <div *ngFor="let category of categoryTemplates; let i = index;" class="text-center" fxLayout="column"
+        fxFlex="33.33" fxFlex.lt-md="33.33" fxFlex.lt-sm="100">
+        <mat-card class="hover border m-1" (click)="select(i)">
+          <ng-container *ngIf="category.isSelected">
+            <mat-icon class="material-icons-outlined icon-md icon-success mr-2 check-icon">check</mat-icon>
+          </ng-container>
+          <span class="text-bold">{{category.name}}</span>
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <div class="category-title-container">
+              <svg width="100%" height="100%" viewBox="0 0 42 42" class="circle-chart">
+                <circle cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+                <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="1.5">
+                </circle>
+                <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent"
+                  attr.stroke="{{category.color}}" stroke-width="1.5" stroke-dasharray="100"></circle>
+              </svg>
+              <mat-icon class="position-center-absolute material-icons-outlined icon-md icon-primary mr-2">{{
+                category.icon }}</mat-icon>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <div class="text-right">
+    <button mat-stroked-button color="primary" (click)="import()">Import</button>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+@import '../../../../../theme/colors.scss';
+
+.category-title-container {
+  position: relative;
+  width: 75px;
+  height: 75px;
+
+  .circle-chart {
+    width: 75px;
+    height: 75px;
+  }
+}
+
+/*** menu ***/
+.menu-left {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+
+.menu-right {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.color {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  border: 2px solid #eaeaea;
+  margin: 5px;
+}
+
+.card-hidden {
+  opacity: 0.5;
+  background: #f6f6f6;
+}

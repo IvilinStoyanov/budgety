@@ -1,0 +1,32 @@
+@import '../../../../../theme/colors.scss';
+
+$categoryBanner: 60px;
+
+.category-icon-wrapper {
+    position: absolute;
+    right: 0;
+    top: -40px;
+    .category-icon-container {
+        position: relative;
+        width: $categoryBanner;
+        height: $categoryBanner;
+        border-radius: 15%;
+        background: $custom-white;
+
+        .category-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+    }
+}
+
+.color {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border: 2px solid #eaeaea;
+    margin: 5px;
+}

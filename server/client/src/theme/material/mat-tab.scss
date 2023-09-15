@@ -1,0 +1,28 @@
+@import "../colors.scss";
+@import "../fonts.scss";
+
+mat-tab-group {
+  &.mat-primary .mat-ink-bar{
+    background-color: $custom-white !important;
+  }
+
+  .mat-tab-header {
+    margin-bottom: 15px;
+  }
+}
+
+.mat-tab-label {
+  color: $custom-white;
+  opacity: 1 !important;
+  font-size: $small;
+  text-transform: uppercase;
+}
+
+.mat-tab-labels {
+  justify-content: space-between;
+}
+
+.mat-tab-header-pagination-chevron,
+.mat-tab-header-pagination-disabled {
+  border-color: rgb(255 255 255) !important;
+}

@@ -1,0 +1,18 @@
+@import '../../../../../../../theme/colors.scss';
+
+.category-title-container {
+  position: relative;
+  width: 75px;
+  height: 75px;
+
+  .circle-chart {
+    width: 75px;
+    height: 75px;
+  }
+}
+
+.check-icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
