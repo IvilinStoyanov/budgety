@@ -90,7 +90,7 @@
               fxLayoutAlign="center center"
               matTooltip="{{ item.description }}">
               <span class="text-black">{{
-                item.description || category.name | titlecase
+                item.description || category.value.name | titlecase
               }}</span>
             </div>
             <div fxLayout="row" fxLayoutAlign="center center">
