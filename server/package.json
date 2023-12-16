@@ -13,7 +13,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client && ng serve",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "postbuild": "npm install && cd client && npm install --force -g @angular/cli && npm install --force && ng build --configuration production"
+    "postbuild": "set NODE_OPTIONS=--openssl-legacy-provider && npm install && cd client && npm install --force -g @angular/cli && npm install --force && ng build --configuration production"
   },
   "author": "",
   "license": "ISC",
