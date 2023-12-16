@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { AddItemModalData } from 'src/app/shared/models/interface/add-item-modal-data';
@@ -13,14 +13,14 @@ import { ITransaction } from 'src/app/shared/models/interface/transaction';
 // TODO: rename to AddTransaction
 export class AddItemComponent implements OnInit, OnDestroy {
   private categorySubscription: Subscription = new Subscription();
-  form: FormGroup;
+  form: UntypedFormGroup;
   categoryPicked: string;
   templateData: AddItemModalData;
 
   constructor(
     public dialogRef: MatDialogRef<AddItemComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AddItemModalData,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {
     this.templateData = data;
   }
