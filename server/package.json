@@ -13,7 +13,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client && ng serve",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "postbuild": "npm install && cd client && npm install -g @angular/cli && npm install && ng build --configuration production"
+    "postbuild": "npm install --force && cd client && npm install -g @angular/cli && npm install && ng build --configuration production"
   },
   "author": "",
   "license": "ISC",
