@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -7,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
@@ -17,8 +19,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ColorSketchModule } from 'ngx-color/sketch';
 import { AddItemComponent } from 'src/app/shared/components/add-item/add-item.component';
 import { BackButtonComponent } from 'src/app/shared/components/back-button/back-button.component';
@@ -45,9 +45,11 @@ import { StopPropagationDirective } from 'src/app/shared/directives/stop-propaga
     ConfirmDialogComponent
   ],
   imports: [
+    CommonModule,
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
+    MatFormFieldModule,
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
@@ -64,9 +66,7 @@ import { StopPropagationDirective } from 'src/app/shared/directives/stop-propaga
     MatSlideToggleModule,
     MatBadgeModule,
     MatSidenavModule,
-    ColorSketchModule,
-    Ng2SearchPipeModule,
-    NgxChartsModule
+    ColorSketchModule
   ],
   exports: [
     RouterModule,
@@ -89,9 +89,6 @@ import { StopPropagationDirective } from 'src/app/shared/directives/stop-propaga
     MatBadgeModule,
     MatSidenavModule,
     ColorSketchModule,
-    Ng2SearchPipeModule,
-    NgxChartsModule,
-
     TabsComponent,
     ProgressBarComponent,
     BackButtonComponent,

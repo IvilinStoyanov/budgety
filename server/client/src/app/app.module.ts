@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -28,7 +27,6 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
   imports: [
-    CommonModule,
     AppRoutingModule,
     BrowserModule,
     NoopAnimationsModule,

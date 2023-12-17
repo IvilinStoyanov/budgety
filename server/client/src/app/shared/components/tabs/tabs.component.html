@@ -1,5 +1,5 @@
 <div class="pl-3 pr-3 pb-4">
-  <div fxLayout="column" fxLayoutAlign="center center" class="hover" (click)="openBalanceModal()">
+  <div class="d-flex flex-column align-items-center hover" (click)="openBalanceModal()">
     <div class="text-sm text-transparent text-uppercase pb-1">
       Balance
     </div>
@@ -8,7 +8,7 @@
     </div>
   </div>
 </div>
-<div fxLayout="row" fxLayoutAlign="center end">
+<div class="d-flex justify-content-center" fxLayout="row" fxLayoutAlign="center end">
   <button mat-raised-button
     class="border-white border-bottom-left-radius-none border-bottom-right-radius-none border-top-right-radius-none"
     [routerLink]="['/latest']" [routerLinkActive]="['is-active']">

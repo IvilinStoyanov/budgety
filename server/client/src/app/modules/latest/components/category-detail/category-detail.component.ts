@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as shape from 'd3-shape';
+// import * as shape from 'd3-shape';
 import { combineLatest, of, Subject } from 'rxjs';
 import { map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { ICategory } from 'src/app/shared/models/interface/category';
@@ -30,8 +30,8 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   pageIndex = 0;
   pageSize = 10;
   totalPages = 0;
-  colorScheme = { domain: ['#28B9B5', '#FF5049'] };
-  curve: any = shape.curveBasis;
+  // colorScheme = { domain: ['#28B9B5', '#FF5049'] };
+  // curve: any = shape.curveBasis;
   chartData: any = [];
   latestCount = 5;
   isAxisVisible: boolean;

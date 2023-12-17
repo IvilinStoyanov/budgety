@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -10,7 +9,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 export class AppComponent {
   title = 'budgety';
 
-  constructor(public authService: AuthService, private router: Router) {
+  constructor(public authService: AuthService) {
     this.authService.fetchUser().subscribe(user => {
       this.authService.setCurrentUser(user);
     });
