@@ -1,7 +1,8 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { isDevMode, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { NgxUiLoaderConfig, NgxUiLoaderModule } from 'ngx-ui-loader';
 
 import { AppComponent } from './app.component';
@@ -32,7 +33,10 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     NoopAnimationsModule,
     HttpClientModule,
     SharedModule,
-    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: false
+    })
   ],
   providers: [
     {

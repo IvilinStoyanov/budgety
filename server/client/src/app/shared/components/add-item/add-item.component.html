@@ -1,41 +1,52 @@
-<div fxLayoutAlign="center center">
+<!-- <div class="d-flex justify-content-center">
   <div class="mat-icon-wrapper" fxLayoutAlign="center center">
     <div class="mat-icon-title-circle" fxLayoutAlign="center center">
       <mat-icon class="material-icons-outlined text-white">account_balance</mat-icon>
     </div>
   </div>
-</div>
+</div> -->
 <div mat-dialog-content>
-  <div fxLayout="column" fxLayoutAlign="center center" class="mt-1 p-3">
+  <div
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    class="d-flex justify-content-center align-items-center flex-column mt-1 p-3">
     <span class="title text-bold text-black">Add new item</span>
   </div>
   <form [formGroup]="form" autocomplete="off">
-    <div fxLayoutAlign="center center" class="mb-4">
+    <div class="d-flex justify-content-center mb-4">
       <div class="switch-button text-bold">
-        <input class="switch-button-checkbox" formControlName="type" type="checkbox" />
+        <input
+          class="switch-button-checkbox"
+          formControlName="type"
+          type="checkbox" />
         <label class="switch-button-label">
           <span class="switch-button-label-span">Income</span>
         </label>
       </div>
     </div>
-    <div fxLayout="row wrap">
+    <div class="d-flex flex-wrap" fxLayout="row wrap">
       <mat-form-field class="ml-1 mr-1" fxFlex appearance="outline">
         <mat-label>Category</mat-label>
         <mat-select formControlName="category" required>
           <mat-select-trigger>
             {{ categoryPicked }}
           </mat-select-trigger>
-          <mat-option *ngFor="let category of templateData.categories" [value]="category">
+          <mat-option
+            *ngFor="let category of templateData.categories"
+            [value]="category">
             <mat-icon class="material-icons-outlined mr-2">{{
               category.icon
-              }}</mat-icon>
+            }}</mat-icon>
             {{ category.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="ml-1 mr-1" fxFlex appearance="outline">
         <mat-label>Date</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="dateCreated" />
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="dateCreated" />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -44,14 +55,18 @@
         <input formControlName="value" matInput type="number" required />
       </mat-form-field>
     </div>
-    <div>
-      <mat-form-field class="ml-1 mr-1" fxFlex appearance="outline">
+    <div class="d-flex">
+      <mat-form-field class="flex-fill ml-1 mr-1" appearance="outline">
         <mat-label>Description</mat-label>
         <textarea formControlName="description" matInput></textarea>
       </mat-form-field>
     </div>
-    <div>
-      <button fxFlex mat-stroked-button color="primary" class="ml-1 mr-1" (click)="addItem()">
+    <div class="d-flex">
+      <button
+        mat-stroked-button
+        color="primary"
+        class="flex-fill ml-1 mr-1"
+        (click)="addItem()">
         Add
       </button>
     </div>
