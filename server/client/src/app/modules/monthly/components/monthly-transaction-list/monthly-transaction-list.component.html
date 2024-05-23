@@ -2,15 +2,13 @@
   *ngIf="monthlyCategories"
   [style.min-height.px]="600"
   [style.margin-top.px]="50"
-  class="ml-2 mr-2 mb-0 p-0">
+  class="ms-2 me-2 mb-0 p-0">
   <div [style.height.px]="110">
     <div
-      class="category-icon-wrapper"
-      fxLayout="column"
-      fxLayoutAlign="center center">
+      class="category-icon-wrapper d-flex flex-column justify-content-center align-items-center">
       <div class="category-icon-container box-shadow border mb-2">
-        <mat-icon class="material-icons-outlined category-icon icon-lg">
-          date_range</mat-icon
+        <mat-icon class="material-icons-outlined category-icon icon-lg"
+          >date_range</mat-icon
         >
       </div>
       <div
@@ -21,7 +19,7 @@
     </div>
   </div>
   <app-back-button [path]="'/monthly'"></app-back-button>
-  <div class="pl-4 pr-4 pt-1 pb-1">
+  <div class="ps-4 pe-4 pt-1 pb-1">
     <ng-container *ngFor="let category of monthlyCategories | keyvalue">
       <div *ngIf="category.value.inc > 0 || category.value.exp > 0">
         <div class="mt-2 mb-2">
@@ -30,21 +28,18 @@
         <div>
           <!-- progress -->
           <div *ngIf="category.value.inc > 0">
-            <div
-              fxLayout="row"
-              fxLayoutAlign="space-between center"
-              class="mb-1">
+            <div class="d-flex justify-content-between align-items-center mb-1">
               <div class="text-black text-md">
                 Income
                 <span class="text-transparent">{{
                   category.value.inc | number : '1.2-2'
                 }}</span>
               </div>
-              <div class="text-black text-md">
+              <!-- <div class="text-black text-md">
                 {{
                   (category.value.inc / monthlyIncome) * 100 | number : '1.2-2'
                 }}%
-              </div>
+              </div> -->
             </div>
             <div class="pb-3">
               <app-progress-bar
@@ -54,27 +49,25 @@
             </div>
           </div>
           <div *ngIf="category.value.exp > 0">
-            <div
-              fxLayout="row"
-              fxLayoutAlign="space-between center"
-              class="mb-1">
+            <div class="d-flex justify-content-between align-items-center mb-1">
               <div class="text-black text-md">
                 Expense
                 <span class="text-transparent">{{
                   category.value.exp | number : '1.2-2'
                 }}</span>
               </div>
-              <div class="text-black text-md">
+              <!-- <div class="text-black text-md">
                 {{
                   (category.value.exp / monthlyIncome) * 100 | number : '1.2-2'
                 }}%
-              </div>
+              </div> -->
             </div>
             <div class="pb-3">
               <app-progress-bar
                 class="exp-progress-bar"
-                [percentage]="(category.value.exp / monthlyIncome) * 100">
-              </app-progress-bar>
+                [percentage]="
+                  (category.value.exp / monthlyIncome) * 100
+                "></app-progress-bar>
             </div>
           </div>
         </div>
@@ -84,17 +77,16 @@
           <span class="chip text-black text-bold text-transparent text-ex-sm">{{
             item.dateCreated | date : 'dd/MM/yy'
           }}</span>
-          <div class="item" fxLayout="row" fxLayoutAlign="space-between center">
+          <div class="item d-flex justify-content-between align-items-center">
             <div
-              fxLayout="row"
-              fxLayoutAlign="center center"
+              class="d-flex align-items-center"
               matTooltip="{{ item.description }}">
               <span class="text-black">{{
                 item.description || category.value.name | titlecase
               }}</span>
             </div>
-            <div fxLayout="row" fxLayoutAlign="center center">
-              <div fxLayout="column" fxLayoutAlign="end end">
+            <div class="d-flex align-items-center">
+              <div class="d-flex flex-column align-items-end">
                 <div class="item__value item-type-{{ item.type }}">
                   <span *ngIf="item.type === 'inc'">+</span>
                   <span *ngIf="item.type === 'exp'">-</span>
@@ -102,7 +94,7 @@
                 </div>
               </div>
             </div>
-          </div>
+            </div>
         </div>
       </div>
     </ng-container>
