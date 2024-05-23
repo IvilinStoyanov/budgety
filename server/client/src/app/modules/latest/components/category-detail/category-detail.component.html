@@ -11,7 +11,9 @@
       fxLayout="column"
       fxLayoutAlign="center center">
       <div
-        class="category-icon-container box-shadow border mb-2"
+        class="category-icon-container box-shadow mb-2"
+        [style.border-width.px]="1"
+        [style.border-style]="'solid'"
         [style.border-color]="category.color">
         <mat-icon
           class="material-icons-outlined category-icon icon-lg"
@@ -85,7 +87,7 @@
         [pageSize]="pageSize"
         (page)="changePageIndex($event.pageIndex)"
         [pageIndex]="pageIndex"
-        [hidePageSize]="false">
+        [hidePageSize]="true">
       </mat-paginator>
     </div>
   </div>
