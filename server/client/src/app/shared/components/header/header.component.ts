@@ -18,15 +18,15 @@ export class HeaderComponent {
     public authService: AuthService
   ) {}
 
-  login() {
+  login(): void {
     window.open(`${environment.apiUrl}/auth/google`, '_self');
   }
 
-  logout() {
+  logout(): void {
     this.http.get('/api/logout').subscribe(() => this.router.navigate(['/']));
   }
 
-  navigateHome() {
+  navigateHome(): void {
     this.router.navigate(['/']);
     this.commonService.currentTabIndex.next(0);
   }

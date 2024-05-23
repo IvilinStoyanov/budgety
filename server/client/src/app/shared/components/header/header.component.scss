@@ -1,17 +1,5 @@
 @import '../../../../theme/colors.scss';
 @import '../../../../theme/fonts.scss';
-.main-menu {
-  .mat-mdc-menu-content {
-    width: 180px;
-    padding: 12px 12px 4px 12px !important;
-
-    button {
-      text-align: center;
-      font-weight: 500;
-    }
-  }
-}
-
 
 nav {
   background: $custom-white;
