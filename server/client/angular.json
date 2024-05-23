@@ -29,7 +29,8 @@
                 "glob": "_redirects",
                 "input": "src",
                 "output": "/"
-              }
+              },
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
@@ -42,7 +43,9 @@
             "sourceMap": true,
             "aot": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
             "production": {
@@ -77,19 +80,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "budgety:build",
-            "proxyConfig": "proxy.conf.json"
+            "proxyConfig": "proxy.conf.json",
+            "buildTarget": "budgety:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "budgety:build:production"
+              "buildTarget": "budgety:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "budgety:build"
+            "buildTarget": "budgety:build"
           }
         },
         "test": {
@@ -102,26 +105,14 @@
             "codeCoverage": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         },
         "e2e": {
@@ -139,7 +130,6 @@
       }
     }
   },
-  "defaultProject": "budgety",
   "cli": {
     "analytics": false
   }

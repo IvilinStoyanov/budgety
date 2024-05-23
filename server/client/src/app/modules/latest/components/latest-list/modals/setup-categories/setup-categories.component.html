@@ -9,7 +9,7 @@
       <!-- default categories -->
       <div *ngFor="let category of categoryTemplates; let i = index;" class="text-center" fxLayout="column"
         fxFlex="33.33" fxFlex.lt-md="33.33" fxFlex.lt-sm="100">
-        <mat-card class="hover border m-1" (click)="select(i)">
+        <mat-card appearance="outlined" class="hover border m-1" (click)="select(i)">
           <ng-container *ngIf="category.isSelected">
             <mat-icon class="material-icons-outlined icon-md icon-success mr-2 check-icon">check</mat-icon>
           </ng-container>

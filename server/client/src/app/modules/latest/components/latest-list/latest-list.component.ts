@@ -41,7 +41,7 @@ export class LatestListComponent implements OnInit {
     private authService: AuthService,
     private categoriesService: CategoriesService,
     private cd: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.authService.currentUser$
@@ -102,9 +102,7 @@ export class LatestListComponent implements OnInit {
 
   navigateToCategory(categoryId: number): void {
     this.router.navigate(['latest/category'], {
-      queryParams: { id: categoryId },
-      skipLocationChange: true,
-      replaceUrl: false
+      queryParams: { id: categoryId }
     });
   }
 

@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxUiLoaderConfig, NgxUiLoaderModule } from 'ngx-ui-loader';
@@ -28,7 +28,6 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
   imports: [
-    CommonModule,
     AppRoutingModule,
     BrowserModule,
     NoopAnimationsModule,

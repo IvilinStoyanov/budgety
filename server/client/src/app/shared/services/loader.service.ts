@@ -6,13 +6,13 @@ import { Injectable } from '@angular/core';
 export class LoaderService {
   private ignoredUrl: string[] = [];
 
-  isUrlIgnored(url: string) {
+  isUrlIgnored(url: string): boolean {
     if (this.ignoredUrl.some(fragment => url.includes(fragment))) return true;
 
     return false;
   }
 
-  setUrls(Urls: string[]) {
+  setUrls(Urls: string[]): void {
     this.ignoredUrl.push(...Urls);
   }
 }
