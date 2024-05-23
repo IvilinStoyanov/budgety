@@ -29,7 +29,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   viewMode: string;
   pageIndex = 0;
   pageSize = 10;
-  totalPages = 0;
+  length = 0;
   // colorScheme = { domain: ['#28B9B5', '#FF5049'] };
   // curve: any = shape.curveBasis;
   chartData: any = [];
@@ -67,7 +67,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
         tap(result => {
           this.transactions = result.transactions;
 
-          this.totalPages = result.totalPages;
+          this.length = result.length;
         }),
         takeUntil(this.$destroyed)
       )
@@ -95,7 +95,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       .subscribe(result => {
         this.transactions = result.transactions;
 
-        this.totalPages = result.totalPages;
+        this.length = result.length;
 
         this.commonService.scrollToTop();
       });

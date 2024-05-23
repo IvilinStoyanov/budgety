@@ -15,7 +15,7 @@ module.exports = app => {
 
             const skip = pageIndex * pageSize;
 
-            const totalPages = Math.ceil(count / pageSize);
+            // const totalPages = Math.ceil(count / pageSize);
 
             const transactions = await Transactions
                 .find({ _user: req.user.id, _categoryId })
@@ -23,7 +23,7 @@ module.exports = app => {
                 .skip(skip)
                 .limit(pageSize);
 
-            res.send({ transactions, totalPages });
+            res.send({ transactions, length: count });
         } catch (error) {
             res.status(400).send(error);
         }

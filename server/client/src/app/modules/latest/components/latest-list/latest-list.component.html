@@ -2,7 +2,7 @@
   <div class="ml-2 mr-2 mt-2 mb-0">
     <app-tabs [user]="user"></app-tabs>
     <!-- progress bar -->
-    <mat-card class="
+    <mat-card appearance="outlined" class="
       border-bottom
       border-top-right-radius-none
       border-bottom-left-radius-none
@@ -35,7 +35,7 @@
     </mat-card>
   </div>
   <!-- list -->
-  <mat-card [style.min-height.vh]="100" [style.padding-bottom.px]="59" class="ml-2 mr-2 mb-0 mt-0 pt-0 pl-1 border-radius-none">
+  <mat-card appearance="outlined" [style.min-height.vh]="100" [style.padding-bottom.px]="59" class="ml-2 mr-2 mb-0 mt-0 pt-0 pl-1 border-radius-none">
     <ng-container *ngIf="categories">
       <div *ngIf="categories.length == 0" class="d-flex flex-column  hover"
         (click)="openAddItemDialog()">

@@ -1,7 +1,7 @@
 <div class="mt-2 ms-2 me-2 mb-0">
   <app-tabs [user]="authService.currentUser$ | async"></app-tabs>
 </div>
-<mat-card class="ms-2 me-2">
+<mat-card appearance="outlined" class="ms-2 me-2">
   <div class="d-flex justify-content-end">
     <form [formGroup]="dateForm">
       <mat-form-field appearance="outline">

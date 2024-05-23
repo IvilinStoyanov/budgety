@@ -4,10 +4,10 @@
       <span class="text-semi-bold">Categories</span>
     </div>
   </div>
-  <mat-card fxLayout="row wrap" class="bg-transparent border-top-left-radius-none">
+  <mat-card appearance="outlined" fxLayout="row wrap" class="bg-transparent border-top-left-radius-none">
     <!-- default categories -->
     <div *ngFor="let category of data?.categoryTemplates" class="text-center" fxLayout="column" fxFlex="50" fxFlex.lt-md="50" fxFlex.lt-sm="100">
-      <mat-card class="m-1 border" [ngClass]="{'card-hidden': !category.isVisible}">
+      <mat-card appearance="outlined" class="m-1 border" [ngClass]="{'card-hidden': !category.isVisible}">
         <span class="text-bold">{{category.name}}</span>
         <div fxLayout="column" fxLayoutAlign="center center">
           <div class="menu-left">

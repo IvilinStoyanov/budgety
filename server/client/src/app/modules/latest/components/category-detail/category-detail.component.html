@@ -1,4 +1,5 @@
 <mat-card
+  appearance="outlined"
   *ngIf="category"
   [style.min-height.px]="600"
   [style.margin-top.px]="15"
@@ -42,9 +43,12 @@
         <span class="chip text-black text-bold text-transparent text-ex-sm">{{
           item.dateCreated | date
         }}</span>
-        <div class="d-flex justify-content-between item" fxLayout="row" fxLayoutAlign="space-between center">
+        <div
+          class="d-flex justify-content-between item"
+          fxLayout="row"
+          fxLayoutAlign="space-between center">
           <div
-          class="d-flex align-items-center"
+            class="d-flex align-items-center"
             fxLayout="row"
             fxLayoutAlign="center center"
             matTooltip="{{ item.description }}">
@@ -52,7 +56,10 @@
               item.description || category.name | titlecase
             }}</span>
           </div>
-          <div fxLayout="row" fxLayoutAlign="center center" class="d-flex align-items-center">
+          <div
+            fxLayout="row"
+            fxLayoutAlign="center center"
+            class="d-flex align-items-center">
             <div fxLayout="column" fxLayoutAlign="end end">
               <div class="item__value item-type-{{ item.type }}">
                 <span *ngIf="item.type === 'inc'">+</span>
@@ -72,41 +79,14 @@
         </div>
       </div>
     </ng-container>
-    <div
-      fxLayout="row"
-      fxLayoutAlign="center"
-      class="pagination"
-      *ngIf="totalPages !== 0">
-      <div
-        [ngClass]="{ 'pointer-events-none': pageIndex == 0 }"
-        fxLayout="row"
-        fxLayoutAlign="center start"
-        class="text-black text-bold text-transparent text-sm hover mr-2"
-        (click)="changePageIndex(pageIndex - 1)">
-        <span class="material-icons-outlined" [style.margin-top.px]="-2"
-          >chevron_left</span
-        >
-        <span>prev</span>
-      </div>
-      <div *ngFor="let in of counter(totalPages); let i = index">
-        <span
-          [ngClass]="{ 'pagination-active': pageIndex == i }"
-          class="step text-black text-bold text-transparent hover ml-1 mr-1"
-          (click)="changePageIndex(i)"
-          >{{ i + 1 }}</span
-        >
-      </div>
-      <div
-        [ngClass]="{ 'pointer-events-none': pageIndex + 1 >= totalPages }"
-        fxLayout="row"
-        fxLayoutAlign="center start"
-        class="text-black text-bold text-transparent text-sm hover ml-1"
-        (click)="changePageIndex(pageIndex + 1)">
-        <span>next</span>
-        <span class="material-icons-outlined" [style.margin-top.px]="-2"
-          >chevron_right</span
-        >
-      </div>
+    <div>
+      <mat-paginator
+        [length]="length"
+        [pageSize]="pageSize"
+        (page)="changePageIndex($event.pageIndex)"
+        [pageIndex]="pageIndex"
+        [hidePageSize]="false">
+      </mat-paginator>
     </div>
   </div>
 </mat-card>

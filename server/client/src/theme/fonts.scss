@@ -42,19 +42,19 @@ $large: 16px;
 /* text colors */
 
 .text-white {
-  color: $custom-white;
+  color: $custom-white !important;
 }
 
 .text-black {
-  color: $black;
+  color: $black !important;
 }
 
 .text-primary {
-  color: $primary;
+  color: $primary !important;
 }
 
 .text-grey {
-  color: $grey;
+  color: $grey !important;
 }
 
 .text-danger {
