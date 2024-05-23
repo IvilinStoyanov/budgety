@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, of, Subject } from 'rxjs';
 import {
@@ -23,7 +23,7 @@ import { Icon } from '../../models/icon';
   styleUrls: ['./add-category.component.scss']
 })
 export class AddCategoryComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   searchText: string;
 
   panelOpenState: boolean;
@@ -39,7 +39,7 @@ export class AddCategoryComponent implements OnInit {
   constructor(
     private notification: NotificationService,
     private categoriesService: CategoriesService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public router: Router
   ) {}
 

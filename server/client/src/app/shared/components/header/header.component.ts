@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CommonService } from 'src/app/shared/services/common.service';
@@ -19,15 +18,15 @@ export class HeaderComponent {
     public authService: AuthService
   ) {}
 
-  login() {
+  login(): void {
     window.open(`${environment.apiUrl}/auth/google`, '_self');
   }
 
-  logout() {
+  logout(): void {
     this.http.get('/api/logout').subscribe(() => this.router.navigate(['/']));
   }
 
-  navigateHome() {
+  navigateHome(): void {
     this.router.navigate(['/']);
     this.commonService.currentTabIndex.next(0);
   }

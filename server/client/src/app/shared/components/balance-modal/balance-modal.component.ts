@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IUser } from 'src/app/shared/models/interface/User';
 
@@ -9,13 +9,13 @@ import { IUser } from 'src/app/shared/models/interface/User';
   styleUrls: ['./balance-modal.component.scss']
 })
 export class BalanceModalComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   user: IUser;
 
   constructor(
     public dialogRef: MatDialogRef<BalanceModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IUser,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {
     this.user = data;
   }

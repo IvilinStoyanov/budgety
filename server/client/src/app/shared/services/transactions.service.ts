@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ITransaction } from '../models/interface/transaction';
-import { IUser } from '../models/interface/User';
 import { CategoryTransactionsResponse } from '../../modules/latest/models/category-transactions-response';
 import { TransactionGlobalResponse } from '../../modules/latest/models/transaction-global-response';
 import { TransactionResponse } from '../../modules/latest/models/transaction-response';
+import { ITransaction } from '../models/interface/transaction';
+import { IUser } from '../models/interface/User';
 
 @Injectable({
   providedIn: 'root'

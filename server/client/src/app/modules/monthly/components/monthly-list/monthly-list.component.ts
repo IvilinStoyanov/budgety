@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { TransactionsService } from 'src/app/shared/services/transactions.service';
@@ -11,15 +11,15 @@ import { TransactionsService } from 'src/app/shared/services/transactions.servic
 })
 export class MonthlyListComponent implements OnInit {
   monthlyList: any = [];
-  dateForm: FormGroup;
+  dateForm: UntypedFormGroup;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public authService: AuthService,
     private transactionsService: TransactionsService
   ) {
     this.dateForm = this.fb.group({
-      year: new FormControl(new Date())
+      year: new UntypedFormControl(new Date())
     });
   }
 
