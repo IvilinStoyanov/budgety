@@ -22,7 +22,7 @@ export const createTransaction = createAction(
 
 export const createTransactionSuccess = createAction(
   '[Latest] Create Transaction Success',
-  props<{ user: IUser; category: ICategory }>()
+  props<{ category: ICategory }>()
 );
 
 export const createTransactionFailure = createAction(

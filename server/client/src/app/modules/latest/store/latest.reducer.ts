@@ -27,5 +27,17 @@ export const latestReducer = createReducer(
     ...state,
     loading: false,
     error
-  }))
+  })),
+  on(latest.createTransaction, state => ({ ...state, loading: true })),
+  on(latest.createTransactionSuccess, (state, { category }) => {
+    const updatedCategories = state.categories.map(cat =>
+      cat._id === category._id ? { ...cat, ...category } : cat
+    );
+
+    return {
+      ...state,
+      loading: false,
+      categories: updatedCategories
+    };
+  })
 );

@@ -76,7 +76,6 @@ export class AddItemComponent implements OnInit, OnDestroy {
 
   addItem(): void {
     if (this.form.valid) {
-      debugger
       if (this.form.get('type').value === false) {
         this.form.get('type').setValue('inc');
       } else {

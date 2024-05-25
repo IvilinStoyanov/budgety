@@ -5,28 +5,31 @@
       <!-- progress bar -->
       <mat-card
         appearance="outlined"
-        class="border-bottom border-top-right-radius-none border-bottom-left-radius-none border-bottom-right-radius-none">
+        class="border-top-right-radius-none border-bottom-left-radius-none border-bottom-right-radius-none">
         <div class="d-flex justify-content-between mb-1">
-          <div class="text-black text-md">
+          <div class="text-black">
             Income
             <span class="text-transparent">{{
               user?.inc | number : '1.2-2'
             }}</span>
           </div>
-          <div class="text-black text-md">{{ user?.incPercentage }}%</div>
-        </div>
+          <div class="text-transparent text-sm">
+            {{ user?.incPercentage | number : '1.0-0' }}% of budget</div>
+          </div>
         <div class="pb-3">
           <app-progress-bar
             [percentage]="user?.incPercentage"></app-progress-bar>
         </div>
         <div class="d-flex justify-content-between mb-1">
-          <div class="text-black text-md">
+          <div class="text-black">
             Expense
             <span class="text-transparent">{{
               user?.exp | number : '1.2-2'
             }}</span>
           </div>
-          <div class="text-black text-md">{{ user?.expPercentage }}%</div>
+          <div class="text-transparent text-sm">
+            {{ user?.expPercentage | number : '1.0-0' }}% of budget
+          </div>
         </div>
         <div class="pb-3">
           <app-progress-bar
@@ -61,49 +64,15 @@
             <div class="d-flex justify-content-between align-items-center">
               <div class="d-flex align-items-center">
                 <div class="category-title-container">
-                  <svg
-                    width="100%"
-                    height="100%"
-                    viewBox="0 0 42 42"
-                    class="circle-chart">
+                  <svg viewBox="0 0 42 42" class="circle-chart">
                     <circle
-                      cx="21"
-                      cy="21"
-                      r="15.91549430918954"
-                      fill="#fff"></circle>
-                    <circle
+                      class="donut-segment"
                       cx="21"
                       cy="21"
                       r="15.91549430918954"
                       fill="transparent"
-                      stroke="#d2d3d4"
+                      attr.stroke="{{ category.color }}"
                       stroke-width="1.5"></circle>
-                    <circle
-                      *ngIf="viewMode === 'exp'"
-                      class="donut-segment"
-                      cx="21"
-                      cy="21"
-                      r="15.91549430918954"
-                      fill="transparent"
-                      attr.stroke="{{ category.color }}"
-                      stroke-width="1.5"
-                      attr.stroke-dasharray="{{ category.expPercentage }} {{
-                        100 - category.expPercentage
-                      }}"
-                      stroke-dashoffset="25"></circle>
-                    <circle
-                      *ngIf="viewMode === 'inc'"
-                      class="donut-segment"
-                      cx="21"
-                      cy="21"
-                      r="15.91549430918954"
-                      fill="transparent"
-                      attr.stroke="{{ category.color }}"
-                      stroke-width="1.5"
-                      attr.stroke-dasharray="{{ category.incPercentage }} {{
-                        100 - category.incPercentage
-                      }}"
-                      stroke-dashoffset="25"></circle>
                   </svg>
                   <mat-icon
                     class="position-center-absolute material-icons-outlined icon-md icon-primary mr-2"
@@ -114,16 +83,6 @@
                   <span class="text-black text-bold">{{
                     category.name | titlecase
                   }}</span>
-                  <span
-                    *ngIf="viewMode === 'inc'"
-                    class="text-transparent text-sm"
-                    >{{ category.incPercentage }}% of budget</span
-                  >
-                  <span
-                    *ngIf="viewMode === 'exp'"
-                    class="text-transparent text-sm"
-                    >{{ category.expPercentage }}% of budget</span
-                  >
                 </div>
               </div>
               <div class="d-flex flex-column align-items-end">

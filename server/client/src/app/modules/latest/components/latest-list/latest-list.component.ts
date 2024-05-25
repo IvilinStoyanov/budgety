@@ -164,6 +164,7 @@ export class LatestListComponent implements OnInit {
     dialogRef.afterClosed().subscribe((transaction: ITransaction) => {
       if (transaction) {
         this.store.dispatch(latestActions.createTransaction({ transaction }));
+
         this.notification.success('Item successfully added');
       }
     });
