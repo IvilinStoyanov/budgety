@@ -18,12 +18,12 @@ import { ErrorCatchingInterceptor } from './shared/interceptors/error-catching.i
 import { LoaderInterceptor } from './shared/interceptors/loader.interceptor.ts';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
-  fgsColor: '#179ff7',
+  fgsColor: '#7ab1c1',
   fgsPosition: 'center-center',
   fgsSize: 80,
   fgsType: 'three-bounce',
   overlayColor: 'rgb(255,255,255)',
-  pbColor: '#179ff7',
+  pbColor: '#7ab1c1',
   pbThickness: 3,
   hasProgressBar: true
 };

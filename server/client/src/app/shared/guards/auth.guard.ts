@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import { selectUser } from 'src/app/store/user/user.selector';
 
 import { NotificationService } from '../services/notification.service';
@@ -17,6 +17,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): Observable<boolean> | boolean {
     return this.store.select(selectUser).pipe(
+      filter(user => user !== null),
       take(1),
       map(user => {
         if (user) {
