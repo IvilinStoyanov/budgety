@@ -1,5 +1,5 @@
 <ng-container *ngIf="categories$ | async as categories">
-  <ng-container *ngIf="authService.currentUser$ | async as user">
+  <ng-container *ngIf="user$ | async as user">
     <div class="ml-2 mr-2 mt-2 mb-1">
       <!-- tabs -->
       <app-tabs [user]="user"></app-tabs>

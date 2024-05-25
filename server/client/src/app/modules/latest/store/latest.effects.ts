@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { catchError, mergeMap, withLatestFrom } from 'rxjs/operators';
+import { catchError, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
 import { ICategory } from 'src/app/shared/models/interface/category';
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { CategoriesService } from 'src/app/shared/services/categories.service';
-import { CommonService } from 'src/app/shared/services/common.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 import { TransactionsService } from 'src/app/shared/services/transactions.service';
 import { selectUser } from 'src/app/store/user/user.selector';
 
@@ -19,11 +18,10 @@ export class LatestEffects {
   constructor(
     private actions$: Actions,
     private categoryService: CategoriesService,
-    private commonService: CommonService,
-    private authService: AuthService,
     private transactionService: TransactionsService,
+    private notificationService: NotificationService,
     private store: Store
-  ) { }
+  ) {}
 
   loadLatest$ = createEffect(() =>
     this.actions$.pipe(
@@ -58,5 +56,16 @@ export class LatestEffects {
         )
       )
     )
+  );
+
+  createTransactionSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(latestActions.createTransactionSuccess),
+        tap(() => {
+          this.notificationService.success('Item successfully added');
+        })
+      ),
+    { dispatch: false }
   );
 }

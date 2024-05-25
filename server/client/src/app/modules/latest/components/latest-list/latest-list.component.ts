@@ -1,14 +1,8 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import * as latestActions from 'src/app/modules/latest/store/latest.actions';
 import { AddItemComponent } from 'src/app/shared/components/add-item/add-item.component';
 import { Category } from 'src/app/shared/models/class/category';
@@ -19,13 +13,9 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { CategoriesService } from 'src/app/shared/services/categories.service';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
-import { TransactionsService } from 'src/app/shared/services/transactions.service';
+import { selectUser } from 'src/app/store/user/user.selector';
 
-import {
-  selectLatestCategory,
-  selectLatestLoading
-} from '../../store/latest.selector';
-import { SetupCategoriesComponent } from './modals/setup-categories/setup-categories.component';
+import { selectLatestCategory } from '../../store/latest.selector';
 
 @Component({
   selector: 'app-latest',
@@ -35,7 +25,7 @@ import { SetupCategoriesComponent } from './modals/setup-categories/setup-catego
 })
 export class LatestListComponent implements OnInit {
   categories$: Observable<ICategory[]>;
-  user: IUser | undefined;
+  user$: Observable<IUser>;
   viewMode = 'exp';
 
   constructor(
@@ -43,72 +33,15 @@ export class LatestListComponent implements OnInit {
     private commonService: CommonService,
     private router: Router,
     public notification: NotificationService,
-    private transactionsService: TransactionsService,
     public authService: AuthService,
-    private categoriesService: CategoriesService,
-    private cd: ChangeDetectorRef,
     private store: Store
   ) {
+    this.user$ = this.store.select(selectUser);
     this.categories$ = this.store.select(selectLatestCategory);
   }
 
   ngOnInit(): void {
     this.store.dispatch(latestActions.loadLatest());
-
-    // this.authService.currentUser$
-    //   .pipe(
-    //     switchMap(user => {
-    //       this.user = this.commonService.calculateTotalExpPercentage(user);
-
-    //       if (!user?.isCategoriesSet) {
-    //         this.openSetupCategoriesModal();
-    //         return of(null);
-    //       } else {
-    //         return this.categoriesService.getCategories();
-    //       }
-    //     }),
-    //     map(categories =>
-    //       this.commonService.calculatePercentageEach(categories, this.user)
-    //     ),
-    //     tap(categories => {
-    //       this.categories = categories;
-    //      // this.categoriesService.categories = this.categories;
-    //     }),
-    //     take(1)
-    //   )
-    //   .subscribe(result => {
-    //     if (result) {
-    //       this.setViewMode('exp');
-    //       // set viewMode to inc if there is no expenses on first load.
-    //       if (this.user?.exp === 0) {
-    //         this.viewMode = 'inc';
-    //       }
-
-    //       this.cd.detectChanges();
-    //     }
-    //   });
-  }
-
-  openSetupCategoriesModal(): void {
-    const dialogRef = this.dialog.open(SetupCategoriesComponent, {
-      autoFocus: false,
-      disableClose: true
-    });
-
-    dialogRef.afterClosed().subscribe(filteredCategories => {
-      if (filteredCategories) {
-        this.categoriesService
-          .importCategories(filteredCategories)
-          .subscribe(result => {
-            if (result) {
-              // this.categories = result.categories;
-              this.user = result.user;
-
-              this.notification.success('Categories successfully imported.');
-            }
-          });
-      }
-    });
   }
 
   navigateToCategory(categoryId: number): void {
@@ -164,36 +97,7 @@ export class LatestListComponent implements OnInit {
     dialogRef.afterClosed().subscribe((transaction: ITransaction) => {
       if (transaction) {
         this.store.dispatch(latestActions.createTransaction({ transaction }));
-
-        this.notification.success('Item successfully added');
       }
     });
   }
-
-  // addItem(transaction: ITransaction): void {
-  //   this.setViewMode(transaction.type);
-  //   this.transactionsService
-  //     .createTransactionGlobal(transaction)
-  //     .subscribe(result => {
-  //       if (result) {
-  //         this.user = this.commonService.calculateTotalExpPercentage(
-  //           result.user
-  //         );
-
-  //         this.authService.setCurrentUser(this.user);
-  //         const key = this.categories.findIndex(
-  //           category => category._id === result.category._id
-  //         );
-
-  //         this.categories[key] = result.category;
-
-  //         this.categories = this.commonService.calculatePercentageEach(
-  //           this.categories,
-  //           this.user
-  //         );
-
-  //         this.cd.detectChanges();
-  //       }
-  //     });
-  // }
 }
