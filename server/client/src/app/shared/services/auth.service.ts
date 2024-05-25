@@ -25,6 +25,10 @@ export class AuthService {
     this.currentUserSource.next(user);
   }
 
+  logout(): Observable<void> {
+    return this.http.get<void>('/api/logout');
+  }
+
   roleMatch(allowedRoles: string[], userRole: string): boolean {
     let isMatch = false;
 

@@ -19,8 +19,19 @@ module.exports = app => {
     );
 
     app.get('/api/logout', (req, res) => {
-        req.logout();
-        res.status(200).send({status: 'OK'})
+        req.logout((err) => {
+            if (err) {
+                return next(err);
+            }
+            req.session.destroy((err) => {
+                if (err) {
+                    return next(err);
+                }
+                res.clearCookie('connect.sid', { path: '/' });
+                res.status(200).send({ message: 'Logout successful' });
+            });
+        });
+        res.status(200).send({ status: 'OK' });
     });
 
     app.get('/api/current_user', (req, res) => {
@@ -29,6 +40,6 @@ module.exports = app => {
         } catch (error) {
             res.status(400).send(error);
         }
-      
+
     });
 };

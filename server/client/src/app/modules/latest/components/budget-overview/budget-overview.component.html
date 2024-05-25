@@ -1,0 +1,30 @@
+<mat-card
+  appearance="outlined"
+  class="border-top-right-radius-none border-bottom-left-radius-none border-bottom-right-radius-none">
+  <div class="d-flex justify-content-between mb-1">
+    <div class="text-black">
+      Income
+      <span class="text-transparent">{{ user?.inc | number : '1.2-2' }}</span>
+    </div>
+    <div class="text-transparent text-sm">
+      {{ user?.incPercentage | number : '1.0-0' }}% of budget
+    </div>
+  </div>
+  <div class="pb-3">
+    <app-progress-bar [percentage]="user?.incPercentage"></app-progress-bar>
+  </div>
+  <div class="d-flex justify-content-between mb-1">
+    <div class="text-black">
+      Expense
+      <span class="text-transparent">{{ user?.exp | number : '1.2-2' }}</span>
+    </div>
+    <div class="text-transparent text-sm">
+      {{ user?.expPercentage | number : '1.0-0' }}% of budget
+    </div>
+  </div>
+  <div class="pb-3">
+    <app-progress-bar
+      class="exp-progress-bar"
+      [percentage]="user?.expPercentage"></app-progress-bar>
+  </div>
+</mat-card>

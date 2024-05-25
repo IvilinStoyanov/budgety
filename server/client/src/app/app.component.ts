@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/shared/services/auth.service';
+
+import * as userActions from './store/user/user.actions';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +12,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 export class AppComponent {
   title = 'budgety';
 
-  constructor(public authService: AuthService) {
-    this.authService.fetchUser().subscribe(user => {
-      this.authService.setCurrentUser(user);
-    });
+  constructor(public authService: AuthService, private store: Store) {
+    this.store.dispatch(userActions.loadUser());
   }
 }

@@ -71,11 +71,6 @@ a {
 }
 
 .is-active {
-  background: rgb(23, 120, 182);
-  background: linear-gradient(
-    90deg,
-    rgba(23, 120, 182, 1) 18%,
-    rgba(34, 134, 199, 1) 100%
-  ) !important;
+  background: $primary !important;
   color: $custom-white !important;
 }

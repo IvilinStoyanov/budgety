@@ -1,4 +1,4 @@
-@import "../theme/colors.scss";
+@import '../theme/colors.scss';
 
 .container {
   max-width: 875px;
@@ -20,7 +20,7 @@
 }
 
 .text-transparent {
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 /* link */
@@ -179,4 +179,14 @@
   border-radius: 6px 6px 0px 0px;
   color: $black;
   @extend .bg-transparent;
+}
+
+.label {
+  width: 100px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  text-align: center;
+  background: $primary;
+  color: $custom-white;
+  padding: 5px;
 }

@@ -1,7 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { ICategory } from 'src/app/shared/models/interface/category';
 import { ITransaction } from 'src/app/shared/models/interface/transaction';
-import { IUser } from 'src/app/shared/models/interface/User';
 
 export const loadLatest = createAction('[Latest] Load Latest');
 

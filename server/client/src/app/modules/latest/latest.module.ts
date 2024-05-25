@@ -4,6 +4,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
 import { SharedModule } from '../shared/shared.module';
+import { BudgetOverviewComponent } from './components/budget-overview/budget-overview.component';
 import { CategoryDetailComponent } from './components/category-detail/category-detail.component';
 import { LatestListComponent } from './components/latest-list/latest-list.component';
 import { SetupCategoriesComponent } from './components/latest-list/modals/setup-categories/setup-categories.component';
@@ -15,7 +16,8 @@ import * as fromLatest from './store/latest.reducer';
   declarations: [
     LatestListComponent,
     CategoryDetailComponent,
-    SetupCategoriesComponent
+    SetupCategoriesComponent,
+    BudgetOverviewComponent
   ],
   imports: [
     CommonModule,
