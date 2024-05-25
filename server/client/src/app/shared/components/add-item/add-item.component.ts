@@ -5,9 +5,12 @@ import {
   Validators
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AddItemModalData } from 'src/app/shared/models/interface/add-item-modal-data';
 import { ITransaction } from 'src/app/shared/models/interface/transaction';
+import { ICategory } from '../../models/interface/category';
+import { Store } from '@ngrx/store';
+import { selectLatestCategory } from 'src/app/modules/latest/store/latest.selector';
 
 @Component({
   selector: 'app-add-item',
@@ -21,12 +24,16 @@ export class AddItemComponent implements OnInit, OnDestroy {
   categoryPicked: string;
   templateData: AddItemModalData;
 
+  categories$: Observable<ICategory[]>;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: AddItemModalData,
     public dialogRef: MatDialogRef<AddItemComponent>,
-    private fb: UntypedFormBuilder
+    private fb: UntypedFormBuilder,
+    private store: Store
   ) {
     this.templateData = data;
+    this.categories$ = this.store.select(selectLatestCategory);
   }
 
   ngOnInit(): void {
@@ -35,6 +42,7 @@ export class AddItemComponent implements OnInit, OnDestroy {
     const categorySubscription$ = this.form
       .get('category')
       .valueChanges.subscribe(value => {
+        console.log(value);
         this.categoryPicked = value?.name;
       });
 
@@ -60,14 +68,15 @@ export class AddItemComponent implements OnInit, OnDestroy {
       description: ['']
     });
 
-    if (this.templateData.categories.length === 1) {
-      this.categoryPicked = this.templateData.categories[0].name;
-      this.form.get('category').setValue(this.templateData.categories[0]);
-    }
+    // if (this.templateData.categories.length === 1) {
+    //   this.categoryPicked = this.templateData.categories[0].name;
+    //   this.form.get('category').setValue(this.templateData.categories[0]);
+    // }
   }
 
   addItem(): void {
     if (this.form.valid) {
+      debugger
       if (this.form.get('type').value === false) {
         this.form.get('type').setValue('inc');
       } else {

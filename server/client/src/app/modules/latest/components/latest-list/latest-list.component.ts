@@ -6,8 +6,10 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable, of } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
+import * as latestActions from 'src/app/modules/latest/store/latest.actions';
 import { AddItemComponent } from 'src/app/shared/components/add-item/add-item.component';
 import { Category } from 'src/app/shared/models/class/category';
 import { ICategory } from 'src/app/shared/models/interface/category';
@@ -19,6 +21,10 @@ import { CommonService } from 'src/app/shared/services/common.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { TransactionsService } from 'src/app/shared/services/transactions.service';
 
+import {
+  selectLatestCategory,
+  selectLatestLoading
+} from '../../store/latest.selector';
 import { SetupCategoriesComponent } from './modals/setup-categories/setup-categories.component';
 
 @Component({
@@ -28,9 +34,9 @@ import { SetupCategoriesComponent } from './modals/setup-categories/setup-catego
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LatestListComponent implements OnInit {
-  categories: ICategory[] = [];
+  categories$: Observable<ICategory[]>;
   user: IUser | undefined;
-  viewMode: string;
+  viewMode = 'exp';
 
   constructor(
     private dialog: MatDialog,
@@ -38,44 +44,49 @@ export class LatestListComponent implements OnInit {
     private router: Router,
     public notification: NotificationService,
     private transactionsService: TransactionsService,
-    private authService: AuthService,
+    public authService: AuthService,
     private categoriesService: CategoriesService,
-    private cd: ChangeDetectorRef
-  ) { }
+    private cd: ChangeDetectorRef,
+    private store: Store
+  ) {
+    this.categories$ = this.store.select(selectLatestCategory);
+  }
 
   ngOnInit(): void {
-    this.authService.currentUser$
-      .pipe(
-        switchMap(user => {
-          this.user = this.commonService.calculateTotalExpPercentage(user);
+    this.store.dispatch(latestActions.loadLatest());
 
-          if (!user?.isCategoriesSet) {
-            this.openSetupCategoriesModal();
-            return of(null);
-          } else {
-            return this.categoriesService.getCategories();
-          }
-        }),
-        map(categories =>
-          this.commonService.calculatePercentageEach(categories, this.user)
-        ),
-        tap(categories => {
-          this.categories = categories;
-          this.categoriesService.categories = this.categories;
-        }),
-        take(1)
-      )
-      .subscribe(result => {
-        if (result) {
-          this.setViewMode('exp');
-          // set viewMode to inc if there is no expenses on first load.
-          if (this.user?.exp === 0) {
-            this.viewMode = 'inc';
-          }
+    // this.authService.currentUser$
+    //   .pipe(
+    //     switchMap(user => {
+    //       this.user = this.commonService.calculateTotalExpPercentage(user);
 
-          this.cd.detectChanges();
-        }
-      });
+    //       if (!user?.isCategoriesSet) {
+    //         this.openSetupCategoriesModal();
+    //         return of(null);
+    //       } else {
+    //         return this.categoriesService.getCategories();
+    //       }
+    //     }),
+    //     map(categories =>
+    //       this.commonService.calculatePercentageEach(categories, this.user)
+    //     ),
+    //     tap(categories => {
+    //       this.categories = categories;
+    //      // this.categoriesService.categories = this.categories;
+    //     }),
+    //     take(1)
+    //   )
+    //   .subscribe(result => {
+    //     if (result) {
+    //       this.setViewMode('exp');
+    //       // set viewMode to inc if there is no expenses on first load.
+    //       if (this.user?.exp === 0) {
+    //         this.viewMode = 'inc';
+    //       }
+
+    //       this.cd.detectChanges();
+    //     }
+    //   });
   }
 
   openSetupCategoriesModal(): void {
@@ -90,7 +101,7 @@ export class LatestListComponent implements OnInit {
           .importCategories(filteredCategories)
           .subscribe(result => {
             if (result) {
-              this.categories = result.categories;
+              // this.categories = result.categories;
               this.user = result.user;
 
               this.notification.success('Categories successfully imported.');
@@ -110,17 +121,17 @@ export class LatestListComponent implements OnInit {
     this.viewMode = mode;
     this.commonService.viewMode = mode;
 
-    if (mode === 'inc') {
-      this.categories.sort(function (a: { inc: number }, b: { inc: number }) {
-        return b.inc - a.inc;
-      });
-    }
+    // if (mode === 'inc') {
+    //   this.categories.sort(function (a: { inc: number }, b: { inc: number }) {
+    //     return b.inc - a.inc;
+    //   });
+    // }
 
-    if (mode === 'exp') {
-      this.categories.sort(function (a: { exp: number }, b: { exp: number }) {
-        return b.exp - a.exp;
-      });
-    }
+    // if (mode === 'exp') {
+    //   this.categories.sort(function (a: { exp: number }, b: { exp: number }) {
+    //     return b.exp - a.exp;
+    //   });
+    // }
   }
 
   showCategories(category: Category): boolean {
@@ -146,43 +157,42 @@ export class LatestListComponent implements OnInit {
     const dialogRef = this.dialog.open(AddItemComponent, {
       autoFocus: false,
       data: {
-        categories: this.categories,
         viewMode: this.viewMode
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.addItem(result);
+    dialogRef.afterClosed().subscribe((transaction: ITransaction) => {
+      if (transaction) {
+        this.store.dispatch(latestActions.createTransaction({ transaction }));
         this.notification.success('Item successfully added');
       }
     });
   }
 
-  addItem(transaction: ITransaction): void {
-    this.setViewMode(transaction.type);
-    this.transactionsService
-      .createTransactionGlobal(transaction)
-      .subscribe(result => {
-        if (result) {
-          this.user = this.commonService.calculateTotalExpPercentage(
-            result.user
-          );
+  // addItem(transaction: ITransaction): void {
+  //   this.setViewMode(transaction.type);
+  //   this.transactionsService
+  //     .createTransactionGlobal(transaction)
+  //     .subscribe(result => {
+  //       if (result) {
+  //         this.user = this.commonService.calculateTotalExpPercentage(
+  //           result.user
+  //         );
 
-          this.authService.setCurrentUser(this.user);
-          const key = this.categories.findIndex(
-            category => category._id === result.category._id
-          );
+  //         this.authService.setCurrentUser(this.user);
+  //         const key = this.categories.findIndex(
+  //           category => category._id === result.category._id
+  //         );
 
-          this.categories[key] = result.category;
+  //         this.categories[key] = result.category;
 
-          this.categories = this.commonService.calculatePercentageEach(
-            this.categories,
-            this.user
-          );
+  //         this.categories = this.commonService.calculatePercentageEach(
+  //           this.categories,
+  //           this.user
+  //         );
 
-          this.cd.detectChanges();
-        }
-      });
-  }
+  //         this.cd.detectChanges();
+  //       }
+  //     });
+  // }
 }

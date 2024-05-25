@@ -26,7 +26,6 @@ import { BackButtonComponent } from 'src/app/shared/components/back-button/back-
 import { BalanceModalComponent } from 'src/app/shared/components/balance-modal/balance-modal.component';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { ProgressBarComponent } from 'src/app/shared/components/progress-bar/progress-bar.component';
-/* components */
 import { TabsComponent } from 'src/app/shared/components/tabs/tabs.component';
 import { HasRoleDirective } from 'src/app/shared/directives/hasRole.directive';
 import { HighlightOnHoverDirective } from 'src/app/shared/directives/highlightOnHover.directive';
@@ -37,7 +36,6 @@ import { StopPropagationDirective } from 'src/app/shared/directives/stop-propaga
     HasRoleDirective,
     StopPropagationDirective,
     HighlightOnHoverDirective,
-
     TabsComponent,
     BalanceModalComponent,
     ProgressBarComponent,
@@ -95,7 +93,6 @@ import { StopPropagationDirective } from 'src/app/shared/directives/stop-propaga
     TabsComponent,
     ProgressBarComponent,
     BackButtonComponent,
-
     HasRoleDirective,
     StopPropagationDirective,
     HighlightOnHoverDirective
