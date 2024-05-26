@@ -1,8 +1,8 @@
 // src/app/modules/latest/store/latest.selectors.ts
 
 import { createSelector } from '@ngrx/store';
-import { AppState } from 'src/app/store';
 
+import { AppState } from '../../shared/store';
 import { LatestState } from './latest.reducer';
 
 export const selectLatestFeature = (state: AppState): LatestState =>

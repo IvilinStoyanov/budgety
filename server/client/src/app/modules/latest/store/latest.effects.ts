@@ -3,13 +3,13 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
+import { selectUser } from 'src/app/modules/shared/store/user/user.selector';
 import { ICategory } from 'src/app/shared/models/interface/category';
 import { CategoriesService } from 'src/app/shared/services/categories.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { TransactionsService } from 'src/app/shared/services/transactions.service';
-import { selectUser } from 'src/app/store/user/user.selector';
 
-import * as userActions from '../../../store/user/user.actions';
+import * as userActions from '../../shared/store/user/user.actions';
 import { TransactionGlobalResponse } from '../models/transaction-global-response';
 import * as latestActions from './latest.actions';
 

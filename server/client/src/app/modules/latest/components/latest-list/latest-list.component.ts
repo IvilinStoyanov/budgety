@@ -13,7 +13,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { CategoriesService } from 'src/app/shared/services/categories.service';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
-import { selectUser } from 'src/app/store/user/user.selector';
+import { selectUser } from 'src/app/modules/shared/store/user/user.selector';
 
 import { selectLatestCategory } from '../../store/latest.selector';
 

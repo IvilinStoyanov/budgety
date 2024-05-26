@@ -4,10 +4,10 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CommonService } from 'src/app/shared/services/common.service';
-import { selectUser } from 'src/app/store/user/user.selector';
+import { selectUser } from 'src/app/modules/shared/store/user/user.selector';
 import { environment } from 'src/environments/environment';
 
-import * as userActions from '../../../store/user/user.actions';
+import * as userActions from '../../../modules/shared/store/user/user.actions';
 import { IUser } from '../../models/interface/User';
 
 @Component({

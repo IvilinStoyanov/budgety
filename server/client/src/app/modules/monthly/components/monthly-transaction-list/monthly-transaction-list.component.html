@@ -76,7 +76,7 @@
           *ngFor="let item of category.value.items; let i = index"
           class="line-item">
           <span class="chip text-black text-bold text-transparent text-ex-sm">{{
-            item.dateCreated | date : 'dd/MM/yy'
+            item.dateCreated | date
           }}</span>
           <div class="item d-flex justify-content-between align-items-center">
             <div

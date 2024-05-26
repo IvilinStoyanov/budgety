@@ -85,7 +85,7 @@ export class AddItemComponent implements OnInit, OnDestroy {
       // set date
       this.form.value.dateCreated = new Date(
         this.form.value.dateCreated
-      ).toUTCString();
+      ).toISOString();
 
       const transaction: ITransaction = {
         _categoryId: this.form.value.category._id,

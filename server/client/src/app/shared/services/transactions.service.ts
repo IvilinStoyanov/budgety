@@ -79,21 +79,9 @@ export class TransactionsService {
     year: number,
     month: string
   ): Observable<ITransaction[]> {
-    return this.http
-      .get<ITransaction[]>(`/api/transactions/monthly/${year}/${month}`)
-      .pipe(
-        map((transactions: ITransaction[]) => {
-          transactions.forEach((transaction: ITransaction) => {
-            const date = new Date(transaction.dateCreated);
-
-            transaction.dateCreated = date
-              .toISOString()
-              .substring(0, date.toISOString().length - 1);
-          });
-
-          return transactions;
-        })
-      );
+    return this.http.get<ITransaction[]>(
+      `/api/transactions/monthly/${year}/${month}`
+    );
   }
 
   getYearlyTransactions(

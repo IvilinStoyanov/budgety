@@ -3,7 +3,7 @@ import { CanActivate, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
-import { selectUser } from 'src/app/store/user/user.selector';
+import { selectUser } from 'src/app/modules/shared/store/user/user.selector';
 
 import { NotificationService } from '../services/notification.service';
 

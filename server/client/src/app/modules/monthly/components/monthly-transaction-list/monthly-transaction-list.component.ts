@@ -32,6 +32,7 @@ export class MonthlyTransactionListComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap(params => {
           this.monthName = params.month;
+
           const year =
             this.transactionsService.monthlyYearSelected.getFullYear();
 
