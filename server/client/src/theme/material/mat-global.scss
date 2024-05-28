@@ -1,5 +1,5 @@
 @use '@angular/material' as mat;
 
 .dense-2 {
-  @include mat.form-field-density(-2);
+  @include mat.form-field-density(-3);
 }
