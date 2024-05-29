@@ -13,8 +13,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { TransactionsService } from 'src/app/shared/services/transactions.service';
 
 import { MonthlyItem } from '../../models/monthly-item';
-import * as monthlyActions from '../../store/monthly.actions';
-import { selectMonthlyList } from '../../store/monthly.selectors';
+import * as monthlyActions from '../../store/monthly-list/monthly.actions';
+import { selectMonthlyList } from '../../store/monthly-list/monthly.selectors';
 
 @Component({
   selector: 'app-monthly-list',

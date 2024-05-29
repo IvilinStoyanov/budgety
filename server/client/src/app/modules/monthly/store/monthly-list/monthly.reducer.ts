@@ -1,15 +1,15 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { MonthlyItem } from '../models/monthly-item';
+import { MonthlyItem } from '../../models/monthly-item';
 import * as MonthlyActions from './monthly.actions';
 
-export interface MonthlyState {
+export interface MonthlyListState {
   monthlyList: { [key: number]: MonthlyItem };
   loading: boolean;
   error: string;
 }
 
-export const initialMonthlyState: MonthlyState = {
+export const initialMonthlyState: MonthlyListState = {
   monthlyList: {},
   loading: false,
   error: null

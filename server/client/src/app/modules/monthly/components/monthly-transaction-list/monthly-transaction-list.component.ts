@@ -1,12 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest, Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable, of, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 
-import { ITransaction } from '../../../../shared/models/interface/transaction';
-import { CategoriesService } from '../../../../shared/services/categories.service';
 import { TransactionsService } from '../../../../shared/services/transactions.service';
 import { MonthlyTransaction } from '../../models/monthly-transaction';
+import { loadMonthlyDetails } from '../../store/monthly-details/monthly-details.actions';
+import {
+  selectMonthlyCategories,
+  selectMonthlyIncome
+} from '../../store/monthly-details/monthly-details.selector';
 
 @Component({
   selector: 'app-monthly-transaction-list',
@@ -14,18 +18,19 @@ import { MonthlyTransaction } from '../../models/monthly-transaction';
   styleUrls: ['./monthly-transaction-list.component.scss']
 })
 export class MonthlyTransactionListComponent implements OnInit, OnDestroy {
-  $destroyed = new Subject();
+  monthlyCategories$: Observable<MonthlyTransaction>;
+  monthlyIncome$: Observable<number>;
   monthName: string;
-  monthlyIncome = 0;
-  items: ITransaction[] = [];
-  monthlyCategories: MonthlyTransaction = {};
-  panelOpenState = false;
+  $destroy: Subject<boolean> = new Subject();
 
   constructor(
     private route: ActivatedRoute,
-    private categoriesService: CategoriesService,
-    private transactionsService: TransactionsService
-  ) {}
+    private transactionsService: TransactionsService,
+    private store: Store
+  ) {
+    this.monthlyCategories$ = this.store.select(selectMonthlyCategories);
+    this.monthlyIncome$ = this.store.select(selectMonthlyIncome);
+  }
 
   ngOnInit(): void {
     this.route.params
@@ -36,52 +41,19 @@ export class MonthlyTransactionListComponent implements OnInit, OnDestroy {
           const year =
             this.transactionsService.monthlyYearSelected.getFullYear();
 
-          return combineLatest([
-            this.categoriesService.getCategories(),
-            this.transactionsService.getMonthlyIndividualTransactions(
-              year,
-              this.monthName
+          return of(
+            this.store.dispatch(
+              loadMonthlyDetails({ month: params.month, year: year })
             )
-          ]);
+          );
         }),
-        takeUntil(this.$destroyed)
+        takeUntil(this.$destroy)
       )
-      .subscribe(([categories, transactions]) => {
-        categories.forEach(category => {
-          if (category.transactionsCount > 0) {
-            this.monthlyCategories[category._id] = {
-              name: category.name,
-              exp: 0,
-              inc: 0,
-              items: []
-            };
-          }
-
-          transactions.forEach(transaction => {
-            if (transaction._categoryId === category._id) {
-              this.monthlyCategories[transaction._categoryId].items.push(
-                transaction
-              );
-
-              if (transaction.type === 'exp') {
-                this.monthlyCategories[transaction._categoryId].exp +=
-                  transaction.value;
-              }
-              if (transaction.type === 'inc') {
-                this.monthlyCategories[transaction._categoryId].inc +=
-                  transaction.value;
-                this.monthlyIncome += transaction.value;
-              }
-
-              this.items.push(transaction);
-            }
-          });
-        });
-      });
+      .subscribe();
   }
 
   ngOnDestroy(): void {
-    this.$destroyed.next(true);
-    this.$destroyed.unsubscribe();
+    this.$destroy.next(true);
+    this.$destroy.unsubscribe();
   }
 }

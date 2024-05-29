@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { MonthlyItem } from '../models/monthly-item';
+import { MonthlyItem } from '../../models/monthly-item';
 
 export const loadMonthlyList = createAction(
   '[Monthly] Load Monthly List',

@@ -5,7 +5,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ITransaction } from 'src/app/shared/models/interface/transaction';
 import { TransactionsService } from 'src/app/shared/services/transactions.service';
 
-import { MonthlyItem } from '../models/monthly-item';
+import { MonthlyItem } from '../../models/monthly-item';
 import * as monthlyActions from './monthly.actions';
 
 @Injectable()

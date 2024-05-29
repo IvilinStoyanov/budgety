@@ -1,0 +1,100 @@
+<div fxLayout="column" class="pl-3 pr-3 pt-3 pb-3">
+  <div fxLayout="row">
+    <div class="badge border-bottom">
+      <span class="text-semi-bold">Categories</span>
+    </div>
+  </div>
+  <mat-card
+    appearance="outlined"
+    fxLayout="row wrap"
+    class="bg-transparent border-top-left-radius-none">
+    <!-- default categories -->
+    <div
+      *ngFor="let category of data?.categoryTemplates"
+      class="text-center"
+      fxLayout="column"
+      fxFlex="50"
+      fxFlex.lt-md="50"
+      fxFlex.lt-sm="100">
+      <mat-card
+        appearance="outlined"
+        class="m-1 border"
+        [ngClass]="{ 'card-hidden': !category.isVisible }">
+        <span class="text-bold">{{ category.name }}</span>
+        <div fxLayout="column" fxLayoutAlign="center center">
+          <div class="menu-left">
+            <mat-slide-toggle
+              color="primary"
+              name="checkbox-{{ category.id }}"
+              [(ngModel)]="category.isVisible"
+              (change)="onToggle($event, category.id)"
+              >{{
+                category.isVisible === true ? 'visible' : 'hidden'
+              }}</mat-slide-toggle
+            >
+          </div>
+          <div class="menu-right hover" [matMenuTriggerFor]="menu">
+            <mat-icon
+              class="material-icons-outlined"
+              [style.color]="category.color"
+              matTooltip="change color"
+              >palette
+            </mat-icon>
+          </div>
+          <mat-menu #menu="matMenu">
+            <div
+              class="text-black text-bold border-bottom ml-1 mb-2 pb-1 text-sm">
+              Pick category color
+            </div>
+            <div fxLayout="row wrap">
+              <div *ngFor="let color of data.categoryColors">
+                <div
+                  class="color hover"
+                  [style.background-color]="color"
+                  (click)="changeColor(category.id, color)"></div>
+              </div>
+            </div>
+          </mat-menu>
+          <div class="category-title-container">
+            <svg
+              width="100%"
+              height="100%"
+              viewBox="0 0 42 42"
+              class="circle-chart">
+              <circle
+                cx="21"
+                cy="21"
+                r="15.91549430918954"
+                fill="#fff"></circle>
+              <circle
+                cx="21"
+                cy="21"
+                r="15.91549430918954"
+                fill="transparent"
+                stroke="#d2d3d4"
+                stroke-width="1.5"></circle>
+              <circle
+                class="donut-segment"
+                cx="21"
+                cy="21"
+                r="15.91549430918954"
+                fill="transparent"
+                attr.stroke="{{ category.color }}"
+                stroke-width="1.5"
+                stroke-dasharray="100"></circle>
+            </svg>
+            <mat-icon
+              class="position-center-absolute material-icons-outlined icon-md icon-primary mr-2"
+              >{{ category.icon }}</mat-icon
+            >
+          </div>
+          <div fxLayoutAlign="start center" class="mt-2">
+            <button mat-stroked-button color="primary" class="ml-1 mr-1">
+              Edit
+            </button>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </mat-card>
+</div>

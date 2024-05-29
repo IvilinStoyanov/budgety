@@ -10,12 +10,14 @@ import {
 } from 'src/app/modules/shared/store/user/user.reducer';
 
 import { LatestState } from '../../latest/store/latest.reducer';
-import { MonthlyState } from '../../monthly/store/monthly.reducer';
+import { MonthlyState } from '../../monthly/store';
+import { YearlyState } from '../../yearly/state';
 
 export interface AppState {
   router: RouterReducerState<never>;
   latest: LatestState;
   monthly: MonthlyState;
+  yearly: YearlyState;
   sharedModule: SharedState;
 }
 

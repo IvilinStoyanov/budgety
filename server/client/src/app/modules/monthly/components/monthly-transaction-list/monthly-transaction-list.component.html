@@ -1,6 +1,6 @@
 <mat-card
   appearance="outlined"
-  *ngIf="monthlyCategories"
+  *ngIf="monthlyCategories$ | async as monthlyCategories"
   [style.min-height.px]="600"
   [style.margin-top.px]="50"
   class="ms-2 me-2 mb-0 p-0">
@@ -36,16 +36,11 @@
                   category.value.inc | number : '1.2-2'
                 }}</span>
               </div>
-              <!-- <div class="text-black text-md">
-                {{
-                  (category.value.inc / monthlyIncome) * 100 | number : '1.2-2'
-                }}%
-              </div> -->
             </div>
             <div class="pb-3">
               <app-progress-bar
                 [percentage]="
-                  (category.value.inc / monthlyIncome) * 100
+                  (category.value.inc / (monthlyIncome$ | async)) * 100
                 "></app-progress-bar>
             </div>
           </div>
@@ -57,17 +52,12 @@
                   category.value.exp | number : '1.2-2'
                 }}</span>
               </div>
-              <!-- <div class="text-black text-md">
-                {{
-                  (category.value.exp / monthlyIncome) * 100 | number : '1.2-2'
-                }}%
-              </div> -->
             </div>
             <div class="pb-3">
               <app-progress-bar
                 class="exp-progress-bar"
                 [percentage]="
-                  (category.value.exp / monthlyIncome) * 100
+                  (category.value.exp / (monthlyIncome$ | async)) * 100
                 "></app-progress-bar>
             </div>
           </div>
