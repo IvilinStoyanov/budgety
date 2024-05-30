@@ -1,9 +1,14 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CommonService } from 'src/app/shared/services/common.service';
+import { selectUser } from 'src/app/modules/shared/store/user/user.selector';
 import { environment } from 'src/environments/environment';
+
+import * as userActions from '../../../modules/shared/store/user/user.actions';
+import { IUser } from '../../models/interface/User';
 
 @Component({
   selector: 'app-header',
@@ -11,19 +16,23 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  user$: Observable<IUser>;
+
   constructor(
-    private http: HttpClient,
     public router: Router,
     public commonService: CommonService,
-    public authService: AuthService
-  ) {}
+    public authService: AuthService,
+    private store: Store
+  ) {
+    this.user$ = this.store.select(selectUser);
+  }
 
   login(): void {
     window.open(`${environment.apiUrl}/auth/google`, '_self');
   }
 
   logout(): void {
-    this.http.get('/api/logout').subscribe(() => this.router.navigate(['/']));
+    this.store.dispatch(userActions.logoutUser());
   }
 
   navigateHome(): void {

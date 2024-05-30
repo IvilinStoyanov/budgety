@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { filter, map, take } from 'rxjs/operators';
+import { selectUser } from 'src/app/modules/shared/store/user/user.selector';
 
 import { NotificationService } from '../services/notification.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
-    private authService: AuthService,
     private notificationService: NotificationService,
-    private router: Router
+    private router: Router,
+    private store: Store
   ) {}
 
   canActivate(): Observable<boolean> | boolean {
-    return this.authService.currentUser$.pipe(
+    return this.store.select(selectUser).pipe(
+      filter(user => user !== null),
       take(1),
       map(user => {
         if (user) {

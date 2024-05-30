@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, UrlTree } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
+import { selectUser } from 'src/app/modules/shared/store/user/user.selector';
 
 import { AuthService } from '../services/auth.service';
 import { NotificationService } from '../services/notification.service';
@@ -12,8 +14,9 @@ import { NotificationService } from '../services/notification.service';
 export class RoleGuardGuard implements CanActivate {
   constructor(
     private authService: AuthService,
-    private notificationService: NotificationService
-  ) {}
+    private notificationService: NotificationService,
+    private store: Store
+  ) { }
   canActivate(
     route: ActivatedRouteSnapshot
   ):
@@ -21,7 +24,8 @@ export class RoleGuardGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.authService.currentUser$.pipe(
+    return this.store.select(selectUser).pipe(
+      filter(user => user !== null),
       map(user => {
         const role = route.data.role as Array<string>;
 

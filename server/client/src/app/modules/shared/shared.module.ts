@@ -20,24 +20,27 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { ColorSketchModule } from 'ngx-color/sketch';
+import { UserEffects } from 'src/app/modules/shared/store/user/user.effects';
 import { AddItemComponent } from 'src/app/shared/components/add-item/add-item.component';
 import { BackButtonComponent } from 'src/app/shared/components/back-button/back-button.component';
 import { BalanceModalComponent } from 'src/app/shared/components/balance-modal/balance-modal.component';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { ProgressBarComponent } from 'src/app/shared/components/progress-bar/progress-bar.component';
-/* components */
 import { TabsComponent } from 'src/app/shared/components/tabs/tabs.component';
 import { HasRoleDirective } from 'src/app/shared/directives/hasRole.directive';
 import { HighlightOnHoverDirective } from 'src/app/shared/directives/highlightOnHover.directive';
 import { StopPropagationDirective } from 'src/app/shared/directives/stop-propagation.directive';
+
+import { sharedReducers } from './store';
 
 @NgModule({
   declarations: [
     HasRoleDirective,
     StopPropagationDirective,
     HighlightOnHoverDirective,
-
     TabsComponent,
     BalanceModalComponent,
     ProgressBarComponent,
@@ -68,7 +71,9 @@ import { StopPropagationDirective } from 'src/app/shared/directives/stop-propaga
     MatBadgeModule,
     MatSidenavModule,
     MatPaginatorModule,
-    ColorSketchModule
+    ColorSketchModule,
+    StoreModule.forFeature('sharedModule', sharedReducers),
+    EffectsModule.forFeature([UserEffects])
   ],
   exports: [
     RouterModule,
@@ -95,7 +100,6 @@ import { StopPropagationDirective } from 'src/app/shared/directives/stop-propaga
     TabsComponent,
     ProgressBarComponent,
     BackButtonComponent,
-
     HasRoleDirective,
     StopPropagationDirective,
     HighlightOnHoverDirective

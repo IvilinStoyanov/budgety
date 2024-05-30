@@ -58,25 +58,23 @@ export class CommonService {
     return categories;
   }
 
-  calculateTotalExpPercentage(user: IUser): IUser {
-    const budget = user.inc - user.exp;
+  calculateUserBudget(user: IUser): IUser {
+    const { inc, exp } = user;
 
-    if (user.inc > 0) {
-      user.expPercentage = Math.round((user.exp / user.inc) * 100);
-      user.incPercentage = 100 - user.expPercentage;
+    // Ensure total budget is not zero to avoid division by zero
+    const total = inc + exp;
 
-      if (user.expPercentage >= 100) {
-        user.expPercentage = 100;
-        user.incPercentage = 0;
-      }
-    } else if (budget < 0) {
-      user.expPercentage = 100;
-      user.incPercentage = 0;
-    } else {
-      user.incPercentage = 0;
-      user.expPercentage = 0;
+    if (total === 0) {
+      return { ...user, incPercentage: 0, expPercentage: 0 };
     }
+    const incPercentage = (inc / total) * 100;
+    const expPercentage = (exp / total) * 100;
 
-    return user;
+    // Return the updated user object with the percentage properties
+    return {
+      ...user,
+      incPercentage,
+      expPercentage
+    };
   }
 }

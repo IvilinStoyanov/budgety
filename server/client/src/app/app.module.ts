@@ -1,9 +1,12 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NgxUiLoaderConfig, NgxUiLoaderModule } from 'ngx-ui-loader';
+import { environment } from 'src/environments/environment';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -15,12 +18,12 @@ import { ErrorCatchingInterceptor } from './shared/interceptors/error-catching.i
 import { LoaderInterceptor } from './shared/interceptors/loader.interceptor.ts';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
-  fgsColor: '#179ff7',
+  fgsColor: '#7ab1c1',
   fgsPosition: 'center-center',
   fgsSize: 80,
   fgsType: 'three-bounce',
   overlayColor: 'rgb(255,255,255)',
-  pbColor: '#179ff7',
+  pbColor: '#7ab1c1',
   pbThickness: 3,
   hasProgressBar: true
 };
@@ -33,6 +36,12 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     NoopAnimationsModule,
     HttpClientModule,
     SharedModule,
+    StoreModule.forRoot(),
+    EffectsModule.forRoot(),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production
+    }),
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
   ],
   providers: [

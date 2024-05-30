@@ -1,8 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup
+} from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { selectUser } from 'src/app/modules/shared/store/user/user.selector';
+import { IUser } from 'src/app/shared/models/interface/User';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { TransactionsService } from 'src/app/shared/services/transactions.service';
+
+import { MonthlyItem } from '../../models/monthly-item';
+import * as monthlyActions from '../../store/monthly-list/monthly.actions';
+import { selectMonthlyList } from '../../store/monthly-list/monthly.selectors';
 
 @Component({
   selector: 'app-monthly-list',
@@ -10,95 +22,46 @@ import { TransactionsService } from 'src/app/shared/services/transactions.servic
   styleUrls: ['./monthly-list.component.scss']
 })
 export class MonthlyListComponent implements OnInit {
-  monthlyList: any = [];
+  user$: Observable<IUser>;
+  monthlyList$: Observable<{ [key: number]: MonthlyItem }>;
   dateForm: UntypedFormGroup;
 
   constructor(
     private fb: UntypedFormBuilder,
     public authService: AuthService,
-    private transactionsService: TransactionsService
+    private transactionsService: TransactionsService,
+    private store: Store
   ) {
+    this.user$ = this.store.select(selectUser);
+    this.monthlyList$ = this.store.select(selectMonthlyList);
+
     this.dateForm = this.fb.group({
       year: new UntypedFormControl(new Date())
     });
   }
 
   ngOnInit(): void {
-    this.createMonthlyList();
+    this.store.dispatch(
+      monthlyActions.loadMonthlyList({ year: new Date().getFullYear() })
+    );
   }
 
   chosenYearHandler(chosenDate: any, datepicker: MatDatepicker<any>): void {
     datepicker.close();
 
     this.dateForm.get('year').setValue(chosenDate);
+
+    // TODO: remove this from service and use params in the url
     this.transactionsService.monthlyYearSelected = chosenDate;
 
-    this.createMonthlyList(chosenDate);
+    this.store.dispatch(
+      monthlyActions.loadMonthlyList({
+        year: new Date(chosenDate).getFullYear()
+      })
+    );
   }
 
-  createMonthlyList(date: Date = new Date()): void {
-    this.monthlyList = [];
-
-    const months = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
-    ];
-
-    const year = date.getFullYear();
-
-    this.transactionsService
-      .getMonthlyTransactions(year)
-      .subscribe(transactions => {
-        transactions.forEach(item => {
-          const itemMonth = new Date(item.dateCreated).getMonth();
-          let income = 0;
-          let expense = 0;
-
-          if (this.monthlyList[itemMonth] === undefined) {
-            this.monthlyList[itemMonth] = [];
-            this.monthlyList[itemMonth].name = months[itemMonth];
-            this.monthlyList[itemMonth].income = 0;
-            this.monthlyList[itemMonth].expense = 0;
-          }
-
-          if (this.monthlyList[itemMonth] !== undefined) {
-            if (item.type === 'inc') {
-              income = item.value;
-            }
-
-            if (item.type === 'exp') {
-              expense = item.value;
-            }
-
-            this.monthlyList[itemMonth].income += income;
-            this.monthlyList[itemMonth].expense += expense;
-          }
-        });
-
-        this.calculateBudgetPercetange(this.monthlyList);
-      });
-  }
-
-  calculateBudgetPercetange(data: any): void {
-    data.forEach((element, index: number) => {
-      let percentage = Math.round((element.expense / element.income) * 100);
-      percentage = 100 - percentage;
-
-      if (percentage < 0) {
-        percentage = 0;
-      }
-
-      this.monthlyList[index].budgetPercetange = percentage;
-    });
+  isMonthlyListEmpty(monthlyList: { [key: number]: MonthlyItem }): boolean {
+    return Object.keys(monthlyList).length === 0;
   }
 }

@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState } from 'src/app/modules/shared/store';
+import { selectUser } from 'src/app/modules/shared/store/user/user.selector';
+import { IUser } from 'src/app/shared/models/interface/User';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { TransactionsService } from 'src/app/shared/services/transactions.service';
+
+import * as fromYearlyActions from '../../state/yearly/yearly.actions';
+import { selectYearlyList } from '../../state/yearly/yearly.selectors';
 
 @Component({
   selector: 'app-yearly',
@@ -8,67 +15,29 @@ import { TransactionsService } from 'src/app/shared/services/transactions.servic
   styleUrls: ['./yearly-list.component.scss']
 })
 export class YearlyListComponent implements OnInit {
-  user: any;
-  yearlyList: any = [];
+  user$: Observable<IUser>;
+  yearlyList$: Observable<{ [key: number]: fromYearlyActions.YearlyItem }>;
+  constructor(public authService: AuthService, private store: Store<AppState>) {
+    this.user$ = this.store.select(selectUser);
+    this.yearlyList$ = this.store.select(selectYearlyList);
+  }
 
-  constructor(
-    public authService: AuthService,
-    private transactionsService: TransactionsService
-  ) {}
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.createYearlyList();
   }
 
-  createYearlyList() {
-    this.yearlyList = [];
-
+  createYearlyList(): void {
     const startYear = new Date().getFullYear();
     const endYear = startYear - 5;
 
-    this.transactionsService
-      .getYearlyTransactions(startYear, endYear)
-      .subscribe(transactions => {
-        transactions.forEach(item => {
-          const year = new Date(item.dateCreated).getFullYear();
-          let income = 0;
-          let expense = 0;
-
-          if (this.yearlyList[year] === undefined) {
-            this.yearlyList[year] = [];
-            this.yearlyList[year].name = year;
-            this.yearlyList[year].income = 0;
-            this.yearlyList[year].expense = 0;
-          }
-
-          if (this.yearlyList[year] !== undefined) {
-            if (item.type === 'inc') {
-              income = item.value;
-            }
-
-            if (item.type === 'exp') {
-              expense = item.value;
-            }
-
-            this.yearlyList[year].income += income;
-            this.yearlyList[year].expense += expense;
-          }
-        });
-
-        this.calculateBudgetPercetange(this.yearlyList);
-      });
+    this.store.dispatch(
+      fromYearlyActions.loadYearlyList({ startYear, endYear })
+    );
   }
 
-  calculateBudgetPercetange(data: any) {
-    data.forEach((element: any, index: number) => {
-      let percentage = Math.round((element.expense / element.income) * 100);
-      percentage = 100 - percentage;
-
-      if (percentage < 0) {
-        percentage = 0;
-      }
-
-      this.yearlyList[index].budgetPercetange = percentage;
-    });
+  isYearlyListEmpty(monthlyList: {
+    [key: number]: fromYearlyActions.YearlyItem;
+  }): boolean {
+    return Object.keys(monthlyList).length === 0;
   }
 }

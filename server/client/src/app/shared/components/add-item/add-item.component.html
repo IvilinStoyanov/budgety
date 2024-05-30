@@ -12,7 +12,10 @@
     class="d-flex justify-content-center align-items-center flex-column ps-3 pe-3 pb-3">
     <span class="title text-bold text-black">Add new item</span>
   </div>
-  <form [formGroup]="form" autocomplete="off">
+  <form
+    [formGroup]="form"
+    autocomplete="off"
+    *ngIf="categories$ | async as categories">
     <div class="d-flex justify-content-center mb-4">
       <div class="switch-button text-bold">
         <input
@@ -31,13 +34,11 @@
           <mat-select-trigger>
             {{ categoryPicked }}
           </mat-select-trigger>
-          <mat-option
-            *ngFor="let category of templateData.categories"
-            [value]="category">
+          <mat-option *ngFor="let category of categories" [value]="category">
             <mat-icon class="material-icons-outlined mr-2">{{
               category.icon
             }}</mat-icon>
-            {{ category.name }}
+            <span class="text-md">{{ category.name }}</span>
           </mat-option>
         </mat-select>
       </mat-form-field>
