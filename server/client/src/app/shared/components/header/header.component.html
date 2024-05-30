@@ -19,13 +19,13 @@
                   <mat-icon class="material-icons-outlined icon-sm hover mr-1"
                     >person</mat-icon
                   >
-                  {{ user.name.givenName }} {{ user.name.familyName }}
+                  {{ user?.name?.givenName }} {{ user?.name?.familyName }}
                 </span>
               </div>
               <div class="d-flex">
                 <div class="flex-fill">
                   <img
-                    [src]="user.picture"
+                    [src]="user?.picture"
                     alt="profile picture"
                     class="profile-picture mt-2 mb-2" />
                 </div>
