@@ -3,19 +3,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import * as latestActions from 'src/app/modules/latest/store/latest.actions';
+import * as latestActions from 'src/app/modules/latest/state/latest.actions';
+import { selectUser } from 'src/app/modules/shared/state/user/user.selector';
 import { AddItemComponent } from 'src/app/shared/components/add-item/add-item.component';
 import { Category } from 'src/app/shared/models/class/category';
 import { ICategory } from 'src/app/shared/models/interface/category';
 import { ITransaction } from 'src/app/shared/models/interface/transaction';
 import { IUser } from 'src/app/shared/models/interface/User';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { CategoriesService } from 'src/app/shared/services/categories.service';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
-import { selectUser } from 'src/app/modules/shared/store/user/user.selector';
 
-import { selectLatestCategory } from '../../store/latest.selector';
+import { selectLatestCategory } from '../../state/latest.selector';
 
 @Component({
   selector: 'app-latest',

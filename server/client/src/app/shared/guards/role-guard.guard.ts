@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, UrlTree } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
-import { selectUser } from 'src/app/modules/shared/store/user/user.selector';
+import { selectUser } from 'src/app/modules/shared/state/user/user.selector';
 
 import { AuthService } from '../services/auth.service';
 import { NotificationService } from '../services/notification.service';

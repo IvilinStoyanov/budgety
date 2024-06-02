@@ -8,8 +8,8 @@ import { BudgetOverviewComponent } from './components/budget-overview/budget-ove
 import { CategoryDetailComponent } from './components/category-detail/category-detail.component';
 import { LatestListComponent } from './components/latest-list/latest-list.component';
 import { LatestRoutingModule } from './latest-routing.module';
-import { LatestEffects } from './store/latest.effects';
-import * as fromLatest from './store/latest.reducer';
+import { LatestEffects } from './state/latest.effects';
+import * as fromLatest from './state/latest.reducer';
 
 @NgModule({
   declarations: [

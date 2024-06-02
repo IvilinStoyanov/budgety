@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AppState } from 'src/app/modules/shared/store';
-import { selectUser } from 'src/app/modules/shared/store/user/user.selector';
+import { AppState } from 'src/app/modules/shared/state';
+import { selectUser } from 'src/app/modules/shared/state/user/user.selector';
 import { IUser } from 'src/app/shared/models/interface/User';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
