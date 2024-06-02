@@ -29,15 +29,12 @@ import { Icon } from '../../models/icon';
 export class AddCategoryComponent implements OnInit {
   form: UntypedFormGroup;
   searchText: string;
-
   panelOpenState: boolean;
-
   currentIconName: string;
   categoryColors: string[];
   currentColorIndex: number;
   icons: Icon[] = [];
   icons$: Observable<Icon[]>;
-
   destroy$: Subject<boolean>;
 
   constructor(
