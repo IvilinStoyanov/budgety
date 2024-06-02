@@ -7,14 +7,14 @@ import {
 import { MatDatepicker } from '@angular/material/datepicker';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { selectUser } from 'src/app/modules/shared/store/user/user.selector';
+import { selectUser } from 'src/app/modules/shared/state/user/user.selector';
 import { IUser } from 'src/app/shared/models/interface/User';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { TransactionsService } from 'src/app/shared/services/transactions.service';
 
 import { MonthlyItem } from '../../models/monthly-item';
-import * as monthlyActions from '../../store/monthly-list/monthly.actions';
-import { selectMonthlyList } from '../../store/monthly-list/monthly.selectors';
+import * as monthlyActions from '../../state/monthly-list/monthly.actions';
+import { selectMonthlyList } from '../../state/monthly-list/monthly.selectors';
 
 @Component({
   selector: 'app-monthly-list',

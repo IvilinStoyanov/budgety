@@ -10,7 +10,7 @@ import { AddItemModalData } from 'src/app/shared/models/interface/add-item-modal
 import { ITransaction } from 'src/app/shared/models/interface/transaction';
 import { ICategory } from '../../models/interface/category';
 import { Store } from '@ngrx/store';
-import { selectLatestCategory } from 'src/app/modules/latest/store/latest.selector';
+import { selectLatestCategory } from 'src/app/modules/latest/state/latest.selector';
 
 @Component({
   selector: 'app-add-item',

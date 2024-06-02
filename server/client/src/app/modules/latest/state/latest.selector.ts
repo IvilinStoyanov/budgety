@@ -2,7 +2,7 @@
 
 import { createSelector } from '@ngrx/store';
 
-import { AppState } from '../../shared/store';
+import { AppState } from '../../shared/state';
 import { LatestState } from './latest.reducer';
 
 export const selectLatestFeature = (state: AppState): LatestState =>

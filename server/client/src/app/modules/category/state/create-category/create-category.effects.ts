@@ -4,12 +4,12 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-import { selectUser } from 'src/app/modules/shared/store/user/user.selector';
+import { selectUser } from 'src/app/modules/shared/state/user/user.selector';
 import { ICategory } from 'src/app/shared/models/interface/category';
 import { CategoriesService } from 'src/app/shared/services/categories.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 
-import * as userActions from '../../../shared/store/user/user.actions';
+import * as userActions from '../../../shared/state/user/user.actions';
 import * as categoryAction from './create-category.actions';
 
 @Injectable()

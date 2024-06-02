@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import { AppState } from 'src/app/modules/shared/store';
+import { AppState } from 'src/app/modules/shared/state';
 
 import { MonthlyDetailsState } from './monthly-details.reducer';
 

@@ -3,11 +3,11 @@ import { ActionReducerMap } from '@ngrx/store';
 import {
   userReducer,
   UserState
-} from 'src/app/modules/shared/store/user/user.reducer';
+} from 'src/app/modules/shared/state/user/user.reducer';
 
 import { CategoryState } from '../../category/state';
-import { LatestState } from '../../latest/store/latest.reducer';
-import { MonthlyState } from '../../monthly/store';
+import { LatestState } from '../../latest/state/latest.reducer';
+import { MonthlyState } from '../../monthly/state';
 import { YearlyState } from '../../yearly/state';
 
 export interface AppState {
