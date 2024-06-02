@@ -7,7 +7,7 @@ import {
 
 import { CategoryState } from '../../category/state';
 import { LatestState } from '../../latest/state/latest.reducer';
-import { MonthlyState } from '../../monthly/store';
+import { MonthlyState } from '../../monthly/state';
 import { YearlyState } from '../../yearly/state';
 
 export interface AppState {

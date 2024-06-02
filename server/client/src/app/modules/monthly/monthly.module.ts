@@ -8,9 +8,9 @@ import { MonthlyListComponent } from './components/monthly-list/monthly-list.com
 // eslint-disable-next-line max-len
 import { MonthlyTransactionListComponent } from './components/monthly-transaction-list/monthly-transaction-list.component';
 import { MonthlyRoutingModule } from './monthly-routing.module';
-import { monthlyReducers } from './store';
-import { MonthlyDetailsEffects } from './store/monthly-details/monthly-details.effects';
-import { MonthlyEffects } from './store/monthly-list/monthly.effects';
+import { monthlyReducers } from './state';
+import { MonthlyDetailsEffects } from './state/monthly-details/monthly-details.effects';
+import { MonthlyEffects } from './state/monthly-list/monthly.effects';
 
 @NgModule({
   declarations: [MonthlyListComponent, MonthlyTransactionListComponent],

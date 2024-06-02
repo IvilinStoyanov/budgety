@@ -6,11 +6,11 @@ import { switchMap, takeUntil } from 'rxjs/operators';
 
 import { TransactionsService } from '../../../../shared/services/transactions.service';
 import { MonthlyTransaction } from '../../models/monthly-transaction';
-import { loadMonthlyDetails } from '../../store/monthly-details/monthly-details.actions';
+import { loadMonthlyDetails } from '../../state/monthly-details/monthly-details.actions';
 import {
   selectMonthlyCategories,
   selectMonthlyIncome
-} from '../../store/monthly-details/monthly-details.selector';
+} from '../../state/monthly-details/monthly-details.selector';
 
 @Component({
   selector: 'app-monthly-transaction-list',
