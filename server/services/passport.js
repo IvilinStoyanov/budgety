@@ -45,8 +45,6 @@ passport.use(
         return { name, icon, color, _user: user._id };
       });
 
-      console.log(userCategories);
-
       // add transaction later as we update multiple documents
       await Category.insertMany(userCategories);
 

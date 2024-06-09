@@ -19,7 +19,7 @@ module.exports = app => {
 
             const transactions = await Transactions
                 .find({ _user: req.user.id, _categoryId })
-                .sort({ dateCreated: -1})
+                .sort({ dateCreated: -1 })
                 .skip(skip)
                 .limit(pageSize);
 
@@ -162,7 +162,7 @@ module.exports = app => {
     app.get('/api/transactions/monthly/:year/:month', requireLogin, async (req, res) => {
         try {
             const { year, month } = req.params;
-    
+
             const monthsList = [
                 { name: 'january', id: 0 },
                 { name: 'february', id: 1 },
@@ -177,22 +177,22 @@ module.exports = app => {
                 { name: 'november', id: 10 },
                 { name: 'december', id: 11 }
             ];
-    
+
             const currentMonth = monthsList.find(m => m.name.toLowerCase() === month.toLowerCase());
             if (!currentMonth) {
                 return res.status(400).send({ error: 'Invalid month parameter' });
             }
-    
+
             const yearInt = parseInt(year, 10);
-    
+
             // Create start date and end date for the given month and year
             const startDate = new Date(yearInt, currentMonth.id, 1, 0, 0, 0);
-      
+
             const endDate = new Date(yearInt, currentMonth.id + 1, 1, 0, 0, 0);
-    
+
             const categories = await Categories.find({ _user: req.user.id });
             const obj_ids = categories.map(category => category._id.valueOf());
-    
+
             const transactions = await Transactions.find({
                 _categoryId: { $in: obj_ids },
                 dateCreated: {
@@ -200,17 +200,15 @@ module.exports = app => {
                     $lt: endDate // Use $lt to ensure the end date is exclusive
                 }
             });
-    
-            console.log('Start Date:', startDate.toISOString());
-            console.log('End Date:', endDate.toISOString());
+
             res.send(transactions);
-    
+
         } catch (error) {
             res.status(422).send(error);
         }
     });
-    
-    
+
+
 
     app.get('/api/transactions/yearly', requireLogin, async (req, res) => {
         const { startYear, endYear } = req.query;
