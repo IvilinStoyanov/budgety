@@ -1,0 +1,78 @@
+@import "../../../../../theme/colors.scss";
+
+.item-row {
+  padding: 10px 10px 10px 10px;
+}
+
+.item {
+  padding: 10px 10px 10px 10px;
+  min-width: 100px;
+  text-align: center;
+}
+
+.month-wrapper {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  margin: 8px 16px;
+}
+
+.budget-circle {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  border: 3px solid $border;
+}
+
+.circular-chart {
+  display: block;
+  width: 90px;
+  height: 90px;
+}
+
+.circle {
+  stroke: $primary;
+  fill: none;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  animation: progress 1s ease-out forwards;
+}
+
+@media only screen and (max-width: 600px) {
+  .text-card {
+    font-size: 12px;
+  }
+
+  .item-row {
+    padding: 10px 0 10px 0;
+  }
+
+  .item {
+    padding: 10px 0 10px 0;
+    min-width: 80px;
+  }
+
+  .month-wrapper {
+    width: 74px;
+    margin: 8px 4px;
+  }
+
+  .budget-circle {
+    width: 67px;
+    height: 67px;
+  }
+
+  .circular-chart {
+    width: 74px;
+  }
+
+  .circle {
+    stroke-width: 1.8;
+  }
+}
+
+@keyframes progress {
+  0% {
+    stroke-dasharray: 0 100;
+  }
+}

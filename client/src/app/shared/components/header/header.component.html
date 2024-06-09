@@ -1,0 +1,121 @@
+<nav class="pt-2 pb-2 ps-3 pe-3 d-flex justify-content-between align-items-center mb-3">
+  <div class="title hover ml-3" (click)="navigateHome()">Budgety</div>
+  <ng-container *ngIf="user$ | async as user; else showLogin">
+    <div>
+      <!-- menu region -->
+      <mat-icon
+        class="material-icons-outlined icon-md hover"
+        [matMenuTriggerFor]="menu"
+        >menu</mat-icon
+      >
+      <mat-menu #menu="matMenu" class="main-menu mat-menu-md">
+        <div class="d-flex flex-column">
+          <!-- profile section -->
+          <div>
+            <div>
+              <div class="border-bottom margin-auto pb-1">
+                <span
+                  class="d-flex justify-content-center align-items-center text-black text-uppercase text-semi-bold text-sm">
+                  <mat-icon class="material-icons-outlined icon-sm hover mr-1"
+                    >person</mat-icon
+                  >
+                  {{ user?.name?.givenName }} {{ user?.name?.familyName }}
+                </span>
+              </div>
+              <div class="d-flex">
+                <div class="flex-fill">
+                  <img
+                    [src]="user?.picture"
+                    alt="profile picture"
+                    class="profile-picture mt-2 mb-2" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *appHasRole="'Admin'">
+            <div class="border-bottom margin-auto pb-1">
+              <span class="d-flex text-black text-uppercase text-semi-bold text-sm">
+                <mat-icon class="material-icons-outlined icon-sm hover mr-1"
+                  >person</mat-icon
+                >
+                admin
+              </span>
+            </div>
+            <div class="d-flex">
+              <div class="flex-fill">
+                <button mat-button color="primary" [routerLink]="['/dashboard']">
+                  dashboard
+                </button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="border-bottom margin-auto pb-1">
+              <span class="d-flex text-black text-uppercase text-semi-bold text-sm">
+                <mat-icon class="material-icons-outlined icon-sm hover mr-1"
+                  >category</mat-icon
+                >
+                categories
+              </span>
+            </div>
+            <div class="d-flex pt-1 pb-1">
+              <div class="flex-fill">
+                <button
+                  mat-button
+                  color="primary"
+                  [routerLink]="['categories-action/add']">
+                  create
+                </button>
+              </div>
+              <div class="divider"></div>
+              <div class="flex-fill">
+                <button
+                  mat-button
+                  color="primary"
+                  [routerLink]="['/edit-category']">
+                  edit
+                </button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="border-bottom margin-auto pb-1">
+              <span class="d-flex text-black text-uppercase text-semi-bold text-sm">
+                <mat-icon class="material-icons-outlined icon-sm hover mr-1"
+                  >palette</mat-icon
+                >
+                colors
+              </span>
+            </div>
+            <div class="d-flex border-bottom pt-1 pb-1">
+              <div class="flex-fill">
+                <button mat-button color="primary" [routerLink]="['/add-color']">
+                  create
+                </button>
+              </div>
+              <div class="divider"></div>
+              <div class="flex-fill">
+                <button mat-button color="primary" [routerLink]="['/edit-color']">
+                  edit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="d-flex justify-content-end align-items-center p-1">
+            <button mat-raised-button color="primary" (click)="logout()">
+              Logout
+            </button>
+          </div>
+        </div>
+      </mat-menu>
+      <!-- menu region -->
+    </div>
+  </ng-container>
+  <ng-template #showLogin>
+    <button mat-raised-button color="primary" (click)="login()">
+      Login with Google
+    </button>
+  </ng-template>
+</nav>

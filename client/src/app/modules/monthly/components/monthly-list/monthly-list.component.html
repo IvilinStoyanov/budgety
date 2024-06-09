@@ -1,0 +1,75 @@
+<div class="mt-2 ms-2 me-2 mb-0">
+  <app-tabs [user]="user$ | async"></app-tabs>
+</div>
+<mat-card appearance="outlined" class="ms-2 me-2">
+  <div class="d-flex justify-content-end">
+    <form [formGroup]="dateForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Choose year</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="year" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker
+          #picker
+          startView="multi-year"
+          (yearSelected)="chosenYearHandler($event, picker)">
+        </mat-datepicker>
+      </mat-form-field>
+    </form>
+  </div>
+  <div
+    class="d-flex justify-content-between align-items-center item-row border-bottom text-transparent text-card text-black">
+    <div class="item">Month</div>
+    <div class="item">Income</div>
+    <div class="item">Expense</div>
+    <div class="item">Balance</div>
+  </div>
+  <ng-container *ngIf="monthlyList$ | async as monthlyList">
+    <div *ngIf="!isMonthlyListEmpty(monthlyList); else empty">
+      <div *ngFor="let month of monthlyList | keyvalue">
+        <div
+          *ngIf="month.value?.name"
+          class="d-flex justify-content-between align-items-center item-row border-bottom text-card">
+          <div class="month-wrapper ms-4">
+            <svg
+              *ngIf="month.value?.budgetPercetange > 0"
+              viewBox="0 0 36 36"
+              class="circular-chart">
+              <path
+                class="circle"
+                [attr.stroke-dasharray]="
+                  month?.value?.budgetPercetange + ', 100'
+                "
+                d="M18 2.0845
+                a 15.9155 15.9155 0 0 1 0 31.831
+                a 15.9155 15.9155 0 0 1 0 -31.831" />
+            </svg>
+            <div class="position-center-absolute budget-circle"></div>
+            <span class="position-center-absolute text-black">{{
+              month.value?.name
+            }}</span>
+          </div>
+          <div class="item text-black">
+            {{ month.value?.income | number : '1.2-2' }}
+          </div>
+          <div class="item text-black">
+            {{ month.value?.expense | number : '1.2-2' }}
+          </div>
+          <div
+            class="item text-primary hover"
+            [routerLink]="['/monthly', month.value?.name.toLowerCase()]"
+            [ngClass]="{
+              'text-danger': month.value?.expense > month.value?.income
+            }">
+            <span *ngIf="month.value?.income > month.value?.expense">+</span
+            >{{ month.value?.income - month.value?.expense | number : '1.2-2' }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #empty>
+    <div class="d-flex flex-column align-items-center mt-4">
+      <span class="text-transparent">No Transactions</span>
+    </div>
+  </ng-template>
+</mat-card>

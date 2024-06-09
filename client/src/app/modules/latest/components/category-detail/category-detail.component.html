@@ -1,0 +1,94 @@
+<mat-card
+  appearance="outlined"
+  *ngIf="category"
+  [style.min-height.px]="600"
+  [style.margin-top.px]="15"
+  [style.margin-top.px]="50"
+  class="ml-2 mr-2 mb-0 p-0">
+  <div [style.height.px]="110">
+    <div
+      class="d-flex flex-column align-items-center category-icon-wrapper"
+      fxLayout="column"
+      fxLayoutAlign="center center">
+      <div
+        class="category-icon-container box-shadow mb-2"
+        [style.border-width.px]="1"
+        [style.border-style]="'solid'"
+        [style.border-color]="category.color">
+        <mat-icon
+          class="material-icons-outlined category-icon icon-lg"
+          [style.color]="category.color"
+          >{{ category.icon }}</mat-icon
+        >
+      </div>
+      <div
+        class="text-lg text-center text-bold text-uppercase text-transparent">
+        Category
+      </div>
+      <div class="text-bold text-md">
+        {{ category.name }}
+      </div>
+    </div>
+  </div>
+  <app-back-button [path]="'/latest'"></app-back-button>
+  <div class="menu-right hover">
+    <mat-icon
+      class="material-icons-outlined"
+      matTooltip="add transaction"
+      (click)="openAddItemDialog()"
+      >add
+    </mat-icon>
+  </div>
+  <div class="mt-4 pl-4 pr-4 pt-1 pb-1">
+    <ng-container *ngFor="let item of transactions; let i = index">
+      <div class="line-item" highlightOnHover>
+        <span class="chip text-black text-bold text-transparent text-ex-sm">{{
+          item.dateCreated | date
+        }}</span>
+        <div
+          class="d-flex justify-content-between item"
+          fxLayout="row"
+          fxLayoutAlign="space-between center">
+          <div
+            class="d-flex align-items-center"
+            fxLayout="row"
+            fxLayoutAlign="center center"
+            matTooltip="{{ item.description }}">
+            <span class="text-black">{{
+              item.description || category.name | titlecase
+            }}</span>
+          </div>
+          <div
+            fxLayout="row"
+            fxLayoutAlign="center center"
+            class="d-flex align-items-center">
+            <div fxLayout="column" fxLayoutAlign="end end">
+              <div class="item__value item-type-{{ item.type }}">
+                <span *ngIf="item.type === 'inc'">+</span>
+                <span *ngIf="item.type === 'exp'">-</span>
+                {{ item.value | number : '1.2-2' }}
+              </div>
+            </div>
+            <div class="hover-menu ml-2">
+              <mat-icon
+                class="material-icons-outlined icon-danger hover"
+                matTooltip="delete item"
+                (click)="openConfirmDialog(item)"
+                >delete</mat-icon
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <div>
+      <mat-paginator
+        [length]="length"
+        [pageSize]="pageSize"
+        (page)="changePageIndex($event.pageIndex)"
+        [pageIndex]="pageIndex"
+        [hidePageSize]="true">
+      </mat-paginator>
+    </div>
+  </div>
+</mat-card>

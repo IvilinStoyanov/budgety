@@ -1,0 +1,24 @@
+// src/styles.scss or your theme file
+@import '~@angular/material/theming';
+
+// Define your custom typography
+$custom-typography: mat-typography-config(
+  $font-family: 'Roboto, sans-serif',
+  $headline-1: mat-typography-level(500, 14px, 20px, 0.1px),
+  $body-1: mat-typography-level(500, 14px, 20px, 0.1px)
+);
+
+// Define a custom theme
+$custom-theme: mat-light-theme(
+  (
+    color: (
+      primary: mat-palette($mat-indigo),
+      accent: mat-palette($mat-pink, A200, A100, A400),
+    ),
+    typography: $custom-typography
+  )
+);
+
+// Include the custom theme and apply the typography
+@include angular-material-theme($custom-theme);
+@include mat-core();

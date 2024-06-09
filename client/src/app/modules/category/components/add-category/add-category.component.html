@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <mat-card appearance="outlined" class="m-2">
+        <app-back-button></app-back-button>
+        <div class="p-3">
+          <div class="text-center">
+            <span class="title text-bold">Add new category</span>
+            <span
+              class="text-center text-sm text-grey d-block"
+              [style.max-width.px]="380">
+              By pressing the button below you can add your custom category
+            </span>
+          </div>
+          <form
+            [formGroup]="form"
+            autocomplete="off"
+            class="d-flex flex-column">
+            <div>
+              <mat-form-field appearance="outline" class="d-flex">
+                <mat-label>Category</mat-label>
+                <input formControlName="name" matInput required />
+              </mat-form-field>
+            </div>
+            <div class="border rounded p-2 mb-3">
+              <span class="input-label d-block">Color *</span>
+              <div class="d-flex flex-wrap">
+                <div *ngFor="let color of categoryColors; let i = index">
+                  <div
+                    class="color hover"
+                    [style.background-color]="color"
+                    [ngClass]="i === currentColorIndex ? 'color-active' : ''"
+                    (click)="selectColor(color, i)"></div>
+                </div>
+              </div>
+            </div>
+            <mat-form-field appearance="outline" class="d-flex">
+              <mat-label>Search icon</mat-label>
+              <input formControlName="searchText" matInput />
+            </mat-form-field>
+            <div class="icon-wrapper">
+              <div
+                class="icon-container border rounded p-2"
+                [ngClass]="{ 'is-open': panelOpenState }">
+                <div class="d-flex flex-wrap justify-content-center">
+                  <div *ngFor="let icon of icons$ | async">
+                    <mat-icon
+                      class="material-icons-outlined icon-lg icon-primary hover"
+                      [ngClass]="
+                        icon.name === currentIconName ? 'icon-active' : ''
+                      "
+                      (click)="selectIcon(icon)">
+                      {{ icon.name }}</mat-icon
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="arrow-toggle">
+                <button
+                  mat-icon-button
+                  color="primary"
+                  class="box-shadow border"
+                  (click)="openPanel()">
+                  <mat-icon class="material-icons-outlined">
+                    <ng-container *ngIf="!panelOpenState"
+                      >keyboard_arrow_down</ng-container
+                    >
+                    <ng-container *ngIf="panelOpenState"
+                      >keyboard_arrow_up</ng-container
+                    >
+                  </mat-icon>
+                </button>
+              </div>
+            </div>
+            <div class="d-flex mt-4">
+              <button
+                mat-stroked-button
+                color="primary"
+                class="flex-grow-1"
+                (click)="addCategory()">
+                Add
+              </button>
+            </div>
+          </form>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

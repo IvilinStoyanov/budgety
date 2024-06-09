@@ -1,0 +1,22 @@
+<div fxLayoutAlign="center center">
+  <div class="mat-icon-wrapper" fxLayoutAlign="center center">
+    <div class="mat-icon-title-circle" fxLayoutAlign="center center">
+      <mat-icon class="material-icons-outlined text-white">delete</mat-icon>
+    </div>
+  </div>
+
+</div>
+<div fxLayout="row" fxLayoutAlign="end start">
+  <mat-icon class="hover ml-2 mr-2 mt-2 mb-1" mat-dialog-close>close</mat-icon>
+</div>
+<div mat-dialog-content class="pt-0">
+  <div fxLayout="column" fxLayoutAlign="center center" class="pl-3 pr-3 pb-3 pt-0">
+    <span class="title text-bold text-black">{{title}}</span>
+    <span class="text-center text-md text-black text-transparent pt-1 pl-2 pr-2"
+      [style.max-width.px]="380">{{message}}</span>
+    <div fxLayout="row" class="mt-3">
+      <button mat-raised-button color="secondary" class="ml-1 mr-1" (click)="cancel()">Cancel</button>
+      <button mat-raised-button color="warn" class="ml-1 mr-1" (click)="confirm()">Delete</button>
+    </div>
+  </div>
+</div>

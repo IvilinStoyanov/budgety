@@ -1,0 +1,93 @@
+<mat-card
+  appearance="outlined"
+  *ngIf="monthlyCategories$ | async as monthlyCategories"
+  [style.min-height.px]="600"
+  [style.margin-top.px]="50"
+  class="ms-2 me-2 mb-0 p-0">
+  <div [style.height.px]="110">
+    <div
+      class="category-icon-wrapper d-flex flex-column justify-content-center align-items-center">
+      <div class="category-icon-container box-shadow border mb-2">
+        <mat-icon class="material-icons-outlined category-icon icon-lg"
+          >date_range</mat-icon
+        >
+      </div>
+      <div
+        class="text-lg text-center text-bold text-uppercase text-transparent">
+        {{ monthName }}
+      </div>
+      <div class="text-bold text-md">Monthly Transactions</div>
+    </div>
+  </div>
+  <app-back-button [path]="'/monthly'"></app-back-button>
+  <div class="ps-4 pe-4 pt-1 pb-1">
+    <ng-container *ngFor="let category of monthlyCategories | keyvalue">
+      <div *ngIf="category.value.inc > 0 || category.value.exp > 0">
+        <div class="mt-2 mb-2">
+          <span class="text-bold">{{ category.value.name }}</span>
+        </div>
+        <div>
+          <!-- progress -->
+          <div *ngIf="category.value.inc > 0">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <div class="text-black text-md">
+                Income
+                <span class="text-transparent">{{
+                  category.value.inc | number : '1.2-2'
+                }}</span>
+              </div>
+            </div>
+            <div class="pb-3">
+              <app-progress-bar
+                [percentage]="
+                  (category.value.inc / (monthlyIncome$ | async)) * 100
+                "></app-progress-bar>
+            </div>
+          </div>
+          <div *ngIf="category.value.exp > 0">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <div class="text-black text-md">
+                Expense
+                <span class="text-transparent">{{
+                  category.value.exp | number : '1.2-2'
+                }}</span>
+              </div>
+            </div>
+            <div class="pb-3">
+              <app-progress-bar
+                class="exp-progress-bar"
+                [percentage]="
+                  (category.value.exp / (monthlyIncome$ | async)) * 100
+                "></app-progress-bar>
+            </div>
+          </div>
+        </div>
+        <div
+          *ngFor="let item of category.value.items; let i = index"
+          class="line-item">
+          <span class="chip text-black text-bold text-transparent text-ex-sm">{{
+            item.dateCreated | date
+          }}</span>
+          <div class="item d-flex justify-content-between align-items-center">
+            <div
+              class="d-flex align-items-center"
+              matTooltip="{{ item.description }}">
+              <span class="text-black">{{
+                item.description || category.value.name | titlecase
+              }}</span>
+            </div>
+            <div class="d-flex align-items-center">
+              <div class="d-flex flex-column align-items-end">
+                <div class="item__value item-type-{{ item.type }}">
+                  <span *ngIf="item.type === 'inc'">+</span>
+                  <span *ngIf="item.type === 'exp'">-</span>
+                  {{ item.value | number : '1.2-2' }}
+                </div>
+              </div>
+            </div>
+            </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</mat-card>

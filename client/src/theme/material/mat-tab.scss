@@ -1,0 +1,33 @@
+@import "../colors.scss";
+@import "../fonts.scss";
+
+/* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version. */
+/* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version. */
+mat-tab-group {
+  &.mat-primary .mat-ink-bar{
+    background-color: $custom-white !important;
+  }
+
+  .mat-mdc-tab-header {
+    margin-bottom: 15px;
+  }
+}
+
+/* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version. */
+.mat-tab-label {
+  color: $custom-white;
+  opacity: 1 !important;
+  font-size: $small;
+  text-transform: uppercase;
+}
+
+/* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version. */
+.mat-tab-labels {
+  justify-content: space-between;
+}
+
+/* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version. */
+.mat-tab-header-pagination-chevron,
+.mat-tab-header-pagination-disabled {
+  border-color: rgb(255 255 255) !important;
+}
