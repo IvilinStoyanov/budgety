@@ -6,8 +6,11 @@ export class User extends Document {
   @Prop({ required: true })
   googleId: string;
 
-  @Prop()
-  name: string;
+  @Prop({ type: Object, required: true })
+  name: {
+    familyName: { type: String, required: true },
+    givenName: { type: String, required: true },
+  }
 
   @Prop()
   picture: string;

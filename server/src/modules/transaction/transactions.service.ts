@@ -27,6 +27,7 @@ export class TransactionsService {
     }
 
     async create(createTransactionDto: CreateTransactionDto, user): Promise<any> {
+        debugger
         const { description, dateCreated, type, value, _categoryId } = createTransactionDto;
 
         await this.categoryModel.updateOne(

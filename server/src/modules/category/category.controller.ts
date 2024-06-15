@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Param, Req, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CategoriesService } from './categories.service';
+import { CategoryService } from './category.service';
 import { Types } from 'mongoose';
 import { RequireLoginGuard } from 'src/common/guards/requireLogin.guard';
 import { CreateCategoriesBulkDto } from 'src/dto/create-categories-bulk.dto';
@@ -12,16 +12,16 @@ import { Category } from 'src/schemas/category.schema';
 @ApiBearerAuth()
 @UseGuards(RequireLoginGuard)
 
-@Controller('categories')
-export class CategoriesController {
-    constructor(private readonly categoriesService: CategoriesService) { }
+@Controller('api/category')
+export class CategoryController {
+    constructor(private readonly categoryService: CategoryService) { }
 
     @Get()
     @ApiOperation({ summary: 'Get all categories' })
     @ApiResponse({ status: 200, description: 'List of categories', type: [Category] })
     @ApiResponse({ status: 400, description: 'Bad request' })
     async findAll(@Req() req: RequestWithUser): Promise<Category[]> {
-        return this.categoriesService.findAll(req.user._id);
+        return this.categoryService.findAll(req.user._id);
     }
 
     @Get(':id')
@@ -30,7 +30,7 @@ export class CategoriesController {
     @ApiResponse({ status: 400, description: 'Bad request' })
     @ApiResponse({ status: 404, description: 'Category not found' })
     async findOne(@Req() req: RequestWithUser, @Param('id') id: string): Promise<Category> {
-        return this.categoriesService.findOne(req.user._id, id);
+        return this.categoryService.findOne(req.user._id, id);
     }
 
     @Post()
@@ -42,7 +42,7 @@ export class CategoriesController {
             ...createCategoryDto,
             _user: new Types.ObjectId(req.user._id),
         };
-        return this.categoriesService.create(category);
+        return this.categoryService.create(category);
     }
 
     @Post('bulk')
@@ -54,6 +54,6 @@ export class CategoriesController {
             ...category,
             _user: new Types.ObjectId(req.user._id),
         }));
-        return this.categoriesService.createMany(categories);
+        return this.categoryService.createMany(categories);
     }
 }

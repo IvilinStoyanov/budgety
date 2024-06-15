@@ -4,7 +4,7 @@ import { Model, Types } from 'mongoose';
 import { Category } from 'src/schemas/category.schema';
 
 @Injectable()
-export class CategoriesService {
+export class CategoryService {
     constructor(@InjectModel(Category.name) private categoryModel: Model<Category>) { }
 
     async findAll(userId: string): Promise<Category[]> {

@@ -18,9 +18,6 @@ export class Category extends Document {
   exp: number;
 
   @Prop({ type: Number, default: 0 })
-  categoryId: number;
-
-  @Prop({ type: Number, default: 0 })
   inc: number;
 
   @Prop({ type: Number, default: 0 })
