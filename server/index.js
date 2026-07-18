@@ -4,6 +4,7 @@ const cors = require('cors');
 const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const dns = require('dns');
 const keys = require('./config/keys');
 
 require('./models/User');
@@ -11,7 +12,22 @@ require('./models/Categories');
 require('./models/Transactions');
 require('./services/passport');
 
-mongoose.connect(keys.mongoURL);
+
+if (!keys.mongoURL) {
+    console.error('MongoDB connection string is missing. Set MONGO_URI or MONGO_URL before starting the server.');
+} else {
+    mongoose.connect(keys.mongoURL, {
+        family: 4,
+        serverSelectionTimeoutMS: 20000,
+        connectTimeoutMS: 20000,
+        tls: true,
+    })
+        .then(() => console.log('MongoDB connected'))
+        .catch((err) => {
+            console.error('MongoDB connection error:', err);
+        });
+}
+
 const app = express();
 
 app.use(cors());
