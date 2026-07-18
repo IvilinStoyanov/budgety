@@ -1,4 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, of, Subject } from 'rxjs';
@@ -15,7 +20,9 @@ import {
 @Component({
   selector: 'app-monthly-transaction-list',
   templateUrl: './monthly-transaction-list.component.html',
-  styleUrls: ['./monthly-transaction-list.component.scss']
+  styleUrls: ['./monthly-transaction-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false
 })
 export class MonthlyTransactionListComponent implements OnInit, OnDestroy {
   monthlyCategories$: Observable<MonthlyTransaction>;

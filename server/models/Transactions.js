@@ -6,7 +6,8 @@ const transactionsSchema = new Schema({
     dateCreated: Date,
     type: String,
     value: Number,
-    _categoryId: { type: Schema.Types.ObjectId, ref: 'categories' }
+    _categoryId: { type: Schema.Types.ObjectId, ref: 'categories' },
+    _user: { type: Schema.Types.ObjectId, ref: 'user' }
 })
 
 mongoose.model('transactions', transactionsSchema);

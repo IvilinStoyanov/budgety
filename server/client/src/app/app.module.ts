@@ -1,4 +1,9 @@
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+  withXhr
+} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,11 +35,11 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
+  bootstrap: [AppComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,
     NoopAnimationsModule,
-    HttpClientModule,
     SharedModule,
     StoreModule.forRoot(),
     EffectsModule.forRoot(),
@@ -56,8 +61,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
       multi: true
     },
     AuthGuard,
-    RoleGuardGuard
-  ],
-  bootstrap: [AppComponent]
+    RoleGuardGuard,
+    provideHttpClient(withXhr(), withInterceptorsFromDi())
+  ]
 })
 export class AppModule {}

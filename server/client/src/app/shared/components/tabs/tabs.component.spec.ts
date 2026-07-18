@@ -1,10 +1,15 @@
 /* tslint:disable:no-unused-variable */
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { TabsComponent } from './tabs.component';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+  withXhr
+} from '@angular/common/http';
 
 describe('TabsComponent', () => {
   let component: TabsComponent;
@@ -13,7 +18,11 @@ describe('TabsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TabsComponent],
-      imports: [RouterTestingModule, HttpClientTestingModule, MatDialogModule]
+      imports: [RouterTestingModule, MatDialogModule],
+      providers: [
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
+        provideHttpClientTesting()
+      ]
     }).compileComponents();
   }));
 

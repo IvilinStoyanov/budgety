@@ -1,7 +1,8 @@
 import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
 
 @Directive({
-  selector: '[highlightOnHover]'
+    selector: '[highlightOnHover]',
+    standalone: false
 })
 export class HighlightOnHoverDirective {
   constructor(private el: ElementRef, private renderer: Renderer2) {}

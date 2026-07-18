@@ -1,27 +1,41 @@
 const mongoose = require('mongoose');
 const Categories = mongoose.model('categories');
 const Transactions = mongoose.model('transactions');
+const rateLimit = require('express-rate-limit');
 
 const requireLogin = require('../middlewares/requireLogin');
 
+const transactionsRateLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+const buildUserTransactionQuery = (req, categoryId) => ({
+    _categoryId: categoryId,
+    $or: [
+        { _user: req.user._id || req.user.id },
+        { _user: { $exists: false } }
+    ]
+});
+
 module.exports = app => {
-    app.get('/api/transactions', async (req, res) => {
+    app.get('/api/transactions', transactionsRateLimiter, requireLogin, async (req, res) => {
         try {
             const { _categoryId, pageIndex, pageSize } = req.query;
+            const parsedPageIndex = Number(pageIndex || 0);
+            const parsedPageSize = Number(pageSize || 10);
+            const skip = parsedPageIndex * parsedPageSize;
+            const transactionQuery = buildUserTransactionQuery(req, _categoryId);
 
-            const count = await Transactions
-                .find({ _categoryId })
-                .count();
-
-            const skip = pageIndex * pageSize;
-
-            // const totalPages = Math.ceil(count / pageSize);
+            const count = await Transactions.countDocuments(transactionQuery);
 
             const transactions = await Transactions
-                .find({ _user: req.user.id, _categoryId })
-                .sort({ dateCreated: -1})
+                .find(transactionQuery)
+                .sort({ dateCreated: -1 })
                 .skip(skip)
-                .limit(pageSize);
+                .limit(parsedPageSize);
 
             res.send({ transactions, length: count });
         } catch (error) {
@@ -29,7 +43,7 @@ module.exports = app => {
         }
     });
 
-    app.post('/api/transactions/global', requireLogin, async (req, res) => {
+    app.post('/api/transactions/global', transactionsRateLimiter, requireLogin, async (req, res) => {
         try {
             const { description, dateCreated, type, value, _categoryId } = req.body;
 
@@ -49,7 +63,8 @@ module.exports = app => {
                 type,
                 value,
                 dateCreated,
-                _categoryId
+                _categoryId,
+                _user: req.user._id
             });
 
             req.user[type] += value;
@@ -67,7 +82,7 @@ module.exports = app => {
         }
     });
 
-    app.post('/api/transactions', requireLogin, async (req, res) => {
+    app.post('/api/transactions', transactionsRateLimiter, requireLogin, async (req, res) => {
         try {
             const { description, dateCreated, type, value, _categoryId } = req.body;
 
@@ -87,7 +102,8 @@ module.exports = app => {
                 type,
                 value,
                 dateCreated,
-                _categoryId
+                _categoryId,
+                _user: req.user._id
             });
 
             req.user[type] += value;
@@ -146,6 +162,10 @@ module.exports = app => {
                 .find(
                     {
                         _categoryId: { $in: obj_ids },
+                        $or: [
+                            { _user: req.user._id || req.user.id },
+                            { _user: { $exists: false } }
+                        ],
                         dateCreated: {
                             $gte: new Date(`${year}-01-01`),
                             $lt: new Date(`${year}-12-31`)
@@ -195,6 +215,10 @@ module.exports = app => {
     
             const transactions = await Transactions.find({
                 _categoryId: { $in: obj_ids },
+                $or: [
+                    { _user: req.user._id || req.user.id },
+                    { _user: { $exists: false } }
+                ],
                 dateCreated: {
                     $gte: startDate,
                     $lt: endDate // Use $lt to ensure the end date is exclusive
@@ -226,6 +250,10 @@ module.exports = app => {
                 .find(
                     {
                         _categoryId: { $in: obj_ids },
+                        $or: [
+                            { _user: req.user._id || req.user.id },
+                            { _user: { $exists: false } }
+                        ],
                         dateCreated: {
                             $gte: new Date(`${endYear}-01-01`),
                             $lt: new Date(`${startYear}-12-31`)

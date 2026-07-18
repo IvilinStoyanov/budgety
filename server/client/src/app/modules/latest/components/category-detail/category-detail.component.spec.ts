@@ -1,11 +1,16 @@
 /* tslint:disable:no-unused-variable */
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { CategoryDetailComponent } from './category-detail.component';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+  withXhr
+} from '@angular/common/http';
 
 describe('CategoryDetailComponent', () => {
   let component: CategoryDetailComponent;
@@ -14,11 +19,10 @@ describe('CategoryDetailComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [CategoryDetailComponent],
-      imports: [
-        RouterTestingModule,
-        MatSnackBarModule,
-        MatDialogModule,
-        HttpClientTestingModule
+      imports: [RouterTestingModule, MatSnackBarModule, MatDialogModule],
+      providers: [
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     }).compileComponents();
   }));

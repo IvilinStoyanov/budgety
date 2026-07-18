@@ -1,7 +1,11 @@
 export interface IUser {
   _id: string;
   googleId: string;
-  name: object;
+  name: {
+    givenName?: string;
+    familyName?: string;
+    [key: string]: unknown;
+  };
   picture: string;
   email: string;
   locale: string;

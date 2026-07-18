@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ColorEvent } from 'ngx-color';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
@@ -6,7 +6,9 @@ import { NotificationService } from 'src/app/shared/services/notification.servic
 @Component({
   selector: 'app-add-color',
   templateUrl: './add-color.component.html',
-  styleUrls: ['./add-color.component.scss']
+  styleUrls: ['./add-color.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false
 })
 export class AddColorComponent implements OnInit {
   currentColor: string;

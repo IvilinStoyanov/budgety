@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import * as latestActions from 'src/app/modules/latest/state/latest.actions';
 import { selectUser } from 'src/app/modules/shared/state/user/user.selector';
 import { AddItemComponent } from 'src/app/shared/components/add-item/add-item.component';
-import { Category } from 'src/app/shared/models/class/category';
 import { ICategory } from 'src/app/shared/models/interface/category';
 import { ITransaction } from 'src/app/shared/models/interface/transaction';
 import { IUser } from 'src/app/shared/models/interface/User';
@@ -17,10 +16,11 @@ import { NotificationService } from 'src/app/shared/services/notification.servic
 import { selectLatestCategory } from '../../state/latest.selector';
 
 @Component({
-  selector: 'app-latest',
-  templateUrl: './latest-list.component.html',
-  styleUrls: ['./latest-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-latest',
+    templateUrl: './latest-list.component.html',
+    styleUrls: ['./latest-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LatestListComponent implements OnInit {
   categories$: Observable<ICategory[]>;
@@ -43,7 +43,7 @@ export class LatestListComponent implements OnInit {
     this.store.dispatch(latestActions.loadLatest());
   }
 
-  navigateToCategory(categoryId: number): void {
+  navigateToCategory(categoryId: string | number): void {
     this.router.navigate(['latest/category'], {
       queryParams: { id: categoryId }
     });
@@ -66,23 +66,20 @@ export class LatestListComponent implements OnInit {
     // }
   }
 
-  showCategories(category: Category): boolean {
-    if (category) {
-      if (this.viewMode === 'inc') {
-        if (category.inc > 0) {
-          return true;
-        }
-
-        return false;
-      }
-      if (this.viewMode === 'exp') {
-        if (category.exp > 0) {
-          return true;
-        }
-
-        return false;
-      }
+  showCategories(category: ICategory): boolean {
+    if (!category) {
+      return false;
     }
+
+    if (this.viewMode === 'inc') {
+      return category.inc > 0;
+    }
+
+    if (this.viewMode === 'exp') {
+      return category.exp > 0;
+    }
+
+    return false;
   }
 
   openAddItemDialog(): void {

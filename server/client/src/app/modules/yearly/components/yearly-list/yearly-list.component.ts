@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from 'src/app/modules/shared/state';
@@ -12,7 +12,9 @@ import { selectYearlyList } from '../../state/yearly/yearly.selectors';
 @Component({
   selector: 'app-yearly',
   templateUrl: './yearly-list.component.html',
-  styleUrls: ['./yearly-list.component.scss']
+  styleUrls: ['./yearly-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false
 })
 export class YearlyListComponent implements OnInit {
   user$: Observable<IUser>;

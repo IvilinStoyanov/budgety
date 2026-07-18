@@ -12,4 +12,5 @@ export interface ICategory {
   incPercentage?: number;
   expPercentage?: number;
   isSelected?: boolean;
+  type?: string;
 }
