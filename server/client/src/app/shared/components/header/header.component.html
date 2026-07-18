@@ -1,17 +1,20 @@
-<nav
-  class="pt-2 pb-2 ps-3 pe-3 d-flex justify-content-between align-items-center mb-3">
-  <div class="title hover ml-3" (click)="navigateHome()">Budgety</div>
+<nav class="app-header">
+  <div class="brand hover" (click)="navigateHome()">
+    <div class="brand-mark">B</div>
+    <div class="brand-copy">
+      <div class="brand-title">Budgety</div>
+      <div class="brand-subtitle">Smart planning</div>
+    </div>
+  </div>
   @if (user$ | async; as user) {
-  <div>
-    <!-- menu region -->
+  <div class="header-actions">
     <mat-icon
-      class="material-icons-outlined icon-md hover"
+      class="material-icons-outlined icon-md hover menu-toggle"
       [matMenuTriggerFor]="menu"
       >menu</mat-icon
     >
     <mat-menu #menu="matMenu" class="main-menu mat-menu-md">
       <div class="d-flex flex-column">
-        <!-- profile section -->
         <div>
           <div>
             <div class="border-bottom margin-auto pb-1">
@@ -114,7 +117,6 @@
         </div>
       </div>
     </mat-menu>
-    <!-- menu region -->
   </div>
   } @else {
   <button mat-raised-button color="primary" (click)="login()">

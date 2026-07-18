@@ -1,5 +1,8 @@
-
 /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card {
- padding: 16px
+  padding: 20px;
+  border-radius: 20px !important;
+  box-shadow: 0 18px 45px -22px rgba(15, 23, 42, 0.28) !important;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  background: rgba(255, 255, 255, 0.96);
 }

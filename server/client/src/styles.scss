@@ -29,25 +29,26 @@ body {
 }
 
 html {
-  background: url('assets/images/bg-min.jpg') no-repeat center center fixed;
-  background-size: cover;
-  height: 100%;
+  min-height: 100%;
+  background:
+    linear-gradient(135deg, rgba(248, 250, 252, 0.96) 0%, rgba(240, 247, 255, 0.96) 44%, rgba(224, 242, 254, 0.94) 100%);
 }
 
 body {
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
-  // background: $primary;
-  // background: linear-gradient(
-  //   90deg,
-  //   #179ff7 0%,
-  //   #3ac7fd 35%,
-  //   #1cc9fe 100%
-  // ) !important;
+  font-family: "Noto Sans", sans-serif !important;
   color: $black;
+  background: transparent;
+  line-height: 1.5;
 }
 
 a {
   text-decoration: none;
+}
+
+.container {
+  max-width: 980px;
+  margin: 0 auto !important;
+  padding: 20px 16px 40px;
 }
 
 .mat-mdc-select-panel .mat-mdc-optgroup-label,
@@ -61,12 +62,7 @@ a {
 
 .exp-progress-bar {
   .progress-line {
-    background: linear-gradient(
-      90deg,
-      $red 0%,
-      #ff9393 50%,
-      #ffa8b9 100%
-    ) !important;
+    background: linear-gradient(90deg, $red 0%, #fda4af 50%, #fecaca 100%) !important;
   }
 }
 

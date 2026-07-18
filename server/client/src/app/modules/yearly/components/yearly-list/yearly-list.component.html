@@ -1,10 +1,11 @@
 <div class="mt-2 ms-2 me-2 mb-0">
   <app-tabs [user]="user$ | async"></app-tabs>
 </div>
-<mat-card appearance="outlined" class="ms-2 me-2">
-  <div class="d-flex justify-content-end"></div>
-  <div
-    class="d-flex justify-content-between align-items-center item-row border-bottom text-transparent text-card text-black">
+<mat-card appearance="outlined" class="yearly-card ms-2 me-2">
+  <div class="card-toolbar">
+    <div class="toolbar-title">Yearly overview</div>
+  </div>
+  <div class="table-header">
     <div class="item">Year</div>
     <div class="item">Income</div>
     <div class="item">Expense</div>
@@ -14,8 +15,7 @@
   yearlyList; track yearly) {
   <div>
     @if (yearly.value?.name) {
-    <div
-      class="d-flex justify-content-between align-items-center item-row border-bottom text-card">
+    <div class="table-row">
       <div class="yearly-wrapper ms-4">
         @if (yearly.value?.budgetPercentage > 0) {
         <svg viewBox="0 0 36 36" class="circular-chart">
@@ -39,7 +39,7 @@
         {{ $safeNavigationMigration(yearly.value?.expense) | number : '1.2-2' }}
       </div>
       <div
-        class="item text-black"
+        class="item balance-value"
         [ngClass]="{
           'text-danger':
             $safeNavigationMigration(yearly.value?.expense) >
@@ -56,7 +56,7 @@
     }
   </div>
   } } @else {
-  <div class="d-flex flex-column align-items-center mt-4">
+  <div class="d-flex flex-column align-items-center mt-4 empty-state">
     <span class="text-transparent">No Transactions</span>
   </div>
   }

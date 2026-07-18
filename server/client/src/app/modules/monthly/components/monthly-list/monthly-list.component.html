@@ -1,10 +1,11 @@
 <div class="mt-2 ms-2 me-2 mb-0">
   <app-tabs [user]="user$ | async"></app-tabs>
 </div>
-<mat-card appearance="outlined" class="ms-2 me-2">
-  <div class="d-flex justify-content-end">
+<mat-card appearance="outlined" class="monthly-card ms-2 me-2">
+  <div class="card-toolbar">
+    <div class="toolbar-title">Monthly overview</div>
     <form [formGroup]="dateForm">
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="year-picker">
         <mat-label>Choose year</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="year" />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -16,8 +17,7 @@
       </mat-form-field>
     </form>
   </div>
-  <div
-    class="d-flex justify-content-between align-items-center item-row border-bottom text-transparent text-card text-black">
+  <div class="table-header">
     <div class="item">Month</div>
     <div class="item">Income</div>
     <div class="item">Expense</div>
@@ -25,12 +25,11 @@
   </div>
   @if (monthlyList$ | async; as monthlyList) { @if
   (!isMonthlyListEmpty(monthlyList)) {
-  <div>
+  <div class="table-body">
     @for (month of monthlyList | keyvalue; track month) {
     <div>
       @if (month.value?.name) {
-      <div
-        class="d-flex justify-content-between align-items-center item-row border-bottom text-card">
+      <div class="table-row" [routerLink]="['/monthly', month.value?.name.toLowerCase()]">
         <div class="month-wrapper ms-4">
           @if (month.value?.budgetPercetange > 0) {
           <svg viewBox="0 0 36 36" class="circular-chart">
@@ -56,8 +55,7 @@
           }}
         </div>
         <div
-          class="item text-primary hover"
-          [routerLink]="['/monthly', month.value?.name.toLowerCase()]"
+          class="item balance-value"
           [ngClass]="{
             'text-danger':
               $safeNavigationMigration(month.value?.expense) >
@@ -76,7 +74,7 @@
     }
   </div>
   } @else {
-  <div class="d-flex flex-column align-items-center mt-4">
+  <div class="d-flex flex-column align-items-center mt-4 empty-state">
     <span class="text-transparent">No Transactions</span>
   </div>
   } }

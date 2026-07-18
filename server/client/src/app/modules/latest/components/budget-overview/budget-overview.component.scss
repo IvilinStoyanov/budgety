@@ -1,0 +1,124 @@
+@import 'src/theme/colors.scss';
+
+:host {
+  display: block;
+}
+
+.budget-overview-card {
+  padding: 20px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.96) 100%);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $primary;
+}
+
+.card-title {
+  margin-top: 4px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: $black;
+}
+
+.status-pill {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.12);
+  color: $green;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.metric-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 8px 20px -16px rgba(15, 23, 42, 0.28);
+}
+
+.metric-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: $black;
+}
+
+.metric-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.metric-dot.income {
+  background: $green;
+}
+
+.metric-dot.expense {
+  background: $red;
+}
+
+.metric-values {
+  text-align: right;
+}
+
+.metric-amount {
+  display: block;
+  font-weight: 700;
+  color: $black;
+}
+
+.metric-subtext {
+  display: block;
+  font-size: 0.82rem;
+  color: $secondary;
+}
+
+@media only screen and (max-width: 600px) {
+  .budget-overview-card {
+    padding: 14px;
+  }
+
+  .card-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .status-pill {
+    align-self: flex-start;
+  }
+
+  .metric-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .metric-values {
+    text-align: left;
+  }
+}
