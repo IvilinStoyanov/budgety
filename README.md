@@ -32,8 +32,8 @@ Budgety is designed to make personal finance management simple and visual. Users
 
 Make sure you have the following installed:
 
-- Node.js 18.19
-- npm 8.1.2
+- Node.js 22.22.3
+- npm 10.9.2
 - MongoDB running locally or a reachable MongoDB Atlas instance
 
 ## Getting Started
@@ -78,6 +78,8 @@ Make sure you have the following installed:
    ```bash
    npm run dev
    ```
+
+   For Render deployments, set the runtime to Node.js 22.22.3 explicitly in the service settings.
 
    This launches:
    - the backend API on http://localhost:5000
