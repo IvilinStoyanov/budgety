@@ -1,11 +1,16 @@
 /* tslint:disable:no-unused-variable */
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { MonthlyListComponent } from './monthly-list.component';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+  withXhr
+} from '@angular/common/http';
 
 describe('MonthlyListComponent', () => {
   let component: MonthlyListComponent;
@@ -14,7 +19,11 @@ describe('MonthlyListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MonthlyListComponent],
-      imports: [FormsModule, ReactiveFormsModule, HttpClientTestingModule]
+      imports: [FormsModule, ReactiveFormsModule],
+      providers: [
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
+        provideHttpClientTesting()
+      ]
     }).compileComponents();
   }));
 

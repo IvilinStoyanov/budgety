@@ -11,7 +11,8 @@ import { IUser } from '../models/interface/User';
 import { AuthService } from '../services/auth.service';
 
 @Directive({
-  selector: '[appHasRole]'
+    selector: '[appHasRole]',
+    standalone: false
 })
 export class HasRoleDirective implements OnInit {
   @Input() appHasRole: string;

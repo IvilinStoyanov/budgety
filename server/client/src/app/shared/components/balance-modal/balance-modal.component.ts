@@ -1,4 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnInit,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IUser } from 'src/app/shared/models/interface/User';
@@ -6,7 +11,9 @@ import { IUser } from 'src/app/shared/models/interface/User';
 @Component({
   selector: 'app-balance-modal',
   templateUrl: './balance-modal.component.html',
-  styleUrls: ['./balance-modal.component.scss']
+  styleUrls: ['./balance-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false
 })
 export class BalanceModalComponent implements OnInit {
   form: UntypedFormGroup;

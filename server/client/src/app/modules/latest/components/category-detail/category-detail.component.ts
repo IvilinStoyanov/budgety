@@ -1,4 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 // import * as shape from 'd3-shape';
@@ -20,7 +25,9 @@ import { CategoryTransactionsResponse } from '../../models/category-transactions
 @Component({
   selector: 'app-category-detail',
   templateUrl: './category-detail.component.html',
-  styleUrls: ['./category-detail.component.scss']
+  styleUrls: ['./category-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false
 })
 export class CategoryDetailComponent implements OnInit, OnDestroy {
   categoryId: string;

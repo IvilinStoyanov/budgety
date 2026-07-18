@@ -25,13 +25,15 @@
             <div class="border rounded p-2 mb-3">
               <span class="input-label d-block">Color *</span>
               <div class="d-flex flex-wrap">
-                <div *ngFor="let color of categoryColors; let i = index">
-                  <div
-                    class="color hover"
-                    [style.background-color]="color"
-                    [ngClass]="i === currentColorIndex ? 'color-active' : ''"
+                @for (color of categoryColors; track color; let i = $index) {
+                  <div>
+                    <div
+                      class="color hover"
+                      [style.background-color]="color"
+                      [ngClass]="i === currentColorIndex ? 'color-active' : ''"
                     (click)="selectColor(color, i)"></div>
-                </div>
+                  </div>
+                }
               </div>
             </div>
             <mat-form-field appearance="outline" class="d-flex">
@@ -43,47 +45,49 @@
                 class="icon-container border rounded p-2"
                 [ngClass]="{ 'is-open': panelOpenState }">
                 <div class="d-flex flex-wrap justify-content-center">
-                  <div *ngFor="let icon of icons$ | async">
-                    <mat-icon
-                      class="material-icons-outlined icon-lg icon-primary hover"
+                  @for (icon of icons$ | async; track icon) {
+                    <div>
+                      <mat-icon
+                        class="material-icons-outlined icon-lg icon-primary hover"
                       [ngClass]="
                         icon.name === currentIconName ? 'icon-active' : ''
                       "
-                      (click)="selectIcon(icon)">
-                      {{ icon.name }}</mat-icon
-                    >
+                        (click)="selectIcon(icon)">
+                        {{ icon.name }}</mat-icon
+                        >
+                      </div>
+                    }
                   </div>
                 </div>
+                <div class="arrow-toggle">
+                  <button
+                    mat-icon-button
+                    color="primary"
+                    class="box-shadow border"
+                    (click)="openPanel()">
+                    <mat-icon class="material-icons-outlined">
+                      @if (!panelOpenState) {
+                        keyboard_arrow_down
+                      }
+                      @if (panelOpenState) {
+                        keyboard_arrow_up
+                      }
+                    </mat-icon>
+                  </button>
+                </div>
               </div>
-              <div class="arrow-toggle">
+              <div class="d-flex mt-4">
                 <button
-                  mat-icon-button
+                  mat-stroked-button
                   color="primary"
-                  class="box-shadow border"
-                  (click)="openPanel()">
-                  <mat-icon class="material-icons-outlined">
-                    <ng-container *ngIf="!panelOpenState"
-                      >keyboard_arrow_down</ng-container
-                    >
-                    <ng-container *ngIf="panelOpenState"
-                      >keyboard_arrow_up</ng-container
-                    >
-                  </mat-icon>
+                  class="flex-grow-1"
+                  (click)="addCategory()">
+                  Add
                 </button>
               </div>
-            </div>
-            <div class="d-flex mt-4">
-              <button
-                mat-stroked-button
-                color="primary"
-                class="flex-grow-1"
-                (click)="addCategory()">
-                Add
-              </button>
-            </div>
-          </form>
-        </div>
-      </mat-card>
+            </form>
+          </div>
+        </mat-card>
+      </div>
     </div>
   </div>
-</div>

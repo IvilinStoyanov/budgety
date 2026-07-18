@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormControl,
@@ -19,7 +19,9 @@ import { selectMonthlyList } from '../../state/monthly-list/monthly.selectors';
 @Component({
   selector: 'app-monthly-list',
   templateUrl: './monthly-list.component.html',
-  styleUrls: ['./monthly-list.component.scss']
+  styleUrls: ['./monthly-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false
 })
 export class MonthlyListComponent implements OnInit {
   user$: Observable<IUser>;
