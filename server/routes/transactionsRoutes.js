@@ -1,8 +1,16 @@
 const mongoose = require('mongoose');
 const Categories = mongoose.model('categories');
 const Transactions = mongoose.model('transactions');
+const rateLimit = require('express-rate-limit');
 
 const requireLogin = require('../middlewares/requireLogin');
+
+const transactionsRateLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    standardHeaders: true,
+    legacyHeaders: false,
+});
 
 const buildUserTransactionQuery = (req, categoryId) => ({
     _categoryId: categoryId,
@@ -13,7 +21,7 @@ const buildUserTransactionQuery = (req, categoryId) => ({
 });
 
 module.exports = app => {
-    app.get('/api/transactions', requireLogin, async (req, res) => {
+    app.get('/api/transactions', transactionsRateLimiter, requireLogin, async (req, res) => {
         try {
             const { _categoryId, pageIndex, pageSize } = req.query;
             const parsedPageIndex = Number(pageIndex || 0);
@@ -35,7 +43,7 @@ module.exports = app => {
         }
     });
 
-    app.post('/api/transactions/global', requireLogin, async (req, res) => {
+    app.post('/api/transactions/global', transactionsRateLimiter, requireLogin, async (req, res) => {
         try {
             const { description, dateCreated, type, value, _categoryId } = req.body;
 
@@ -74,7 +82,7 @@ module.exports = app => {
         }
     });
 
-    app.post('/api/transactions', requireLogin, async (req, res) => {
+    app.post('/api/transactions', transactionsRateLimiter, requireLogin, async (req, res) => {
         try {
             const { description, dateCreated, type, value, _categoryId } = req.body;
 
