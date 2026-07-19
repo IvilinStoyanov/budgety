@@ -1,80 +1,95 @@
 @if (categories$ | async; as categories) {
   @if (user$ | async; as user) {
-    <div class="ml-2 mr-2 mt-2 mb-1">
-      <app-budget-overview [user]="user"></app-budget-overview>
-    </div>
-    <div class="section-header">
-      <div class="section-title">Categories</div>
-      <div class="section-pill">{{ categories?.length || 0 }} items</div>
-    </div>
-    <mat-card
-      appearance="outlined"
-      [style.min-height.vh]="100"
-      [style.padding-bottom.px]="78"
-      class="category-card ml-2 mr-2 mb-0 mt-0">
-      @if (categories) {
-        @if (categories.length == 0) {
-          <div class="category-empty-state hover" (click)="openAddItemDialog()">
-            <mat-icon class="material-icons-outlined icon-md-lg text-transparent text-grey">
-              note_alt
-            </mat-icon>
-            <span class="empty-title">No transactions yet</span>
-            <span class="empty-copy">Tap here to add your first one</span>
-          </div>
-        }
-        @for (category of categories; track category) {
-          <div>
-            @if (category && showCategories(category) && category.isVisible) {
-              <div class="item border-bottom">
-                <div class="item-row">
-                  <div class="d-flex align-items-center">
-                    <div class="category-title-container">
-                      <svg viewBox="0 0 42 42" class="circle-chart">
-                        <circle
-                          class="donut-segment"
-                          cx="21"
-                          cy="21"
-                          r="15.91549430918954"
-                          fill="transparent"
-                          attr.stroke="{{ category.color }}"
-                          stroke-width="1.5"></circle>
-                      </svg>
-                      <mat-icon class="position-center-absolute material-icons-outlined icon-md icon-primary mr-2">
-                        {{ category.icon }}
-                      </mat-icon>
-                    </div>
-                    <div class="category-meta">
-                      <span class="category-name">{{ category.name | titlecase }}</span>
-                    </div>
-                  </div>
-                  <div class="item-summary">
-                    @if (viewMode === 'inc') {
-                      <div class="item-type-{{ category.type }}">
-                        {{ category.inc | number : '1.2-2' }}
-                      </div>
-                    }
-                    @if (viewMode === 'exp') {
-                      <div class="item-type-{{ category.type }}">
-                        {{ category.exp | number : '1.2-2' }}
-                      </div>
-                    }
-                    <div class="item-meta-link" (click)="navigateToCategory(category._id)">
-                      {{ category.transactionsCount }} transactions
-                    </div>
-                  </div>
-                </div>
+    <div class="latest-layout ml-2 mr-2 mt-2 mb-1">
+      <div class="latest-sidebar">
+        <app-budget-overview [user]="user" displayMode="summary"></app-budget-overview>
+
+        <mat-card appearance="outlined" class="desktop-add-card">
+          <div class="desktop-add-card-title">New transaction</div>
+          <app-add-item
+            [viewMode]="viewMode"
+            [showCancelButton]="false"
+            (transactionAdded)="addInlineTransaction($event)">
+          </app-add-item>
+        </mat-card>
+      </div>
+
+      <div class="latest-content">
+        <div class="section-header">
+          <div class="section-title">Categories</div>
+          <div class="section-pill">{{ categories?.length || 0 }} items</div>
+        </div>
+        <mat-card
+          appearance="outlined"
+          [style.min-height.vh]="100"
+          [style.padding-bottom.px]="78"
+          class="category-card mb-0 mt-0">
+          @if (categories) {
+            @if (categories.length == 0) {
+              <div class="category-empty-state hover" (click)="openAddItemDialog()">
+                <mat-icon class="material-icons-outlined icon-md-lg text-transparent text-grey">
+                  note_alt
+                </mat-icon>
+                <span class="empty-title">No transactions yet</span>
+                <span class="empty-copy">Tap here to add your first one</span>
               </div>
             }
-          </div>
-        }
-      }
-    </mat-card>
+            @for (category of categories; track category) {
+              <div>
+                @if (category && showCategories(category) && category.isVisible) {
+                  <div class="item border-bottom">
+                    <div class="item-row">
+                      <div class="d-flex align-items-center">
+                        <div class="category-title-container">
+                          <svg viewBox="0 0 42 42" class="circle-chart">
+                            <circle
+                              class="donut-segment"
+                              cx="21"
+                              cy="21"
+                              r="15.91549430918954"
+                              fill="transparent"
+                              attr.stroke="{{ category.color }}"
+                              stroke-width="1.5"></circle>
+                          </svg>
+                          <mat-icon class="position-center-absolute material-icons-outlined icon-md icon-primary mr-2">
+                            {{ category.icon }}
+                          </mat-icon>
+                        </div>
+                        <div class="category-meta">
+                          <span class="category-name">{{ category.name | titlecase }}</span>
+                        </div>
+                      </div>
+                      <div class="item-summary">
+                        @if (viewMode === 'inc') {
+                          <div class="item-type-{{ category.type }}">
+                            {{ category.inc | number : '1.2-2' }}
+                          </div>
+                        }
+                        @if (viewMode === 'exp') {
+                          <div class="item-type-{{ category.type }}">
+                            {{ category.exp | number : '1.2-2' }}
+                          </div>
+                        }
+                        <div class="item-meta-link" (click)="navigateToCategory(category._id)">
+                          {{ category.transactionsCount }} transactions
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+          }
+        </mat-card>
+      </div>
+
+      <div class="latest-status">
+        <app-budget-overview [user]="user" displayMode="details"></app-budget-overview>
+      </div>
+    </div>
 
     <div class="bottom-menu">
       <div class="bottom-menu-inner">
-        <button mat-icon-button class="add-item-chip" (click)="openAddItemDialog()" aria-label="Add new item">
-          <mat-icon class="material-icons-outlined icon-lg">add</mat-icon>
-        </button>
         <div class="mode-switcher">
           <div
             class="mode-pill hover"
@@ -97,7 +112,12 @@
         </div>
       </div>
     </div>
-    <div *ngIf="showAddPanel" class="add-panel">
+
+    <button mat-fab class="mobile-add-fab" (click)="openAddItemDialog()" aria-label="Add new item">
+      <mat-icon>add</mat-icon>
+    </button>
+
+    <div *ngIf="showAddPanel" class="add-panel mobile-only-panel">
       <div class="add-panel-header">
         <div class="add-panel-title">New transaction</div>
         <button mat-icon-button class="panel-close" aria-label="Close add panel" (click)="closeAddPanel()">
@@ -110,5 +130,5 @@
         (closePanel)="closeAddPanel()">
       </app-add-item>
     </div>
-      }
-    }
+  }
+}

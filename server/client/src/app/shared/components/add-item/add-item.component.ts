@@ -35,6 +35,7 @@ import { selectLatestCategory } from 'src/app/modules/latest/state/latest.select
 // TODO: rename to AddTransaction
 export class AddItemComponent implements OnInit, OnDestroy {
   @Input() viewMode = 'exp';
+  @Input() showCancelButton = true;
   @Output() transactionAdded = new EventEmitter<ITransaction>();
   @Output() closePanel = new EventEmitter<void>();
 

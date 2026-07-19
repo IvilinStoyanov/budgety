@@ -1,6 +1,7 @@
-<div class="budget-overview-card">
-  <div class="overview-grid">
-    <mat-card appearance="outlined" class="summary-card overview-summary-card">
+<div class="budget-overview-card" [ngClass]="{ 'single-view': displayMode !== 'both' }">
+  <div class="overview-grid" [ngClass]="{ 'single-view-grid': displayMode !== 'both' }">
+    @if (displayMode !== 'details') {
+      <mat-card appearance="outlined" class="summary-card overview-summary-card">
       <div class="summary-card-inner">
         <div class="summary-title">Total Balance</div>
         <div class="summary-value">{{
@@ -12,9 +13,11 @@
           <button mat-button class="tab-button" [routerLink]="['/yearly']" routerLinkActive="active">Yearly</button>
         </div>
       </div>
-    </mat-card>
+      </mat-card>
+    }
 
-    <mat-card appearance="outlined" class="details-card overview-details-card">
+    @if (displayMode !== 'summary') {
+      <mat-card appearance="outlined" class="details-card overview-details-card">
       <div class="details-card-inner">
         <div class="card-header">
           <div>
@@ -67,6 +70,7 @@
           </div>
         </div>
       </div>
-    </mat-card>
+      </mat-card>
+    }
   </div>
 </div>

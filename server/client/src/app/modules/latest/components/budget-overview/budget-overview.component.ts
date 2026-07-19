@@ -10,4 +10,5 @@ import { IUser } from 'src/app/shared/models/interface/User';
 })
 export class BudgetOverviewComponent {
   @Input() user: IUser;
+  @Input() displayMode: 'both' | 'summary' | 'details' = 'both';
 }

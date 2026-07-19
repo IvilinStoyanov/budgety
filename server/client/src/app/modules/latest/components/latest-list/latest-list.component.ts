@@ -26,6 +26,10 @@ export class LatestListComponent implements OnInit {
   viewMode = 'exp';
   showAddPanel = false;
 
+  get isMobileView(): boolean {
+    return window.innerWidth <= 760;
+  }
+
   constructor(
     private commonService: CommonService,
     private router: Router,
@@ -81,6 +85,10 @@ export class LatestListComponent implements OnInit {
   }
 
   openAddItemDialog(): void {
+    if (!this.isMobileView) {
+      return;
+    }
+
     this.showAddPanel = true;
   }
 
@@ -90,6 +98,10 @@ export class LatestListComponent implements OnInit {
 
   addTransaction(transaction: ITransaction): void {
     this.showAddPanel = false;
+    this.store.dispatch(latestActions.createTransaction({ transaction }));
+  }
+
+  addInlineTransaction(transaction: ITransaction): void {
     this.store.dispatch(latestActions.createTransaction({ transaction }));
   }
 }

@@ -8,11 +8,20 @@
   padding: 22px;
 }
 
+.budget-overview-card.single-view {
+  padding: 0;
+}
+
 .overview-grid {
   display: grid;
   grid-template-columns: 1.1fr 1.4fr;
   gap: 18px;
   align-items: stretch;
+}
+
+.overview-grid.single-view-grid {
+  grid-template-columns: 1fr;
+  gap: 0;
 }
 
 .overview-summary,
