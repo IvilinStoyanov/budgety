@@ -1,6 +1,6 @@
 import { ICategory } from './category';
 
 export interface AddItemModalData {
-  categories: ICategory[];
+  categories?: ICategory[];
   viewMode: string;
 }

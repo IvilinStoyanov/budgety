@@ -65,11 +65,20 @@
               <textarea formControlName="description" matInput></textarea>
             </mat-form-field>
           </div>
-          <div class="d-flex">
+          <div class="d-flex gap-2 justify-content-end pt-2">
             <button
               mat-stroked-button
               color="primary"
               class="flex-fill ml-1 mr-1"
+              type="button"
+              (click)="cancel()">
+              Cancel
+            </button>
+            <button
+              mat-flat-button
+              color="primary"
+              class="flex-fill ml-1 mr-1"
+              type="button"
               (click)="addItem()">
               Add
             </button>

@@ -1,5 +1,28 @@
 @import "../../../../../theme/colors.scss";
 
+.page-nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.nav-pill {
+  min-width: 100px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: $secondary;
+  background: rgba(37, 99, 235, 0.08);
+  border-radius: 999px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-pill.active,
+.nav-pill:hover {
+  background: linear-gradient(135deg, $primary 0%, $primary-light 100%);
+  color: $custom-white;
+}
+
 .yearly-card {
   padding: 16px 14px 18px;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.96) 100%);

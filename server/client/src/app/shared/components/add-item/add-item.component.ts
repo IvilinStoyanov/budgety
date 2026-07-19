@@ -1,6 +1,10 @@
 import {
   Component,
   Inject,
+  Input,
+  Optional,
+  Output,
+  EventEmitter,
   OnDestroy,
   OnInit,
   ChangeDetectionStrategy
@@ -10,7 +14,10 @@ import {
   UntypedFormGroup,
   Validators
 } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogRef
+} from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
 import { AddItemModalData } from 'src/app/shared/models/interface/add-item-modal-data';
 import { ITransaction } from 'src/app/shared/models/interface/transaction';
@@ -27,6 +34,10 @@ import { selectLatestCategory } from 'src/app/modules/latest/state/latest.select
 })
 // TODO: rename to AddTransaction
 export class AddItemComponent implements OnInit, OnDestroy {
+  @Input() viewMode = 'exp';
+  @Output() transactionAdded = new EventEmitter<ITransaction>();
+  @Output() closePanel = new EventEmitter<void>();
+
   private categorySubscription: Subscription = new Subscription();
   form: UntypedFormGroup;
   categoryPicked: string;
@@ -35,12 +46,12 @@ export class AddItemComponent implements OnInit, OnDestroy {
   categories$: Observable<ICategory[]>;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: AddItemModalData,
-    public dialogRef: MatDialogRef<AddItemComponent>,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: AddItemModalData,
+    @Optional() public dialogRef: MatDialogRef<AddItemComponent>,
     private fb: UntypedFormBuilder,
     private store: Store
   ) {
-    this.templateData = data;
+    this.templateData = data || { viewMode: 'exp' };
     this.categories$ = this.store.select(selectLatestCategory);
   }
 
@@ -64,7 +75,7 @@ export class AddItemComponent implements OnInit, OnDestroy {
   createForm(): void {
     let type = false;
 
-    if (this.templateData.viewMode === 'exp') {
+    if (this.viewMode === 'exp' || this.templateData.viewMode === 'exp') {
       type = true;
     }
 
@@ -76,10 +87,10 @@ export class AddItemComponent implements OnInit, OnDestroy {
       description: ['']
     });
 
-    // if (this.templateData.categories.length === 1) {
-    //   this.categoryPicked = this.templateData.categories[0].name;
-    //   this.form.get('category').setValue(this.templateData.categories[0]);
-    // }
+    if (this.templateData.categories?.length === 1) {
+      this.categoryPicked = this.templateData.categories[0].name;
+      this.form.get('category').setValue(this.templateData.categories[0]);
+    }
   }
 
   addItem(): void {
@@ -103,7 +114,21 @@ export class AddItemComponent implements OnInit, OnDestroy {
         value: parseFloat(this.form.value.value.toFixed(2))
       };
 
-      this.dialogRef.close(transaction);
+      if (this.dialogRef) {
+        this.dialogRef.close(transaction);
+        return;
+      }
+
+      this.transactionAdded.emit(transaction);
     }
+  }
+
+  cancel(): void {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+      return;
+    }
+
+    this.closePanel.emit();
   }
 }

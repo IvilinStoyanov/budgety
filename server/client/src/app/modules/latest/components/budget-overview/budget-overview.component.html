@@ -1,52 +1,72 @@
-<mat-card appearance="outlined" class="budget-overview-card mb-3">
-  <div class="card-header">
-    <div>
-      <div class="eyebrow">Overview</div>
-      <div class="card-title">Current budget status</div>
-    </div>
-    <div class="status-pill">Live</div>
+<div class="budget-overview-card">
+  <div class="overview-grid">
+    <mat-card appearance="outlined" class="summary-card overview-summary-card">
+      <div class="summary-card-inner">
+        <div class="summary-title">Total Balance</div>
+        <div class="summary-value">{{
+          ($safeNavigationMigration(user?.inc) - $safeNavigationMigration(user?.exp) + $safeNavigationMigration(user?.savings)) | number : '1.2-2'
+        }}</div>
+        <div class="summary-tabs">
+          <button mat-button class="tab-button" [routerLink]="['/latest']" routerLinkActive="active">Latest</button>
+          <button mat-button class="tab-button" [routerLink]="['/monthly']" routerLinkActive="active">Monthly</button>
+          <button mat-button class="tab-button" [routerLink]="['/yearly']" routerLinkActive="active">Yearly</button>
+        </div>
+      </div>
+    </mat-card>
+
+    <mat-card appearance="outlined" class="details-card overview-details-card">
+      <div class="details-card-inner">
+        <div class="card-header">
+          <div>
+            <div class="eyebrow">Overview</div>
+            <div class="card-title">Current budget status</div>
+          </div>
+          <div class="status-pill">Live</div>
+        </div>
+
+        <div class="metric-list">
+          <div class="metric-row">
+            <div class="metric-label">
+              <span class="metric-dot income"></span>
+              Income
+            </div>
+            <div class="metric-values">
+              <span class="metric-amount">{{
+                $safeNavigationMigration(user?.inc) | number : '1.2-2'
+              }}</span>
+              <span class="metric-subtext">
+                {{ $safeNavigationMigration(user?.incPercentage) | number : '1.0-0' }}% of budget
+              </span>
+            </div>
+          </div>
+
+          <div class="pb-2">
+            <app-progress-bar
+              [percentage]="$safeNavigationMigration(user?.incPercentage)"></app-progress-bar>
+          </div>
+
+          <div class="metric-row">
+            <div class="metric-label">
+              <span class="metric-dot expense"></span>
+              Expense
+            </div>
+            <div class="metric-values">
+              <span class="metric-amount">{{
+                $safeNavigationMigration(user?.exp) | number : '1.2-2'
+              }}</span>
+              <span class="metric-subtext">
+                {{ $safeNavigationMigration(user?.expPercentage) | number : '1.0-0' }}% of budget
+              </span>
+            </div>
+          </div>
+
+          <div class="pb-2">
+            <app-progress-bar
+              class="exp-progress-bar"
+              [percentage]="$safeNavigationMigration(user?.expPercentage)"></app-progress-bar>
+          </div>
+        </div>
+      </div>
+    </mat-card>
   </div>
-
-  <div class="metric-list">
-    <div class="metric-row">
-      <div class="metric-label">
-        <span class="metric-dot income"></span>
-        Income
-      </div>
-      <div class="metric-values">
-        <span class="metric-amount">{{
-          $safeNavigationMigration(user?.inc) | number : '1.2-2'
-        }}</span>
-        <span class="metric-subtext">
-          {{ $safeNavigationMigration(user?.incPercentage) | number : '1.0-0' }}% of budget
-        </span>
-      </div>
-    </div>
-
-    <div class="pb-2">
-      <app-progress-bar
-        [percentage]="$safeNavigationMigration(user?.incPercentage)"></app-progress-bar>
-    </div>
-
-    <div class="metric-row">
-      <div class="metric-label">
-        <span class="metric-dot expense"></span>
-        Expense
-      </div>
-      <div class="metric-values">
-        <span class="metric-amount">{{
-          $safeNavigationMigration(user?.exp) | number : '1.2-2'
-        }}</span>
-        <span class="metric-subtext">
-          {{ $safeNavigationMigration(user?.expPercentage) | number : '1.0-0' }}% of budget
-        </span>
-      </div>
-    </div>
-
-    <div class="pb-2">
-      <app-progress-bar
-        class="exp-progress-bar"
-        [percentage]="$safeNavigationMigration(user?.expPercentage)"></app-progress-bar>
-    </div>
-  </div>
-</mat-card>
+</div>

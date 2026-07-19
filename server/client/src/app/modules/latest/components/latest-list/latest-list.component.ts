@@ -1,11 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as latestActions from 'src/app/modules/latest/state/latest.actions';
 import { selectUser } from 'src/app/modules/shared/state/user/user.selector';
-import { AddItemComponent } from 'src/app/shared/components/add-item/add-item.component';
 import { ICategory } from 'src/app/shared/models/interface/category';
 import { ITransaction } from 'src/app/shared/models/interface/transaction';
 import { IUser } from 'src/app/shared/models/interface/User';
@@ -26,9 +24,9 @@ export class LatestListComponent implements OnInit {
   categories$: Observable<ICategory[]>;
   user$: Observable<IUser>;
   viewMode = 'exp';
+  showAddPanel = false;
 
   constructor(
-    private dialog: MatDialog,
     private commonService: CommonService,
     private router: Router,
     public notification: NotificationService,
@@ -83,17 +81,16 @@ export class LatestListComponent implements OnInit {
   }
 
   openAddItemDialog(): void {
-    const dialogRef = this.dialog.open(AddItemComponent, {
-      autoFocus: false,
-      data: {
-        viewMode: this.viewMode
-      }
-    });
+    this.showAddPanel = true;
+  }
 
-    dialogRef.afterClosed().subscribe((transaction: ITransaction) => {
-      if (transaction) {
-        this.store.dispatch(latestActions.createTransaction({ transaction }));
-      }
-    });
+  closeAddPanel(): void {
+    this.showAddPanel = false;
+  }
+
+  addTransaction(transaction: ITransaction): void {
+    this.showAddPanel = false;
+    this.store.dispatch(latestActions.createTransaction({ transaction }));
   }
 }
+

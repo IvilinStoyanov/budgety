@@ -4,4 +4,19 @@
   <router-outlet></router-outlet>
 </div>
 
+<nav class="mobile-bottom-nav">
+  <button mat-button routerLink="/latest" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <mat-icon>article</mat-icon>
+    <span>Latest</span>
+  </button>
+  <button mat-button routerLink="/monthly" routerLinkActive="active">
+    <mat-icon>calendar_month</mat-icon>
+    <span>Monthly</span>
+  </button>
+  <button mat-button routerLink="/yearly" routerLinkActive="active">
+    <mat-icon>timeline</mat-icon>
+    <span>Yearly</span>
+  </button>
+</nav>
+
 <ngx-ui-loader [loaderId]="'loader'"></ngx-ui-loader>

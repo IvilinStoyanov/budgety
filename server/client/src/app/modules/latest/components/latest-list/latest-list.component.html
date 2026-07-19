@@ -1,9 +1,6 @@
 @if (categories$ | async; as categories) {
   @if (user$ | async; as user) {
     <div class="ml-2 mr-2 mt-2 mb-1">
-      <!-- tabs -->
-      <app-tabs [user]="user"></app-tabs>
-      <!-- budget overview -->
       <app-budget-overview [user]="user"></app-budget-overview>
     </div>
     <div class="section-header">
@@ -75,11 +72,9 @@
 
     <div class="bottom-menu">
       <div class="bottom-menu-inner">
-        <div class="add-item-chip" matTooltip="add new item">
-          <mat-icon class="material-icons-outlined icon-lg hover" (click)="openAddItemDialog()">
-            add
-          </mat-icon>
-        </div>
+        <button mat-icon-button class="add-item-chip" (click)="openAddItemDialog()" aria-label="Add new item">
+          <mat-icon class="material-icons-outlined icon-lg">add</mat-icon>
+        </button>
         <div class="mode-switcher">
           <div
             class="mode-pill hover"
@@ -101,6 +96,19 @@
           </div>
         </div>
       </div>
+    </div>
+    <div *ngIf="showAddPanel" class="add-panel">
+      <div class="add-panel-header">
+        <div class="add-panel-title">New transaction</div>
+        <button mat-icon-button class="panel-close" aria-label="Close add panel" (click)="closeAddPanel()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <app-add-item
+        [viewMode]="viewMode"
+        (transactionAdded)="addTransaction($event)"
+        (closePanel)="closeAddPanel()">
+      </app-add-item>
     </div>
       }
     }

@@ -28,6 +28,46 @@ body {
   box-sizing: border-box;
 }
 
+
+
+  .mobile-bottom-nav {
+    display: flex;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 6px 10px;
+    justify-content: space-around;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.96);
+    border-top: 1px solid rgba(226, 232, 240, 0.95);
+    box-shadow: 0 -8px 20px rgba(15, 23, 42, 0.08);
+    z-index: 1100;
+  }
+
+  .mobile-bottom-nav button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    padding: 6px 8px;
+    color: rgba(55, 65, 81, 0.7);
+  }
+
+  .mobile-bottom-nav button.active,
+  .mobile-bottom-nav button:hover {
+    color: #1d4ed8;
+  }
+
+  .mobile-bottom-nav mat-icon {
+    font-size: 20px;
+    margin-bottom: 2px;
+  }
+
+  .container {
+    padding-bottom: 80px;
+  }
 html {
   min-height: 100%;
   background:

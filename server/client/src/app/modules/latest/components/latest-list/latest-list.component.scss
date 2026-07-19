@@ -142,6 +142,12 @@ $mat-icon-size: 60px;
   z-index: 2;
 }
 
+@media only screen and (max-width: 760px) {
+  .bottom-menu {
+    bottom: 90px;
+  }
+}
+
 .bottom-menu-inner {
   position: relative;
   padding: 12px 16px 16px;
@@ -188,6 +194,65 @@ $mat-icon-size: 60px;
   .mat-icon {
     font-size: $mat-icon-size;
     color: $primary;
+  }
+}
+
+.add-panel {
+  position: fixed;
+  right: 20px;
+  top: 100px;
+  bottom: 80px;
+  width: 420px;
+  max-width: calc(100% - 40px);
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: 24px;
+  box-shadow: 0 24px 60px -30px rgba(15, 23, 42, 0.3);
+  padding: 0;
+  overflow: hidden;
+  z-index: 1200;
+  transition: transform 250ms ease, opacity 250ms ease;
+}
+
+.add-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.95);
+  background: $custom-white;
+}
+
+.add-panel-title {
+  font-weight: 700;
+  color: $black;
+  font-size: 1rem;
+}
+
+.panel-close {
+  color: $secondary;
+}
+
+.add-panel app-add-item {
+  display: block;
+  height: calc(100% - 62px);
+}
+
+@media only screen and (max-width: 760px) {
+  .add-panel {
+    left: 0;
+    right: 0;
+    top: auto;
+    bottom: 80px;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 24px 24px 0 0;
+    height: auto;
+    max-height: calc(85vh - 80px);
+  }
+
+  .add-panel app-add-item {
+    height: auto;
   }
 }
 

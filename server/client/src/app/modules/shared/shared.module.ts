@@ -100,6 +100,7 @@ import { sharedReducers } from './state';
     TabsComponent,
     ProgressBarComponent,
     BackButtonComponent,
+    AddItemComponent,
     HasRoleDirective,
     StopPropagationDirective,
     HighlightOnHoverDirective
