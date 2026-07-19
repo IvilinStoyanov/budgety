@@ -37,7 +37,7 @@
     color: $custom-white;
     font-weight: 700;
     font-size: 1rem;
-    box-shadow: 0 10px 20px -12px rgba(37, 99, 235, 0.55);
+    box-shadow: 0 10px 20px -12px rgba($primary, 0.55);
   }
 
   .brand-title {
@@ -66,7 +66,7 @@
   }
 
   .menu-toggle:hover {
-    background: rgba(37, 99, 235, 0.08);
+    background: rgba($primary, 0.08);
   }
 }
 

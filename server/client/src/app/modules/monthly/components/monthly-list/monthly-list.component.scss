@@ -12,7 +12,7 @@
   text-transform: uppercase;
   font-weight: 700;
   color: $secondary;
-  background: rgba(37, 99, 235, 0.08);
+  background: rgba($primary, 0.08);
   border-radius: 999px;
   transition: background 0.2s ease, color 0.2s ease;
 }
@@ -57,7 +57,7 @@
 .table-header {
   padding: 10px 8px;
   border-radius: 12px;
-  background: rgba(37, 99, 235, 0.06);
+  background: rgba($primary, 0.06);
   color: $secondary;
   font-size: 0.84rem;
   font-weight: 700;

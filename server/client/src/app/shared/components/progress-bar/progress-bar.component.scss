@@ -17,8 +17,8 @@
       height: 8px;
       border-radius: 999px;
       background: $primary;
-      background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
-      box-shadow: 0 10px 24px -12px rgba(37, 99, 235, 0.45);
+      background: linear-gradient(90deg, $primary 0%, $primary-light 100%);
+      box-shadow: 0 10px 24px -12px rgba($primary, 0.45);
     }
   }
 }

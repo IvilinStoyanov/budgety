@@ -57,7 +57,7 @@ body {
 
   .mobile-bottom-nav button.active,
   .mobile-bottom-nav button:hover {
-    color: #1d4ed8;
+    color: $primary;
   }
 
   .mobile-bottom-nav mat-icon {
@@ -86,7 +86,7 @@ a {
 }
 
 .container {
-  max-width: 980px;
+  max-width: 1400px;
   margin: 0 auto !important;
   padding: 20px 16px 40px;
 }

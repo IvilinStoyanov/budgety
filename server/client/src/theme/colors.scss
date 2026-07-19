@@ -1,5 +1,5 @@
-$primary: #2563eb;
-$primary-light: #60a5fa;
+$primary: #21bced;
+$primary-light: lighten($primary, 14%);
 $secondary: #64748b;
 $black: #0f172a;
 $light-grey: #f8fafc;
@@ -7,8 +7,8 @@ $grey: #cbd5e1;
 $icon: #64748b;
 $green: #10b981;
 $yellow: #f59e0b;
-$blue: #3b82f6;
-$dark-blue: #1d4ed8;
+$blue: $primary;
+$dark-blue: darken($primary, 14%);
 $red: #ef4444;
 $orange: #f97316;
 $custom-white: #ffffff;
