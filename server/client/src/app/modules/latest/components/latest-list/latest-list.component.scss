@@ -276,10 +276,6 @@
     display: block;
   }
 
-  .content-mode-bar {
-    top: 76px;
-  }
-
   .desktop-add-card {
     display: none;
   }
@@ -291,11 +287,6 @@
 }
 
 @media only screen and (max-width: 760px) {
-  .content-mode-bar {
-    position: sticky;
-    top: 72px;
-  }
-
   .mobile-add-fab {
     position: fixed;
     right: 16px;
@@ -371,7 +362,6 @@
   }
 
   .content-mode-bar {
-    top: 68px;
     margin-bottom: 10px;
   }
 
