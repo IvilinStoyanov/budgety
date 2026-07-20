@@ -9,12 +9,12 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 20px;
-  margin-bottom: 16px;
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(226, 232, 240, 0.95);
   box-shadow: 0 8px 28px -24px rgba(15, 23, 42, 0.35);
+  padding: 8px 14px;
+  margin-bottom: 6px;
 
   a {
     font-size: 16px;
@@ -203,11 +203,6 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .app-header {
-    padding: 12px 14px;
-    margin-bottom: 12px;
-  }
-
   .app-header .nav-links,
   .app-header .desktop-menu-button {
     display: none;
@@ -263,4 +258,3 @@
     display: none;
   }
 }
-

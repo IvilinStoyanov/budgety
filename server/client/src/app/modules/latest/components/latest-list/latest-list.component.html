@@ -104,9 +104,11 @@
       </div>
     </div>
 
-    <button mat-fab class="mobile-add-fab" (click)="openAddItemDialog()" aria-label="Add new item">
+    <button *ngIf="!showAddPanel" mat-fab class="mobile-add-fab" (click)="openAddItemDialog()" aria-label="Add new item">
       <mat-icon>add</mat-icon>
     </button>
+
+    <div *ngIf="showAddPanel" class="add-panel-backdrop mobile-only-panel" (click)="closeAddPanel()" aria-hidden="true"></div>
 
     <div *ngIf="showAddPanel" class="add-panel mobile-only-panel">
       <div class="add-panel-header">

@@ -215,13 +215,20 @@
   display: none;
 }
 
+.add-panel-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: 1190;
+}
+
 .add-panel {
   position: fixed;
   left: 0;
   right: 0;
   top: auto;
   bottom: 80px;
-  width: 100%;
   max-width: 100%;
   background: rgba(255, 255, 255, 0.98);
   border: 1px solid rgba(226, 232, 240, 0.95);
@@ -233,6 +240,7 @@
   transition: transform 250ms ease, opacity 250ms ease;
   height: auto;
   max-height: calc(85vh - 80px);
+  margin: 0 10px;
 }
 
 .add-panel-header {
@@ -289,8 +297,8 @@
 @media only screen and (max-width: 760px) {
   .mobile-add-fab {
     position: fixed;
-    right: 16px;
-    bottom: 94px;
+    right: 20px;
+    bottom: 20px;
     display: inline-flex;
     z-index: 1150;
     background: linear-gradient(135deg, $primary 0%, $primary-light 100%);
