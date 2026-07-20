@@ -123,6 +123,8 @@ a {
 
 .container {
   max-width: 1400px;
+  width: 100%;
+  box-sizing: border-box;
   margin: 0 auto !important;
   padding: 20px 16px 40px;
 }
