@@ -20,6 +20,7 @@
 @import 'bootstrap/dist/css/bootstrap-grid.css';
 @import 'bootstrap/dist/css/bootstrap-utilities.css';
 
+
 html,
 body {
   height: 100%;
@@ -70,8 +71,43 @@ body {
   }
 html {
   min-height: 100%;
+  /* Options: auto | thin | none */
+  scrollbar-width: thin;
+  /* Format: <thumb-color> <track-color> */
+  scrollbar-color: #64748b #f1f5f9;
+  /* 1. The main scrollbar container width/height */
   background:
     linear-gradient(135deg, rgba(248, 250, 252, 0.96) 0%, rgba(240, 247, 255, 0.96) 44%, rgba(224, 242, 254, 0.94) 100%);
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+  margin: 4px; /* Gives top/bottom spacing */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+  /* Uses border + background-clip to create an inline inset floating effect */
+  border: 3px solid #f1f5f9;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+  border: 3px solid #f1f5f9;
+  background-clip: padding-box;
+}
+
+/* Firefox Support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
 }
 
 body {

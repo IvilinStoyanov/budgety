@@ -7,9 +7,10 @@
         <div class="brand-subtitle">Smart planning</div>
       </div>
     </div>
+  </div>
 
   @if (user$ | async; as user) {
-    <div class="nav-links d-flex gap-2 align-items-center ms-4">
+    <div class="nav-links d-flex gap-2 align-items-center">
       <button mat-button routerLink="/latest" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <mat-icon>article</mat-icon>
         <span>Latest</span>
@@ -24,9 +25,6 @@
       </button>
     </div>
   }
-
-  </div>
-
 
   @if (user$ | async; as user) {
   <div class="header-actions">
