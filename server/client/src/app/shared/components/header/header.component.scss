@@ -208,12 +208,12 @@
     margin-bottom: 12px;
   }
 
-  .nav-links,
-  .desktop-menu-button {
+  .app-header .nav-links,
+  .app-header .desktop-menu-button {
     display: none;
   }
 
-  .mobile-nav-button {
+  .app-header .mobile-nav-button {
     display: inline-flex;
   }
 
