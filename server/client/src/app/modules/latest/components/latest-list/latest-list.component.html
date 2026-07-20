@@ -15,9 +15,27 @@
       </div>
 
       <div class="latest-content">
-        <div class="section-header">
-          <div class="section-title">Categories</div>
-          <div class="section-pill">{{ categories?.length || 0 }} items</div>
+        <div class="content-mode-bar">
+          <div class="mode-switcher content-switcher">
+            <div
+              class="mode-pill hover"
+              [ngClass]="{
+                selected: viewMode === 'inc',
+                'pointer-events-none': user?.inc === 0
+              }"
+              (click)="setViewMode('inc')">
+              Incomes
+            </div>
+            <div
+              class="mode-pill hover"
+              [ngClass]="{
+                selected: viewMode === 'exp',
+                'pointer-events-none': user?.exp === 0
+              }"
+              (click)="setViewMode('exp')">
+              Expenses
+            </div>
+          </div>
         </div>
         <mat-card
           appearance="outlined"
@@ -85,31 +103,6 @@
 
       <div class="latest-status">
         <app-budget-overview [user]="user" displayMode="details"></app-budget-overview>
-      </div>
-    </div>
-
-    <div class="bottom-menu">
-      <div class="bottom-menu-inner">
-        <div class="mode-switcher">
-          <div
-            class="mode-pill hover"
-            [ngClass]="{
-              active: viewMode === 'inc',
-              'pointer-events-none': user?.inc === 0
-            }"
-            (click)="setViewMode('inc')">
-            Incomes
-          </div>
-          <div
-            class="mode-pill hover"
-            [ngClass]="{
-              active: viewMode === 'exp',
-              'pointer-events-none': user?.exp === 0
-            }"
-            (click)="setViewMode('exp')">
-            Expenses
-          </div>
-        </div>
       </div>
     </div>
 

@@ -4,7 +4,7 @@
   <router-outlet></router-outlet>
 </div>
 
-<nav class="mobile-bottom-nav">
+<nav class="mobile-bottom-nav" *ngIf="!isHomePage">
   <button mat-button routerLink="/latest" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
     <mat-icon>article</mat-icon>
     <span>Latest</span>
