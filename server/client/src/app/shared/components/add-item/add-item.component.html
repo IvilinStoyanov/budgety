@@ -81,6 +81,7 @@
               color="primary"
               class="flex-fill ml-1 mr-1"
               type="button"
+              [disabled]="form.invalid"
               (click)="addItem()">
               Add
             </button>

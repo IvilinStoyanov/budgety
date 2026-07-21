@@ -62,7 +62,6 @@ export class AddItemComponent implements OnInit, OnDestroy {
     const categorySubscription$ = this.form
       .get('category')
       .valueChanges.subscribe(value => {
-        console.log(value);
         this.categoryPicked = value?.name;
       });
 
@@ -120,6 +119,7 @@ export class AddItemComponent implements OnInit, OnDestroy {
         return;
       }
 
+      this.form.controls.value.reset();
       this.transactionAdded.emit(transaction);
     }
   }
