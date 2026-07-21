@@ -2,10 +2,9 @@
 
 .latest-layout {
   display: grid;
-  grid-template-columns: 326px minmax(0, 1fr) 326px;
+  grid-template-columns: 380px minmax(0, 1fr) 380px;
   gap: 16px;
   align-items: start;
-  max-width: 1120px;
   margin-left: auto !important;
   margin-right: auto !important;
 }
@@ -204,11 +203,13 @@
   color: $secondary;
   font-weight: 700;
   font-size: 0.9rem;
+  color: $secondary;
+  background: rgba($primary, 0.08);
 }
 
 .mode-pill.selected {
-  background: linear-gradient(135deg, $primary 0%, $primary-light 100%);
-  color: $black;
+  background: rgba($primary, 0.08);
+  color: $primary;
 }
 
 .mobile-add-fab {

@@ -68,13 +68,13 @@
   padding: 10px 14px;
   border-radius: 999px;
   color: $secondary;
-  background: rgba($primary, 0.06);
+  background: rgba($primary, 0.08);
   transition: background 0.2s ease, color 0.2s ease;
 }
 
 .tab-button.active,
 .tab-button:hover {
-  color: $custom-white;
+  color: $primary
 }
 
 .card-header {

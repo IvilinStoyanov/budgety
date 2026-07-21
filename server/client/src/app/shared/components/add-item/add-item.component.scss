@@ -33,7 +33,7 @@
 
 /* switch button */
 .switch-button {
-  background: $border;
+  background: rgba($primary, 0.08);
   border-radius: 30px;
   overflow: hidden;
   width: 130px;
@@ -81,7 +81,6 @@
       display: block;
       user-select: none;
       pointer-events: none;
-      background: $border;
 
       &:before {
         content: "";

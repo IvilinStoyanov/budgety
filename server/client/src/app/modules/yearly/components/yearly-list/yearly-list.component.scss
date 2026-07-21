@@ -19,8 +19,7 @@
 
 .nav-pill.active,
 .nav-pill:hover {
-  background: linear-gradient(135deg, $primary 0%, $primary-light 100%);
-  color: $custom-white;
+  color: $primary;
 }
 
 .yearly-card {
@@ -52,7 +51,7 @@
 .table-header {
   padding: 10px 8px;
   border-radius: 12px;
-  background: rgba($primary, 0.06);
+  background: rgba($primary, 0.08);
   color: $secondary;
   font-size: 0.84rem;
   font-weight: 700;
