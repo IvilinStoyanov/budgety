@@ -37,28 +37,6 @@
     flex: 0 0 auto;
   }
 
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: min(1120px, calc(100vw - 40px));
-    justify-content: flex-start;
-  }
-
-  .nav-links button {
-    text-transform: none;
-    font-weight: 700;
-    color: $black;
-  }
-
-  .nav-links button.active {
-    color: $primary;
-  }
-
   .brand-mark {
     display: grid;
     place-items: center;
@@ -203,7 +181,6 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .app-header .nav-links,
   .app-header .desktop-menu-button {
     display: none;
   }
@@ -236,18 +213,6 @@
 }
 
 @media only screen and (max-width: 1180px) and (min-width: 601px) {
-  .app-header {
-    padding-bottom: 12px;
-  }
-
-  .nav-links {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: min(900px, calc(100vw - 340px));
-    justify-content: center;
-  }
-
   .mobile-nav-button {
     display: none;
   }

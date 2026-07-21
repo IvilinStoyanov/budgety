@@ -7,11 +7,11 @@
         <div class="summary-value">{{
           ($safeNavigationMigration(user?.inc) - $safeNavigationMigration(user?.exp) + $safeNavigationMigration(user?.savings)) | number : '1.2-2'
         }}</div>
-        <!-- <div class="summary-tabs">
-          <button mat-button class="tab-button" [routerLink]="['/latest']" routerLinkActive="active">Latest</button>
+        <div class="summary-tabs">
+          <button mat-button class="tab-button" [routerLink]="['/latest']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Latest</button>
           <button mat-button class="tab-button" [routerLink]="['/monthly']" routerLinkActive="active">Monthly</button>
           <button mat-button class="tab-button" [routerLink]="['/yearly']" routerLinkActive="active">Yearly</button>
-        </div> -->
+        </div>
       </div>
       </mat-card>
     }
