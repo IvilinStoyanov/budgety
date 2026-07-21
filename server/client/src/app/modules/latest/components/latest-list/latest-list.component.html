@@ -1,6 +1,6 @@
 @if (categories$ | async; as categories) {
   @if (user$ | async; as user) {
-    <div class="latest-layout ml-2 mr-2 mt-2 mb-1">
+    <div class="latest-layout ms-2 me-2 mt-2 mb-1">
       <div class="latest-sidebar">
         <app-budget-overview [user]="user" displayMode="summary"></app-budget-overview>
 
@@ -67,7 +67,7 @@
                               attr.stroke="{{ category.color }}"
                               stroke-width="1.5"></circle>
                           </svg>
-                          <mat-icon class="position-center-absolute material-icons-outlined icon-md icon-primary mr-2">
+                          <mat-icon class="position-center-absolute material-icons-outlined icon-md icon-primary me-2">
                             {{ category.icon }}
                           </mat-icon>
                         </div>
