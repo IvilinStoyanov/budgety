@@ -33,7 +33,7 @@
 
 /* switch button */
 .switch-button {
-  background: $border;
+  background: rgba($primary, 0.08);
   border-radius: 30px;
   overflow: hidden;
   width: 130px;
@@ -81,7 +81,6 @@
       display: block;
       user-select: none;
       pointer-events: none;
-      background: $border;
 
       &:before {
         content: "";
@@ -101,4 +100,34 @@
       }
     }
   }
+}
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+[mat-dialog-content] {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 24px;
+  gap: 16px;
+  background: transparent;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+button {
+  min-height: 44px;
 }

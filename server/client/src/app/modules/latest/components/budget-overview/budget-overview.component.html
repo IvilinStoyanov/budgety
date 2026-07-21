@@ -1,39 +1,76 @@
-<mat-card appearance="outlined" class="mb-3">
-  <div class="d-flex justify-content-between mb-1">
-    <div class="text-black">
-      Income
-      <span class="text-transparent">{{
-        $safeNavigationMigration(user?.inc) | number : '1.2-2'
-      }}</span>
-    </div>
-    <div class="text-transparent text-sm">
-      {{ $safeNavigationMigration(user?.incPercentage) | number : '1.0-0' }}% of
-      budget
-    </div>
+<div class="budget-overview-card" [ngClass]="{ 'single-view': displayMode !== 'both' }">
+  <div class="overview-grid" [ngClass]="{ 'single-view-grid': displayMode !== 'both' }">
+    @if (displayMode !== 'details') {
+      <mat-card appearance="outlined" class="summary-card overview-summary-card">
+      <div class="summary-card-inner">
+        <div class="summary-title">Total Balance</div>
+        <div class="summary-value">{{
+          ($safeNavigationMigration(user?.inc) - $safeNavigationMigration(user?.exp) + $safeNavigationMigration(user?.savings)) | number : '1.2-2'
+        }}</div>
+        <div class="summary-tabs">
+          <button mat-button class="tab-button" [routerLink]="['/latest']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Latest</button>
+          <button mat-button class="tab-button" [routerLink]="['/monthly']" routerLinkActive="active">Monthly</button>
+          <button mat-button class="tab-button" [routerLink]="['/yearly']" routerLinkActive="active">Yearly</button>
+        </div>
+      </div>
+      </mat-card>
+    }
+
+    @if (displayMode !== 'summary') {
+      <mat-card appearance="outlined" class="details-card overview-details-card">
+      <div class="details-card-inner">
+        <div class="card-header">
+          <div>
+            <div class="eyebrow">Overview</div>
+            <div class="card-title">Current budget status</div>
+          </div>
+          <div class="status-pill">Live</div>
+        </div>
+
+        <div class="metric-list">
+          <div class="metric-row">
+            <div class="metric-label">
+              <span class="metric-dot income"></span>
+              Income
+            </div>
+            <div class="metric-values">
+              <span class="metric-amount">{{
+                $safeNavigationMigration(user?.inc) | number : '1.2-2'
+              }}</span>
+              <span class="metric-subtext">
+                {{ $safeNavigationMigration(user?.incPercentage) | number : '1.0-0' }}% of budget
+              </span>
+            </div>
+          </div>
+
+          <div class="pb-2">
+            <app-progress-bar
+              [percentage]="$safeNavigationMigration(user?.incPercentage)"></app-progress-bar>
+          </div>
+
+          <div class="metric-row">
+            <div class="metric-label">
+              <span class="metric-dot expense"></span>
+              Expense
+            </div>
+            <div class="metric-values">
+              <span class="metric-amount">{{
+                $safeNavigationMigration(user?.exp) | number : '1.2-2'
+              }}</span>
+              <span class="metric-subtext">
+                {{ $safeNavigationMigration(user?.expPercentage) | number : '1.0-0' }}% of budget
+              </span>
+            </div>
+          </div>
+
+          <div class="pb-2">
+            <app-progress-bar
+              class="exp-progress-bar"
+              [percentage]="$safeNavigationMigration(user?.expPercentage)"></app-progress-bar>
+          </div>
+        </div>
+      </div>
+      </mat-card>
+    }
   </div>
-  <div class="pb-3">
-    <app-progress-bar
-      [percentage]="
-        $safeNavigationMigration(user?.incPercentage)
-      "></app-progress-bar>
-  </div>
-  <div class="d-flex justify-content-between mb-1">
-    <div class="text-black">
-      Expense
-      <span class="text-transparent">{{
-        $safeNavigationMigration(user?.exp) | number : '1.2-2'
-      }}</span>
-    </div>
-    <div class="text-transparent text-sm">
-      {{ $safeNavigationMigration(user?.expPercentage) | number : '1.0-0' }}% of
-      budget
-    </div>
-  </div>
-  <div class="pb-3">
-    <app-progress-bar
-      class="exp-progress-bar"
-      [percentage]="
-        $safeNavigationMigration(user?.expPercentage)
-      "></app-progress-bar>
-  </div>
-</mat-card>
+</div>

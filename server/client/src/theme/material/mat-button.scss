@@ -55,6 +55,34 @@ button {
     }
   }
 
+  // flat / unelevated
+  &.mat-mdc-unelevated-button {
+    &.mat-primary {
+      background-color: $primary !important;
+      color: $custom-white !important;
+    }
+
+    &.mat-secondary {
+      background-color: $secondary !important;
+      color: $custom-white !important;
+    }
+
+    &.mat-info {
+      background-color: $blue !important;
+      color: $custom-white !important;
+    }
+
+    &.mat-danger {
+      background-color: $red !important;
+      color: $custom-white !important;
+    }
+
+    &.mat-black {
+      background-color: $black !important;
+      color: $custom-white !important;
+    }
+  }
+
   // stroked
   &.mat-mdc-outlined-button {
     &.mat-primary {
@@ -100,9 +128,9 @@ button {
     right: -10px !important;
     background: linear-gradient(
       90deg,
-      #179ff7 0%,
-      #3ac7fd 70%,
-      #1cc9fe 100%
+      $primary 0%,
+      $primary-light 70%,
+      lighten($primary, 10%) 100%
     ) !important;
     color: $custom-white !important;
     height: 3px;

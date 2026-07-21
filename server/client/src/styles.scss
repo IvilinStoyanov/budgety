@@ -20,6 +20,7 @@
 @import 'bootstrap/dist/css/bootstrap-grid.css';
 @import 'bootstrap/dist/css/bootstrap-utilities.css';
 
+
 html,
 body {
   height: 100%;
@@ -28,26 +29,104 @@ body {
   box-sizing: border-box;
 }
 
+
+
+  .mobile-bottom-nav {
+    display: flex;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 6px 10px;
+    justify-content: space-around;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.96);
+    border-top: 1px solid rgba(226, 232, 240, 0.95);
+    box-shadow: 0 -8px 20px rgba(15, 23, 42, 0.08);
+    z-index: 1100;
+  }
+
+  .mobile-bottom-nav button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    padding: 6px 8px;
+    color: rgba(55, 65, 81, 0.7);
+  }
+
+  .mobile-bottom-nav button.active,
+  .mobile-bottom-nav button:hover {
+    color: $primary;
+  }
+
+  .mobile-bottom-nav mat-icon {
+    font-size: 20px;
+    margin-bottom: 2px;
+  }
+
+  .container {
+    padding-bottom: 80px;
+  }
 html {
-  background: url('assets/images/bg-min.jpg') no-repeat center center fixed;
-  background-size: cover;
-  height: 100%;
+  min-height: 100%;
+  /* Options: auto | thin | none */
+  scrollbar-width: thin;
+  /* Format: <thumb-color> <track-color> */
+  scrollbar-color: #64748b #f1f5f9;
+  /* 1. The main scrollbar container width/height */
+  background:
+    linear-gradient(135deg, rgba(248, 250, 252, 0.96) 0%, rgba(240, 247, 255, 0.96) 44%, rgba(224, 242, 254, 0.94) 100%);
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+  margin: 4px; /* Gives top/bottom spacing */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+  /* Uses border + background-clip to create an inline inset floating effect */
+  border: 3px solid #f1f5f9;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+  border: 3px solid #f1f5f9;
+  background-clip: padding-box;
+}
+
+/* Firefox Support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
 }
 
 body {
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
-  // background: $primary;
-  // background: linear-gradient(
-  //   90deg,
-  //   #179ff7 0%,
-  //   #3ac7fd 35%,
-  //   #1cc9fe 100%
-  // ) !important;
+  font-family: "Noto Sans", sans-serif !important;
   color: $black;
+  background: transparent;
+  line-height: 1.5;
 }
 
 a {
   text-decoration: none;
+}
+
+.container {
+  max-width: 1500px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto !important;
+  padding: 10px 16px 40px;
 }
 
 .mat-mdc-select-panel .mat-mdc-optgroup-label,
@@ -61,12 +140,7 @@ a {
 
 .exp-progress-bar {
   .progress-line {
-    background: linear-gradient(
-      90deg,
-      $red 0%,
-      #ff9393 50%,
-      #ffa8b9 100%
-    ) !important;
+    background: linear-gradient(90deg, $red 0%, #fda4af 50%, #fecaca 100%) !important;
   }
 }
 

@@ -1,0 +1,256 @@
+@import 'src/theme/colors.scss';
+
+:host {
+  display: block;
+}
+
+.budget-overview-card {
+  padding: 22px;
+}
+
+.budget-overview-card.single-view {
+  padding: 0;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1.4fr;
+  gap: 18px;
+  align-items: stretch;
+}
+
+.overview-grid.single-view-grid {
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.overview-summary,
+.overview-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.summary-card {
+  padding: 22px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: 22px;
+  box-shadow: 0 24px 50px -30px rgba(15, 23, 42, 0.25);
+  width: 100%;
+}
+
+.summary-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $secondary;
+  margin-bottom: 8px;
+}
+
+.summary-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: $black;
+  margin-bottom: 18px;
+}
+
+.summary-tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tab-button {
+  min-width: 0;
+  padding: 10px 14px;
+  border-radius: 999px;
+  color: $secondary;
+  background: rgba($primary, 0.08);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.tab-button.active,
+.tab-button:hover {
+  color: $primary
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $primary;
+}
+
+.card-title {
+  margin-top: 4px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: $black;
+}
+
+.status-pill {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.12);
+  color: $green;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.details-card {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: 22px;
+  box-shadow: 0 18px 40px -30px rgba(15, 23, 42, 0.22);
+}
+
+.metric-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 10px 22px -18px rgba(15, 23, 42, 0.2);
+}
+
+.metric-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  color: $black;
+}
+
+.metric-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.metric-dot.income {
+  background: $green;
+}
+
+.metric-dot.expense {
+  background: $red;
+}
+
+.metric-values {
+  text-align: right;
+}
+
+.metric-amount {
+  display: block;
+  font-weight: 700;
+  color: $black;
+}
+
+.metric-subtext {
+  display: block;
+  font-size: 0.82rem;
+  color: $secondary;
+}
+
+@media only screen and (max-width: 900px) {
+  .budget-overview-card {
+    padding: 18px;
+  }
+
+  .overview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-card {
+    padding: 18px;
+  }
+
+  .summary-value {
+    font-size: 1.8rem;
+  }
+
+  .summary-tabs {
+    gap: 8px;
+  }
+
+  .tab-button {
+    flex: 1;
+    min-width: calc(33.333% - 6px);
+    padding: 8px 10px;
+    font-size: 0.82rem;
+  }
+
+  .card-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .status-pill {
+    align-self: flex-start;
+  }
+
+  .metric-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .metric-values {
+    text-align: left;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .budget-overview-card {
+    padding: 14px;
+  }
+
+  .summary-card {
+    padding: 16px;
+  }
+
+  .summary-value {
+    font-size: 1.5rem;
+  }
+
+  .summary-tabs {
+    gap: 6px;
+  }
+
+  .tab-button {
+    min-width: 0;
+    padding: 8px 10px;
+    font-size: 0.78rem;
+  }
+
+  .details-card {
+    padding: 16px;
+  }
+
+  .metric-row {
+    padding: 12px 14px;
+    gap: 8px;
+  }
+}
