@@ -33,6 +33,16 @@ export class TransactionsService {
     });
   }
 
+  getLatestTransactions(limit: number): Observable<ITransaction[]> {
+    const params = {
+      limit
+    };
+
+    return this.http.get<ITransaction[]>('/api/transactions/latest', {
+      params
+    });
+  }
+
   createTransactionGlobal(
     transaction: ITransaction
   ): Observable<TransactionGlobalResponse> {
