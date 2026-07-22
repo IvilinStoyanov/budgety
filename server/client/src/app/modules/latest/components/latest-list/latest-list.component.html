@@ -1,6 +1,6 @@
 @if (categories$ | async; as categories) {
   @if (user$ | async; as user) {
-    <div class="latest-layout ms-2 me-2 mt-2 mb-1">
+    <div class="latest-layout ms-2 me-2 mt-2">
       <div class="latest-sidebar">
         <app-budget-overview [user]="user" displayMode="summary"></app-budget-overview>
 
