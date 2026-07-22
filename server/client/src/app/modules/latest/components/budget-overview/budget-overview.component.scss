@@ -10,6 +10,7 @@
 
 .budget-overview-card.single-view {
   padding: 0;
+  height: 100%;
 }
 
 .overview-grid {
@@ -22,6 +23,7 @@
 .overview-grid.single-view-grid {
   grid-template-columns: 1fr;
   gap: 0;
+  height: 100%;
 }
 
 .overview-summary,
@@ -118,6 +120,18 @@
   box-shadow: 0 18px 40px -30px rgba(15, 23, 42, 0.22);
 }
 
+.overview-details-card {
+  height: 100%;
+  min-height: 0;
+}
+
+.details-card-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
 .metric-list {
   display: flex;
   flex-direction: column;
@@ -174,6 +188,98 @@
   color: $secondary;
 }
 
+.recent-transactions-section {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(226, 232, 240, 0.8);
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.recent-transactions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.recent-transactions-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: $black;
+}
+
+.recent-transactions-caption,
+.recent-transaction-name,
+.recent-transaction-date,
+.recent-transactions-empty {
+  font-size: 0.82rem;
+  color: $secondary;
+}
+
+.recent-transactions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.recent-transaction-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 14px;
+  border: 1px solid rgba(226, 232, 240, 0.92);
+  border-radius: 14px;
+  background: rgba(248, 250, 252, 0.95);
+}
+
+.recent-transaction-copy {
+  min-width: 0;
+}
+
+.recent-transaction-category,
+.recent-transaction-value {
+  font-weight: 700;
+}
+
+.recent-transaction-category {
+  color: $black;
+}
+
+.recent-transaction-name {
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.recent-transaction-meta {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.recent-transaction-value.income {
+  color: $green;
+}
+
+.recent-transaction-value.expense {
+  color: $red;
+}
+
+.recent-transactions-empty {
+  padding: 18px 14px;
+  border: 1px dashed rgba(203, 213, 225, 0.95);
+  border-radius: 14px;
+  background: rgba(248, 250, 252, 0.75);
+  text-align: center;
+}
+
 @media only screen and (max-width: 900px) {
   .budget-overview-card {
     padding: 18px;
@@ -218,6 +324,16 @@
   }
 
   .metric-values {
+    text-align: left;
+  }
+
+  .recent-transactions-header,
+  .recent-transaction-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .recent-transaction-meta {
     text-align: left;
   }
 }

@@ -1,8 +1,9 @@
 export interface ITransaction {
   _id?: string;
   dateCreated: string;
-  description: string;
+  description?: string;
   type: string;
   value: number;
   _categoryId: string;
+  categoryName?: string;
 }

@@ -69,6 +69,50 @@
               [percentage]="$safeNavigationMigration(user?.expPercentage)"></app-progress-bar>
           </div>
         </div>
+
+        <div class="recent-transactions-section">
+          <div class="recent-transactions-header">
+            <div class="recent-transactions-title">Latest transactions</div>
+            <div class="recent-transactions-caption">Last 10 entries</div>
+          </div>
+
+          @if (latestTransactions$ | async; as latestTransactions) {
+            @if (latestTransactions.length > 0) {
+              <div class="recent-transactions-list">
+                @for (transaction of latestTransactions; track transaction._id || $index) {
+                  <div class="recent-transaction-row">
+                    <div class="recent-transaction-copy">
+                      <div class="recent-transaction-category">
+                        {{ (transaction.categoryName || 'Uncategorized') | titlecase }}
+                      </div>
+
+                      @if (transaction.description) {
+                        <div class="recent-transaction-name">
+                          {{ transaction.description }}
+                        </div>
+                      }
+                    </div>
+
+                    <div class="recent-transaction-meta">
+                      <div
+                        class="recent-transaction-value"
+                        [ngClass]="transaction.type === 'exp' ? 'expense' : 'income'">
+                        {{ transaction.type === 'exp' ? '-' : '+' }}{{ transaction.value | number : '1.2-2' }}
+                      </div>
+                      <div class="recent-transaction-date">
+                        {{ transaction.dateCreated | date : 'MMM d, y' }}
+                      </div>
+                    </div>
+                  </div>
+                }
+              </div>
+            } @else {
+              <div class="recent-transactions-empty">
+                No recent transactions yet.
+              </div>
+            }
+          }
+        </div>
       </div>
       </mat-card>
     }

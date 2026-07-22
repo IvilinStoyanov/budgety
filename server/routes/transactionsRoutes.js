@@ -20,6 +20,14 @@ const buildUserTransactionQuery = (req, categoryId) => ({
     ]
 });
 
+const buildOwnedTransactionsQuery = (req, categoryIds) => ({
+    _categoryId: { $in: categoryIds },
+    $or: [
+        { _user: req.user._id || req.user.id },
+        { _user: { $exists: false } }
+    ]
+});
+
 module.exports = app => {
     app.get('/api/transactions', transactionsRateLimiter, requireLogin, async (req, res) => {
         try {
@@ -40,6 +48,37 @@ module.exports = app => {
             res.send({ transactions, length: count });
         } catch (error) {
             res.status(400).send(error);
+        }
+    });
+
+    app.get('/api/transactions/latest', transactionsRateLimiter, requireLogin, async (req, res) => {
+        try {
+            const parsedLimit = Math.min(Math.max(Number(req.query.limit || 10), 1), 50);
+            const categories = await Categories.find({ _user: req.user.id }).select('_id name');
+            const categoryIds = categories.map(category => category._id.valueOf());
+
+            if (categoryIds.length === 0) {
+                return res.send([]);
+            }
+
+            const categoryNamesById = new Map(
+                categories.map(category => [category._id.valueOf(), category.name])
+            );
+
+            const transactions = await Transactions
+                .find(buildOwnedTransactionsQuery(req, categoryIds))
+                .sort({ dateCreated: -1 })
+                .limit(parsedLimit)
+                .lean();
+
+            const latestTransactions = transactions.map(transaction => ({
+                ...transaction,
+                categoryName: categoryNamesById.get(String(transaction._categoryId)) || ''
+            }));
+
+            return res.send(latestTransactions);
+        } catch (error) {
+            return res.status(400).send(error);
         }
     });
 
@@ -161,11 +200,7 @@ module.exports = app => {
             const transactions = await Transactions
                 .find(
                     {
-                        _categoryId: { $in: obj_ids },
-                        $or: [
-                            { _user: req.user._id || req.user.id },
-                            { _user: { $exists: false } }
-                        ],
+                        ...buildOwnedTransactionsQuery(req, obj_ids),
                         dateCreated: {
                             $gte: new Date(`${year}-01-01`),
                             $lt: new Date(`${year}-12-31`)
@@ -214,11 +249,7 @@ module.exports = app => {
             const obj_ids = categories.map(category => category._id.valueOf());
     
             const transactions = await Transactions.find({
-                _categoryId: { $in: obj_ids },
-                $or: [
-                    { _user: req.user._id || req.user.id },
-                    { _user: { $exists: false } }
-                ],
+                ...buildOwnedTransactionsQuery(req, obj_ids),
                 dateCreated: {
                     $gte: startDate,
                     $lt: endDate // Use $lt to ensure the end date is exclusive
@@ -249,11 +280,7 @@ module.exports = app => {
             const transactions = await Transactions
                 .find(
                     {
-                        _categoryId: { $in: obj_ids },
-                        $or: [
-                            { _user: req.user._id || req.user.id },
-                            { _user: { $exists: false } }
-                        ],
+                        ...buildOwnedTransactionsQuery(req, obj_ids),
                         dateCreated: {
                             $gte: new Date(`${endYear}-01-01`),
                             $lt: new Date(`${startYear}-12-31`)
