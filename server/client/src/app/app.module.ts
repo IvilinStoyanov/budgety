@@ -1,4 +1,5 @@
 import {
+  HttpClient,
   HTTP_INTERCEPTORS,
   provideHttpClient,
   withInterceptorsFromDi,
@@ -10,7 +11,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { NgxUiLoaderConfig, NgxUiLoaderModule } from 'ngx-ui-loader';
+import { forkJoin, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 import { AppComponent } from './app.component';
@@ -33,6 +37,27 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   hasProgressBar: true
 };
 
+export function HttpLoaderFactory(
+  http: HttpClient
+): TranslateLoader {
+  return {
+    getTranslation: (lang: string): Observable<Record<string, unknown>> =>
+      forkJoin([
+        http.get<Record<string, unknown>>(`/assets/i18n/${lang}/common.json`),
+        http.get<Record<string, unknown>>(
+          `/assets/i18n/${lang}/validation.json`
+        ),
+        http.get<Record<string, unknown>>(`/assets/i18n/${lang}/errors.json`)
+      ]).pipe(
+        map(([common, validation, errors]) => ({
+          common,
+          validation,
+          errors
+        }))
+      )
+  };
+}
+
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
   bootstrap: [AppComponent],
@@ -41,6 +66,13 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     BrowserModule,
     NoopAnimationsModule,
     SharedModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     StoreModule.forRoot(),
     EffectsModule.forRoot(),
     StoreDevtoolsModule.instrument({

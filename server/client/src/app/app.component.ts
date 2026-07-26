@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { LanguageService } from 'src/app/shared/services/language.service';
 
 import * as userActions from './modules/shared/state/user/user.actions';
 
@@ -17,9 +18,11 @@ export class AppComponent {
 
   constructor(
     public authService: AuthService,
+    private languageService: LanguageService,
     private store: Store,
     public router: Router
   ) {
+    this.languageService.init();
     this.store.dispatch(userActions.loadUser());
   }
 

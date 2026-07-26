@@ -18,7 +18,7 @@ module.exports = app => {
         }
     );
 
-    app.get('/api/logout', (req, res) => {
+    app.get('/api/logout', (req, res, next) => {
         req.logout((err) => {
             if (err) {
                 return next(err);
@@ -31,12 +31,11 @@ module.exports = app => {
                 res.status(200).send({ message: 'Logout successful' });
             });
         });
-        res.status(200).send({ status: 'OK' });
     });
 
     app.get('/api/current_user', (req, res) => {
         try {
-            res.send(req.user);
+            res.send(req.user || null);
         } catch (error) {
             res.status(400).send(error);
         }

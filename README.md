@@ -14,6 +14,60 @@ Budgety is designed to make personal finance management simple and visual. Users
 - Monitor savings and overall balance
 - Sign in securely with Google OAuth
 - Enjoy a responsive interface built with Angular Material and Bootstrap
+- Internationalization (i18n) on the frontend with runtime language switching
+
+## Supported Locales
+
+- en-GB (default)
+- de-DE
+- bg-BG
+- fr-FR
+- es-ES
+
+## i18n Architecture
+
+The frontend uses `@ngx-translate/core` with a custom HTTP loader that merges the locale JSON files from `assets/i18n/<locale>/` into one dictionary per language.
+
+Frontend translation assets are under:
+
+- server/client/src/assets/i18n/en-GB/{common.json, validation.json, errors.json}
+- server/client/src/assets/i18n/de-DE/{common.json, validation.json, errors.json}
+- server/client/src/assets/i18n/bg-BG/{common.json, validation.json, errors.json}
+- server/client/src/assets/i18n/fr-FR/{common.json, validation.json, errors.json}
+- server/client/src/assets/i18n/es-ES/{common.json, validation.json, errors.json}
+
+Core frontend i18n files:
+
+- server/client/src/app/app.module.ts
+- server/client/src/app/shared/i18n/locales.ts
+- server/client/src/app/shared/services/language.service.ts
+
+Behavior:
+
+1. `LanguageService` owns locale state and exposes `currentLanguage$`.
+2. Selected language is persisted in localStorage and restored on startup.
+3. App bootstrap sets the current language and preloads the merged translation dictionary.
+4. The `translate` pipe and `translate` directive come from ngx-translate.
+5. Missing keys fall back to the default locale data that is merged into each loaded language.
+
+Usage examples:
+
+```html
+{{ 'common.save' | translate }}
+{{ 'common.welcome' | translate:{name: user.name} }}
+<div translate="common.cancel"></div>
+```
+
+## Adding a New Language
+
+1. Add locale code to `SUPPORTED_LOCALES` in:
+   - server/client/src/app/shared/i18n/locales.ts
+2. Create translation folders/files for frontend:
+   - `server/client/src/assets/i18n/<locale>/common.json`
+   - `server/client/src/assets/i18n/<locale>/validation.json`
+   - `server/client/src/assets/i18n/<locale>/errors.json`
+3. Add translated keys to all namespaces.
+4. Restart frontend.
 
 ## Tech Stack
 

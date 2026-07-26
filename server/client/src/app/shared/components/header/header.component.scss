@@ -70,6 +70,16 @@
     gap: 4px;
   }
 
+  .language-field {
+    width: 108px;
+    margin-bottom: -1.25em;
+  }
+
+  .menu-language-field {
+    width: 100%;
+    margin: 0;
+  }
+
   .desktop-menu-button,
   .mobile-nav-button {
     padding: 6px;
@@ -164,6 +174,12 @@
     gap: 14px;
   }
 
+  .mobile-language-switcher {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
   .mobile-menu-logout {
     display: flex;
     justify-content: flex-end;
@@ -181,6 +197,10 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .app-header .language-field {
+    width: 88px;
+  }
+
   .app-header .desktop-menu-button {
     display: none;
   }

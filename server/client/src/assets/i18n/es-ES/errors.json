@@ -1,0 +1,8 @@
+{
+  "userNotFound": "Usuario no encontrado",
+  "unauthorized": "No autorizado",
+  "unexpected": "Error inesperado, intente de nuevo.",
+  "categoriesLoadFailed": "No se pudieron cargar las categorias.",
+  "savingsUpdateFailed": "No se pudieron actualizar los ahorros.",
+  "invalidMonth": "Parametro de mes no valido"
+}

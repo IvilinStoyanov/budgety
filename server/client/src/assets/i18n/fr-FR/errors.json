@@ -1,0 +1,8 @@
+{
+  "userNotFound": "Utilisateur introuvable",
+  "unauthorized": "Non autorise",
+  "unexpected": "Erreur inattendue, veuillez reessayer.",
+  "categoriesLoadFailed": "Impossible de charger les categories.",
+  "savingsUpdateFailed": "Impossible de mettre a jour l'epargne.",
+  "invalidMonth": "Parametre de mois invalide"
+}

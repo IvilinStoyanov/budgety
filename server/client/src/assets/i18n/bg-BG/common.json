@@ -1,0 +1,19 @@
+{
+  "save": "Zapazi",
+  "cancel": "Otmeni",
+  "welcome": "Zdravei {{name}}",
+  "language": "Ezik",
+  "navigation": "Navigacia",
+  "latest": "Posledni",
+  "monthly": "Mesecno",
+  "yearly": "Godishno",
+  "logout": "Izlizane",
+  "loginWithGoogle": "Vlez s Google",
+  "dashboard": "Tablo",
+  "admin": "Administrator",
+  "categories": "Kategorii",
+  "colors": "Cvetove",
+  "create": "Sazdai",
+  "edit": "Redaktirai",
+  "currentBudgetStatus": "Tekusht status na budzheta"
+}

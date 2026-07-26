@@ -1,0 +1,8 @@
+{
+  "userNotFound": "Benutzer wurde nicht gefunden",
+  "unauthorized": "Nicht autorisiert",
+  "unexpected": "Unerwarteter Fehler, bitte versuchen Sie es erneut.",
+  "categoriesLoadFailed": "Kategorien konnen nicht geladen werden.",
+  "savingsUpdateFailed": "Ersparnisse konnten nicht aktualisiert werden.",
+  "invalidMonth": "Ungueltiger Monatsparameter"
+}

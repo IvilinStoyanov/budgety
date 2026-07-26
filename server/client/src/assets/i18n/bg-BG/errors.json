@@ -1,0 +1,8 @@
+{
+  "userNotFound": "Potrebitelat ne e nameren",
+  "unauthorized": "Neotoriziran dostap",
+  "unexpected": "Vaznikna neochakvana greshka. Opitajte otnovo.",
+  "categoriesLoadFailed": "Kategoriite ne mogat da badat zaredeni.",
+  "savingsUpdateFailed": "Spestyavaniyata ne mogat da badat aktualizirani.",
+  "invalidMonth": "Nevaliden mesec"
+}

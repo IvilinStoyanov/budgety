@@ -1,0 +1,19 @@
+{
+  "save": "Guardar",
+  "cancel": "Cancelar",
+  "welcome": "Hola {{name}}",
+  "language": "Idioma",
+  "navigation": "Navegacion",
+  "latest": "Reciente",
+  "monthly": "Mensual",
+  "yearly": "Anual",
+  "logout": "Cerrar sesion",
+  "loginWithGoogle": "Iniciar sesion con Google",
+  "dashboard": "Panel",
+  "admin": "Admin",
+  "categories": "Categorias",
+  "colors": "Colores",
+  "create": "Crear",
+  "edit": "Editar",
+  "currentBudgetStatus": "Estado actual del presupuesto"
+}

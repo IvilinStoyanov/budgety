@@ -22,6 +22,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { ColorSketchModule } from 'ngx-color/sketch';
 import { UserEffects } from 'src/app/modules/shared/state/user/user.effects';
 import { AddItemComponent } from 'src/app/shared/components/add-item/add-item.component';
@@ -72,6 +73,7 @@ import { sharedReducers } from './state';
     MatSidenavModule,
     MatPaginatorModule,
     ColorSketchModule,
+    TranslateModule,
     StoreModule.forFeature('sharedModule', sharedReducers),
     EffectsModule.forFeature([UserEffects])
   ],
@@ -97,13 +99,14 @@ import { sharedReducers } from './state';
     MatSidenavModule,
     MatPaginatorModule,
     ColorSketchModule,
+    TranslateModule,
     TabsComponent,
     ProgressBarComponent,
     BackButtonComponent,
     AddItemComponent,
     HasRoleDirective,
     StopPropagationDirective,
-    HighlightOnHoverDirective
+    HighlightOnHoverDirective,
   ]
 })
 export class SharedModule {

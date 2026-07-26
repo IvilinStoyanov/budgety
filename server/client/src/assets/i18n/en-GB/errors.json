@@ -1,0 +1,8 @@
+{
+  "userNotFound": "User not found",
+  "unauthorized": "Unauthorized",
+  "unexpected": "Unexpected error, please try again.",
+  "categoriesLoadFailed": "Not able to load categories.",
+  "savingsUpdateFailed": "Not able to update savings.",
+  "invalidMonth": "Invalid month parameter"
+}

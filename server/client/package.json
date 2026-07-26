@@ -28,6 +28,8 @@
     "@ngrx/router-store": "^20.0.0",
     "@ngrx/store": "^20.0.0",
     "@ngrx/store-devtools": "^20.0.0",
+    "@ngx-translate/core": "^15.0.0",
+    "@ngx-translate/http-loader": "^8.0.0",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.1",
     "ngx-color": "^7.2.0",
