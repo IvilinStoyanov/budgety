@@ -21,7 +21,7 @@
     "@angular/material": "^22.0.5",
     "@angular/platform-browser": "^22.0.7",
     "@angular/platform-browser-dynamic": "^22.0.7",
-    "@angular/router": "^22.0.7",
+    "@angular/router": "^22.2.0",
     "@ng-bootstrap/ng-bootstrap": "^16.0.0",
     "@ngrx/effects": "^20.0.0",
     "@ngrx/entity": "^20.0.0",
